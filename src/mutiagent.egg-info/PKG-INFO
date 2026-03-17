@@ -1,3 +1,20 @@
+Metadata-Version: 2.4
+Name: mutiagent
+Version: 0.1.0
+Summary: MVP: multi-agent regression test generation for code changes (LangGraph + FastAPI + OpenAI).
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.110
+Requires-Dist: uvicorn[standard]>=0.27
+Requires-Dist: langgraph>=0.2.0
+Requires-Dist: pydantic>=2.6
+Requires-Dist: networkx>=3.2
+Requires-Dist: openai>=1.40
+Requires-Dist: unidiff>=0.7.5
+Provides-Extra: eval
+Requires-Dist: pytest>=8.0; extra == "eval"
+Requires-Dist: pytest-cov>=5.0; extra == "eval"
+
  ## mutiagent（MVP）
  
  这是一个**面向代码变更的多智能体回归测试用例生成**原型系统（LangGraph + FastAPI + OpenAI）。MVP 目标是跑通端到端链路：输入 `git diff` → 影响分析 → 生成 `pytest` 测试代码 → API 返回结构化结果。

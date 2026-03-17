@@ -1,0 +1,35 @@
+ [project]
+ name = "mutiagent"
+ version = "0.1.0"
+ description = "MVP: multi-agent regression test generation for code changes (LangGraph + FastAPI + OpenAI)."
+ readme = "README.md"
+ requires-python = ">=3.10"
+ dependencies = [
+   "fastapi>=0.110",
+   "uvicorn[standard]>=0.27",
+   "langgraph>=0.2.0",
+   "pydantic>=2.6",
+   "networkx>=3.2",
+   "openai>=1.40",
+   "unidiff>=0.7.5",
+ ]
+ 
+ [project.optional-dependencies]
+ eval = [
+   "pytest>=8.0",
+   "pytest-cov>=5.0",
+ ]
+ 
+ [build-system]
+ requires = ["setuptools>=69"]
+ build-backend = "setuptools.build_meta"
+ 
+ [tool.setuptools]
+ package-dir = {"" = "src"}
+ 
+ [tool.setuptools.packages.find]
+ where = ["src"]
+ 
+ [tool.pytest.ini_options]
+ addopts = "-q"
+ testpaths = ["tests"]
