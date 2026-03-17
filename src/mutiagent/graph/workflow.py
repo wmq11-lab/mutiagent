@@ -23,6 +23,7 @@ from mutiagent.nodes.test_repair_agent import test_repair_agent
 def build_workflow():
     g = StateGraph(WorkflowState)
     # align with diagram node naming
+    # 加入agent节点到图中
     g.add_node("CodeChangeAgent", ingest_change)
     g.add_node("CodeGraphBuilder", build_code_graph)
     g.add_node("CodeChangeGraphAgent", code_change_graph_agent)
@@ -37,7 +38,10 @@ def build_workflow():
     g.add_node("EvaluationAgent", evaluation_agent)
     g.add_node("FeedbackAgent", feedback_agent)
 
-    g.set_entry_point("CodeChangeAgent")
+    g.set_entry_point("CodeChangeAgent")#入口节点
+    #添加边
+    # 说明：LangGraph 默认 state channel 为 last_value，并行分支会触发并发写冲突；
+    # 这里先保持顺序执行，但 TestPlanningAgent 会同时读取 bug_patterns + impacted_ranked。
     g.add_edge("CodeChangeAgent", "CodeGraphBuilder")
     g.add_edge("CodeGraphBuilder", "CodeChangeGraphAgent")
     g.add_edge("CodeChangeGraphAgent", "ImpactAnalysisAgent")
@@ -51,6 +55,7 @@ def build_workflow():
     g.add_edge("ExecutionAgent", "EvaluationAgent")
     g.add_edge("EvaluationAgent", "FeedbackAgent")
     g.add_edge("FeedbackAgent", END)
+    #返回可执行应用
     return g.compile()
 
 
@@ -59,10 +64,14 @@ _APP = None
 
 def run_workflow(repo_path: str, diff: str, run_eval: bool = False) -> dict[str, Any]:
     global _APP
+    #初始化graph
     if _APP is None:
+        #第一次创建，后面复用
         _APP = build_workflow()
 
+    #创建状态对象
     state = WorkflowState(repo_path=repo_path, diff=diff, run_eval=run_eval)
+    #执行工作流
     out_raw = _APP.invoke(state)
     out = out_raw if isinstance(out_raw, WorkflowState) else WorkflowState(**out_raw)
 
