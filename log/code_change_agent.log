@@ -1,0 +1,333 @@
+2026-03-22 17:02:10 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/test/stackblitz
+2026-03-22 17:02:10 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:02:10 [CodeChangeAgent] parse unified diff done: files=14
+2026-03-22 17:02:10 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:02:10 [CodeChangeAgent] extract changed entities done: 14 files
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: dist/assets/index-4f240373.js
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: dist/assets/index-6a94c8dd.css
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: dist/index.html
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: dist/index.html (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: dist/index.html (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: index.html
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: index.html (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: index.html (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/App.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/App.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/components/Navbar.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] skip llm refine for src/components/Navbar.jsx: llm unavailable
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/index.css
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/index.css (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/index.css (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/main.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/main.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/main.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/About.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/About.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/About.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/Blog.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] skip llm refine for src/pages/Blog.jsx: llm unavailable
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/Contact.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/Contact.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/Contact.jsx (0 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/Experience.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] skip llm refine for src/pages/Experience.jsx: llm unavailable
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/Home.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/Home.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] skip llm refine for src/pages/Home.jsx: llm unavailable
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/Home.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] analyzing file: src/pages/Projects.jsx
+2026-03-22 17:02:10 [CodeChangeAgent] file summary before llm: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] skip llm refine for src/pages/Projects.jsx: llm unavailable
+2026-03-22 17:02:10 [CodeChangeAgent] file summary complete: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:02:10 [CodeChangeAgent] ingest done: files_analyzed=14 changes=5 elapsed=0.108s
+2026-03-22 17:06:25 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/test/stackblitz
+2026-03-22 17:06:25 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:06:25 [CodeChangeAgent] parse unified diff done: files=14
+2026-03-22 17:06:25 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:06:25 [CodeChangeAgent] extract changed entities done: 14 files
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: dist/assets/index-4f240373.js
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: dist/assets/index-6a94c8dd.css
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: dist/index.html
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: dist/index.html (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: dist/index.html (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: index.html
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: index.html (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: index.html (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/App.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/App.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/App.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/components/Navbar.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/components/Navbar.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/index.css
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/index.css (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/index.css (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/main.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/main.jsx (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/main.jsx (0 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/About.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/About.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/About.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/About.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/Blog.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/Blog.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/Contact.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/Contact.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/Contact.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/Contact.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/Experience.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/Experience.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/Home.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/Home.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/Home.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/Home.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] analyzing file: src/pages/Projects.jsx
+2026-03-22 17:06:25 [CodeChangeAgent] file summary before llm: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] skip llm refine for src/pages/Projects.jsx: llm unavailable
+2026-03-22 17:06:25 [CodeChangeAgent] file summary complete: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:06:25 [CodeChangeAgent] ingest done: files_analyzed=14 changes=8 elapsed=0.042s
+2026-03-22 17:10:51 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/test/stackblitz
+2026-03-22 17:10:51 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:10:51 [CodeChangeAgent] parse unified diff done: files=14
+2026-03-22 17:10:51 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:10:51 [CodeChangeAgent] extract changed entities done: 14 files
+2026-03-22 17:10:51 [CodeChangeAgent] analyzing file: dist/assets/index-4f240373.js
+2026-03-22 17:10:51 [CodeChangeAgent] file summary before llm: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] file summary complete: dist/assets/index-4f240373.js (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] analyzing file: dist/assets/index-6a94c8dd.css
+2026-03-22 17:10:51 [CodeChangeAgent] file summary before llm: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] file summary complete: dist/assets/index-6a94c8dd.css (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] analyzing file: dist/index.html
+2026-03-22 17:10:51 [CodeChangeAgent] file summary before llm: dist/index.html (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] file summary complete: dist/index.html (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] analyzing file: index.html
+2026-03-22 17:10:51 [CodeChangeAgent] file summary before llm: index.html (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] file summary complete: index.html (0 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:10:51 [CodeChangeAgent] file summary before llm: src/App.jsx (1 changes)
+2026-03-22 17:10:51 [CodeChangeAgent] llm refine start: src/App.jsx (1 changes)
+2026-03-22 17:11:46 [CodeChangeAgent] llm refine done: src/App.jsx (55.59s)
+2026-03-22 17:11:46 [CodeChangeAgent] file summary complete: src/App.jsx (1 changes)
+2026-03-22 17:11:46 [CodeChangeAgent] analyzing file: src/components/Navbar.jsx
+2026-03-22 17:11:46 [CodeChangeAgent] file summary before llm: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:11:46 [CodeChangeAgent] llm refine start: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] llm refine done: src/components/Navbar.jsx (114.60s)
+2026-03-22 17:13:41 [CodeChangeAgent] file summary complete: src/components/Navbar.jsx (1 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] analyzing file: src/index.css
+2026-03-22 17:13:41 [CodeChangeAgent] file summary before llm: src/index.css (0 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] file summary complete: src/index.css (0 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] analyzing file: src/main.jsx
+2026-03-22 17:13:41 [CodeChangeAgent] file summary before llm: src/main.jsx (0 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] file summary complete: src/main.jsx (0 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] analyzing file: src/pages/About.jsx
+2026-03-22 17:13:41 [CodeChangeAgent] file summary before llm: src/pages/About.jsx (1 changes)
+2026-03-22 17:13:41 [CodeChangeAgent] llm refine start: src/pages/About.jsx (1 changes)
+2026-03-22 17:14:19 [CodeChangeAgent] llm refine done: src/pages/About.jsx (38.09s)
+2026-03-22 17:14:19 [CodeChangeAgent] file summary complete: src/pages/About.jsx (1 changes)
+2026-03-22 17:14:19 [CodeChangeAgent] analyzing file: src/pages/Blog.jsx
+2026-03-22 17:14:19 [CodeChangeAgent] file summary before llm: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:14:19 [CodeChangeAgent] llm refine start: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:15:04 [CodeChangeAgent] llm refine done: src/pages/Blog.jsx (45.07s)
+2026-03-22 17:15:04 [CodeChangeAgent] file summary complete: src/pages/Blog.jsx (1 changes)
+2026-03-22 17:15:04 [CodeChangeAgent] analyzing file: src/pages/Contact.jsx
+2026-03-22 17:15:04 [CodeChangeAgent] file summary before llm: src/pages/Contact.jsx (1 changes)
+2026-03-22 17:15:04 [CodeChangeAgent] llm refine start: src/pages/Contact.jsx (1 changes)
+2026-03-22 17:15:40 [CodeChangeAgent] llm refine done: src/pages/Contact.jsx (35.87s)
+2026-03-22 17:15:40 [CodeChangeAgent] file summary complete: src/pages/Contact.jsx (1 changes)
+2026-03-22 17:15:40 [CodeChangeAgent] analyzing file: src/pages/Experience.jsx
+2026-03-22 17:15:40 [CodeChangeAgent] file summary before llm: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:15:40 [CodeChangeAgent] llm refine start: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:16:28 [CodeChangeAgent] llm refine done: src/pages/Experience.jsx (47.62s)
+2026-03-22 17:16:28 [CodeChangeAgent] file summary complete: src/pages/Experience.jsx (1 changes)
+2026-03-22 17:16:28 [CodeChangeAgent] analyzing file: src/pages/Home.jsx
+2026-03-22 17:16:28 [CodeChangeAgent] file summary before llm: src/pages/Home.jsx (1 changes)
+2026-03-22 17:16:28 [CodeChangeAgent] llm refine start: src/pages/Home.jsx (1 changes)
+2026-03-22 17:17:26 [CodeChangeAgent] llm refine done: src/pages/Home.jsx (57.97s)
+2026-03-22 17:17:26 [CodeChangeAgent] file summary complete: src/pages/Home.jsx (1 changes)
+2026-03-22 17:17:26 [CodeChangeAgent] analyzing file: src/pages/Projects.jsx
+2026-03-22 17:17:26 [CodeChangeAgent] file summary before llm: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:17:26 [CodeChangeAgent] llm refine start: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:18:06 [CodeChangeAgent] llm refine done: src/pages/Projects.jsx (40.19s)
+2026-03-22 17:18:06 [CodeChangeAgent] file summary complete: src/pages/Projects.jsx (1 changes)
+2026-03-22 17:18:06 [CodeChangeAgent] ingest done: files_analyzed=14 changes=8 elapsed=435.108s
+2026-03-22 17:27:27 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_builds_stru0
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:27:27 [CodeChangeAgent] analyzing file: app.py
+2026-03-22 17:27:27 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] skip llm refine for app.py: llm unavailable
+2026-03-22 17:27:27 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.013s
+2026-03-22 17:27:27 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_js0
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:27:27 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:27:27 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] skip llm refine for src/App.jsx: llm unavailable
+2026-03-22 17:27:27 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.011s
+2026-03-22 17:27:27 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_ja0
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:27:27 [CodeChangeAgent] analyzing file: src/Service.java
+2026-03-22 17:27:27 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] skip llm refine for src/Service.java: llm unavailable
+2026-03-22 17:27:27 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.01s
+2026-03-22 17:27:27 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_cp0
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:27:27 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:27:27 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:27:27 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-03-22 17:27:27 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] skip llm refine for src/math.cpp: llm unavailable
+2026-03-22 17:27:27 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-03-22 17:27:27 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.019s
+2026-03-22 17:28:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-14/test_ingest_change_builds_stru0
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:28:09 [CodeChangeAgent] analyzing file: app.py
+2026-03-22 17:28:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] skip llm refine for app.py: llm unavailable
+2026-03-22 17:28:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.015s
+2026-03-22 17:28:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-14/test_ingest_change_extracts_js0
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:28:09 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:28:09 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] skip llm refine for src/App.jsx: llm unavailable
+2026-03-22 17:28:09 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.018s
+2026-03-22 17:28:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-14/test_ingest_change_extracts_ja0
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:28:09 [CodeChangeAgent] analyzing file: src/Service.java
+2026-03-22 17:28:09 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] skip llm refine for src/Service.java: llm unavailable
+2026-03-22 17:28:09 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-03-22 17:28:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-14/test_ingest_change_extracts_cp0
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:28:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:28:09 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:28:09 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-03-22 17:28:09 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] skip llm refine for src/math.cpp: llm unavailable
+2026-03-22 17:28:09 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-03-22 17:28:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.02s
+2026-03-22 17:29:13 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-15/test_ingest_change_builds_stru0
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:13 [CodeChangeAgent] analyzing file: app.py
+2026-03-22 17:29:13 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] skip llm refine for app.py: llm unavailable
+2026-03-22 17:29:13 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.014s
+2026-03-22 17:29:13 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-15/test_ingest_change_extracts_js0
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:13 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:29:13 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] skip llm refine for src/App.jsx: llm unavailable
+2026-03-22 17:29:13 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-03-22 17:29:13 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-15/test_ingest_change_extracts_ja0
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:13 [CodeChangeAgent] analyzing file: src/Service.java
+2026-03-22 17:29:13 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] skip llm refine for src/Service.java: llm unavailable
+2026-03-22 17:29:13 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-03-22 17:29:13 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-15/test_ingest_change_extracts_cp0
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:13 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:13 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:13 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-03-22 17:29:13 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] skip llm refine for src/math.cpp: llm unavailable
+2026-03-22 17:29:13 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-03-22 17:29:13 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.015s
+2026-03-22 17:29:44 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-16/test_ingest_change_builds_stru0
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:44 [CodeChangeAgent] analyzing file: app.py
+2026-03-22 17:29:44 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] skip llm refine for app.py: llm unavailable
+2026-03-22 17:29:44 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.012s
+2026-03-22 17:29:44 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-16/test_ingest_change_extracts_js0
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:44 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-03-22 17:29:44 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] skip llm refine for src/App.jsx: llm unavailable
+2026-03-22 17:29:44 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.014s
+2026-03-22 17:29:44 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-16/test_ingest_change_extracts_ja0
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:44 [CodeChangeAgent] analyzing file: src/Service.java
+2026-03-22 17:29:44 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] skip llm refine for src/Service.java: llm unavailable
+2026-03-22 17:29:44 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-03-22 17:29:44 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-16/test_ingest_change_extracts_cp0
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff start
+2026-03-22 17:29:44 [CodeChangeAgent] parse unified diff done: files=1
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities start
+2026-03-22 17:29:44 [CodeChangeAgent] extract changed entities done: 1 files
+2026-03-22 17:29:44 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-03-22 17:29:44 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] skip llm refine for src/math.cpp: llm unavailable
+2026-03-22 17:29:44 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-03-22 17:29:44 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.022s

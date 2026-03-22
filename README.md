@@ -19,16 +19,74 @@
  pip install -e ".[eval]"
  ```
  
- ### 配置 OpenAI
- 设置环境变量：
+### 配置 LLM
+项目启动时会自动读取根目录 `.env`；如果你已经在终端里 `export` 过环境变量，则以终端环境变量为准。
+
+默认使用 OpenAI；也支持通过 OpenAI 兼容接口接入 DeepSeek 与智谱。
+
+推荐做法：在项目根目录新建 `.env`，可直接参考 `.env.example`。
+
+```env
+MUTIAGENT_LLM_PROVIDER=zhipu
+ZHIPU_API_KEY=你的智谱 key
+MUTIAGENT_LLM_MODEL=glm-4-flash
+```
+
+如需开启 `CodeChangeAgent` 调试日志，可在 `.env` 中增加：
+
+```env
+MUTIAGENT_DEBUG=1
+```
+
+开启后日志会写入项目根目录下的 `log/code_change_agent.log`。
+
+#### OpenAI
+
+```bash
+export MUTIAGENT_LLM_PROVIDER="openai"
+export OPENAI_API_KEY="你的key"
+```
+
+（可选）指定模型：
+
+```bash
+export MUTIAGENT_LLM_MODEL="gpt-4.1-mini"
+```
+
+#### DeepSeek
+
+```bash
+export MUTIAGENT_LLM_PROVIDER="deepseek"
+export DEEPSEEK_API_KEY="你的DeepSeek key"
+export MUTIAGENT_LLM_MODEL="deepseek-chat"
+```
+
+如需覆盖兼容接口地址（默认 `https://api.deepseek.com`）：
+
+```bash
+export MUTIAGENT_LLM_BASE_URL="https://api.deepseek.com"
+```
+
+#### 智谱
+
+```bash
+export MUTIAGENT_LLM_PROVIDER="zhipu"
+export ZHIPU_API_KEY="你的智谱 key"
+export MUTIAGENT_LLM_MODEL="glm-4-flash"
+```
+
+如需覆盖兼容接口地址（默认 `https://open.bigmodel.cn/api/paas/v4`）：
+
+```bash
+export MUTIAGENT_LLM_BASE_URL="https://open.bigmodel.cn/api/paas/v4"
+```
+
+#### 兼容旧配置
+
+项目仍兼容旧环境变量：
  
  ```bash
  export OPENAI_API_KEY="你的key"
- ```
- 
- （可选）指定模型：
- 
- ```bash
  export MUTIAGENT_OPENAI_MODEL="gpt-4.1-mini"
  ```
  
@@ -37,6 +95,39 @@
  ```bash
  uvicorn mutiagent.api.main:app --reload --port 8000
  ```
+
+### 直接测试 CodeChangeAgent
+
+如果你只想测试 `CodeChangeAgent` 本身，而不是完整工作流，可以先生成自己的 diff 文件：
+
+```bash
+git -C /path/to/your/project diff > /tmp/my_change.diff
+```
+
+然后在本项目根目录执行：
+
+```bash
+python scripts/run_code_change_agent.py \
+  --repo /path/to/your/project \
+  --diff /tmp/my_change.diff
+```
+
+你也可以先用仓库自带样例快速试一下：
+
+```bash
+python scripts/run_code_change_agent.py \
+  --repo sample_project \
+  --diff tests/fixtures/sample_code_change.diff
+```
+
+如果你想直接看 JSON：
+
+```bash
+python scripts/run_code_change_agent.py \
+  --repo /path/to/your/project \
+  --diff /tmp/my_change.diff \
+  --json
+```
  
  ### 调用示例
  请求体需要提供待分析仓库路径 `repo_path` 与 `diff` 文本（直接粘贴 `git diff` 输出）。

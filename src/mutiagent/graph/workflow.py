@@ -7,8 +7,6 @@ from langgraph.graph import END, StateGraph
 from mutiagent.graph.state import WorkflowState
 from mutiagent.nodes.bug_pattern_agent import bug_pattern_agent
 from mutiagent.nodes.code_change_agent import ingest_change
-from mutiagent.nodes.code_change_graph_agent import code_change_graph_agent
-from mutiagent.nodes.code_graph_builder import build_code_graph
 from mutiagent.nodes.execution_agent import execution_agent
 from mutiagent.nodes.feedback_agent import feedback_agent
 from mutiagent.nodes.impact_analysis_agent import analyze_impact
@@ -25,8 +23,6 @@ def build_workflow():
     # align with diagram node naming
     # 加入agent节点到图中
     g.add_node("CodeChangeAgent", ingest_change)
-    g.add_node("CodeGraphBuilder", build_code_graph)
-    g.add_node("CodeChangeGraphAgent", code_change_graph_agent)
     g.add_node("ImpactAnalysisAgent", analyze_impact)
     g.add_node("BugPatternAgent", bug_pattern_agent)
     g.add_node("TestPlanningAgent", plan_tests)
@@ -41,10 +37,8 @@ def build_workflow():
     g.set_entry_point("CodeChangeAgent")#入口节点
     #添加边
     # 说明：LangGraph 默认 state channel 为 last_value，并行分支会触发并发写冲突；
-    # 这里先保持顺序执行，但 TestPlanningAgent 会同时读取 bug_patterns + impacted_ranked。
-    g.add_edge("CodeChangeAgent", "CodeGraphBuilder")
-    g.add_edge("CodeGraphBuilder", "CodeChangeGraphAgent")
-    g.add_edge("CodeChangeGraphAgent", "ImpactAnalysisAgent")
+    # 这里先保持顺序执行；当前版本跳过代码图构建，直接从变更分析进入影响分析。
+    g.add_edge("CodeChangeAgent", "ImpactAnalysisAgent")
     g.add_edge("ImpactAnalysisAgent", "BugPatternAgent")
     g.add_edge("BugPatternAgent", "TestPlanningAgent")
     g.add_edge("TestPlanningAgent", "TestPrioritizationAgent")
@@ -77,6 +71,7 @@ def run_workflow(repo_path: str, diff: str, run_eval: bool = False) -> dict[str,
 
     return {
         "changed_files": out.changed_files,
+        "change_analysis": out.change_analysis,
         "impacted": out.impacted_ranked,
         "test_plan": out.test_plan,
         "generated_tests": out.generated_tests,

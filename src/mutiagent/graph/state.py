@@ -33,6 +33,26 @@ class GeneratedTestFile(BaseModel):
     assumptions: list[str] = Field(default_factory=list)
 
 
+class ImpactSeed(BaseModel):
+    kind: Literal["function", "variable", "dependency"]
+    name: str
+    source: Literal["ast", "diff", "llm"] = "ast"
+
+
+class ChangeRecord(BaseModel):
+    entity: str
+    type: Literal["function", "class", "method"]
+    change_type: Literal["ADD", "MODIFY", "DELETE"]
+    semantic_tags: list[str] = Field(default_factory=list)
+    intent: Literal["BUG_FIX", "FEATURE", "REFACTOR"] = "REFACTOR"
+    impact_seeds: list[ImpactSeed] = Field(default_factory=list)
+
+
+class FileChangeSummary(BaseModel):
+    file: str
+    changes: list[ChangeRecord] = Field(default_factory=list)
+
+
 class EvalSummary(BaseModel):
     ran: bool = False
     exit_code: Optional[int] = None
@@ -43,6 +63,7 @@ class EvalSummary(BaseModel):
 
 class GenerateTestsResponse(BaseModel):
     changed_files: list[str]
+    change_analysis: list[FileChangeSummary] = Field(default_factory=list)
     impacted: list[ImpactedItem]
     test_plan: list[TestPlanItem]
     generated_tests: list[GeneratedTestFile]
@@ -64,9 +85,7 @@ class WorkflowState(BaseModel):
 
     changed_files: list[str] = Field(default_factory=list)
     diff_hunks: dict[str, Any] = Field(default_factory=dict)
-
-    module_graph: dict[str, Any] = Field(default_factory=dict)
-    call_graph: dict[str, Any] = Field(default_factory=dict)
+    change_analysis: list[FileChangeSummary] = Field(default_factory=list)
 
     impacted: list[ImpactedCandidate] = Field(default_factory=list)
     impacted_ranked: list[ImpactedItem] = Field(default_factory=list)
@@ -81,6 +100,5 @@ class WorkflowState(BaseModel):
     bug_patterns: list[dict[str, Any]] = Field(default_factory=list)
     prioritized_plan: list[TestPlanItem] = Field(default_factory=list)
     retrieved_context: dict[str, Any] = Field(default_factory=dict)
-    ccg: dict[str, Any] = Field(default_factory=dict)
     execution: dict[str, Any] = Field(default_factory=dict)
     feedback: dict[str, Any] = Field(default_factory=dict)
