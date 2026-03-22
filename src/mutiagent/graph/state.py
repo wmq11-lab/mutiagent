@@ -44,6 +44,10 @@ class ChangeRecord(BaseModel):
     type: Literal["function", "class", "method"]
     change_type: Literal["ADD", "MODIFY", "DELETE"]
     semantic_tags: list[str] = Field(default_factory=list)
+    test_focus: list[str] = Field(
+        default_factory=list,
+        description="由 semantic_tags 映射的测试设计关注点（如 branch_coverage、integration）",
+    )
     intent: Literal["BUG_FIX", "FEATURE", "REFACTOR"] = "REFACTOR"
     impact_seeds: list[ImpactSeed] = Field(default_factory=list)
 
@@ -51,6 +55,29 @@ class ChangeRecord(BaseModel):
 class FileChangeSummary(BaseModel):
     file: str
     changes: list[ChangeRecord] = Field(default_factory=list)
+
+
+class ChangeGraphNode(BaseModel):
+    """变更图顶点：文件 / 变更符号 / impact_seed / 测试关注点。"""
+
+    id: str
+    kind: Literal["file", "symbol", "seed", "focus"]
+    label: str
+    meta: dict[str, Any] = Field(default_factory=dict)
+
+
+class ChangeGraphEdge(BaseModel):
+    """有向边，供影响传播与测试优先级加权。"""
+
+    src: str
+    dst: str
+    relation: Literal["contains_change", "emits_seed", "test_focus"] = "contains_change"
+    weight: float = Field(default=1.0, ge=0.0, le=10.0)
+
+
+class ChangeGraph(BaseModel):
+    nodes: list[ChangeGraphNode] = Field(default_factory=list)
+    edges: list[ChangeGraphEdge] = Field(default_factory=list)
 
 
 class EvalSummary(BaseModel):
@@ -86,6 +113,7 @@ class WorkflowState(BaseModel):
     changed_files: list[str] = Field(default_factory=list)
     diff_hunks: dict[str, Any] = Field(default_factory=dict)
     change_analysis: list[FileChangeSummary] = Field(default_factory=list)
+    change_graph: Optional[ChangeGraph] = None
 
     impacted: list[ImpactedCandidate] = Field(default_factory=list)
     impacted_ranked: list[ImpactedItem] = Field(default_factory=list)

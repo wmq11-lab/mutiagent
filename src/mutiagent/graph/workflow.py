@@ -37,7 +37,7 @@ def build_workflow():
     g.set_entry_point("CodeChangeAgent")#入口节点
     #添加边
     # 说明：LangGraph 默认 state channel 为 last_value，并行分支会触发并发写冲突；
-    # 这里先保持顺序执行；当前版本跳过代码图构建，直接从变更分析进入影响分析。
+    # 这里先保持顺序执行；CodeChangeAgent 会构建 change_graph 供 Impact / 测试优先级使用。
     g.add_edge("CodeChangeAgent", "ImpactAnalysisAgent")
     g.add_edge("ImpactAnalysisAgent", "BugPatternAgent")
     g.add_edge("BugPatternAgent", "TestPlanningAgent")
@@ -72,6 +72,7 @@ def run_workflow(repo_path: str, diff: str, run_eval: bool = False) -> dict[str,
     return {
         "changed_files": out.changed_files,
         "change_analysis": out.change_analysis,
+        "change_graph": out.change_graph.model_dump() if out.change_graph else None,
         "impacted": out.impacted_ranked,
         "test_plan": out.test_plan,
         "generated_tests": out.generated_tests,

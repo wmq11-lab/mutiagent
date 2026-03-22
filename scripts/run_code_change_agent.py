@@ -54,6 +54,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Disable LLM refinement and run rule-based analysis only.",
     )
     parser.add_argument(
+        "--no-cache",
+        action="store_true",
+        help="Disable per-file analysis cache (see MUTIAGENT_CODE_CHANGE_CACHE / MUTIAGENT_CACHE_DIR).",
+    )
+    parser.add_argument(
         "--log-file",
         help="Write verbose stderr logs to the given file path.",
     )
@@ -69,6 +74,8 @@ def _run(args: argparse.Namespace) -> None:
         os.environ["MUTIAGENT_DEBUG"] = "1"
     if args.no_llm:
         os.environ["MUTIAGENT_DISABLE_LLM"] = "1"
+    if args.no_cache:
+        os.environ["MUTIAGENT_CODE_CHANGE_CACHE"] = "0"
 
     repo_path = str(Path(args.repo).expanduser().resolve())
     diff_path = Path(args.diff).expanduser().resolve()
@@ -107,6 +114,7 @@ def _run(args: argparse.Namespace) -> None:
         "changed_files": out.changed_files,
         "diff_hunks": out.diff_hunks,
         "change_analysis": [item.model_dump() for item in out.change_analysis],
+        "change_graph": out.change_graph.model_dump() if out.change_graph else None,
         "debug": out.debug,
     }
 
@@ -120,6 +128,8 @@ def _run(args: argparse.Namespace) -> None:
     pprint(payload["diff_hunks"])
     print("\n=== change_analysis ===")
     pprint(payload["change_analysis"])
+    print("\n=== change_graph ===")
+    pprint(payload["change_graph"])
     print("\n=== debug ===")
     pprint(payload["debug"])
 

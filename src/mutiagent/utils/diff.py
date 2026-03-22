@@ -5,6 +5,8 @@ from typing import Any
 
 from unidiff import PatchSet
 
+from mutiagent.utils.paths import should_ignore_file
+
 
 def parse_unified_diff(diff_text: str) -> dict[str, Any]:
     """
@@ -22,6 +24,8 @@ def parse_unified_diff(diff_text: str) -> dict[str, Any]:
     for f in patch:
         path = f.path
         if path is None:
+            continue
+        if should_ignore_file(path):
             continue
         changed_files.append(path)
         for h in f:
