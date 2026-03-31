@@ -1,0 +1,16 @@
+2026-03-30 20:23:07 [ImpactAnalysisAgent] start repo=/tmp base_candidates=3 propagated=9 merged=4 llm_available=False
+2026-03-30 20:23:07 [ImpactAnalysisAgent] done ranking_mode=heuristic_only ranked=4 elapsed_s=0.004 top5=['symbol:src/App.jsx:function:Navbar', 'file:src/App.jsx', 'seed:seed:src/App.jsx:function:close', 'focus:focus:branch_coverage']
+2026-03-30 20:28:01 [ImpactAnalysisAgent] start repo=/Users/admin/Desktop/potpie_bge base_candidates=60 propagated=2325 merged=73 llm_available=True
+2026-03-30 20:28:01 [ImpactAnalysisAgent] llm_rank request candidates=73 graph=yes
+2026-03-30 20:31:07 [ImpactAnalysisAgent] LLM ranking exception -> heuristic: APIConnectionError: Connection error.
+2026-03-30 20:31:07 [ImpactAnalysisAgent] done ranking_mode=llm_error_fallback ranked=15 elapsed_s=185.381 top5=['symbol:app/modules/intelligence/myprovider_client.py:class:MyProviderClient', 'symbol:app/modules/intelligence/myprovider_client.py:method:create_chat_completion', 'symbol:app/modules/intelligence/provider/provider_service.py:class:ProviderService', 'symbol:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model', 'symbol:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model']
+2026-03-30 20:36:24 [ImpactAnalysisAgent] start repo=/tmp base_candidates=3 propagated=9 synthetic_focus=0 merged=4 llm_available=False
+2026-03-30 20:36:24 [ImpactAnalysisAgent] done ranking_mode=heuristic_only ranked=4 elapsed_s=0.004 top5=['symbol:src/App.jsx:function:Navbar', 'file:src/App.jsx', 'seed:seed:src/App.jsx:function:close', 'focus:focus:branch_coverage']
+2026-03-30 20:37:47 [ImpactAnalysisAgent] start repo=/Users/admin/Desktop/potpie_bge base_candidates=60 propagated=2325 synthetic_focus=156 merged=76 llm_available=True
+2026-03-30 20:37:47 [ImpactAnalysisAgent] llm_rank request candidates=76 graph=yes
+2026-03-30 20:49:57 [ImpactAnalysisAgent] LLM ranking exception -> heuristic: APITimeoutError: Request timed out.
+2026-03-30 20:49:57 [ImpactAnalysisAgent] done ranking_mode=llm_error_fallback ranked=15 elapsed_s=730.018 top5=['file:app/modules/intelligence/myprovider_client.py', 'file:app/modules/intelligence/provider/provider_service.py', 'symbol:app/modules/intelligence/myprovider_client.py:class:MyProviderClient', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:getenv']
+2026-03-31 19:44:04 [ImpactAnalysisAgent] start repo=/Users/admin/Desktop/potpie_bge base_candidates=60 propagated=2325 synthetic_focus=156 merged=76 llm_available=True
+2026-03-31 19:44:04 [ImpactAnalysisAgent] llm_rank request candidates=76 graph=yes
+2026-03-31 19:46:06 [ImpactAnalysisAgent] LLM ranking exception -> heuristic: JSONDecodeError: Expecting ',' delimiter: line 503 column 18 (char 16999)
+2026-03-31 19:46:06 [ImpactAnalysisAgent] done ranking_mode=llm_error_fallback ranked=15 elapsed_s=121.489 top5=['file:app/modules/intelligence/myprovider_client.py', 'file:app/modules/intelligence/provider/provider_service.py', 'symbol:app/modules/intelligence/myprovider_client.py:class:MyProviderClient', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:getenv']

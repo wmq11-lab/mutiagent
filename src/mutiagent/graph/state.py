@@ -4,6 +4,8 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
+ImpactKind = Literal["file", "symbol", "seed", "focus"]
+
 
 class GenerateTestsRequest(BaseModel):
     repo_path: str = Field(..., description="被分析的Python项目路径（本地路径）")
@@ -14,11 +16,24 @@ class GenerateTestsRequest(BaseModel):
     )
 
 
+class TestStrategyItem(BaseModel):
+    type: str
+    target: str
+    priority: float = Field(ge=0.0, le=1.0, default=0.5)
+
+
 class ImpactedItem(BaseModel):
-    kind: Literal["file", "symbol"]
+    kind: ImpactKind
     id: str
     score: float = Field(ge=0.0, le=1.0)
     reason: str
+    test_strategy: list[TestStrategyItem] = Field(default_factory=list)
+    system_impact: list[str] = Field(default_factory=list)
+    initial_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    impact_type: list[str] = Field(
+        default_factory=list,
+        description="与候选对齐的影响类型，供下游测试规划桥接",
+    )
 
 
 class TestPlanItem(BaseModel):
@@ -99,10 +114,15 @@ class GenerateTestsResponse(BaseModel):
 
 
 class ImpactedCandidate(BaseModel):
-    kind: Literal["file", "symbol"]
+    kind: ImpactKind
     id: str
     via: str
     depth: int = 0
+    impact_type: list[str] = Field(default_factory=list)
+    propagation_path: list[str] = Field(default_factory=list)
+    propagation_depth: int = 0
+    propagation_type: str = "direct"
+    meta: dict[str, Any] = Field(default_factory=dict)
 
 
 class WorkflowState(BaseModel):

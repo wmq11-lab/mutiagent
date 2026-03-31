@@ -1,0 +1,2064 @@
+{
+  "repo_path": "/Users/admin/Desktop/potpie_bge",
+  "diff_path": "/private/tmp/my_change.diff",
+  "changed_files": [
+    ".env",
+    ".env.template",
+    "app/modules/intelligence/myprovider_client.py",
+    "app/modules/intelligence/provider/llm_config.py",
+    "app/modules/intelligence/provider/provider_service.py",
+    "potpie-ui/.env"
+  ],
+  "diff_hunks": {
+    ".env": [
+      {
+        "source_start": 7,
+        "source_length": 14,
+        "target_start": 7,
+        "target_length": 15,
+        "added": 6,
+        "removed": 5
+      },
+      {
+        "source_start": 76,
+        "source_length": 6,
+        "target_start": 77,
+        "target_length": 6,
+        "added": 2,
+        "removed": 2
+      }
+    ],
+    ".env.template": [
+      {
+        "source_start": 1,
+        "source_length": 104,
+        "target_start": 1,
+        "target_length": 83,
+        "added": 58,
+        "removed": 79
+      }
+    ],
+    "app/modules/intelligence/myprovider_client.py": [
+      {
+        "source_start": 27,
+        "source_length": 10,
+        "target_start": 27,
+        "target_length": 11,
+        "added": 4,
+        "removed": 3
+      }
+    ],
+    "app/modules/intelligence/provider/llm_config.py": [
+      {
+        "source_start": 268,
+        "source_length": 6,
+        "target_start": 268,
+        "target_length": 12,
+        "added": 6,
+        "removed": 0
+      },
+      {
+        "source_start": 277,
+        "source_length": 9,
+        "target_start": 283,
+        "target_length": 9,
+        "added": 2,
+        "removed": 2
+      }
+    ],
+    "app/modules/intelligence/provider/provider_service.py": [
+      {
+        "source_start": 1306,
+        "source_length": 11,
+        "target_start": 1306,
+        "target_length": 15,
+        "added": 9,
+        "removed": 5
+      }
+    ],
+    "potpie-ui/.env": [
+      {
+        "source_start": 1,
+        "source_length": 14,
+        "target_start": 1,
+        "target_length": 26,
+        "added": 17,
+        "removed": 5
+      }
+    ]
+  },
+  "change_analysis": [
+    {
+      "file": ".env",
+      "changes": []
+    },
+    {
+      "file": ".env.template",
+      "changes": []
+    },
+    {
+      "file": "app/modules/intelligence/myprovider_client.py",
+      "changes": [
+        {
+          "entity": "MyProviderClient",
+          "type": "class",
+          "change_type": "MODIFY",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed"
+          ],
+          "test_focus": [
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects"
+          ],
+          "intent": "BUG_FIX",
+          "impact_seeds": [
+            {
+              "kind": "dependency",
+              "name": "_stream_request",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "getenv",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "iter_lines",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "json",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "loads",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "post",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "raise_for_status",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "rstrip",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "split",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "startswith",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "strip",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "time",
+              "source": "ast"
+            }
+          ]
+        },
+        {
+          "entity": "create_chat_completion",
+          "type": "method",
+          "change_type": "MODIFY",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed"
+          ],
+          "test_focus": [
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects"
+          ],
+          "intent": "BUG_FIX",
+          "impact_seeds": [
+            {
+              "kind": "dependency",
+              "name": "_stream_request",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "getenv",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "json",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "post",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "raise_for_status",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "split",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "startswith",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "strip",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "time",
+              "source": "ast"
+            },
+            {
+              "kind": "function",
+              "name": "isinstance",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "Exception",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "ValueError",
+              "source": "ast"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "app/modules/intelligence/provider/llm_config.py",
+      "changes": [
+        {
+          "entity": "get_config_for_model",
+          "type": "function",
+          "change_type": "MODIFY",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "input_validation_added",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "boundary_values",
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "integration",
+            "interaction",
+            "invalid_input",
+            "rejection_behavior",
+            "side_effects",
+            "state_transition"
+          ],
+          "intent": "FEATURE",
+          "impact_seeds": [
+            {
+              "kind": "dependency",
+              "name": "get",
+              "source": "ast"
+            },
+            {
+              "kind": "function",
+              "name": "parse_model_string",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "Any",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "Dict",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "MODEL_CONFIG_MAP",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "env_base_url",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "fallback_auth_provider",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "fallback_base_url",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "model_string",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "os",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "parse_model_string",
+              "source": "ast"
+            },
+            {
+              "kind": "variable",
+              "name": "provider",
+              "source": "ast"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "app/modules/intelligence/provider/provider_service.py",
+      "changes": [
+        {
+          "entity": "ProviderService",
+          "type": "class",
+          "change_type": "MODIFY",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects",
+            "state_transition"
+          ],
+          "intent": "BUG_FIX",
+          "impact_seeds": [
+            {
+              "kind": "dependency",
+              "name": "_build_config_for_model_identifier",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_build_llm_params",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_format_anthropic_multimodal_message",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_format_gemini_multimodal_message",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_format_multimodal_message",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_format_multimodal_messages",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_format_openai_multimodal_message",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_get_api_key",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_validate_images_for_multimodal",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "add",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "append",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "call_llm",
+              "source": "ast"
+            }
+          ]
+        },
+        {
+          "entity": "get_pydantic_model",
+          "type": "method",
+          "change_type": "MODIFY",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "integration",
+            "interaction",
+            "side_effects",
+            "state_transition"
+          ],
+          "intent": "BUG_FIX",
+          "impact_seeds": [
+            {
+              "kind": "dependency",
+              "name": "_build_config_for_model_identifier",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "_get_api_key",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "endswith",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "get",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "items",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "rstrip",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "split",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "startswith",
+              "source": "ast"
+            },
+            {
+              "kind": "dependency",
+              "name": "warning",
+              "source": "ast"
+            },
+            {
+              "kind": "function",
+              "name": "AnthropicModel",
+              "source": "ast"
+            },
+            {
+              "kind": "function",
+              "name": "AnthropicProvider",
+              "source": "ast"
+            },
+            {
+              "kind": "function",
+              "name": "OpenAIModel",
+              "source": "ast"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "potpie-ui/.env",
+      "changes": []
+    }
+  ],
+  "change_graph": {
+    "nodes": [
+      {
+        "id": ".env",
+        "kind": "file",
+        "label": ".env",
+        "meta": {
+          "change_count": 0
+        }
+      },
+      {
+        "id": ".env.template",
+        "kind": "file",
+        "label": ".env.template",
+        "meta": {
+          "change_count": 0
+        }
+      },
+      {
+        "id": "app/modules/intelligence/myprovider_client.py",
+        "kind": "file",
+        "label": "app/modules/intelligence/myprovider_client.py",
+        "meta": {
+          "change_count": 2
+        }
+      },
+      {
+        "id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "kind": "symbol",
+        "label": "MyProviderClient",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "entity_type": "class",
+          "change_type": "MODIFY",
+          "intent": "BUG_FIX",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed"
+          ],
+          "test_focus": [
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects"
+          ]
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+        "kind": "seed",
+        "label": "dependency:_stream_request",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "_stream_request",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+        "kind": "seed",
+        "label": "dependency:getenv",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "getenv",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+        "kind": "seed",
+        "label": "dependency:iter_lines",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "iter_lines",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+        "kind": "seed",
+        "label": "dependency:json",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "json",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+        "kind": "seed",
+        "label": "dependency:loads",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "loads",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+        "kind": "seed",
+        "label": "dependency:post",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "post",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+        "kind": "seed",
+        "label": "dependency:raise_for_status",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "raise_for_status",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+        "kind": "seed",
+        "label": "dependency:rstrip",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "rstrip",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+        "kind": "seed",
+        "label": "dependency:split",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "split",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+        "kind": "seed",
+        "label": "dependency:startswith",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "startswith",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+        "kind": "seed",
+        "label": "dependency:strip",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "strip",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+        "kind": "seed",
+        "label": "dependency:time",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "dependency",
+          "name": "time",
+          "source": "ast",
+          "from_entity": "MyProviderClient"
+        }
+      },
+      {
+        "id": "focus:dependency_stub",
+        "kind": "focus",
+        "label": "dependency_stub",
+        "meta": {
+          "focus": "dependency_stub"
+        }
+      },
+      {
+        "id": "focus:error_paths",
+        "kind": "focus",
+        "label": "error_paths",
+        "meta": {
+          "focus": "error_paths"
+        }
+      },
+      {
+        "id": "focus:exception_assertions",
+        "kind": "focus",
+        "label": "exception_assertions",
+        "meta": {
+          "focus": "exception_assertions"
+        }
+      },
+      {
+        "id": "focus:integration",
+        "kind": "focus",
+        "label": "integration",
+        "meta": {
+          "focus": "integration"
+        }
+      },
+      {
+        "id": "focus:interaction",
+        "kind": "focus",
+        "label": "interaction",
+        "meta": {
+          "focus": "interaction"
+        }
+      },
+      {
+        "id": "focus:resilience",
+        "kind": "focus",
+        "label": "resilience",
+        "meta": {
+          "focus": "resilience"
+        }
+      },
+      {
+        "id": "focus:side_effects",
+        "kind": "focus",
+        "label": "side_effects",
+        "meta": {
+          "focus": "side_effects"
+        }
+      },
+      {
+        "id": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "kind": "symbol",
+        "label": "create_chat_completion",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "entity_type": "method",
+          "change_type": "MODIFY",
+          "intent": "BUG_FIX",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed"
+          ],
+          "test_focus": [
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects"
+          ]
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:function:isinstance",
+        "kind": "seed",
+        "label": "function:isinstance",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "function",
+          "name": "isinstance",
+          "source": "ast",
+          "from_entity": "create_chat_completion"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:variable:Exception",
+        "kind": "seed",
+        "label": "variable:Exception",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "variable",
+          "name": "Exception",
+          "source": "ast",
+          "from_entity": "create_chat_completion"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError",
+        "kind": "seed",
+        "label": "variable:ValueError",
+        "meta": {
+          "file": "app/modules/intelligence/myprovider_client.py",
+          "seed_kind": "variable",
+          "name": "ValueError",
+          "source": "ast",
+          "from_entity": "create_chat_completion"
+        }
+      },
+      {
+        "id": "app/modules/intelligence/provider/llm_config.py",
+        "kind": "file",
+        "label": "app/modules/intelligence/provider/llm_config.py",
+        "meta": {
+          "change_count": 1
+        }
+      },
+      {
+        "id": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "kind": "symbol",
+        "label": "get_config_for_model",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "entity_type": "function",
+          "change_type": "MODIFY",
+          "intent": "FEATURE",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "input_validation_added",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "boundary_values",
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "integration",
+            "interaction",
+            "invalid_input",
+            "rejection_behavior",
+            "side_effects",
+            "state_transition"
+          ]
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:dependency:get",
+        "kind": "seed",
+        "label": "dependency:get",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "dependency",
+          "name": "get",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string",
+        "kind": "seed",
+        "label": "function:parse_model_string",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "function",
+          "name": "parse_model_string",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Any",
+        "kind": "seed",
+        "label": "variable:Any",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "Any",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict",
+        "kind": "seed",
+        "label": "variable:Dict",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "Dict",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP",
+        "kind": "seed",
+        "label": "variable:MODEL_CONFIG_MAP",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "MODEL_CONFIG_MAP",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url",
+        "kind": "seed",
+        "label": "variable:env_base_url",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "env_base_url",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider",
+        "kind": "seed",
+        "label": "variable:fallback_auth_provider",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "fallback_auth_provider",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url",
+        "kind": "seed",
+        "label": "variable:fallback_base_url",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "fallback_base_url",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string",
+        "kind": "seed",
+        "label": "variable:model_string",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "model_string",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:os",
+        "kind": "seed",
+        "label": "variable:os",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "os",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string",
+        "kind": "seed",
+        "label": "variable:parse_model_string",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "parse_model_string",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:provider",
+        "kind": "seed",
+        "label": "variable:provider",
+        "meta": {
+          "file": "app/modules/intelligence/provider/llm_config.py",
+          "seed_kind": "variable",
+          "name": "provider",
+          "source": "ast",
+          "from_entity": "get_config_for_model"
+        }
+      },
+      {
+        "id": "focus:boundary_values",
+        "kind": "focus",
+        "label": "boundary_values",
+        "meta": {
+          "focus": "boundary_values"
+        }
+      },
+      {
+        "id": "focus:branch_coverage",
+        "kind": "focus",
+        "label": "branch_coverage",
+        "meta": {
+          "focus": "branch_coverage"
+        }
+      },
+      {
+        "id": "focus:conditional_render",
+        "kind": "focus",
+        "label": "conditional_render",
+        "meta": {
+          "focus": "conditional_render"
+        }
+      },
+      {
+        "id": "focus:invalid_input",
+        "kind": "focus",
+        "label": "invalid_input",
+        "meta": {
+          "focus": "invalid_input"
+        }
+      },
+      {
+        "id": "focus:rejection_behavior",
+        "kind": "focus",
+        "label": "rejection_behavior",
+        "meta": {
+          "focus": "rejection_behavior"
+        }
+      },
+      {
+        "id": "focus:state_transition",
+        "kind": "focus",
+        "label": "state_transition",
+        "meta": {
+          "focus": "state_transition"
+        }
+      },
+      {
+        "id": "app/modules/intelligence/provider/provider_service.py",
+        "kind": "file",
+        "label": "app/modules/intelligence/provider/provider_service.py",
+        "meta": {
+          "change_count": 2
+        }
+      },
+      {
+        "id": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "kind": "symbol",
+        "label": "ProviderService",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "entity_type": "class",
+          "change_type": "MODIFY",
+          "intent": "BUG_FIX",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "exception_handling_changed",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "error_paths",
+            "exception_assertions",
+            "integration",
+            "interaction",
+            "resilience",
+            "side_effects",
+            "state_transition"
+          ]
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier",
+        "kind": "seed",
+        "label": "dependency:_build_config_for_model_identifier",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_build_config_for_model_identifier",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params",
+        "kind": "seed",
+        "label": "dependency:_build_llm_params",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_build_llm_params",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message",
+        "kind": "seed",
+        "label": "dependency:_format_anthropic_multimodal_message",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_format_anthropic_multimodal_message",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message",
+        "kind": "seed",
+        "label": "dependency:_format_gemini_multimodal_message",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_format_gemini_multimodal_message",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message",
+        "kind": "seed",
+        "label": "dependency:_format_multimodal_message",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_format_multimodal_message",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages",
+        "kind": "seed",
+        "label": "dependency:_format_multimodal_messages",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_format_multimodal_messages",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message",
+        "kind": "seed",
+        "label": "dependency:_format_openai_multimodal_message",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_format_openai_multimodal_message",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key",
+        "kind": "seed",
+        "label": "dependency:_get_api_key",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_get_api_key",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal",
+        "kind": "seed",
+        "label": "dependency:_validate_images_for_multimodal",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "_validate_images_for_multimodal",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:add",
+        "kind": "seed",
+        "label": "dependency:add",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "add",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:append",
+        "kind": "seed",
+        "label": "dependency:append",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "append",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm",
+        "kind": "seed",
+        "label": "dependency:call_llm",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "call_llm",
+          "source": "ast",
+          "from_entity": "ProviderService"
+        }
+      },
+      {
+        "id": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "kind": "symbol",
+        "label": "get_pydantic_model",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "entity_type": "method",
+          "change_type": "MODIFY",
+          "intent": "BUG_FIX",
+          "semantic_tags": [
+            "dependency_call_changed",
+            "logic_branch_changed"
+          ],
+          "test_focus": [
+            "branch_coverage",
+            "conditional_render",
+            "dependency_stub",
+            "integration",
+            "interaction",
+            "side_effects",
+            "state_transition"
+          ]
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith",
+        "kind": "seed",
+        "label": "dependency:endswith",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "endswith",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:get",
+        "kind": "seed",
+        "label": "dependency:get",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "get",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:items",
+        "kind": "seed",
+        "label": "dependency:items",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "items",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip",
+        "kind": "seed",
+        "label": "dependency:rstrip",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "rstrip",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:split",
+        "kind": "seed",
+        "label": "dependency:split",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "split",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith",
+        "kind": "seed",
+        "label": "dependency:startswith",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "startswith",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning",
+        "kind": "seed",
+        "label": "dependency:warning",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "dependency",
+          "name": "warning",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel",
+        "kind": "seed",
+        "label": "function:AnthropicModel",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "function",
+          "name": "AnthropicModel",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider",
+        "kind": "seed",
+        "label": "function:AnthropicProvider",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "function",
+          "name": "AnthropicProvider",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel",
+        "kind": "seed",
+        "label": "function:OpenAIModel",
+        "meta": {
+          "file": "app/modules/intelligence/provider/provider_service.py",
+          "seed_kind": "function",
+          "name": "OpenAIModel",
+          "source": "ast",
+          "from_entity": "get_pydantic_model"
+        }
+      },
+      {
+        "id": "potpie-ui/.env",
+        "kind": "file",
+        "label": "potpie-ui/.env",
+        "meta": {
+          "change_count": 0
+        }
+      }
+    ],
+    "edges": [
+      {
+        "src": "app/modules/intelligence/myprovider_client.py",
+        "dst": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "relation": "contains_change",
+        "weight": 1.0
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:dependency_stub",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:error_paths",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:exception_assertions",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:integration",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:interaction",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:resilience",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "dst": "focus:side_effects",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py",
+        "dst": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "relation": "contains_change",
+        "weight": 1.0
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:function:isinstance",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:variable:Exception",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:dependency_stub",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:error_paths",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:exception_assertions",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:integration",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:interaction",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:resilience",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "dst": "focus:side_effects",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py",
+        "dst": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "relation": "contains_change",
+        "weight": 1.0
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:dependency:get",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:Any",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:os",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "seed:app/modules/intelligence/provider/llm_config.py:variable:provider",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:boundary_values",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:branch_coverage",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:conditional_render",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:dependency_stub",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:integration",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:interaction",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:invalid_input",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:rejection_behavior",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:side_effects",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "dst": "focus:state_transition",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py",
+        "dst": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "relation": "contains_change",
+        "weight": 1.0
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:add",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:append",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:branch_coverage",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:conditional_render",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:dependency_stub",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:error_paths",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:exception_assertions",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:integration",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:interaction",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:resilience",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:side_effects",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "dst": "focus:state_transition",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py",
+        "dst": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "relation": "contains_change",
+        "weight": 1.0
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:get",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:items",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:split",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel",
+        "relation": "emits_seed",
+        "weight": 0.85
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:branch_coverage",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:conditional_render",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:dependency_stub",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:integration",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:interaction",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:side_effects",
+        "relation": "test_focus",
+        "weight": 0.65
+      },
+      {
+        "src": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "dst": "focus:state_transition",
+        "relation": "test_focus",
+        "weight": 0.65
+      }
+    ]
+  },
+  "debug": {
+    "diff_stats": {
+      "files": 6,
+      "added": 104,
+      "removed": 101
+    },
+    "change_graph": {
+      "node_count": 73,
+      "edge_count": 106
+    },
+    "code_change": {
+      "files_analyzed": 6,
+      "changes": 5,
+      "used_llm": true,
+      "llm_refine_files_invoked": 0,
+      "llm_refine_files_skipped": 0,
+      "cache_hits": 3,
+      "cache_misses": 0,
+      "cache_writes": 0,
+      "elapsed_seconds": 0.014
+    }
+  }
+}

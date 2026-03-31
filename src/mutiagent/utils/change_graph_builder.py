@@ -105,6 +105,21 @@ def graph_adjacency(graph: ChangeGraph) -> dict[str, list[tuple[str, str, float]
     return adj
 
 
+def build_propagation_adjacency(graph: ChangeGraph) -> dict[str, list[tuple[str, str, float]]]:
+    """
+    正向边 + 关键反向边（emits_seed / contains_change），用于 Impact 多跳传播：
+    seed 可回到 symbol，symbol 可回到 file，从而在符号与 seed 之间形成多跳路径。
+    """
+    adj: dict[str, list[tuple[str, str, float]]] = {}
+    for e in graph.edges:
+        adj.setdefault(e.src, []).append((e.dst, e.relation, e.weight))
+        if e.relation == "emits_seed":
+            adj.setdefault(e.dst, []).append((e.src, "reverse_emits_seed", min(10.0, e.weight * 0.92)))
+        elif e.relation == "contains_change":
+            adj.setdefault(e.dst, []).append((e.src, "reverse_contains_change", min(10.0, e.weight * 0.92)))
+    return adj
+
+
 def graph_reverse_adjacency(graph: ChangeGraph) -> dict[str, list[tuple[str, str, float]]]:
     """dst -> [(src, relation, weight), ...]"""
     radj: dict[str, list[tuple[str, str, float]]] = {}
@@ -149,8 +164,10 @@ def impact_candidate_graph_boost(kind: str, candidate_id: str, graph: ChangeGrap
     if kind == "file":
         raw = file_aggregate_focus_weight(candidate_id, graph)
         return min(0.22, 0.06 * raw)
-    if candidate_id.startswith("seed:"):
+    if kind == "seed" or candidate_id.startswith("seed:"):
         raw = seed_graph_boost(candidate_id, graph)
         return min(0.2, 0.06 * raw)
+    if kind == "focus" or candidate_id.startswith("focus:"):
+        return 0.04
     raw = symbol_test_focus_weight(candidate_id, graph)
     return min(0.25, 0.07 * raw)

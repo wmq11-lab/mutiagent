@@ -62,6 +62,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--log-file",
         help="Write verbose stderr logs to the given file path.",
     )
+    parser.add_argument(
+        "--output",
+        help="Optional output JSON file path. Parent directory will be created automatically.",
+    )
     return parser
 
 
@@ -117,6 +121,13 @@ def _run(args: argparse.Namespace) -> None:
         "change_graph": out.change_graph.model_dump() if out.change_graph else None,
         "debug": out.debug,
     }
+
+    if args.output:
+        output_path = Path(args.output).expanduser().resolve()
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        if args.verbose:
+            _stderr_log(f"result saved to {output_path}")
 
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))

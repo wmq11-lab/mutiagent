@@ -20,6 +20,10 @@ def test_prioritization_agent(state: WorkflowState) -> WorkflowState:
             return 0.0
         if target in state.changed_files:
             return impact_candidate_graph_boost("file", target, graph) * 0.15
+        if target.startswith("seed:"):
+            return impact_candidate_graph_boost("seed", target, graph) * 0.15
+        if target.startswith("focus:"):
+            return impact_candidate_graph_boost("focus", target, graph) * 0.15
         return impact_candidate_graph_boost("symbol", target, graph) * 0.15
 
     def key(p: TestPlanItem) -> float:

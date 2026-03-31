@@ -1,0 +1,1812 @@
+{
+  "repo_path": "/Users/admin/Desktop/potpie_bge",
+  "changed_files": [
+    ".env",
+    ".env.template",
+    "app/modules/intelligence/myprovider_client.py",
+    "app/modules/intelligence/provider/llm_config.py",
+    "app/modules/intelligence/provider/provider_service.py",
+    "potpie-ui/.env"
+  ],
+  "impacted": [
+    {
+      "kind": "file",
+      "id": ".env",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "config"
+      ],
+      "propagation_path": [
+        ".env"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "config",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "file",
+      "id": ".env.template",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "config"
+      ],
+      "propagation_path": [
+        ".env.template"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "config",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "file",
+      "id": "app/modules/intelligence/myprovider_client.py",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "call",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "file",
+      "id": "app/modules/intelligence/provider/llm_config.py",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "call",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "file",
+      "id": "app/modules/intelligence/provider/provider_service.py",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "call",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "file",
+      "id": "potpie-ui/.env",
+      "via": "changed_file",
+      "depth": 0,
+      "impact_type": [
+        "config"
+      ],
+      "propagation_path": [
+        "potpie-ui/.env"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "config",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "via": "changed_entity",
+      "depth": 0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "exception",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "config",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:json"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:loads"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:post"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:split"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:strip"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+      "via": "impact_seed:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:dependency:time"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+      "via": "changed_entity",
+      "depth": 0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "exception",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:function:isinstance",
+      "via": "impact_seed:create_chat_completion",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:function:isinstance"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:variable:Exception",
+      "via": "impact_seed:create_chat_completion",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:variable:Exception"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "exception",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError",
+      "via": "impact_seed:create_chat_completion",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "exception",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+      "via": "changed_entity",
+      "depth": 0,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "call",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:dependency:get",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:dependency:get"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Any",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:Any"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:os",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:os"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:provider",
+      "via": "impact_seed:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/llm_config.py:variable:provider"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+      "via": "changed_entity",
+      "depth": 0,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "exception",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:add",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:add"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:append",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:append"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm",
+      "via": "impact_seed:ProviderService",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "via": "changed_entity",
+      "depth": 0,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "call",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:get",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:get"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:items",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:items"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:split",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:split"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel",
+      "via": "impact_seed:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel"
+      ],
+      "propagation_depth": 0,
+      "propagation_type": "data_flow",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:branch_coverage",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:branch_coverage"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:conditional_render",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:conditional_render"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:dependency_stub",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:dependency_stub"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:integration",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:integration"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:interaction",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:interaction"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:side_effects",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:side_effects"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:state_transition",
+      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+        "focus:state_transition"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:error_paths",
+      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "focus:error_paths"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 44
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:exception_assertions",
+      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "focus:exception_assertions"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 44
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:resilience",
+      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "focus:resilience"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:boundary_values",
+      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "focus:boundary_values"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:invalid_input",
+      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "focus:invalid_input"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 15
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:rejection_behavior",
+      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "focus:rejection_behavior"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 1
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:env_missing",
+      "via": "derived_test_focus:.env",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        ".env",
+        "focus:env_missing"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 21
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:fallback",
+      "via": "derived_test_focus:.env",
+      "depth": 1,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ],
+      "propagation_path": [
+        ".env",
+        "focus:fallback"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 21
+      }
+    },
+    {
+      "kind": "focus",
+      "id": "focus:boundary",
+      "via": "derived_test_focus:app/modules/intelligence/provider/llm_config.py",
+      "depth": 1,
+      "impact_type": [
+        "data_processing"
+      ],
+      "propagation_path": [
+        "app/modules/intelligence/provider/llm_config.py",
+        "focus:boundary"
+      ],
+      "propagation_depth": 1,
+      "propagation_type": "test_focus",
+      "meta": {
+        "frequency_hits": 14
+      }
+    }
+  ],
+  "impacted_ranked": [
+    {
+      "kind": "file",
+      "id": "app/modules/intelligence/myprovider_client.py",
+      "score": 1.0,
+      "reason": "changed_file | path=[app/modules/intelligence/myprovider_client.py] | prop_type=call | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.986; prop_depth=0; prop_type=call",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "app/modules/intelligence/myprovider_client.py",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "app/modules/intelligence/myprovider_client.py",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "file",
+      "id": "app/modules/intelligence/provider/provider_service.py",
+      "score": 1.0,
+      "reason": "changed_file | path=[app/modules/intelligence/provider/provider_service.py] | prop_type=call | types=[exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.986; prop_depth=0; prop_type=call",
+      "test_strategy": [
+        {
+          "type": "exception_assertion",
+          "target": "app/modules/intelligence/provider/provider_service.py",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "symbol",
+      "id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "score": 1.0,
+      "reason": "changed_entity | path=[app/modules/intelligence/myprovider_client.py:class:MyProviderClient] | prop_type=exception | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=1.000; after_graph_boost=1.000; prop_depth=0; prop_type=exception",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:getenv] | prop_type=config | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=config",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:json] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:loads] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:post] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:split] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:startswith] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:strip] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    },
+    {
+      "kind": "seed",
+      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+      "score": 1.0,
+      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:time] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
+      "test_strategy": [
+        {
+          "type": "env_missing_fallback",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+          "priority": 0.92
+        },
+        {
+          "type": "exception_assertion",
+          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
+          "priority": 0.93
+        }
+      ],
+      "system_impact": [
+        "configuration_system",
+        "fallback_mechanism",
+        "multimodal_pipeline"
+      ],
+      "initial_score": 1.0,
+      "impact_type": [
+        "config",
+        "exception_flow"
+      ]
+    }
+  ],
+  "debug": {
+    "diff_stats": {
+      "files": 6,
+      "added": 104,
+      "removed": 101
+    },
+    "change_graph": {
+      "node_count": 73,
+      "edge_count": 106
+    },
+    "code_change": {
+      "files_analyzed": 6,
+      "changes": 5,
+      "used_llm": true,
+      "llm_refine_files_invoked": 0,
+      "llm_refine_files_skipped": 0,
+      "cache_hits": 3,
+      "cache_misses": 0,
+      "cache_writes": 0,
+      "elapsed_seconds": 0.014
+    },
+    "impact": {
+      "candidate_count": 76,
+      "ranked_count": 15,
+      "used_llm": true,
+      "change_graph_used": true,
+      "propagation_hops_max": 3,
+      "base_candidate_count": 60,
+      "propagated_candidate_count": 2325,
+      "synthetic_focus_candidate_count": 156,
+      "test_focus_count": 16,
+      "impact_type_distribution": {
+        "exception_flow": 55,
+        "config": 30,
+        "data_processing": 25
+      },
+      "ranking_mode": "llm_error_fallback",
+      "llm_error": "JSONDecodeError: Expecting ',' delimiter: line 503 column 18 (char 16999)",
+      "elapsed_seconds": 121.489
+    }
+  }
+}
