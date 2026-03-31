@@ -8,1766 +8,2172 @@
     "app/modules/intelligence/provider/provider_service.py",
     "potpie-ui/.env"
   ],
-  "impacted": [
+  "semantic_units_catalog": [
     {
-      "kind": "file",
-      "id": ".env",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "config"
-      ],
-      "propagation_path": [
-        ".env"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "config",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "file",
-      "id": ".env.template",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "config"
-      ],
-      "propagation_path": [
-        ".env.template"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "config",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "file",
-      "id": "app/modules/intelligence/myprovider_client.py",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/myprovider_client.py"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "call",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "file",
-      "id": "app/modules/intelligence/provider/llm_config.py",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/llm_config.py"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "call",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "file",
-      "id": "app/modules/intelligence/provider/provider_service.py",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "call",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "file",
-      "id": "potpie-ui/.env",
-      "via": "changed_file",
-      "depth": 0,
-      "impact_type": [
-        "config"
-      ],
-      "propagation_path": [
-        "potpie-ui/.env"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "config",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-      "via": "changed_entity",
-      "depth": 0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
+      "semantic_unit_id": "api:dependency_call",
+      "type": "api",
+      "source": "semantic_tag:dependency_call_changed",
+      "risk_score": 0.4723,
+      "priority_score": 0.9,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
         "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
       ],
-      "propagation_depth": 0,
-      "propagation_type": "exception",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "config",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:json"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:loads"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:post"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:split"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:strip"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
-      "via": "impact_seed:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:dependency:time"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
-      "via": "changed_entity",
-      "depth": 0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "exception",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:function:isinstance",
-      "via": "impact_seed:create_chat_completion",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:function:isinstance"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:variable:Exception",
-      "via": "impact_seed:create_chat_completion",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:variable:Exception"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "exception",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError",
-      "via": "impact_seed:create_chat_completion",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/myprovider_client.py:variable:ValueError"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "exception",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-      "via": "changed_entity",
-      "depth": 0,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "call",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:dependency:get",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:dependency:get"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:function:parse_model_string"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Any",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:Any"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:Dict"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:MODEL_CONFIG_MAP"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:env_base_url"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_auth_provider"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:fallback_base_url"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:model_string"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:os",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:os"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:parse_model_string"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/llm_config.py:variable:provider",
-      "via": "impact_seed:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/llm_config.py:variable:provider"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
-      "via": "changed_entity",
-      "depth": 0,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "exception",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_config_for_model_identifier"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_build_llm_params"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_anthropic_multimodal_message"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_gemini_multimodal_message"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_message"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_multimodal_messages"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_format_openai_multimodal_message"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_get_api_key"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:_validate_images_for_multimodal"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:add",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:add"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:append",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:append"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm",
-      "via": "impact_seed:ProviderService",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:call_llm"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "via": "changed_entity",
-      "depth": 0,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": true,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
         "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
       "propagation_depth": 0,
-      "propagation_type": "call",
-      "meta": {
-        "frequency_hits": 1
-      }
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
     },
     {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
+      "semantic_unit_id": "exception:exception_handling",
+      "type": "exception",
+      "source": "semantic_tag:exception_handling_changed",
+      "risk_score": 0.5278,
+      "priority_score": 0.786738,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
       ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:endswith"
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
       ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:get",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:get"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:items",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:items"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:rstrip"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:split",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:split"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:startswith"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:dependency:warning"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicModel"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:function:AnthropicProvider"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel",
-      "via": "impact_seed:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "seed:app/modules/intelligence/provider/provider_service.py:function:OpenAIModel"
-      ],
-      "propagation_depth": 0,
-      "propagation_type": "data_flow",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:branch_coverage",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:branch_coverage"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:conditional_render",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:conditional_render"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:dependency_stub",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:dependency_stub"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:integration",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:integration"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:interaction",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:interaction"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:side_effects",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:side_effects"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:state_transition",
-      "via": "propagated_from:app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing",
-        "exception_flow"
-      ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
-        "focus:state_transition"
-      ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:error_paths",
-      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
+      "integration_risk": true,
+      "referenced_symbol_ids": [
         "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-        "focus:error_paths"
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 44
-      }
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "error_paths",
+          "derived_from": "规则：type=exception → 覆盖错误分支与非法输入"
+        },
+        {
+          "type": "exception_assertion",
+          "derived_from": "规则：type=exception → 断言异常类型与信息"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：入参校验失败（内部异常路径）",
+          "input": "None、空集合、违反不变量的结构体",
+          "mock": "无需外网",
+          "assert": "抛出 ValueError/TypeError 等与类型注解一致的异常"
+        },
+        {
+          "scenario": "MyProviderClient：不变量破坏时的断言与错误消息",
+          "input": "构造违反业务规则的中间状态",
+          "mock": "必要时 patch 内部依赖返回非法组合",
+          "assert": "异常信息包含可定位字段（字段名/错误码）"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:exception_assertions",
-      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ],
-      "propagation_path": [
+      "semantic_unit_id": "api:rstrip",
+      "type": "api",
+      "source": "seed:dependency:rstrip",
+      "risk_score": 0.4541,
+      "priority_score": 0.679737,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
         "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-        "focus:exception_assertions"
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 44
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:resilience",
-      "via": "propagated_from:app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
+      "downstream": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_path": [
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": true,
+      "referenced_symbol_ids": [
         "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-        "focus:resilience"
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:boundary_values",
-      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
-      ],
-      "propagation_path": [
+      "semantic_unit_id": "api:get",
+      "type": "api",
+      "source": "seed:dependency:get",
+      "risk_score": 0.4455,
+      "priority_score": 0.668136,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
         "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-        "focus:boundary_values"
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
-    },
-    {
-      "kind": "focus",
-      "id": "focus:invalid_input",
-      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
+      "downstream": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_path": [
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": true,
+      "referenced_symbol_ids": [
         "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-        "focus:invalid_input"
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 15
-      }
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "get_config_for_model：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:rejection_behavior",
-      "via": "propagated_from:app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
+      "semantic_unit_id": "config:get_api_key",
+      "type": "config",
+      "source": "seed:dependency:_get_api_key",
+      "risk_score": 0.5093,
+      "priority_score": 0.595035,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_path": [
+      "downstream": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "upstream": [],
+      "edge_types": [
+        "config"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "env_missing",
+          "derived_from": "规则：type=config → 覆盖环境变量缺失"
+        },
+        {
+          "type": "fallback",
+          "derived_from": "规则：type=config → 覆盖默认值 / 配置回退"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：显式配置覆盖默认/回退（override 路径）",
+          "input": "在同时提供默认值与显式参数/配置文件时调用",
+          "mock": "patch 配置源顺序，制造后写覆盖先写",
+          "assert": "显式配置优先生效；回退链路与文档一致"
+        },
+        {
+          "scenario": "ProviderService：配置项类型或范围非法",
+          "input": "注入非数字端口、空 URL、负数超时等",
+          "mock": "patch 配置读取返回值",
+          "assert": "拒绝非法配置并失败可测，不应静默继续"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "exception:raise_for_status",
+      "type": "exception",
+      "source": "seed:dependency:raise_for_status",
+      "risk_score": 0.5075,
+      "priority_score": 0.593234,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "downstream": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "error_paths",
+          "derived_from": "规则：type=exception → 覆盖错误分支与非法输入"
+        },
+        {
+          "type": "exception_assertion",
+          "derived_from": "规则：type=exception → 断言异常类型与信息"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：入参校验失败（内部异常路径）",
+          "input": "None、空集合、违反不变量的结构体",
+          "mock": "无需外网",
+          "assert": "抛出 ValueError/TypeError 等与类型注解一致的异常"
+        },
+        {
+          "scenario": "MyProviderClient：不变量破坏时的断言与错误消息",
+          "input": "构造违反业务规则的中间状态",
+          "mock": "必要时 patch 内部依赖返回非法组合",
+          "assert": "异常信息包含可定位字段（字段名/错误码）"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "config:getenv",
+      "type": "config",
+      "source": "seed:dependency:getenv",
+      "risk_score": 0.4897,
+      "priority_score": 0.574533,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "downstream": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "upstream": [],
+      "edge_types": [
+        "config"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "env_missing",
+          "derived_from": "规则：type=config → 覆盖环境变量缺失"
+        },
+        {
+          "type": "fallback",
+          "derived_from": "规则：type=config → 覆盖默认值 / 配置回退"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：未设置关键环境变量时的行为（env 路径）",
+          "input": "使用 monkeypatch.delenv 删除约定变量名后调用",
+          "mock": "monkeypatch / patch.dict(os.environ, clear=True) 局部清除",
+          "assert": "应抛出明确 ConfigurationError/ValueError 或使用文档记载的默认值"
+        },
+        {
+          "scenario": "MyProviderClient：显式配置覆盖默认/回退（override 路径）",
+          "input": "在同时提供默认值与显式参数/配置文件时调用",
+          "mock": "patch 配置源顺序，制造后写覆盖先写",
+          "assert": "显式配置优先生效；回退链路与文档一致"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:build_config_for_model_identifier",
+      "type": "api",
+      "source": "seed:dependency:_build_config_for_model_identifier",
+      "risk_score": 0.4723,
+      "priority_score": 0.556332,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:logic_branch",
+      "type": "data_processing",
+      "source": "semantic_tag:logic_branch_changed",
+      "risk_score": 0.3519,
+      "priority_score": 0.545431,
+      "test_priority": "P1",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call",
+        "data"
+      ],
+      "integration_risk": true,
+      "referenced_symbol_ids": [
         "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
-        "focus:rejection_behavior"
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 1
-      }
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:env_missing",
-      "via": "derived_test_focus:.env",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
+      "semantic_unit_id": "api:post",
+      "type": "api",
+      "source": "seed:dependency:post",
+      "risk_score": 0.4541,
+      "priority_score": 0.53733,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_path": [
-        ".env",
-        "focus:env_missing"
+      "downstream": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 21
-      }
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:fallback",
-      "via": "derived_test_focus:.env",
-      "depth": 1,
-      "impact_type": [
-        "config",
-        "exception_flow"
+      "semantic_unit_id": "api:stream_request",
+      "type": "api",
+      "source": "seed:dependency:_stream_request",
+      "risk_score": 0.4541,
+      "priority_score": 0.537329,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_path": [
-        ".env",
-        "focus:fallback"
+      "downstream": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 21
-      }
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：流式响应中途取消/客户端断开",
+          "input": "消费 generator/async iterator 若干 chunk 后关闭",
+          "mock": "模拟 client 中断或 asyncio.CancelledError",
+          "assert": "资源释放（连接/文件句柄）；无悬挂任务；错误可观测"
+        },
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
     },
     {
-      "kind": "focus",
-      "id": "focus:boundary",
-      "via": "derived_test_focus:app/modules/intelligence/provider/llm_config.py",
-      "depth": 1,
-      "impact_type": [
-        "data_processing"
+      "semantic_unit_id": "api:time",
+      "type": "api",
+      "source": "seed:dependency:time",
+      "risk_score": 0.4541,
+      "priority_score": 0.537328,
+      "test_priority": "P0",
+      "centrality_factor": 1.0,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_path": [
-        "app/modules/intelligence/provider/llm_config.py",
-        "focus:boundary"
+      "downstream": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
       ],
-      "propagation_depth": 1,
-      "propagation_type": "test_focus",
-      "meta": {
-        "frequency_hits": 14
-      }
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "exception:exception",
+      "type": "exception",
+      "source": "seed:variable:Exception",
+      "risk_score": 0.5075,
+      "priority_score": 0.330427,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
+      ],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "error_paths",
+          "derived_from": "规则：type=exception → 覆盖错误分支与非法输入"
+        },
+        {
+          "type": "exception_assertion",
+          "derived_from": "规则：type=exception → 断言异常类型与信息"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "create_chat_completion：入参校验失败（内部异常路径）",
+          "input": "None、空集合、违反不变量的结构体",
+          "mock": "无需外网",
+          "assert": "抛出 ValueError/TypeError 等与类型注解一致的异常"
+        },
+        {
+          "scenario": "create_chat_completion：不变量破坏时的断言与错误消息",
+          "input": "构造违反业务规则的中间状态",
+          "mock": "必要时 patch 内部依赖返回非法组合",
+          "assert": "异常信息包含可定位字段（字段名/错误码）"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "exception:value_error",
+      "type": "exception",
+      "source": "seed:variable:ValueError",
+      "risk_score": 0.5075,
+      "priority_score": 0.330426,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
+      ],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:method:create_chat_completion"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "error_paths",
+          "derived_from": "规则：type=exception → 覆盖错误分支与非法输入"
+        },
+        {
+          "type": "exception_assertion",
+          "derived_from": "规则：type=exception → 断言异常类型与信息"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "create_chat_completion：入参校验失败（内部异常路径）",
+          "input": "None、空集合、违反不变量的结构体",
+          "mock": "无需外网",
+          "assert": "抛出 ValueError/TypeError 等与类型注解一致的异常"
+        },
+        {
+          "scenario": "create_chat_completion：不变量破坏时的断言与错误消息",
+          "input": "构造违反业务规则的中间状态",
+          "mock": "必要时 patch 内部依赖返回非法组合",
+          "assert": "异常信息包含可定位字段（字段名/错误码）"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:add",
+      "type": "api",
+      "source": "seed:dependency:add",
+      "risk_score": 0.4723,
+      "priority_score": 0.311825,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:append",
+      "type": "api",
+      "source": "seed:dependency:append",
+      "risk_score": 0.4723,
+      "priority_score": 0.311824,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:build_llm_params",
+      "type": "api",
+      "source": "seed:dependency:_build_llm_params",
+      "risk_score": 0.4723,
+      "priority_score": 0.311823,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:call_llm",
+      "type": "api",
+      "source": "seed:dependency:call_llm",
+      "risk_score": 0.4723,
+      "priority_score": 0.311822,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:format_anthropic_multimodal_message",
+      "type": "api",
+      "source": "seed:dependency:_format_anthropic_multimodal_message",
+      "risk_score": 0.4723,
+      "priority_score": 0.311821,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:format_gemini_multimodal_message",
+      "type": "api",
+      "source": "seed:dependency:_format_gemini_multimodal_message",
+      "risk_score": 0.4723,
+      "priority_score": 0.31182,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:format_multimodal_message",
+      "type": "api",
+      "source": "seed:dependency:_format_multimodal_message",
+      "risk_score": 0.4723,
+      "priority_score": 0.311819,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:format_multimodal_messages",
+      "type": "api",
+      "source": "seed:dependency:_format_multimodal_messages",
+      "risk_score": 0.4723,
+      "priority_score": 0.311818,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:format_openai_multimodal_message",
+      "type": "api",
+      "source": "seed:dependency:_format_openai_multimodal_message",
+      "risk_score": 0.4723,
+      "priority_score": 0.311817,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:validate_images_for_multimodal",
+      "type": "api",
+      "source": "seed:dependency:_validate_images_for_multimodal",
+      "risk_score": 0.4723,
+      "priority_score": 0.311816,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "ProviderService：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "ProviderService：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:iter_lines",
+      "type": "api",
+      "source": "seed:dependency:iter_lines",
+      "risk_score": 0.4541,
+      "priority_score": 0.302215,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "MyProviderClient：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "MyProviderClient：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:items",
+      "type": "api",
+      "source": "seed:dependency:items",
+      "risk_score": 0.4455,
+      "priority_score": 0.297714,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_pydantic_model：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "get_pydantic_model：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "api:warning",
+      "type": "api",
+      "source": "seed:dependency:warning",
+      "risk_score": 0.4455,
+      "priority_score": 0.297713,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "retry",
+          "derived_from": "规则：type=api → 覆盖重试与退避"
+        },
+        {
+          "type": "timeout",
+          "derived_from": "规则：type=api → 覆盖超时行为"
+        },
+        {
+          "type": "mock",
+          "derived_from": "规则：type=api → 对外部 IO 使用 mock/stub"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_pydantic_model：依赖服务返回 5xx / 连接错误",
+          "input": "可达 URL 但服务端错误",
+          "mock": "MockTransport 返回 500",
+          "assert": "重试策略或失败快速暴露；无无限阻塞"
+        },
+        {
+          "scenario": "get_pydantic_model：请求超时",
+          "input": "正常参数",
+          "mock": "挂起响应直至 timeout",
+          "assert": "在配置超时内失败并抛出可捕获超时异常"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "exception:input_validation",
+      "type": "exception",
+      "source": "semantic_tag:input_validation_added",
+      "risk_score": 0.3906,
+      "priority_score": 0.268712,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "call"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "error_paths",
+          "derived_from": "规则：type=exception → 覆盖错误分支与非法输入"
+        },
+        {
+          "type": "exception_assertion",
+          "derived_from": "规则：type=exception → 断言异常类型与信息"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model：入参校验失败（内部异常路径）",
+          "input": "None、空集合、违反不变量的结构体",
+          "mock": "无需外网",
+          "assert": "抛出 ValueError/TypeError 等与类型注解一致的异常"
+        },
+        {
+          "scenario": "get_config_for_model：不变量破坏时的断言与错误消息",
+          "input": "构造违反业务规则的中间状态",
+          "mock": "必要时 patch 内部依赖返回非法组合",
+          "assert": "异常信息包含可定位字段（字段名/错误码）"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "config:env_base_url",
+      "type": "config",
+      "source": "seed:variable:env_base_url",
+      "risk_score": 0.3769,
+      "priority_score": 0.261511,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "config"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "env_missing",
+          "derived_from": "规则：type=config → 覆盖环境变量缺失"
+        },
+        {
+          "type": "fallback",
+          "derived_from": "规则：type=config → 覆盖默认值 / 配置回退"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model：显式配置覆盖默认/回退（override 路径）",
+          "input": "在同时提供默认值与显式参数/配置文件时调用",
+          "mock": "patch 配置源顺序，制造后写覆盖先写",
+          "assert": "显式配置优先生效；回退链路与文档一致"
+        },
+        {
+          "scenario": "get_config_for_model：配置项类型或范围非法",
+          "input": "注入非数字端口、空 URL、负数超时等",
+          "mock": "patch 配置读取返回值",
+          "assert": "拒绝非法配置并失败可测，不应静默继续"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "config:fallback_base_url",
+      "type": "config",
+      "source": "seed:variable:fallback_base_url",
+      "risk_score": 0.3769,
+      "priority_score": 0.26151,
+      "test_priority": "P0",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "config"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "env_missing",
+          "derived_from": "规则：type=config → 覆盖环境变量缺失"
+        },
+        {
+          "type": "fallback",
+          "derived_from": "规则：type=config → 覆盖默认值 / 配置回退"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model：显式配置覆盖默认/回退（override 路径）",
+          "input": "在同时提供默认值与显式参数/配置文件时调用",
+          "mock": "patch 配置源顺序，制造后写覆盖先写",
+          "assert": "显式配置优先生效；回退链路与文档一致"
+        },
+        {
+          "scenario": "get_config_for_model：配置项类型或范围非法",
+          "input": "注入非数字端口、空 URL、负数超时等",
+          "mock": "patch 配置读取返回值",
+          "assert": "拒绝非法配置并失败可测，不应静默继续"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:anthropic_model",
+      "type": "data_processing",
+      "source": "seed:function:AnthropicModel",
+      "risk_score": 0.332,
+      "priority_score": 0.237809,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_pydantic_model 数据解析/校验（app/modules/intelligence/provider/provider_service.py::get_pydantic_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:anthropic_provider",
+      "type": "data_processing",
+      "source": "seed:function:AnthropicProvider",
+      "risk_score": 0.332,
+      "priority_score": 0.237808,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_pydantic_model 数据解析/校验（app/modules/intelligence/provider/provider_service.py::get_pydantic_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:open_aimodel",
+      "type": "data_processing",
+      "source": "seed:function:OpenAIModel",
+      "risk_score": 0.332,
+      "priority_score": 0.237807,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "downstream": [],
+      "upstream": [
+        "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+        "app/modules/intelligence/provider/provider_service.py:class:ProviderService"
+      ],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_pydantic_model 数据解析/校验（app/modules/intelligence/provider/provider_service.py::get_pydantic_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:any",
+      "type": "data_processing",
+      "source": "seed:variable:Any",
+      "risk_score": 0.2604,
+      "priority_score": 0.200006,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:fallback_auth_provider",
+      "type": "data_processing",
+      "source": "seed:variable:fallback_auth_provider",
+      "risk_score": 0.2604,
+      "priority_score": 0.200005,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:model_config_map",
+      "type": "data_processing",
+      "source": "seed:variable:MODEL_CONFIG_MAP",
+      "risk_score": 0.2604,
+      "priority_score": 0.200004,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:model_string",
+      "type": "data_processing",
+      "source": "seed:variable:model_string",
+      "risk_score": 0.2604,
+      "priority_score": 0.200003,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:os",
+      "type": "data_processing",
+      "source": "seed:variable:os",
+      "risk_score": 0.2604,
+      "priority_score": 0.200002,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:parse_model_string",
+      "type": "data_processing",
+      "source": "seed:function:parse_model_string; seed:variable:parse_model_string",
+      "risk_score": 0.2604,
+      "priority_score": 0.200001,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
+    },
+    {
+      "semantic_unit_id": "data_processing:provider",
+      "type": "data_processing",
+      "source": "seed:variable:provider",
+      "risk_score": 0.2604,
+      "priority_score": 0.2,
+      "test_priority": "P2",
+      "centrality_factor": 0.8,
+      "call_chain": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "downstream": [],
+      "upstream": [],
+      "edge_types": [
+        "data"
+      ],
+      "integration_risk": false,
+      "referenced_symbol_ids": [
+        "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model"
+      ],
+      "propagation_depth": 0,
+      "test_focus": [
+        {
+          "type": "boundary",
+          "derived_from": "规则：type=data_processing → 边界值与空输入"
+        },
+        {
+          "type": "invalid_input",
+          "derived_from": "规则：type=data_processing → 非法格式/解析失败"
+        }
+      ],
+      "test_strategy": [
+        {
+          "scenario": "get_config_for_model 数据解析/校验（app/modules/intelligence/provider/llm_config.py::get_config_for_model）",
+          "input": "合法边界、空输入、畸形片段",
+          "mock": "隔离文件与网络",
+          "assert": "合法通过；非法显式失败"
+        }
+      ]
     }
   ],
-  "impacted_ranked": [
+  "impact_graph": [
     {
-      "kind": "file",
-      "id": "app/modules/intelligence/myprovider_client.py",
-      "score": 1.0,
-      "reason": "changed_file | path=[app/modules/intelligence/myprovider_client.py] | prop_type=call | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.986; prop_depth=0; prop_type=call",
-      "test_strategy": [
+      "file": "app/modules/intelligence/myprovider_client.py",
+      "symbols": [
         {
-          "type": "env_missing_fallback",
-          "target": "app/modules/intelligence/myprovider_client.py",
-          "priority": 0.92
+          "name": "MyProviderClient",
+          "entity_type": "class",
+          "symbol_id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+          "semantic_unit_ids": [
+            "api:dependency_call",
+            "api:iter_lines",
+            "api:post",
+            "api:rstrip",
+            "api:stream_request",
+            "api:time",
+            "config:getenv",
+            "exception:exception_handling",
+            "exception:raise_for_status"
+          ],
+          "centrality": 1.2
         },
         {
-          "type": "exception_assertion",
-          "target": "app/modules/intelligence/myprovider_client.py",
-          "priority": 0.93
+          "name": "create_chat_completion",
+          "entity_type": "method",
+          "symbol_id": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+          "semantic_unit_ids": [
+            "api:dependency_call",
+            "api:post",
+            "api:stream_request",
+            "api:time",
+            "config:getenv",
+            "exception:exception",
+            "exception:exception_handling",
+            "exception:raise_for_status",
+            "exception:value_error"
+          ],
+          "centrality": 1.2
         }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
       ]
     },
     {
-      "kind": "file",
-      "id": "app/modules/intelligence/provider/provider_service.py",
-      "score": 1.0,
-      "reason": "changed_file | path=[app/modules/intelligence/provider/provider_service.py] | prop_type=call | types=[exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.986; prop_depth=0; prop_type=call",
-      "test_strategy": [
+      "file": "app/modules/intelligence/provider/llm_config.py",
+      "symbols": [
         {
-          "type": "exception_assertion",
-          "target": "app/modules/intelligence/provider/provider_service.py",
-          "priority": 0.93
+          "name": "get_config_for_model",
+          "entity_type": "function",
+          "symbol_id": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+          "semantic_unit_ids": [
+            "api:dependency_call",
+            "api:get",
+            "config:env_base_url",
+            "config:fallback_base_url",
+            "data_processing:any",
+            "data_processing:fallback_auth_provider",
+            "data_processing:logic_branch",
+            "data_processing:model_config_map",
+            "data_processing:model_string",
+            "data_processing:os",
+            "data_processing:parse_model_string",
+            "data_processing:provider",
+            "exception:input_validation"
+          ],
+          "centrality": 1.2
         }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "exception_flow"
       ]
     },
     {
-      "kind": "symbol",
-      "id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-      "score": 1.0,
-      "reason": "changed_entity | path=[app/modules/intelligence/myprovider_client.py:class:MyProviderClient] | prop_type=exception | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=1.000; after_graph_boost=1.000; prop_depth=0; prop_type=exception",
-      "test_strategy": [
+      "file": "app/modules/intelligence/provider/provider_service.py",
+      "symbols": [
         {
-          "type": "env_missing_fallback",
-          "target": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-          "priority": 0.92
+          "name": "ProviderService",
+          "entity_type": "class",
+          "symbol_id": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+          "semantic_unit_ids": [
+            "api:add",
+            "api:append",
+            "api:build_config_for_model_identifier",
+            "api:build_llm_params",
+            "api:call_llm",
+            "api:dependency_call",
+            "api:format_anthropic_multimodal_message",
+            "api:format_gemini_multimodal_message",
+            "api:format_multimodal_message",
+            "api:format_multimodal_messages",
+            "api:format_openai_multimodal_message",
+            "api:validate_images_for_multimodal",
+            "config:get_api_key",
+            "data_processing:logic_branch",
+            "exception:exception_handling"
+          ],
+          "centrality": 1.2
         },
         {
-          "type": "exception_assertion",
-          "target": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
-          "priority": 0.93
+          "name": "get_pydantic_model",
+          "entity_type": "method",
+          "symbol_id": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+          "semantic_unit_ids": [
+            "api:build_config_for_model_identifier",
+            "api:dependency_call",
+            "api:get",
+            "api:items",
+            "api:rstrip",
+            "api:warning",
+            "config:get_api_key",
+            "data_processing:anthropic_model",
+            "data_processing:anthropic_provider",
+            "data_processing:logic_branch",
+            "data_processing:open_aimodel"
+          ],
+          "centrality": 1.2
         }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:getenv] | prop_type=config | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=config",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:getenv",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:iter_lines",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:json] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:json",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:loads] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:loads",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:post] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:post",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:raise_for_status",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.740; after_graph_boost=0.863; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:rstrip",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:split] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:split",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:startswith] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:startswith",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:strip] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:strip",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
-      ]
-    },
-    {
-      "kind": "seed",
-      "id": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
-      "score": 1.0,
-      "reason": "impact_seed:MyProviderClient | path=[seed:app/modules/intelligence/myprovider_client.py:dependency:time] | prop_type=data_flow | types=[config,exception_flow] | product(decay=1.000,dep=1.30)=0.766; after_graph_boost=0.966; prop_depth=0; prop_type=data_flow",
-      "test_strategy": [
-        {
-          "type": "env_missing_fallback",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
-          "priority": 0.92
-        },
-        {
-          "type": "exception_assertion",
-          "target": "seed:app/modules/intelligence/myprovider_client.py:dependency:time",
-          "priority": 0.93
-        }
-      ],
-      "system_impact": [
-        "configuration_system",
-        "fallback_mechanism",
-        "multimodal_pipeline"
-      ],
-      "initial_score": 1.0,
-      "impact_type": [
-        "config",
-        "exception_flow"
       ]
     }
   ],
+  "impact_test_plan": [
+    {
+      "target": "MyProviderClient",
+      "symbol_id": "app/modules/intelligence/myprovider_client.py:class:MyProviderClient",
+      "priority": "P0",
+      "test_types": [
+        "env",
+        "exception",
+        "integration",
+        "mock"
+      ],
+      "estimated_cases": 8,
+      "reason": "语义单元：api, config, exception；estimated_cases=9×avg_priority×1.5；存在跨文件/多模块调用链（integration 风险）；最高测试优先级 P0（按 config/exception/api 优先规则）"
+    },
+    {
+      "target": "create_chat_completion",
+      "symbol_id": "app/modules/intelligence/myprovider_client.py:method:create_chat_completion",
+      "priority": "P0",
+      "test_types": [
+        "env",
+        "exception",
+        "integration",
+        "mock"
+      ],
+      "estimated_cases": 8,
+      "reason": "语义单元：api, config, exception；estimated_cases=9×avg_priority×1.5；存在跨文件/多模块调用链（integration 风险）；最高测试优先级 P0（按 config/exception/api 优先规则）"
+    },
+    {
+      "target": "get_config_for_model",
+      "symbol_id": "app/modules/intelligence/provider/llm_config.py:function:get_config_for_model",
+      "priority": "P0",
+      "test_types": [
+        "env",
+        "exception",
+        "integration",
+        "mock",
+        "unit"
+      ],
+      "estimated_cases": 6,
+      "reason": "语义单元：api, config, data_processing, exception；estimated_cases=13×avg_priority×1.5；存在跨文件/多模块调用链（integration 风险）；最高测试优先级 P0（按 config/exception/api 优先规则）"
+    },
+    {
+      "target": "ProviderService",
+      "symbol_id": "app/modules/intelligence/provider/provider_service.py:class:ProviderService",
+      "priority": "P0",
+      "test_types": [
+        "env",
+        "exception",
+        "integration",
+        "mock",
+        "unit"
+      ],
+      "estimated_cases": 10,
+      "reason": "语义单元：api, config, data_processing, exception；estimated_cases=15×avg_priority×1.5；存在跨文件/多模块调用链（integration 风险）；最高测试优先级 P0（按 config/exception/api 优先规则）"
+    },
+    {
+      "target": "get_pydantic_model",
+      "symbol_id": "app/modules/intelligence/provider/provider_service.py:method:get_pydantic_model",
+      "priority": "P0",
+      "test_types": [
+        "env",
+        "integration",
+        "mock",
+        "unit"
+      ],
+      "estimated_cases": 8,
+      "reason": "语义单元：api, config, data_processing；estimated_cases=11×avg_priority×1.5；存在跨文件/多模块调用链（integration 风险）；最高测试优先级 P0（按 config/exception/api 优先规则）"
+    }
+  ],
+  "top_risks": [
+    {
+      "semantic_unit_id": "api:dependency_call",
+      "reason": "priority_score=0.900；integration 风险；多符号引用×5"
+    },
+    {
+      "semantic_unit_id": "exception:exception_handling",
+      "reason": "priority_score=0.787；integration 风险；多符号引用×3"
+    },
+    {
+      "semantic_unit_id": "api:rstrip",
+      "reason": "priority_score=0.680；integration 风险；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "api:get",
+      "reason": "priority_score=0.668；integration 风险；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "config:get_api_key",
+      "reason": "priority_score=0.595；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "exception:raise_for_status",
+      "reason": "priority_score=0.593；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "config:getenv",
+      "reason": "priority_score=0.575；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "api:build_config_for_model_identifier",
+      "reason": "priority_score=0.556；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "data_processing:logic_branch",
+      "reason": "priority_score=0.545；integration 风险；多符号引用×3"
+    },
+    {
+      "semantic_unit_id": "api:post",
+      "reason": "priority_score=0.537；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "api:stream_request",
+      "reason": "priority_score=0.537；多符号引用×2"
+    },
+    {
+      "semantic_unit_id": "api:time",
+      "reason": "priority_score=0.537；多符号引用×2"
+    }
+  ],
+  "impacted": [],
+  "impacted_ranked": [],
   "debug": {
     "diff_stats": {
       "files": 6,
@@ -1790,23 +2196,69 @@
       "elapsed_seconds": 0.014
     },
     "impact": {
-      "candidate_count": 76,
-      "ranked_count": 15,
-      "used_llm": true,
+      "mode": "impact_graph_v4",
+      "candidate_count": 0,
+      "ranked_count": 0,
+      "used_llm": false,
       "change_graph_used": true,
       "propagation_hops_max": 3,
-      "base_candidate_count": 60,
-      "propagated_candidate_count": 2325,
-      "synthetic_focus_candidate_count": 156,
-      "test_focus_count": 16,
+      "semantic_unit_catalog_count": 40,
+      "impact_test_plan_count": 5,
+      "top_priority_semantic_unit_ids": [
+        "api:dependency_call",
+        "exception:exception_handling",
+        "api:rstrip",
+        "api:get",
+        "config:get_api_key",
+        "exception:raise_for_status",
+        "config:getenv",
+        "api:build_config_for_model_identifier",
+        "data_processing:logic_branch",
+        "api:post",
+        "api:stream_request",
+        "api:time",
+        "exception:exception",
+        "exception:value_error",
+        "api:add"
+      ],
+      "priority_score_top_5": [
+        {
+          "semantic_unit_id": "api:dependency_call",
+          "priority_score": 0.9,
+          "reason": "score=0.9000; risk=0.472; integration"
+        },
+        {
+          "semantic_unit_id": "exception:exception_handling",
+          "priority_score": 0.786738,
+          "reason": "score=0.7867; risk=0.528; integration"
+        },
+        {
+          "semantic_unit_id": "api:rstrip",
+          "priority_score": 0.679737,
+          "reason": "score=0.6797; risk=0.454; integration"
+        },
+        {
+          "semantic_unit_id": "api:get",
+          "priority_score": 0.668136,
+          "reason": "score=0.6681; risk=0.446; integration"
+        },
+        {
+          "semantic_unit_id": "config:get_api_key",
+          "priority_score": 0.595035,
+          "reason": "score=0.5950; risk=0.509"
+        }
+      ],
       "impact_type_distribution": {
-        "exception_flow": 55,
-        "config": 30,
-        "data_processing": 25
+        "api": 20,
+        "data_processing": 11,
+        "exception": 5,
+        "config": 4
       },
-      "ranking_mode": "llm_error_fallback",
-      "llm_error": "JSONDecodeError: Expecting ',' delimiter: line 503 column 18 (char 16999)",
-      "elapsed_seconds": 121.489
+      "ranking_mode": "v4_risk_x_change_x_centrality_x_logrefs_x_integration_mapped_0.2_0.9",
+      "llm_error": null,
+      "elapsed_seconds": 0.002,
+      "llm_refine_enabled": false,
+      "note": "V4：semantic_units_catalog（原子 id）+ upstream/edge_types + impact_test_plan + top_risks"
     }
   }
 }

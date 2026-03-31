@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from mutiagent.graph.state import ChangeRecord, FileChangeSummary, ImpactSeed, WorkflowState
-from mutiagent.nodes import impact_analysis_agent as impact_analysis_mod
-from mutiagent.nodes.impact_analysis_agent import _rule_impact, analyze_impact
+from mutiagent.nodes.impact_analysis_agent import analyze_impact, build_impact_graph
 from mutiagent.utils.change_graph_builder import (
     build_change_graph,
     impact_candidate_graph_boost,
@@ -39,7 +38,8 @@ def test_build_change_graph_edges_and_focus() -> None:
     assert ("src/App.jsx", sym, "contains_change") in rels
 
 
-def test_rule_impact_seed_ids_match_graph() -> None:
+def test_build_impact_graph_includes_non_pruned_seed() -> None:
+    """非剪枝 seed 应进入对应符号的 semantic_unit.source。"""
     fs = FileChangeSummary(
         file="a.py",
         changes=[
@@ -50,7 +50,7 @@ def test_rule_impact_seed_ids_match_graph() -> None:
                 semantic_tags=[],
                 test_focus=[],
                 intent="REFACTOR",
-                impact_seeds=[ImpactSeed(kind="variable", name="x", source="ast")],
+                impact_seeds=[ImpactSeed(kind="variable", name="user_id", source="ast")],
             )
         ],
     )
@@ -61,10 +61,10 @@ def test_rule_impact_seed_ids_match_graph() -> None:
         change_analysis=[fs],
         change_graph=build_change_graph([fs]),
     )
-    cands = _rule_impact(state)
-    seed_c = [c for c in cands if c.id.startswith("seed:")]
-    assert any(c.id == "seed:a.py:variable:x" for c in seed_c)
-    assert any(c.kind == "seed" for c in seed_c)
+    graph, catalog = build_impact_graph(state)
+    assert graph and catalog
+    assert any("seed:variable:user_id" in u.source for u in catalog)
+    assert any(sym.semantic_unit_ids for g in graph for sym in g.symbols)
 
 
 def test_impact_candidate_graph_boost_nonzero_for_focus() -> None:
@@ -87,8 +87,7 @@ def test_impact_candidate_graph_boost_nonzero_for_focus() -> None:
     assert impact_candidate_graph_boost("symbol", sid, g) > 0
 
 
-def test_analyze_impact_propagation_reaches_focus(monkeypatch) -> None:
-    monkeypatch.setattr(impact_analysis_mod, "llm_available", lambda: False)
+def test_analyze_impact_builds_layered_impact_graph() -> None:
     fs = FileChangeSummary(
         file="src/App.jsx",
         changes=[
@@ -96,11 +95,11 @@ def test_analyze_impact_propagation_reaches_focus(monkeypatch) -> None:
                 entity="Navbar",
                 type="function",
                 change_type="MODIFY",
-                semantic_tags=["logic_branch_changed"],
+                semantic_tags=["logic_branch_changed", "dependency_call_changed"],
                 test_focus=["branch_coverage"],
                 intent="BUG_FIX",
                 impact_seeds=[
-                    ImpactSeed(kind="function", name="close", source="diff"),
+                    ImpactSeed(kind="function", name="fetchUser", source="diff"),
                 ],
             )
         ],
@@ -114,9 +113,39 @@ def test_analyze_impact_propagation_reaches_focus(monkeypatch) -> None:
         change_graph=g,
     )
     out = analyze_impact(state)
-    kinds = {c.kind for c in out.impacted}
-    assert "focus" in kinds
-    assert any(c.id.startswith("focus:") for c in out.impacted)
-    assert out.debug["impact"]["propagated_candidate_count"] >= 1
-    top = out.impacted_ranked[0]
-    assert hasattr(top, "test_strategy") and isinstance(top.test_strategy, list)
+    assert out.impacted == []
+    assert out.impacted_ranked == []
+    assert out.impact_graph
+    assert out.impact_graph[0].file == "src/App.jsx"
+    sym = out.impact_graph[0].symbols[0]
+    assert sym.name == "Navbar"
+    assert sym.semantic_unit_ids
+    cmap = {u.semantic_unit_id: u for u in out.semantic_units_catalog}
+    u0 = cmap[sym.semantic_unit_ids[0]]
+    assert u0.test_focus
+    assert all(tf.derived_from for tf in u0.test_focus)
+    assert u0.test_strategy
+    assert u0.test_strategy[0].scenario
+    assert u0.priority_score >= 0.0
+    assert out.debug["impact"]["mode"] == "impact_graph_v4"
+    assert out.debug["impact"].get("priority_score_top_5")
+    assert out.impact_test_plan
+
+
+def test_build_impact_graph_prunes_builtin_seed() -> None:
+    fs = FileChangeSummary(
+        file="x.py",
+        changes=[
+            ChangeRecord(
+                entity="f",
+                type="function",
+                change_type="MODIFY",
+                semantic_tags=[],
+                intent="REFACTOR",
+                impact_seeds=[ImpactSeed(kind="function", name="strip", source="diff")],
+            )
+        ],
+    )
+    state = WorkflowState(repo_path="/tmp", diff="", change_analysis=[fs])
+    graph, catalog = build_impact_graph(state)
+    assert graph == [] and catalog == [] or all("strip" not in u.source for u in catalog)

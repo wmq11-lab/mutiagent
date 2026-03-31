@@ -10,8 +10,23 @@ def test_prioritization_agent(state: WorkflowState) -> WorkflowState:
     便于与「影响范围」一致地抬高集成/分支等关注点相关用例。
     """
     score_by_target: dict[str, float] = {}
-    for it in state.impacted_ranked:
-        score_by_target[it.id] = max(score_by_target.get(it.id, 0.0), float(it.score))
+
+    cmap = {u.semantic_unit_id: u for u in state.semantic_units_catalog}
+    if state.impact_graph:
+        for igf in state.impact_graph:
+            best_file = 0.0
+            for sym in igf.symbols:
+                su_max = max(
+                    (cmap[i].priority_score for i in sym.semantic_unit_ids if i in cmap),
+                    default=0.0,
+                )
+                su_max *= sym.centrality
+                best_file = max(best_file, su_max)
+                score_by_target[sym.symbol_id] = max(score_by_target.get(sym.symbol_id, 0.0), su_max)
+            score_by_target[igf.file] = max(score_by_target.get(igf.file, 0.0), best_file)
+    else:
+        for it in state.impacted_ranked:
+            score_by_target[it.id] = max(score_by_target.get(it.id, 0.0), float(it.score))
 
     graph = state.change_graph
 

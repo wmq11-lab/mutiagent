@@ -73,6 +73,12 @@ def run_workflow(repo_path: str, diff: str, run_eval: bool = False) -> dict[str,
         "changed_files": out.changed_files,
         "change_analysis": out.change_analysis,
         "change_graph": out.change_graph.model_dump() if out.change_graph else None,
+        "impact_graph": [g.model_dump(mode="json", by_alias=True) for g in out.impact_graph],
+        "semantic_units_catalog": [
+            u.model_dump(mode="json", by_alias=True) for u in out.semantic_units_catalog
+        ],
+        "impact_test_plan": [p.model_dump(mode="json") for p in out.impact_test_plan],
+        "top_risks": [r.model_dump(mode="json") for r in out.top_risks],
         "impacted": out.impacted_ranked,
         "test_plan": out.test_plan,
         "generated_tests": out.generated_tests,

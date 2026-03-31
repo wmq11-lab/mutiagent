@@ -224,16 +224,25 @@ def _run(args: argparse.Namespace) -> None:
 
     out = analyze_impact(state)
     if args.verbose:
+        ng = len(out.impact_graph)
+        n_cat = len(out.semantic_units_catalog)
+        n_plan = len(out.impact_test_plan)
         _stderr_log(
             "run complete: "
-            f"candidates={len(out.impacted)} "
-            f"ranked={len(out.impacted_ranked)} "
+            f"impact_graph_files={ng} catalog_units={n_cat} impact_test_plan={n_plan} "
+            f"legacy_impacted={len(out.impacted)} legacy_ranked={len(out.impacted_ranked)} "
             f"elapsed={time.perf_counter() - started_at:.2f}s"
         )
 
     result: dict = {
         "repo_path": out.repo_path,
         "changed_files": out.changed_files,
+        "semantic_units_catalog": [
+            u.model_dump(mode="json", by_alias=True) for u in out.semantic_units_catalog
+        ],
+        "impact_graph": [g.model_dump(mode="json", by_alias=True) for g in out.impact_graph],
+        "impact_test_plan": [p.model_dump(mode="json") for p in out.impact_test_plan],
+        "top_risks": [r.model_dump(mode="json") for r in out.top_risks],
         "impacted": [item.model_dump() for item in out.impacted],
         "impacted_ranked": [item.model_dump() for item in out.impacted_ranked],
         "debug": out.debug,
@@ -266,9 +275,26 @@ def _run(args: argparse.Namespace) -> None:
             fn = fs.get("file", "")
             nch = len(fs.get("changes") or [])
             print(f"  {fn}: {nch} change(s)")
-    print("\n=== impacted (candidates) ===")
+    print("\n=== semantic_units_catalog (count) ===")
+    print(f"  {len(result.get('semantic_units_catalog') or [])} unique semantic unit(s)")
+    print("\n=== impact_test_plan (summary) ===")
+    for row in (result.get("impact_test_plan") or [])[:12]:
+        print(
+            f"  [{row.get('priority')}] {row.get('target')} "
+            f"cases~{row.get('estimated_cases')} types={row.get('test_types')}"
+        )
+    print("\n=== top_risks (V4) ===")
+    for tr in (result.get("top_risks") or [])[:8]:
+        print(f"  {tr.get('semantic_unit_id')}: {tr.get('reason')}")
+    print("\n=== impact_graph (summary) ===")
+    for gf in result.get("impact_graph") or []:
+        fn = gf.get("file", "")
+        for sym in gf.get("symbols") or []:
+            n_u = len(sym.get("semantic_unit_ids") or [])
+            print(f"  {fn} :: {sym.get('name')} ({n_u} semantic unit id(s))")
+    print("\n=== impacted (legacy flat, may be empty) ===")
     pprint(result["impacted"])
-    print("\n=== impacted_ranked (final) ===")
+    print("\n=== impacted_ranked (legacy, may be empty) ===")
     pprint(result["impacted_ranked"])
     print("\n=== debug ===")
     pprint(result["debug"])

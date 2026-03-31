@@ -36,9 +36,27 @@ def feedback_agent(state: WorkflowState) -> WorkflowState:
         "你是资深Python测试负责人。给定pytest失败输出与当前测试计划，请输出3-6条下一步改进建议。"
         "只输出纯文本要点列表（每行一条），不要markdown。"
     )
+    top_sig: list[str] = []
+    cmap = {u.semantic_unit_id: u for u in state.semantic_units_catalog}
+    if state.impact_graph:
+        flat: list[tuple[float, str]] = []
+        for igf in state.impact_graph:
+            for sym in igf.symbols:
+                for uid in sym.semantic_unit_ids:
+                    u = cmap.get(uid)
+                    if not u:
+                        continue
+                    flat.append(
+                        (u.priority_score, f"{igf.file}::{sym.name}::{u.semantic_unit_id}")
+                    )
+        flat.sort(key=lambda x: -x[0])
+        top_sig = [x[1] for x in flat[:8]]
+    else:
+        top_sig = [i.id for i in state.impacted_ranked[:8]]
+
     user = (
         f"changed_files: {state.changed_files}\n"
-        f"top_impacted: {[i.id for i in state.impacted_ranked[:8]]}\n"
+        f"top_impacted: {top_sig}\n"
         f"test_plan: {[p.model_dump() for p in (state.prioritized_plan or state.test_plan)[:10]]}\n\n"
         f"pytest_stdout:\n{state.evaluation.stdout}\n\npytest_stderr:\n{state.evaluation.stderr}\n"
     )
