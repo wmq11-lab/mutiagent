@@ -127,8 +127,12 @@ class GenerateTestsRequest(BaseModel):
     repo_path: str = Field(..., description="被分析的Python项目路径（本地路径）")
     diff: str = Field(..., description="git diff 文本（建议为`git diff`原始输出）")
     run_eval: bool = Field(
-        default=False,
-        description="是否尝试在目标项目中执行pytest并返回摘要（需要安装.[eval]依赖）",
+        default=True,
+        description=(
+            "是否在目标项目中执行生成的 pytest 并返回摘要；默认开启并在仓库下写入 "
+            "`.mutiagent/reports/<时间戳>/`（`report.html`、`junit.xml`、stdout/stderr 文本、summary.json）。"
+            "需目标环境可运行 pytest。关闭文件落盘可设环境变量 MUTIAGENT_DISABLE_TEST_REPORT=1。"
+        ),
     )
 
 
@@ -217,6 +221,10 @@ class EvalSummary(BaseModel):
     stdout: str = ""
     stderr: str = ""
     coverage: Optional[float] = None
+    report_dir: Optional[str] = Field(
+        default=None,
+        description="pytest 落盘报告目录（绝对路径）；未执行或未写入时为 None",
+    )
 
 
 class GenerateTestsResponse(BaseModel):

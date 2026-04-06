@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>mutiagent · 智能测试工作台</title>
+  <link rel="stylesheet" href="https://unpkg.com/vis-network@9.1.9/styles/vis-network.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-top">
+      <div class="app-top-brand">
+        <span class="logo">mutiagent</span>
+        <span class="logo-sub">变更驱动 · 影响分析 · 用例生成</span>
+      </div>
+      <div class="app-top-context">
+        <label class="top-field">
+          <span class="top-label">项目</span>
+          <select id="top_project" title="当前仓库">
+            <option value="">— 选择已保存项目 —</option>
+          </select>
+        </label>
+        <label class="top-field">
+          <span class="top-label">分支</span>
+          <input type="text" id="top_branch" placeholder="备注 / 默认分支" autocomplete="off"/>
+        </label>
+        <div class="top-field top-user">
+          <span class="top-label">用户</span>
+          <span id="top_user" class="top-user-name">本地用户</span>
+        </div>
+      </div>
+      <div class="app-top-actions">
+        <span id="health_badge" class="badge">API …</span>
+        <a href="/" class="top-link">API 说明</a>
+        <a href="/docs" class="top-link">Swagger</a>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav class="side-nav" id="side_nav">
+          <button type="button" class="nav-item active" data-view="dashboard"><span class="nav-icon">1</span><span>Dashboard</span></button>
+          <button type="button" class="nav-item" data-view="projects"><span class="nav-icon">2</span><span>Projects</span></button>
+          <button type="button" class="nav-item" data-view="changes"><span class="nav-icon">3</span><span>Changes</span></button>
+          <button type="button" class="nav-item" data-view="impact"><span class="nav-icon">★</span><span>Impact Analysis</span></button>
+          <button type="button" class="nav-item" data-view="testing"><span class="nav-icon">5</span><span>Testing</span></button>
+          <button type="button" class="nav-item" data-view="cases"><span class="nav-icon">6</span><span>Test Cases</span></button>
+          <button type="button" class="nav-item" data-view="execution"><span class="nav-icon">7</span><span>Execution</span></button>
+          <button type="button" class="nav-item" data-view="reports"><span class="nav-icon">8</span><span>Reports</span></button>
+          <button type="button" class="nav-item" data-view="settings"><span class="nav-icon">9</span><span>Settings</span></button>
+        </nav>
+      </aside>
+
+      <main class="app-main">
+        <!-- 1 Dashboard -->
+        <section id="view-dashboard" class="view view-active">
+          <div class="view-header">
+            <h1>全局总览</h1>
+            <p class="view-desc">面向评审与演示：聚合最近一次分析与历史趋势（数据来自本地会话中保存的分析批次）。</p>
+          </div>
+          <div class="grid-cards grid-cards-4">
+            <div class="card stat-card accent">
+              <h3>最近变更文件</h3>
+              <p id="dash_metric_changes" class="stat-value">—</p>
+              <p class="hint">最近一次分析</p>
+            </div>
+            <div class="card stat-card warn">
+              <h3>高风险单元</h3>
+              <p id="dash_metric_risk" class="stat-value">—</p>
+              <p class="hint">top_risks / P0 语义单元</p>
+            </div>
+            <div class="card stat-card">
+              <h3>测试覆盖率</h3>
+              <p id="dash_metric_cov" class="stat-value">—</p>
+              <p class="hint">pytest 报告解析（若有）</p>
+            </div>
+            <div class="card stat-card">
+              <h3>最近失败率</h3>
+              <p id="dash_metric_fail" class="stat-value">—</p>
+              <p class="hint">最近 10 次分析批次</p>
+            </div>
+          </div>
+          <div class="grid-charts">
+            <div class="card chart-card">
+              <h2>失败率趋势</h2>
+              <p class="hint">按分析批次：1=失败 0=通过（需开启 run_eval）</p>
+              <div class="chart-wrap"><canvas id="chart_trend" height="200"></canvas></div>
+            </div>
+            <div class="card chart-card">
+              <h2>风险分布</h2>
+              <p class="hint">基于语义单元 test_priority（最近一次）</p>
+              <div class="chart-wrap chart-wrap-pie"><canvas id="chart_pie" height="220"></canvas></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>快捷入口</h2>
+            <div class="row">
+              <button type="button" class="btn btn-primary" id="dash_go_changes">代码变更中心</button>
+              <button type="button" class="btn btn-ghost" id="dash_go_impact">影响分析</button>
+              <button type="button" class="btn btn-ghost" id="dash_go_cases">用例中心</button>
+              <button type="button" class="btn btn-ghost" id="dash_refresh_health">刷新 API</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 Projects -->
+        <section id="view-projects" class="view">
+          <div class="view-header">
+            <h1>项目管理</h1>
+            <p class="view-desc">维护 Git 仓库路径、默认分支与 CI/CD 绑定（前端本地；真实集成需对接流水线 API）。</p>
+          </div>
+          <div id="project_detail_wrap" class="hidden">
+            <div class="card">
+              <button type="button" class="btn btn-ghost" id="project_detail_back">← 返回列表</button>
+              <h2 id="project_detail_title">项目详情</h2>
+              <div id="project_detail_body" class="project-detail-body"></div>
+            </div>
+          </div>
+          <div id="projects_main">
+            <div class="card">
+              <h2>添加 Git 仓库</h2>
+              <div class="field-row">
+                <div class="field grow"><label for="proj_name">名称</label><input type="text" id="proj_name" placeholder="展示名"/></div>
+                <div class="field grow"><label for="proj_path">绝对路径</label><input type="text" id="proj_path" placeholder="/path/to/repo"/></div>
+              </div>
+              <div class="field-row">
+                <div class="field grow"><label for="proj_branch">默认分支</label><input type="text" id="proj_branch" placeholder="main"/></div>
+                <div class="field grow">
+                  <label for="proj_ci">CI/CD（备注）</label>
+                  <input type="text" id="proj_ci" placeholder="如 GitHub Actions / Jenkins URL"/>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary" id="proj_add">添加</button>
+            </div>
+            <div class="card">
+              <h2>项目卡片</h2>
+              <div id="projects_grid" class="projects-grid"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 Changes -->
+        <section id="view-changes" class="view">
+          <div class="view-header">
+            <h1>代码变更中心</h1>
+            <p class="view-desc">发起分析与查看历史批次（类 GitHub Commits；详情含 diff 与变更实体）。</p>
+          </div>
+          <div class="tabs-inline" id="changes_tabs">
+            <button type="button" class="tab-inline active" data-chtab="run">发起分析</button>
+            <button type="button" class="tab-inline" data-chtab="timeline">变更时间线</button>
+          </div>
+          <div id="changes_panel_run" class="changes-panel">
+            <div class="card">
+              <form id="form">
+                <div class="field">
+                  <label for="repo_path">仓库根目录</label>
+                  <input type="text" id="repo_path" autocomplete="off"/>
+                </div>
+                <div class="field">
+                  <label for="diff">Unified diff</label>
+                  <textarea id="diff" placeholder="diff --git a/..."></textarea>
+                </div>
+                <div class="row">
+                  <label class="checkbox"><input type="checkbox" id="run_eval" checked/> 执行 pytest（run_eval）</label>
+                </div>
+                <div class="row">
+                  <button type="submit" class="btn btn-primary" id="submit">运行全流程</button>
+                  <button type="button" class="btn btn-ghost" id="load_sample">示例 diff</button>
+                  <button type="button" class="btn btn-ghost" id="clear_result">清空会话结果</button>
+                </div>
+                <p id="status" class="status-line"></p>
+              </form>
+            </div>
+            <div class="card">
+              <h2>本次运行摘要</h2>
+              <div id="changes_summary" class="mini-summary"><p class="empty">提交后更新</p></div>
+            </div>
+          </div>
+          <div id="changes_panel_timeline" class="changes-panel hidden">
+            <div class="card">
+              <h2>分析批次</h2>
+              <p class="hint">每次「运行全流程」会在本地记录一条（非真实 git commit）。</p>
+              <div class="table-wrap">
+                <table class="data-table" id="changes_table">
+                  <thead><tr><th>时间</th><th>作者</th><th>仓库</th><th>文件数</th><th>风险</th><th>pytest</th><th></th></tr></thead>
+                  <tbody id="changes_tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="changes_panel_detail" class="hidden">
+            <div class="card">
+              <button type="button" class="btn btn-ghost" id="changes_detail_back">← 返回时间线</button>
+              <h2 id="changes_detail_title">变更详情</h2>
+              <div id="changes_detail_meta" class="mini-summary"></div>
+              <h3 class="block-title">Diff</h3>
+              <pre id="changes_detail_diff" class="json-out diff-box"></pre>
+              <h3 class="block-title">变更实体（function / class）</h3>
+              <div id="changes_detail_entities"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4 Impact -->
+        <section id="view-impact" class="view">
+          <div class="view-header">
+            <h1>影响分析</h1>
+            <p class="view-desc">三栏：变更摘要 · 影响图谱 · 详情与筛选（论文创新点展示页；图谱由 impact_graph 构建）。</p>
+          </div>
+          <div class="toolbar-impact">
+            <label class="checkbox"><input type="checkbox" id="impact_filter_p0" checked/> 仅高优 P0 相关</label>
+            <label class="checkbox"><input type="checkbox" id="impact_filter_sym" checked/> 显示符号节点</label>
+            <span class="toolbar-spacer"></span>
+            <span class="hint">多提交对比：需后端提供多版本 diff API（当前为 UI 占位）</span>
+            <select id="impact_compare" class="select-sm" disabled title="规划中">
+              <option>单提交视图</option>
+            </select>
+          </div>
+          <div class="impact-3col">
+            <div class="card impact-col">
+              <h2>变更信息</h2>
+              <div id="impact_left"></div>
+            </div>
+            <div class="card impact-col impact-graph-card">
+              <h2>影响图谱</h2>
+              <div id="vis_network" class="vis-host"></div>
+              <p class="hint">拖拽平移；滚轮缩放</p>
+            </div>
+            <div class="card impact-col">
+              <h2>影响详情</h2>
+              <div id="impact_right"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>语义单元目录（节选）</h2>
+            <pre id="impact_catalog" class="json-out"></pre>
+          </div>
+        </section>
+
+        <!-- 5 Testing -->
+        <section id="view-testing" class="view">
+          <div class="view-header">
+            <h1>测试策略中心</h1>
+            <p class="view-desc">从分析到决策：聚合 impact_test_plan / test_plan，支持优先级展示与本地调整（刷新后重置）。</p>
+          </div>
+          <div class="card">
+            <div class="row" style="justify-content:space-between;width:100%">
+              <h2 style="margin:0">推荐策略列表</h2>
+              <button type="button" class="btn btn-ghost" id="testing_reset_prio">重置排序</button>
+            </div>
+            <div id="testing_strategies" class="strategy-list"></div>
+            <p class="hint">类型标签：单元 / API / 集成 等由规则与语义标签映射；完整逻辑在后端扩展。</p>
+          </div>
+          <div class="card">
+            <button type="button" class="btn btn-primary" id="testing_go_changes">前往发起新分析</button>
+          </div>
+        </section>
+
+        <!-- 6 Test Cases -->
+        <section id="view-cases" class="view">
+          <div class="view-header">
+            <h1>用例中心</h1>
+            <p class="view-desc">左侧列表 · 右侧详情；支持导出 JSON（Excel 需后端）。</p>
+          </div>
+          <div class="split-case card card-flush">
+            <aside class="case-list" id="case_list"></aside>
+            <div class="case-detail">
+              <div class="case-detail-head">
+                <h2 id="case_detail_title">选择用例</h2>
+                <div class="row">
+                  <button type="button" class="btn btn-ghost" id="case_export_one">导出当前 JSON</button>
+                  <button type="button" class="btn btn-ghost" id="case_export_all">导出全部 JSON</button>
+                </div>
+              </div>
+              <label class="block-title">覆盖模块（备注）</label>
+              <input type="text" id="case_module_tag" class="input-inline" placeholder="手动标记，仅前端会话"/>
+              <label class="block-title">步骤 / 断言（可编辑，未回写服务端）</label>
+              <textarea id="case_detail_body" class="case-editor" readonly></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 Execution -->
+        <section id="view-execution" class="view">
+          <div class="view-header">
+            <h1>测试执行</h1>
+            <p class="view-desc">任务视角：触发在「代码变更」中随全流程执行；此处展示状态与日志摘要。</p>
+          </div>
+          <div class="card">
+            <h2>任务列表</h2>
+            <div id="exec_task_list" class="task-list"></div>
+          </div>
+          <div class="card">
+            <h2>详细 evaluation</h2>
+            <div id="execution_content"></div>
+          </div>
+        </section>
+
+        <!-- 8 Reports -->
+        <section id="view-reports" class="view">
+          <div class="view-header">
+            <h1>分析报告</h1>
+            <p class="view-desc">成果汇总：影响、覆盖、风险；支持导出 JSON / 打印为 PDF。</p>
+          </div>
+          <div class="card">
+            <div class="row" style="margin-bottom:1rem">
+              <button type="button" class="btn btn-primary" id="report_export_json">导出报告 JSON</button>
+              <button type="button" class="btn btn-ghost" id="report_print">打印 / 存 PDF</button>
+            </div>
+            <article id="reports_article" class="report-article"></article>
+          </div>
+          <div class="card" id="reports_extra"></div>
+        </section>
+
+        <!-- 9 Settings -->
+        <section id="view-settings" class="view">
+          <div class="view-header">
+            <h1>系统设置</h1>
+            <p class="view-desc">模型与规则说明；敏感配置请在服务器 .env 修改。</p>
+          </div>
+          <div class="card">
+            <h2>LLM 模型配置</h2>
+            <p class="hint">以下由服务端环境变量读取，前端仅展示说明。</p>
+            <ul class="settings-list">
+              <li><code>MUTIAGENT_LLM_PROVIDER</code> — openai / deepseek / zhipu</li>
+              <li><code>OPENAI_API_KEY</code> / <code>DEEPSEEK_API_KEY</code> / <code>ZHIPU_API_KEY</code></li>
+              <li><code>MUTIAGENT_LLM_MODEL</code>、<code>MUTIAGENT_LLM_BASE_URL</code></li>
+              <li><code>MUTIAGENT_DISABLE_LLM=1</code> — 关闭所有 LLM</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2>分析规则（本地草稿）</h2>
+            <textarea id="set_rules_draft" class="rules-textarea" placeholder="记录你希望强调的回归策略、排除路径等（仅存浏览器）"></textarea>
+            <button type="button" class="btn btn-primary" id="set_rules_save">保存草稿</button>
+          </div>
+          <div class="card">
+            <h2>权限控制（占位）</h2>
+            <label class="checkbox"><input type="checkbox" id="set_perm_demo" checked disabled/> 本地单用户模式（无登录）</label>
+            <p class="hint">多用户与 RBAC 需接入认证服务。</p>
+          </div>
+          <div class="card">
+            <h2>界面偏好</h2>
+            <label class="checkbox"><input type="checkbox" id="set_default_run_eval" checked/> 默认勾选执行 pytest</label>
+            <div class="field" style="max-width:20rem;margin-top:.75rem">
+              <label for="set_user_label">顶栏用户名</label>
+              <input type="text" id="set_user_label" placeholder="本地用户"/>
+            </div>
+            <button type="button" class="btn btn-primary" id="set_save_user">保存</button>
+          </div>
+          <div class="card">
+            <button type="button" class="btn btn-ghost" id="set_clear_cache">清除会话中的分析结果缓存</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <aside id="assistant_panel" class="assistant-panel hidden" aria-hidden="true">
+    <div class="assistant-head">
+      <div>
+        <strong>AI 助理</strong>
+        <span class="assistant-sub">结合当前分析结果回答（含测试报告路径、影响范围、用例说明）</span>
+      </div>
+      <button type="button" class="btn btn-ghost assistant-close" id="assistant_close" aria-label="关闭">×</button>
+    </div>
+    <div class="assistant-quick" id="assistant_quick">
+      <button type="button" class="chip-btn" data-q="测试报告在哪里？怎么打开？">测试报告</button>
+      <button type="button" class="chip-btn" data-q="这个改动影响哪些模块或文件？">影响范围</button>
+      <button type="button" class="chip-btn" data-q="帮我说明已生成的测试用例在哪里、如何查看？">用例说明</button>
+      <button type="button" class="chip-btn" data-q="pytest 执行结果怎么样？">执行结果</button>
+    </div>
+    <div id="assistant_messages" class="assistant-messages"></div>
+    <div class="assistant-foot">
+      <textarea id="assistant_input" rows="2" placeholder="例如：这个改动影响哪些模块？" maxlength="4000"></textarea>
+      <button type="button" class="btn btn-primary" id="assistant_send">发送</button>
+    </div>
+    <p id="assistant_note" class="assistant-note"></p>
+  </aside>
+  <button type="button" class="fab-assistant" id="assistant_fab" title="打开 AI 助理">AI</button>
+
+  <div id="raw_drawer" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-backdrop" id="raw_drawer_close"></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h2>完整响应 JSON</h2>
+        <button type="button" class="btn btn-ghost" id="raw_drawer_btn">关闭</button>
+      </div>
+      <pre id="raw_json" class="json-out drawer-pre"></pre>
+    </div>
+  </div>
+  <button type="button" class="fab-json" id="fab_raw" title="完整 JSON">JSON</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>

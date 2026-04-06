@@ -1,3 +1,8 @@
 .env
 .vendor
 log/code_change_agent.log
+.mutiagent/
+
+# 从真实仓库导出的工作区 diff（常含 .env / token / 私钥，勿提交）
+json/*.diff
+*_working_tree.diff

@@ -56,7 +56,7 @@ def build_workflow():
 _APP = None
 
 
-def run_workflow(repo_path: str, diff: str, run_eval: bool = False) -> dict[str, Any]:
+def run_workflow(repo_path: str, diff: str, run_eval: bool = True) -> dict[str, Any]:
     global _APP
     #初始化graph
     if _APP is None:

@@ -14,3 +14,16 @@
 2026-03-31 19:44:04 [ImpactAnalysisAgent] llm_rank request candidates=76 graph=yes
 2026-03-31 19:46:06 [ImpactAnalysisAgent] LLM ranking exception -> heuristic: JSONDecodeError: Expecting ',' delimiter: line 503 column 18 (char 16999)
 2026-03-31 19:46:06 [ImpactAnalysisAgent] done ranking_mode=llm_error_fallback ranked=15 elapsed_s=121.489 top5=['file:app/modules/intelligence/myprovider_client.py', 'file:app/modules/intelligence/provider/provider_service.py', 'symbol:app/modules/intelligence/myprovider_client.py:class:MyProviderClient', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:_stream_request', 'seed:seed:app/modules/intelligence/myprovider_client.py:dependency:getenv']
+2026-03-31 19:59:13 [ImpactAnalysisAgent] impact_graph files=1 symbols=1 units=2 elapsed_s=0.0
+2026-03-31 20:02:52 [ImpactAnalysisAgent] impact_graph files=3 symbols=5 units=17 elapsed_s=0.001
+2026-03-31 20:05:29 [ImpactAnalysisAgent] impact_graph files=3 symbols=5 units=17 elapsed_s=0.001
+2026-03-31 20:13:00 [ImpactAnalysisAgent] impact_v3 files=3 symbols=5 catalog_units=14 elapsed_s=0.001
+2026-03-31 20:21:54 [ImpactAnalysisAgent] impact_v4 files=3 symbols=5 catalog_units=40 elapsed_s=0.002
+2026-04-06 16:01:56 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=3 elapsed_s=0.001
+2026-04-06 16:02:13 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=5 elapsed_s=0.0
+2026-04-06 16:02:19 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=5 elapsed_s=0.001
+2026-04-06 16:08:15 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=5 elapsed_s=0.0
+2026-04-06 16:08:49 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=3 elapsed_s=0.001
+2026-04-06 16:32:21 [ImpactAnalysisAgent] impact_v4 files=3 symbols=5 catalog_units=39 elapsed_s=0.002
+2026-04-06 16:34:05 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=5 elapsed_s=0.0
+2026-04-06 16:38:03 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=5 elapsed_s=0.0

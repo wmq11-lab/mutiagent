@@ -26,12 +26,17 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
     stderr = ex.get("stderr", "") or ""
     cov = _extract_coverage(stdout)
 
+    report_dir = ex.get("report_dir")
+    if report_dir is not None:
+        report_dir = str(report_dir)
+
     state.evaluation = EvalSummary(
         ran=bool(ex.get("ran", False)),
         exit_code=int(code) if code is not None else None,
         stdout=stdout,
         stderr=stderr,
         coverage=cov,
+        report_dir=report_dir,
     )
     return state
 

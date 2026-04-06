@@ -111,7 +111,10 @@ def get_model() -> str:
     return os.getenv("MUTIAGENT_LLM_MODEL") or os.getenv("MUTIAGENT_OPENAI_MODEL", cfg.default_model)
 
 
-def chat_text(system: str, user: str, *, temperature: float = 0.2) -> str:
+def chat_messages(messages: list[dict[str, str]], *, temperature: float = 0.3) -> str:
+    """
+    多轮对话：messages 为 OpenAI Chat 格式，须包含 role（system/user/assistant）与 content。
+    """
     api_key = _get_api_key()
     if not api_key:
         cfg = _get_provider_config()
@@ -121,12 +124,24 @@ def chat_text(system: str, user: str, *, temperature: float = 0.2) -> str:
     resp = c.chat.completions.create(
         model=get_model(),
         temperature=temperature,
-        messages=[
+        messages=messages,
+    )
+    return (resp.choices[0].message.content or "").strip()
+
+
+def chat_text(system: str, user: str, *, temperature: float = 0.2) -> str:
+    api_key = _get_api_key()
+    if not api_key:
+        cfg = _get_provider_config()
+        raise RuntimeError(f"缺少 API Key 环境变量，请配置：{' / '.join(cfg.api_key_envs)}")
+
+    return chat_messages(
+        [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
+        temperature=temperature,
     )
-    return (resp.choices[0].message.content or "").strip()
 
 
 def chat_json(system: str, user: str, *, temperature: float = 0.2) -> dict[str, Any]:
