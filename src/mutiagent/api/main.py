@@ -1,17 +1,30 @@
+import json
+from collections.abc import Iterator
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from mutiagent.api.assistant import router as assistant_router
 from mutiagent.graph.state import GenerateTestsRequest, GenerateTestsResponse
-from mutiagent.graph.workflow import run_workflow
+from mutiagent.graph.workflow import iter_workflow_events, run_workflow
+from mutiagent.utils.logging_config import configure_app_logging
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    configure_app_logging()
+    yield
+
 
 app = FastAPI(
     title="mutiagent-mvp",
     version="0.1.0",
     description="面向代码变更的多智能体回归测试用例生成（LangGraph + FastAPI）。",
+    lifespan=lifespan,
 )
 
 app.include_router(assistant_router)
@@ -72,6 +85,9 @@ _INDEX_HTML = """<!DOCTYPE html>
           请求体 JSON：<code>repo_path</code>（本地项目根目录）、<code>diff</code>（unified diff 全文）、
           <code>run_eval</code>（可选，默认 <code>true</code>：在目标仓库执行生成的 pytest 并落盘报告）。
         </td></tr>
+        <tr><td><code>POST</code></td><td><code>/generate-tests-stream</code></td><td>
+          同上请求体，响应为 <code>application/x-ndjson</code>：多行 <code>{"type":"progress",...}</code>，最后一行 <code>{"type":"complete","result":...}</code> 或 <code>{"type":"error","message":...}</code>（供前端进度条）。
+        </td></tr>
       </tbody>
     </table>
   </div>
@@ -90,6 +106,11 @@ _INDEX_HTML = """<!DOCTYPE html>
       <li>LLM 与 Key 由环境变量 / 项目根目录 <code>.env</code> 配置（见 README）。</li>
       <li><code>run_eval=true</code> 时会在目标仓库下生成 <code>.mutiagent/reports/&lt;时间戳&gt;/</code>（含 <code>report.html</code>、junit 等）。</li>
       <li>关闭写盘可设环境变量 <code>MUTIAGENT_DISABLE_TEST_REPORT=1</code>。</li>
+      <li>pytest 默认用当前环境的 <code>python</code>；请求体 <code>auto_venv: true</code>（或环境变量 <code>MUTIAGENT_AUTO_VENV=1</code>）可在 <code>repo_path</code> 下自动创建 <code>.mutiagent/mutiagent_pytest_venv</code> 并安装依赖。</li>
+      <li>也可手动为每个被测仓库建 venv，设 <code>MUTIAGENT_PYTEST_PYTHON</code> 指向该解释器。</li>
+      <li>Ansible 等含 <code>lib/ansible</code> 的仓库：pytest 默认只把 <code>lib</code> 与仓库根加入 <code>PYTHONPATH</code>，不继承外层，减轻与 conda 里 <code>pip install ansible</code> 的冲突；需要继承时设 <code>MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1</code>。</li>
+      <li>pytest 文本：每次运行会写入仓库 <code>.mutiagent/reports/&lt;时间戳&gt;/pytest_stdout.txt</code> 与 <code>pytest_stderr.txt</code>；摘要同时写入项目根 <code>log/mutiagent.log</code>（<code>ExecutionAgent</code> 段落）。API 每次启动默认清空该日志，保留历史请设 <code>MUTIAGENT_LOG_APPEND=1</code>。</li>
+      <li>流水线与 <code>mutiagent.workflow</code> 日志默认写入项目根目录 <code>log/mutiagent.log</code>。</li>
     </ul>
   </div>
 </body>
@@ -108,8 +129,29 @@ def health() -> dict:
 
 @app.post("/generate-tests", response_model=GenerateTestsResponse)
 def generate_tests(req: GenerateTestsRequest) -> GenerateTestsResponse:
-    result = run_workflow(repo_path=req.repo_path, diff=req.diff, run_eval=req.run_eval)
+    result = run_workflow(
+        repo_path=req.repo_path,
+        diff=req.diff,
+        run_eval=req.run_eval,
+        auto_venv=req.auto_venv,
+    )
     return GenerateTestsResponse(**result)
+
+
+@app.post("/generate-tests-stream")
+def generate_tests_stream(req: GenerateTestsRequest) -> StreamingResponse:
+    """NDJSON 流：progress 行 + 最终 complete / error。"""
+
+    def body() -> Iterator[str]:
+        for ev in iter_workflow_events(
+            repo_path=req.repo_path,
+            diff=req.diff,
+            run_eval=req.run_eval,
+            auto_venv=req.auto_venv,
+        ):
+            yield json.dumps(jsonable_encoder(ev), ensure_ascii=False) + "\n"
+
+    return StreamingResponse(body(), media_type="application/x-ndjson; charset=utf-8")
 
 
 _frontend_dir = Path(__file__).resolve().parents[3] / "frontend"

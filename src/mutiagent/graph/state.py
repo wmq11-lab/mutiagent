@@ -132,6 +132,18 @@ class GenerateTestsRequest(BaseModel):
             "是否在目标项目中执行生成的 pytest 并返回摘要；默认开启并在仓库下写入 "
             "`.mutiagent/reports/<时间戳>/`（`report.html`、`junit.xml`、stdout/stderr 文本、summary.json）。"
             "需目标环境可运行 pytest。关闭文件落盘可设环境变量 MUTIAGENT_DISABLE_TEST_REPORT=1。"
+            "换数据集时不必往 mutiagent 本机环境里反复混装依赖：可对每个被测仓库建独立 venv，"
+            "并设环境变量 MUTIAGENT_PYTEST_PYTHON 为该 venv 的 python 可执行文件路径后再跑全流程。"
+            "对含 lib/ansible 的源码仓库，pytest 子进程默认不再继承宿主 PYTHONPATH，避免与 conda 中 pip 版 ansible 冲突；"
+            "若确需拼接请设 MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1。"
+        ),
+    )
+    auto_venv: bool = Field(
+        default=False,
+        description=(
+            "为 True 时，在 repo_path 下自动创建/复用 `.mutiagent/mutiagent_pytest_venv`，"
+            "并按 requirements.txt / pyproject.toml 等安装依赖后使用该 venv 的 python 跑 pytest。"
+            "也可不设本字段而使用环境变量 MUTIAGENT_AUTO_VENV=1。"
         ),
     )
 
@@ -160,6 +172,65 @@ class TestPlanItem(BaseModel):
     target: str
     intent: str
     priority: Literal["high", "medium", "low"] = "medium"
+
+
+TestLayerKind = Literal["unit", "integration", "contract", "e2e"]
+
+DEFAULT_TEST_PLAN_MOCK_STRATEGY: dict[str, str] = {
+    "http": "respx 或 requests-mock",
+    "env": "monkeypatch",
+    "time": "freezegun",
+    "exception": "patch 注入异常",
+}
+
+
+class StructuredTestCase(BaseModel):
+    """结构化单条用例：供生成代码与覆盖追溯。"""
+
+    test_case_id: str
+    target: str = Field(..., description="函数/类短名，便于阅读")
+    symbol_id: str = Field(default="", description="与 impact_graph / 优先级打分对齐的符号 id")
+    layer: TestLayerKind
+    priority: TestPriorityTier
+    input: dict[str, Any] = Field(default_factory=dict)
+    mock: dict[str, Any] = Field(default_factory=dict)
+    assertions: list[str] = Field(default_factory=list)
+    scenario: str = ""
+    semantic_unit_ids: list[str] = Field(default_factory=list)
+
+
+class CoverageMatrixEntry(BaseModel):
+    semantic_unit: str
+    covered_by: list[str] = Field(default_factory=list)
+
+
+class ExecutionPlanTiers(BaseModel):
+    """按优先级分档的执行策略（值为 tier 名称列表）。"""
+
+    ci_blocking: list[TestPriorityTier] = Field(default_factory=lambda: ["P0"])
+    nightly: list[TestPriorityTier] = Field(default_factory=lambda: ["P1"])
+    low_priority: list[TestPriorityTier] = Field(default_factory=lambda: ["P2"])
+
+
+class StructuredTestPlanSummary(BaseModel):
+    total_cases: int = 0
+    total_targets: int = 0
+    p0_semantic_units: int = 0
+    p0_covered: int = 0
+    test_layer_counts: dict[str, int] = Field(default_factory=dict)
+
+
+class StructuredTestPlanRoot(BaseModel):
+    """TestPlanningAgent 输出的结构化测试计划（嵌套在 API `test_plan` 字段）。"""
+
+    summary: StructuredTestPlanSummary = Field(default_factory=StructuredTestPlanSummary)
+    test_layers: dict[str, list[str]] = Field(
+        default_factory=lambda: {"unit": [], "integration": [], "contract": [], "e2e": []},
+    )
+    test_cases: list[StructuredTestCase] = Field(default_factory=list)
+    coverage_matrix: list[CoverageMatrixEntry] = Field(default_factory=list)
+    execution_plan: ExecutionPlanTiers = Field(default_factory=ExecutionPlanTiers)
+    mock_strategy: dict[str, str] = Field(default_factory=lambda: dict(DEFAULT_TEST_PLAN_MOCK_STRATEGY))
 
 
 class GeneratedTestFile(BaseModel):
@@ -215,6 +286,17 @@ class ChangeGraph(BaseModel):
     edges: list[ChangeGraphEdge] = Field(default_factory=list)
 
 
+class PytestCaseResult(BaseModel):
+    """单条 pytest 用例执行结果（与 junit.xml testcase 对齐）。"""
+
+    suite: str = ""
+    classname: str = ""
+    name: str = ""
+    time: str = ""
+    status: str = ""
+    detail: str = ""
+
+
 class EvalSummary(BaseModel):
     ran: bool = False
     exit_code: Optional[int] = None
@@ -224,6 +306,14 @@ class EvalSummary(BaseModel):
     report_dir: Optional[str] = Field(
         default=None,
         description="pytest 落盘报告目录（绝对路径）；未执行或未写入时为 None",
+    )
+    pytest_summary: dict[str, str] = Field(
+        default_factory=dict,
+        description="junit 聚合：tests、failures、errors、skipped、time、name",
+    )
+    pytest_cases: list[PytestCaseResult] = Field(
+        default_factory=list,
+        description="逐条用例状态（passed/failed/error/skipped）与详情",
     )
 
 
@@ -244,7 +334,14 @@ class GenerateTestsResponse(BaseModel):
         default_factory=list,
         description="V4：按 priority_score 排序的高风险语义单元",
     )
-    test_plan: list[TestPlanItem]
+    test_plan: StructuredTestPlanRoot = Field(
+        default_factory=StructuredTestPlanRoot,
+        description="结构化测试计划（分层、用例、覆盖矩阵、执行与 mock 策略）",
+    )
+    test_plan_items: list[TestPlanItem] = Field(
+        default_factory=list,
+        description="供 TestGen / 排序使用的扁平 intent 列表（由结构化计划派生）",
+    )
     generated_tests: list[GeneratedTestFile]
     evaluation: Optional[EvalSummary] = None
     debug: dict[str, Any] = Field(default_factory=dict)
@@ -266,6 +363,10 @@ class WorkflowState(BaseModel):
     repo_path: str
     diff: str
     run_eval: bool = False
+    auto_venv: bool = Field(
+        default=False,
+        description="为 True 时在仓库内自动创建 venv 并安装依赖后执行 pytest（与 MUTIAGENT_AUTO_VENV 等价）。",
+    )
 
     changed_files: list[str] = Field(default_factory=list)
     diff_hunks: dict[str, Any] = Field(default_factory=dict)
@@ -291,7 +392,14 @@ class WorkflowState(BaseModel):
         description="V4：高风险语义单元列表",
     )
 
-    test_plan: list[TestPlanItem] = Field(default_factory=list)
+    structured_test_plan: StructuredTestPlanRoot = Field(
+        default_factory=StructuredTestPlanRoot,
+        description="结构化测试计划（分层、用例、覆盖矩阵等）",
+    )
+    test_plan: list[TestPlanItem] = Field(
+        default_factory=list,
+        description="扁平测试意图条目，供 TestPrioritization / TestGen 消费",
+    )
     generated_tests: list[GeneratedTestFile] = Field(default_factory=list)
 
     evaluation: Optional[EvalSummary] = None

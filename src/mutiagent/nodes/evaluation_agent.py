@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from mutiagent.graph.state import EvalSummary, WorkflowState
+from mutiagent.graph.state import EvalSummary, PytestCaseResult, WorkflowState
 
 
 def _extract_coverage(stdout: str) -> float | None:
@@ -30,6 +30,14 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
     if report_dir is not None:
         report_dir = str(report_dir)
 
+    jsum = ex.get("junit_summary") if isinstance(ex.get("junit_summary"), dict) else {}
+    jraw = ex.get("junit_cases")
+    pytest_cases: list[PytestCaseResult] = []
+    if isinstance(jraw, list):
+        for item in jraw:
+            if isinstance(item, dict):
+                pytest_cases.append(PytestCaseResult.model_validate(item))
+
     state.evaluation = EvalSummary(
         ran=bool(ex.get("ran", False)),
         exit_code=int(code) if code is not None else None,
@@ -37,6 +45,8 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
         stderr=stderr,
         coverage=cov,
         report_dir=report_dir,
+        pytest_summary=dict(jsum),
+        pytest_cases=pytest_cases,
     )
     return state
 

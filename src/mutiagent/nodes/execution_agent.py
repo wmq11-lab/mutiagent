@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import json
+import logging
 import os
 import shutil
 import subprocess
@@ -13,11 +14,64 @@ from pathlib import Path
 from mutiagent.graph.state import WorkflowState
 from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
+from mutiagent.utils.dataset_venv import ensure_dataset_venv
+from mutiagent.utils.llm_output import strip_markdown_code_fence
+from mutiagent.utils.syntax_guard import exec_syntax_error
+
+_workflow_log = logging.getLogger("mutiagent.workflow")
+
+try:
+    _PYTEST_LOG_CAP = int(os.environ.get("MUTIAGENT_PYTEST_LOG_MAX_CHARS", "60000"))
+except ValueError:
+    _PYTEST_LOG_CAP = 60000
+
+
+def _log_pytest_output(phase: str, exit_code: int, stdout: str, stderr: str) -> None:
+    """将 pytest 文本输出写入 mutiagent.workflow → log/mutiagent.log（单段过长则截断）。"""
+    half = max(2000, _PYTEST_LOG_CAP // 2)
+
+    def clip(s: str, limit: int) -> str:
+        t = s or ""
+        if len(t) <= limit:
+            return t if t else "(空)"
+        return t[: max(0, limit - 80)] + "\n... [已截断；完整见 report_dir 下 pytest_stdout.txt / pytest_stderr.txt]\n"
+
+    _workflow_log.info(
+        "ExecutionAgent: pytest %s · 退出码=%s\n--- stdout ---\n%s\n--- stderr ---\n%s",
+        phase,
+        exit_code,
+        clip(stdout, half),
+        clip(stderr, half),
+    )
 
 
 def _test_reports_enabled() -> bool:
     v = os.environ.get("MUTIAGENT_DISABLE_TEST_REPORT", "").strip().lower()
     return v not in {"1", "true", "yes", "on"}
+
+
+def _env_truthy(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _resolve_pytest_executable(repo: Path, state: WorkflowState) -> tuple[str | None, str | None]:
+    """
+    返回 (python 可执行路径, 错误信息)。
+    显式 MUTIAGENT_PYTEST_PYTHON 优先；否则 auto_venv / MUTIAGENT_AUTO_VENV 时创建/复用仓库内 venv；否则用 PATH 上的 python。
+    """
+    ex = os.environ.get("MUTIAGENT_PYTEST_PYTHON", "").strip()
+    if ex:
+        return ex, None
+    if state.auto_venv or _env_truthy("MUTIAGENT_AUTO_VENV"):
+        py, msg = ensure_dataset_venv(repo)
+        if not py:
+            state.debug.setdefault("dataset_venv", {}).update({"status": "error", "message": msg})
+            return None, msg or "dataset venv 初始化失败"
+        state.debug.setdefault("dataset_venv", {}).update(
+            {"python": py, "bootstrap": msg, "status": "ok"}
+        )
+        return py, None
+    return "python", None
 
 
 def _create_report_dir(repo: Path) -> Path:
@@ -303,13 +357,26 @@ def _run_pytest(
     repo: Path,
     test_root: Path,
     *,
+    python_exe: str,
     with_cov: bool = False,
     junit_xml: Path | None = None,
 ) -> tuple[int, str, str]:
     env = os.environ.copy()
-    env["PYTHONPATH"] = str(repo)
+    # 许多 Python 项目（如 Ansible）把可导入包放在 lib/ 下，仅设仓库根目录会 ModuleNotFoundError。
+    pp = [str(repo)]
+    lib = repo / "lib"
+    if lib.is_dir():
+        pp.insert(0, str(lib.resolve()))
+    inherit = env.get("PYTHONPATH", "").strip()
+    # 源码树含 lib/ansible 时，继承宿主的 PYTHONPATH 可能带入 site-packages 之外的冲突路径；
+    # 默认不再拼接，避免 conda 里另一个 ansible 与 lib/ansible 混用导致 ansible 无 galaxy 子包。
+    if inherit and (
+        _env_truthy("MUTIAGENT_PYTEST_APPEND_PYTHONPATH") or not (lib / "ansible").is_dir()
+    ):
+        pp.append(inherit)
+    env["PYTHONPATH"] = os.pathsep.join(pp)
 
-    cmd: list[str] = ["python", "-m", "pytest", "-q"]
+    cmd: list[str] = [python_exe, "-m", "pytest", "-q"]
     if with_cov:
         cmd.extend(["--cov", "--cov-report=term-missing"])
     cmd.append(str(test_root))
@@ -325,6 +392,10 @@ def _llm_fix_by_failure(state: WorkflowState, stdout: str, stderr: str) -> None:
         return
     system = (
         "你是资深Python测试工程师。给定pytest失败输出与当前测试文件，请修复测试使其更可能通过。"
+        "不要通过整批 pytest.skip 或“Required modules not available”式跳过掩盖失败；优先 mock/patch 或修正 import。"
+        "patch( 与 patch.object( 的第一个参数字符串必须单行完整闭合引号与括号，禁止在引号未闭合时换行；过长路径用变量承接。"
+        "若错误为 ansible 无 galaxy / patch 解析失败：检查 patch 目标是否与 collection.py 中 import 的符号一致"
+        "（Display 常在 ansible.utils.display；在 collection 模块命名空间下多用 patch('ansible.galaxy.collection.Display') 或对已 import 的模块 patch.object）。"
         "只输出修复后的完整Python测试文件内容（不要markdown，不要解释）。"
     )
     user = (
@@ -334,9 +405,17 @@ def _llm_fix_by_failure(state: WorkflowState, stdout: str, stderr: str) -> None:
         "current_test_file:\n"
         f"{state.generated_tests[0].content}\n"
     )
-    fixed = chat_text(system, user, temperature=0.2)
+    fixed = strip_markdown_code_fence(chat_text(system, user, temperature=0.2))
     if fixed and "def test_" in fixed:
-        state.generated_tests[0].content = fixed.strip() + "\n"
+        newc = fixed.strip() + "\n"
+        syn_fix = exec_syntax_error(newc, filename="<generated_test>")
+        if syn_fix is None:
+            state.generated_tests[0].content = newc
+        else:
+            _workflow_log.warning(
+                "ExecutionAgent: LLM 按失败修复后的代码仍有语法错误，已保留修复前版本。%s",
+                syn_fix,
+            )
 
 
 def execution_agent(state: WorkflowState) -> WorkflowState:
@@ -355,6 +434,17 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
         }
         return state
 
+    py_exe, py_err = _resolve_pytest_executable(repo, state)
+    if py_err:
+        state.execution = {
+            "ran": True,
+            "exit_code": 2,
+            "stdout": "",
+            "stderr": py_err,
+            "report_dir": None,
+        }
+        return state
+
     report_dir: Path | None = None
     junit_xml: Path | None = None
     if _test_reports_enabled():
@@ -369,7 +459,10 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
     with tempfile.TemporaryDirectory(prefix="mutiagent_exec_") as td:
         tmpdir = Path(td)
         _write_generated_tests(tmpdir, state)
-        code, out, err = _run_pytest(repo, tmpdir, with_cov=False, junit_xml=junit_xml)
+        code, out, err = _run_pytest(
+            repo, tmpdir, python_exe=py_exe, with_cov=False, junit_xml=junit_xml
+        )
+        _log_pytest_output("第1次运行", code, out, err)
 
         repaired = False
         if code != 0 and llm_available():
@@ -381,7 +474,10 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             retry_dir = tmpdir / "retry"
             retry_dir.mkdir(parents=True, exist_ok=True)
             _write_generated_tests(retry_dir, state)
-            code, out, err = _run_pytest(repo, retry_dir, with_cov=False, junit_xml=junit_xml)
+            code, out, err = _run_pytest(
+                repo, retry_dir, python_exe=py_exe, with_cov=False, junit_xml=junit_xml
+            )
+            _log_pytest_output("LLM 修复后重试", code, out, err)
 
         payload: dict[str, object] = {
             "ran": True,
@@ -389,7 +485,15 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             "stdout": out,
             "stderr": err,
             "attempted_fix": repaired,
+            "pytest_python": py_exe,
         }
+        j_agg: dict[str, str] = {}
+        j_rows: list[dict[str, str]] = []
+        if junit_xml is not None and junit_xml.exists():
+            j_agg, j_rows = _junit_summary_and_rows(junit_xml)
+        payload["junit_summary"] = j_agg
+        payload["junit_cases"] = j_rows
+
         if report_dir is not None:
             _write_eval_report_files(
                 report_dir,
@@ -403,6 +507,14 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             payload["report_dir"] = str(report_dir.resolve())
         else:
             payload["report_dir"] = None
+
+        if code != 0:
+            err_one = (err.strip() or "(空)").splitlines()[0] if err else "(空)"
+            _workflow_log.warning(
+                "ExecutionAgent: pytest 退出码 %s；stderr 首行: %s",
+                code,
+                err_one[:500],
+            )
 
         state.execution = payload
 

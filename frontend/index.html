@@ -47,6 +47,7 @@
           <button type="button" class="nav-item" data-view="testing"><span class="nav-icon">5</span><span>Testing</span></button>
           <button type="button" class="nav-item" data-view="cases"><span class="nav-icon">6</span><span>Test Cases</span></button>
           <button type="button" class="nav-item" data-view="execution"><span class="nav-icon">7</span><span>Execution</span></button>
+          <button type="button" class="nav-item" data-view="run-analysis"><span class="nav-icon">◆</span><span>报告分析</span></button>
           <button type="button" class="nav-item" data-view="reports"><span class="nav-icon">8</span><span>Reports</span></button>
           <button type="button" class="nav-item" data-view="settings"><span class="nav-icon">9</span><span>Settings</span></button>
         </nav>
@@ -163,6 +164,7 @@
                 </div>
                 <div class="row">
                   <label class="checkbox"><input type="checkbox" id="run_eval" checked/> 执行 pytest（run_eval）</label>
+                  <label class="checkbox"><input type="checkbox" id="auto_venv"/> 自动 venv（在仓库 <code>.mutiagent/mutiagent_pytest_venv</code> 安装依赖后跑 pytest）</label>
                 </div>
                 <div class="row">
                   <button type="submit" class="btn btn-primary" id="submit">运行全流程</button>
@@ -170,6 +172,14 @@
                   <button type="button" class="btn btn-ghost" id="clear_result">清空会话结果</button>
                 </div>
                 <p id="status" class="status-line"></p>
+                <div id="workflow_progress_wrap" class="workflow-progress-wrap hidden" aria-live="polite">
+                  <div class="workflow-progress-meta">
+                    <span id="workflow_progress_label">准备中…</span>
+                  </div>
+                  <div class="workflow-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div id="workflow_progress_fill" class="workflow-progress-fill"></div>
+                  </div>
+                </div>
               </form>
             </div>
             <div class="card">
@@ -225,7 +235,7 @@
             <div class="card impact-col impact-graph-card">
               <h2>影响图谱</h2>
               <div id="vis_network" class="vis-host"></div>
-              <p class="hint">拖拽平移；滚轮缩放</p>
+              <p class="hint">拖拽平移；按住 <kbd>Ctrl</kbd>（Mac 上亦常用）并滚轮缩放图谱，否则滚轮用于页面上下滚动。</p>
             </div>
             <div class="card impact-col">
               <h2>影响详情</h2>
@@ -294,6 +304,22 @@
           <div class="card">
             <h2>详细 evaluation</h2>
             <div id="execution_content"></div>
+          </div>
+        </section>
+
+        <!-- 7b 报告分析：逐条用例执行结果 -->
+        <section id="view-run-analysis" class="view">
+          <div class="view-header">
+            <h1>报告分析</h1>
+            <p class="view-desc">全流程 pytest 结束后，按 junit 逐条展示用例状态、耗时与失败详情（数据来自 <code>evaluation.pytest_cases</code>）。</p>
+          </div>
+          <div class="card">
+            <div id="run_analysis_meta" class="run-analysis-meta"></div>
+            <div id="run_analysis_summary" class="run-analysis-summary-grid"></div>
+          </div>
+          <div class="card">
+            <h2 style="margin-top:0">用例执行情况</h2>
+            <div id="run_analysis_table_wrap"></div>
           </div>
         </section>
 

@@ -1,0 +1,9 @@
+diff --git a/foo.py b/foo.py
+index 1111111..2222222 100644
+--- a/foo.py
++++ b/foo.py
+@@ -1,2 +1,4 @@
+ def add(a: int, b: int) -> int:
++    if a is None or b is None:
++        raise ValueError("inputs must not be None")
+     return a + b

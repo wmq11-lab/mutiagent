@@ -6,6 +6,8 @@ from mutiagent.graph.state import GeneratedTestFile, WorkflowState
 from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
 from mutiagent.utils.code_extract import extract_context_by_hunks
+from mutiagent.utils.llm_output import strip_markdown_code_fence
+from mutiagent.utils.syntax_guard import exec_syntax_error
 
 
 def _fallback_tests(state: WorkflowState) -> list[GeneratedTestFile]:
@@ -38,10 +40,19 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "3) 尽量避免外部依赖：对网络/数据库/文件系统调用优先mock/monkeypatch。\n"
         "4) 断言要有意义：至少验证关键返回值/异常/分支。\n"
         "5) 若无法确定导入路径，给出最保守的import方式，并在代码里用断言提示用户需要调整的模块路径。\n"
+        "6) 执行环境会在被测仓库根目录运行 pytest，且 PYTHONPATH 已包含仓库根与常见的 lib/（如 Ansible 源码布局）。"
+        "不要因笼统的 ImportError 就对整文件或整类 pytest.skip；不要用“Required modules not available”之类含糊理由批量跳过，"
+        "否则会出现 9 skipped + exit 0 的假象。缺依赖时应优先用 unittest.mock.patch 隔离被测函数，让用例在无网络下仍能跑断言。\n"
+        "7) 仅当单条用例在技术上无法构造（且已说明具体缺哪个符号）时才对该条 pytest.skip；其余情况让 import/断言失败暴露问题，便于用户安装依赖。\n"
+        "8) unittest.mock.patch / patch.object 的目标路径字符串必须单行闭合：with patch('a.b.c') as m: 合法；"
+        "禁止写成 patch('a.b.c 未闭合就换行。过长时用 target='a.b.c' 变量承接再 patch(target)。\n"
     )
 
     user_lines: list[str] = []
     user_lines.append(f"repo_path: {state.repo_path}")
+    user_lines.append(
+        "runtime_hint: pytest cwd=repo_path; PYTHONPATH includes repo root and repo/lib if that directory exists."
+    )
     user_lines.append(f"changed_files: {state.changed_files}")
     user_lines.append("test_plan:")
     plan = state.prioritized_plan or state.test_plan
@@ -54,7 +65,44 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
     for rel, txt in snippet_items:
         user_lines.append(f"\n### file: {rel}\n{txt}\n")
 
-    code = chat_text(system, "\n".join(user_lines), temperature=0.2)
+    if any(
+        "ansible" in (state.repo_path or "").lower()
+        or "galaxy/collection" in (f or "").replace("\\", "/").lower()
+        or "ansible/galaxy" in (f or "").replace("\\", "/").lower()
+        for f in (state.changed_files or [])
+    ):
+        user_lines.append(
+            "\nansible_mock_hint: patch 目标须与 collection.py 中实际 import 的符号一致。"
+            "Display 类来自 ansible.utils.display；在 collection 模块内通常绑定名为 Display（类）或 display（实例），"
+            "不要用不存在的子模块路径如 ansible.galaxy.collection.display 表示「模块」——应 patch 该模块上的绑定名，"
+            "例如 patch('ansible.galaxy.collection.Display') 或对 importlib.import_module('ansible.galaxy.collection') 返回的模块 patch.object(..., 'display', ...)。"
+            "若运行时报 ansible 无 galaxy，多半是环境里 pip 安装的 ansible 与源码 lib/ansible 冲突：执行 pytest 时默认不再继承外层 PYTHONPATH；"
+            "需要拼接时请设环境变量 MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1。"
+        )
+
+    user_blob = "\n".join(user_lines)
+    code = strip_markdown_code_fence(chat_text(system, user_blob, temperature=0.2))
+    if "def test_" not in code:
+        code += "\n\n\ndef test_generated_placeholder():\n    assert True\n"
+
+    syn = exec_syntax_error(code, filename="<generated_test>")
+    if syn and llm_available():
+        retry_sys = (
+            system
+            + "\n【重要】上一轮输出无法通过 Python 语法检查："
+            + syn
+            + "。请输出完整可编译文件；重点检查 patch( 与 patch.object( 的字符串是否在同一行内正确闭合引号。\n"
+        )
+        retry_user = (
+            user_blob
+            + "\n\n**previous_invalid_output** (rewrite entirely, do not append):\n"
+            + code
+            + "\n"
+        )
+        code2 = strip_markdown_code_fence(chat_text(retry_sys, retry_user, temperature=0.15))
+        if "def test_" in code2 and exec_syntax_error(code2, filename="<generated_test>") is None:
+            code = code2
+
     if "def test_" not in code:
         code += "\n\n\ndef test_generated_placeholder():\n    assert True\n"
 

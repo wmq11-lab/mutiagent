@@ -7,6 +7,7 @@
   const LS_PROJECTS = "mutiagent_projects_v2";
   const LS_USER = "mutiagent_user_label";
   const LS_DEFAULT_EVAL = "mutiagent_default_run_eval";
+  const LS_DEFAULT_AUTO_VENV = "mutiagent_default_auto_venv";
   const LS_RULES = "mutiagent_rules_draft";
   const LS_HISTORY = "mutiagent_run_history_v2";
   const SS_LAST = "mutiagent_last_workflow_json";
@@ -107,6 +108,7 @@
     if (id === "testing") renderTestingPage();
     if (id === "cases") renderCasesPage();
     if (id === "execution") renderExecutionPage();
+    if (id === "run-analysis") renderRunAnalysisPage();
     if (id === "reports") renderReportsPage();
   }
 
@@ -138,6 +140,82 @@
     if (!el) return;
     el.textContent = msg || "";
     el.className = "status-line" + (kind ? " " + kind : "");
+  }
+
+  function setWorkflowProgress(show, ev) {
+    const wrap = $("#workflow_progress_wrap");
+    const fill = $("#workflow_progress_fill");
+    const lab = $("#workflow_progress_label");
+    const bar = wrap && wrap.querySelector(".workflow-progress-bar");
+    if (!wrap || !fill || !lab) return;
+    if (!show) {
+      wrap.classList.add("hidden");
+      if (bar) bar.removeAttribute("aria-valuenow");
+      return;
+    }
+    wrap.classList.remove("hidden");
+    const total = ev && ev.total > 0 ? ev.total : 1;
+    const cur = ev && ev.current != null ? ev.current : 0;
+    const pct = Math.min(100, Math.round((cur / total) * 100));
+    fill.style.width = pct + "%";
+    const label = ev && ev.label ? ev.label : "处理中";
+    lab.textContent = label + "（" + cur + "/" + total + "）";
+    if (bar) bar.setAttribute("aria-valuenow", String(pct));
+  }
+
+  async function readNdjsonWorkflow(repo, diff, runEval, autoVenv) {
+    const r = await fetch("/generate-tests-stream", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ repo_path: repo, diff, run_eval: runEval, auto_venv: autoVenv }),
+    });
+    if (!r.ok) {
+      const text = await r.text();
+      let msg = "HTTP " + r.status;
+      try {
+        const j = JSON.parse(text);
+        if (j.detail != null) msg = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail);
+      } catch {
+        if (text) msg = text.slice(0, 500);
+      }
+      throw new Error(msg);
+    }
+    const reader = r.body.pipeThrough(new TextDecoderStream()).getReader();
+    let buffer = "";
+    let lastComplete = null;
+    let lastError = null;
+    while (true) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      buffer += chunk.value;
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        let ev;
+        try {
+          ev = JSON.parse(line);
+        } catch {
+          continue;
+        }
+        if (ev.type === "progress") setWorkflowProgress(true, ev);
+        else if (ev.type === "error") lastError = ev.message || String(ev);
+        else if (ev.type === "complete") lastComplete = ev.result;
+      }
+    }
+    const tail = buffer.trim();
+    if (tail) {
+      try {
+        const ev = JSON.parse(tail);
+        if (ev.type === "complete") lastComplete = ev.result;
+        if (ev.type === "error") lastError = ev.message;
+      } catch {
+        /* */
+      }
+    }
+    if (lastError) throw new Error(lastError);
+    if (!lastComplete) throw new Error("未收到完整结果");
+    return lastComplete;
   }
 
   async function checkHealth() {
@@ -292,6 +370,7 @@
     renderTestingPage();
     renderCasesPage();
     renderExecutionPage();
+    renderRunAnalysisPage();
     renderReportsPage();
   }
 
@@ -318,7 +397,15 @@
     const ev = data.evaluation || {};
     let html = "<p>变更文件：<strong>" + (data.changed_files || []).length + "</strong></p>";
     html += "<p>高风险单元：<strong>" + countHighRisk(data) + "</strong></p>";
-    html += "<p>测试计划：<strong>" + (data.test_plan || []).length + "</strong></p>";
+    html +=
+      "<p>测试计划（结构化用例）：<strong>" +
+      (function () {
+        const tp = data.test_plan;
+        if (!tp) return 0;
+        if (Array.isArray(tp)) return tp.length;
+        return (tp.test_cases || []).length;
+      })() +
+      "</strong></p>";
     html += "<p>生成测试：<strong>" + (data.generated_tests || []).length + "</strong></p>";
     if (ev.ran) html += "<p>pytest 退出码：<strong>" + (ev.exit_code ?? "—") + "</strong></p>";
     el.innerHTML = html;
@@ -420,12 +507,30 @@
     const { nodes, edges } = buildVisData(lastResult, filterP0, showSyms);
     const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
     const opts = {
-      physics: { stabilization: true, barnesHut: { gravitationalConstant: -8000 } },
-      interaction: { hover: true, zoomView: true },
+      physics: {
+        enabled: true,
+        stabilization: { iterations: 200 },
+        barnesHut: { gravitationalConstant: -8000 },
+      },
+      interaction: {
+        hover: true,
+        zoomView: true,
+        // 未按修饰键时滚轮交给页面滚动，避免与 .app-main 抢事件、体感“反向跳”
+        zoomKey: "ctrlKey",
+      },
     };
     const el = $("#vis_network");
     if (network) network.destroy();
     network = new vis.Network(el, data, opts);
+    const stopPhysics = function () {
+      try {
+        network.setOptions({ physics: false });
+      } catch (e) {
+        /* destroyed */
+      }
+    };
+    network.once("stabilizationIterationsDone", stopPhysics);
+    setTimeout(stopPhysics, 5000);
   }
 
   function mergeStrategies(data) {
@@ -444,17 +549,36 @@
         types: p.test_types || [],
       });
     });
-    (data.test_plan || []).forEach((p) => {
-      const k = "t:" + (p.target || "") + (p.intent || "");
+    const planCases =
+      data.test_plan && typeof data.test_plan === "object" && !Array.isArray(data.test_plan) && data.test_plan.test_cases
+        ? data.test_plan.test_cases
+        : Array.isArray(data.test_plan)
+          ? data.test_plan
+          : data.test_plan_items || [];
+    planCases.forEach((p) => {
+      const k =
+        "t:" +
+        (p.test_case_id || p.target || "") +
+        (p.scenario || p.intent || "");
       if (seen.has(k)) return;
       seen.add(k);
-      rows.push({
-        source: "plan",
-        target: p.target || "",
-        priority: typeof p.priority === "number" ? (p.priority > 0.7 ? "P0" : p.priority > 0.4 ? "P1" : "P2") : "P2",
-        reason: p.intent || "",
-        types: [],
-      });
+      if (p.test_case_id) {
+        rows.push({
+          source: "plan_case",
+          target: p.target || "",
+          priority: p.priority || "P2",
+          reason: (p.scenario || "") + (p.assertions && p.assertions.length ? " | 断言: " + p.assertions.join("; ") : ""),
+          types: p.layer ? [p.layer] : [],
+        });
+      } else {
+        rows.push({
+          source: "plan",
+          target: p.target || "",
+          priority: typeof p.priority === "number" ? (p.priority > 0.7 ? "P0" : p.priority > 0.4 ? "P1" : "P2") : p.priority || "P2",
+          reason: p.intent || "",
+          types: [],
+        });
+      }
     });
     const priOrder = { P0: 0, P1: 1, P2: 2 };
     rows.sort((a, b) => (priOrder[a.priority] || 9) - (priOrder[b.priority] || 9));
@@ -596,6 +720,114 @@
 
     detail.innerHTML =
       "<pre class='json-out' style='max-height:16rem'>" + escapeHtml(JSON.stringify(ev, null, 2)) + "</pre>";
+  }
+
+  function statusBadgeClass(st) {
+    const m = { passed: "ok", failed: "fail", error: "err", skipped: "skip" };
+    return m[String(st || "").toLowerCase()] || "";
+  }
+
+  function statusLabelZh(st) {
+    const m = { passed: "通过", failed: "失败", error: "错误", skipped: "跳过" };
+    return m[String(st || "").toLowerCase()] || String(st || "—");
+  }
+
+  function renderRunAnalysisPage() {
+    const meta = $("#run_analysis_meta");
+    const summary = $("#run_analysis_summary");
+    const wrap = $("#run_analysis_table_wrap");
+    if (!meta || !summary || !wrap) return;
+
+    if (!lastResult) {
+      meta.innerHTML = "";
+      summary.innerHTML = "<p class='empty'>请先在「代码变更」运行全流程。</p>";
+      wrap.innerHTML = "";
+      return;
+    }
+
+    const ev = lastResult.evaluation || {};
+    if (!ev.ran) {
+      meta.innerHTML = "";
+      summary.innerHTML = "<p class='empty'>本次未执行 pytest。请在「代码变更」勾选执行测试后重新运行。</p>";
+      wrap.innerHTML = "";
+      return;
+    }
+
+    const sum = ev.pytest_summary || {};
+    const cases = Array.isArray(ev.pytest_cases) ? ev.pytest_cases : [];
+    const ok = ev.exit_code === 0;
+
+    meta.innerHTML =
+      "<p class='run-analysis-meta-line'><span class='badge " +
+      (ok ? "ok" : "fail") +
+      "'>" +
+      (ok ? "pytest 通过" : "pytest 未通过") +
+      "</span> · 退出码 <code>" +
+      escapeHtml(String(ev.exit_code ?? "—")) +
+      "</code>" +
+      (ev.report_dir
+        ? " · 本地报告目录 <code class='mono-inline'>" + escapeHtml(ev.report_dir) + "</code>"
+        : "") +
+      "</p>";
+
+    summary.innerHTML =
+      "<div class='ra-stat'><span class='ra-stat-label'>用例数</span><strong>" +
+      escapeHtml(String(sum.tests ?? "—")) +
+      "</strong></div>" +
+      "<div class='ra-stat'><span class='ra-stat-label'>失败</span><strong>" +
+      escapeHtml(String(sum.failures ?? "—")) +
+      "</strong></div>" +
+      "<div class='ra-stat'><span class='ra-stat-label'>错误</span><strong>" +
+      escapeHtml(String(sum.errors ?? "—")) +
+      "</strong></div>" +
+      "<div class='ra-stat'><span class='ra-stat-label'>跳过</span><strong>" +
+      escapeHtml(String(sum.skipped ?? "—")) +
+      "</strong></div>" +
+      "<div class='ra-stat'><span class='ra-stat-label'>耗时(s)</span><strong>" +
+      escapeHtml(String(sum.time ?? "—")) +
+      "</strong></div>";
+
+    if (!cases.length) {
+      wrap.innerHTML =
+        "<p class='hint'>未解析到用例级记录（例如仅在收集阶段失败、或未生成 junit）。可在上方报告目录打开 <code>report.html</code> 查看完整输出。</p>";
+      return;
+    }
+
+    const head =
+      "<table class='run-analysis-table'><thead><tr>" +
+      "<th>状态</th><th>类名</th><th>用例</th><th>耗时(s)</th><th>详情</th>" +
+      "</tr></thead><tbody>";
+    const rows = cases
+      .map(function (c) {
+        const st = (c.status || "").toLowerCase();
+        const bc = statusBadgeClass(st);
+        const detail = (c.detail || "").trim();
+        const detailCell = detail
+          ? "<details class='ra-detail'><summary>展开</summary><pre class='ra-detail-pre'>" +
+            escapeHtml(detail) +
+            "</pre></details>"
+          : "—";
+        const badgeCls = bc ? " badge " + bc : " badge";
+        return (
+          "<tr class='ra-row ra-" +
+          escapeHtml(bc || "na") +
+          "'><td><span class='" +
+          escapeHtml(badgeCls.trim()) +
+          "'>" +
+          escapeHtml(statusLabelZh(c.status)) +
+          "</span></td><td class='mono ra-mono'>" +
+          escapeHtml(c.classname || "") +
+          "</td><td class='mono ra-mono'>" +
+          escapeHtml(c.name || "") +
+          "</td><td>" +
+          escapeHtml(String(c.time ?? "")) +
+          "</td><td>" +
+          detailCell +
+          "</td></tr>"
+        );
+      })
+      .join("");
+    wrap.innerHTML = head + rows + "</tbody></table>";
   }
 
   function renderReportsPage() {
@@ -969,25 +1201,14 @@
     }
     $("#submit").disabled = true;
     setStatus("运行中，请稍候…", "running");
+    setWorkflowProgress(true, { current: 0, total: 11, label: "排队启动" });
     try {
-      const r = await fetch("/generate-tests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repo_path: repo, diff, run_eval: $("#run_eval").checked }),
-      });
-      const text = await r.text();
       let data;
       try {
-        data = JSON.parse(text);
-      } catch {
-        setStatus("非 JSON 响应", "error");
-        return;
-      }
-      if (!r.ok) {
-        setStatus("HTTP " + r.status, "error");
-        lastResult = data;
-        $("#raw_json").textContent = JSON.stringify(data, null, 2);
-        $("#fab_raw").disabled = false;
+        data = await readNdjsonWorkflow(repo, diff, $("#run_eval").checked, $("#auto_venv").checked);
+      } catch (streamErr) {
+        setWorkflowProgress(false);
+        setStatus(streamErr.message || String(streamErr), "error");
         return;
       }
 
@@ -1004,6 +1225,7 @@
         coverage: data.evaluation && data.evaluation.coverage,
         exit_code: data.evaluation ? data.evaluation.exit_code : null,
         run_eval: $("#run_eval").checked,
+        auto_venv: $("#auto_venv").checked,
       };
       const snapshot = {
         response: data,
@@ -1017,7 +1239,12 @@
       saveLastResult(data, snapshot);
       strategyOrder = [];
       setStatus("完成", "");
+      setWorkflowProgress(true, { current: 11, total: 11, label: "已完成" });
+      setTimeout(function () {
+        setWorkflowProgress(false);
+      }, 900);
     } catch (err) {
+      setWorkflowProgress(false);
       setStatus(err.message || String(err), "error");
     } finally {
       $("#submit").disabled = false;
@@ -1055,6 +1282,12 @@
   $("#run_eval").addEventListener("change", () => {
     localStorage.setItem(LS_DEFAULT_EVAL, $("#run_eval").checked ? "1" : "0");
   });
+  const autoVenvEl = $("#auto_venv");
+  if (autoVenvEl) {
+    autoVenvEl.addEventListener("change", () => {
+      localStorage.setItem(LS_DEFAULT_AUTO_VENV, autoVenvEl.checked ? "1" : "0");
+    });
+  }
 
   $("#set_default_run_eval").addEventListener("change", () => {
     localStorage.setItem(LS_DEFAULT_EVAL, $("#set_default_run_eval").checked ? "1" : "0");
@@ -1182,6 +1415,8 @@
   $("#run_eval").checked = evalOn;
   const sde = $("#set_default_run_eval");
   if (sde) sde.checked = evalOn;
+  const autoVenvOn = localStorage.getItem(LS_DEFAULT_AUTO_VENV) === "1";
+  if (autoVenvEl) autoVenvEl.checked = autoVenvOn;
   $("#set_rules_draft").value = localStorage.getItem(LS_RULES) || "";
 
   renderChangesSummary(lastResult);

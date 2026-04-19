@@ -3,6 +3,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import keyword
+import logging
 import os
 import re
 import sys
@@ -104,9 +105,13 @@ def _debug_enabled() -> bool:
     return os.getenv("MUTIAGENT_DEBUG", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+_workflow_log = logging.getLogger("mutiagent.workflow")
+
+
 def _log_debug(message: str) -> None:
+    line = f"[CodeChangeAgent] {message}"
+    _workflow_log.info(line)
     if _debug_enabled():
-        line = f"[CodeChangeAgent] {message}"
         print(line, file=sys.stderr, flush=True)
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
         try:

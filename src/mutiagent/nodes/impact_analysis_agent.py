@@ -47,10 +47,14 @@ def _impact_debug_enabled() -> bool:
     return os.getenv("MUTIAGENT_DEBUG", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+_impact_workflow_log = logging.getLogger("mutiagent.workflow")
+
+
 def _impact_debug_log(message: str) -> None:
+    line = f"[ImpactAnalysisAgent] {message}"
+    _impact_workflow_log.info(line)
     if not _impact_debug_enabled():
         return
-    line = f"[ImpactAnalysisAgent] {message}"
     print(line, file=sys.stderr, flush=True)
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     try:
