@@ -2,10 +2,18 @@
 .vendor
 log/code_change_agent.log
 log/mutiagent.log
+log/*.log
 .mutiagent/
+__pycache__/
+*.pyc
+.pytest_cache/
+pynguin-report/
+log/*.sqlite3
+log/workflow_steps/
 
 # BugsInPy 本体较大，本地 clone 即可（见 scripts/run_bugsinpy_sample.py）
 external/BugsInPy/
+baseline/
 
 # 从真实仓库导出的工作区 diff（常含 .env / token / 私钥，勿提交）
 json/*.diff
