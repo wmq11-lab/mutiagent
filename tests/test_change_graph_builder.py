@@ -132,6 +132,45 @@ def test_analyze_impact_builds_layered_impact_graph() -> None:
     assert out.impact_test_plan
 
 
+def test_build_impact_graph_merges_duplicate_symbol_id() -> None:
+    """同一 file:type:entity 的多条变更应合并为一个符号，避免 vis 等消费者因重复节点 id 失败。"""
+    fs = FileChangeSummary(
+        file="lib/ansible/utils/version.py",
+        changes=[
+            ChangeRecord(
+                entity="__lt__",
+                type="method",
+                change_type="MODIFY",
+                semantic_tags=["logic_branch_changed"],
+                test_focus=[],
+                intent="BUG_FIX",
+                impact_seeds=[],
+            ),
+            ChangeRecord(
+                entity="__lt__",
+                type="method",
+                change_type="MODIFY",
+                semantic_tags=["dependency_call_changed"],
+                test_focus=[],
+                intent="BUG_FIX",
+                impact_seeds=[],
+            ),
+        ],
+    )
+    state = WorkflowState(
+        repo_path="/tmp",
+        diff="",
+        changed_files=["lib/ansible/utils/version.py"],
+        change_analysis=[fs],
+    )
+    graph, _catalog = build_impact_graph(state)
+    assert len(graph) == 1
+    syms = graph[0].symbols
+    assert len(syms) == 1
+    assert syms[0].name == "__lt__"
+    assert len(syms[0].semantic_unit_ids) == 2
+
+
 def test_build_impact_graph_prunes_builtin_seed() -> None:
     fs = FileChangeSummary(
         file="x.py",

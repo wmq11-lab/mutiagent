@@ -1,10 +1,56 @@
 from __future__ import annotations
 
+import os
+import re
+
 from mutiagent.graph.state import WorkflowState
 from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
 from mutiagent.utils.llm_output import strip_markdown_code_fence
 from mutiagent.utils.syntax_guard import exec_syntax_error
+
+
+def _truthy_env(name: str, default: str = "1") -> bool:
+    return os.environ.get(name, default).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _semantic_repair_known_patterns(code: str) -> tuple[str, list[str]]:
+    updated = code
+    applied: list[str] = []
+    new_code = re.sub(
+        r"if not FASTAPI_AVAILABLE:\s*\n\s*pytest\.fail\([^\n]*\)",
+        "fastapi = pytest.importorskip('fastapi')",
+        updated,
+        flags=re.IGNORECASE,
+    )
+    if new_code != updated:
+        applied.append("replace_global_fastapi_fail_guard")
+        updated = new_code
+    private_import = re.search(
+        r"^\s*from\s+fastapi\.routing\s+import\s+(_[A-Za-z0-9_]+)\s*$",
+        updated,
+        flags=re.MULTILINE,
+    )
+    if private_import:
+        updated = re.sub(
+            r"^\s*from\s+fastapi\.routing\s+import\s+(_[A-Za-z0-9_]+)\s*$",
+            "import fastapi.routing as _mutiagent_fastapi_routing",
+            updated,
+            flags=re.MULTILINE,
+        )
+        sym = private_import.group(1)
+        if f"{sym} = getattr(_mutiagent_fastapi_routing" not in updated:
+            inject = (
+                f"\n{sym} = getattr(_mutiagent_fastapi_routing, '{sym}', None)\n"
+                f"if {sym} is None:\n"
+                f"    pytest.skip('fastapi.routing.{sym} 不存在，跳过私有符号相关测试')\n"
+            )
+            if "else:\n    IMPORT_ERROR = None\n" in updated:
+                updated = updated.replace("else:\n    IMPORT_ERROR = None\n", "else:\n    IMPORT_ERROR = None\n" + inject)
+            else:
+                updated = inject + updated
+        applied.append("replace_private_fastapi_import")
+    return updated, applied
 
 
 def test_repair_agent(state: WorkflowState) -> WorkflowState:
@@ -16,8 +62,20 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
         return state
 
     code = state.generated_tests[0].content
+    semantic_applied: list[str] = []
+    if _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1"):
+        repaired, semantic_applied = _semantic_repair_known_patterns(code)
+        if repaired != code:
+            state.generated_tests[0].content = repaired
+            code = repaired
     err = exec_syntax_error(code, filename="<generated_test>")
-    state.debug["test_repair_agent"] = {"attempted": False, "fixed": False, "syntax_error": err}
+    state.debug["test_repair_agent"] = {
+        "attempted": False,
+        "fixed": False,
+        "syntax_error": err,
+        "semantic_enabled": _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1"),
+        "semantic_applied": semantic_applied,
+    }
 
     if err is None or not llm_available():
         return state

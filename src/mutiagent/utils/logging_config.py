@@ -7,6 +7,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 _configured = False
+_reset_done_once = False
 
 
 def _default_repo_root() -> Path:
@@ -22,10 +23,11 @@ def configure_app_logging(
     """
     为 logger ``mutiagent`` 配置 RotatingFileHandler。
 
-    - 默认每次调用会 **清空** ``log/mutiagent.log`` 并重建 handler（用于 API 进程每次启动）。
+    - 默认在**当前进程首次调用**时清空 ``log/mutiagent.log``（通常对应服务启动）。
+      同一进程后续再次调用仅重建 handler，不再重复清空日志。
     - 若需保留历史，启动前设置环境变量 ``MUTIAGENT_LOG_APPEND=1``。
     """
-    global _configured
+    global _configured, _reset_done_once
     root = (repo_root or _default_repo_root()).resolve()
     log_dir = root / "log"
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -49,11 +51,14 @@ def configure_app_logging(
                 pass
         _configured = False
 
-    if reset_log_file and log_path.exists():
+    should_reset_now = bool(reset_log_file) and (not _reset_done_once)
+    if should_reset_now and log_path.exists():
         try:
             log_path.unlink()
         except OSError:
             log_path.write_text("", encoding="utf-8")
+    if should_reset_now:
+        _reset_done_once = True
 
     base.setLevel(logging.INFO)
     base.propagate = False

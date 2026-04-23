@@ -842,7 +842,9 @@ def build_impact_graph(state: WorkflowState) -> tuple[list[ImpactGraphFile], lis
     for fs in state.change_analysis:
         if not fs.changes:
             continue
-        symbols: list[ImpactGraphSymbol] = []
+        # 同一文件下多条 ChangeRecord 可能指向同一 symbol_id（例如同一 method 多处 hunk），
+        # 合并语义单元并只保留一个符号节点，避免前端 vis.DataSet 因重复 id 报错。
+        by_sym_id: dict[str, ImpactGraphSymbol] = {}
         for ch in fs.changes:
             sym_id = f"{fs.file}:{ch.type}:{ch.entity}"
             uids: list[str] = []
@@ -853,19 +855,74 @@ def build_impact_graph(state: WorkflowState) -> tuple[list[ImpactGraphFile], lis
             uids = sorted(set(uids))
             if not uids:
                 continue
+            if sym_id in by_sym_id:
+                merged = sorted(set(by_sym_id[sym_id].semantic_unit_ids) | set(uids))
+                uids = merged
             cent = _symbol_centrality(uids, uid_to_unit)
-            symbols.append(
-                ImpactGraphSymbol(
-                    name=ch.entity,
-                    entity_type=ch.type,
-                    symbol_id=sym_id,
-                    semantic_unit_ids=uids,
-                    centrality=round(cent, 3),
-                )
+            by_sym_id[sym_id] = ImpactGraphSymbol(
+                name=ch.entity,
+                entity_type=ch.type,
+                symbol_id=sym_id,
+                semantic_unit_ids=uids,
+                centrality=round(cent, 3),
             )
+        symbols = [by_sym_id[k] for k in sorted(by_sym_id.keys())]
         if symbols:
             graph.append(ImpactGraphFile(file=fs.file, symbols=symbols))
 
+    return graph, catalog
+
+
+def _fallback_semantic_units_from_diff(state: WorkflowState) -> tuple[list[ImpactGraphFile], list[SemanticUnit]]:
+    """当上游没有抽出变更实体时，基于 diff_hunks 生成最小可用影响图。"""
+    graph: list[ImpactGraphFile] = []
+    catalog: list[SemanticUnit] = []
+    for file_path in state.changed_files or []:
+        hunks = state.diff_hunks.get(file_path, []) if isinstance(state.diff_hunks, dict) else []
+        if not hunks:
+            continue
+        slug = re.sub(r"[^a-z0-9_]+", "_", file_path.lower()).strip("_")[:48] or "changed_file"
+        semantic_id = f"data_processing:{slug}"
+        symbol_name = "__diff_hunk__"
+        first_hunk = hunks[0] if isinstance(hunks, list) and hunks else {}
+        if isinstance(first_hunk, dict):
+            line_no = int(first_hunk.get("target_start") or first_hunk.get("source_start") or 1)
+        else:
+            line_no = 1
+        symbol_id = f"{file_path}:function:{symbol_name}_{line_no}"
+        unit = SemanticUnit(
+            semantic_unit_id=semantic_id,
+            type="data_processing",
+            source=f"fallback_from_diff:{file_path}",
+            risk_score=0.35,
+            priority_score=0.45,
+            test_priority="P1",
+            centrality_factor=1.0,
+            call_chain=[symbol_id],
+            downstream=[],
+            upstream=[],
+            edge_types=["data"],
+            integration_risk=False,
+            referenced_symbol_ids=[symbol_id],
+            propagation_depth=0,
+            test_focus=_rule_derived_test_focus("data_processing"),
+            test_strategy=_build_semantic_strategies("data_processing", symbol_name, file_path, "fallback_diff_hunk"),
+        )
+        catalog.append(unit)
+        graph.append(
+            ImpactGraphFile(
+                file=file_path,
+                symbols=[
+                    ImpactGraphSymbol(
+                        name=symbol_name,
+                        entity_type="function",
+                        symbol_id=symbol_id,
+                        semantic_unit_ids=[semantic_id],
+                        centrality=1.0,
+                    )
+                ],
+            )
+        )
     return graph, catalog
 
 
@@ -889,6 +946,10 @@ def analyze_impact(state: WorkflowState) -> WorkflowState:
     """
     started = time.perf_counter()
     graph, catalog = build_impact_graph(state)
+    degraded_fallback = False
+    if not catalog and state.changed_files:
+        graph, catalog = _fallback_semantic_units_from_diff(state)
+        degraded_fallback = bool(catalog)
     uid_to_unit = {u.semantic_unit_id: u for u in catalog}
 
     state.impact_graph = graph
@@ -918,6 +979,7 @@ def analyze_impact(state: WorkflowState) -> WorkflowState:
         "propagation_hops_max": int(os.getenv("MUTIAGENT_IMPACT_MAX_PROPAGATION_HOPS", "3") or 3),
         "semantic_unit_catalog_count": stats["semantic_unit_catalog_count"],
         "impact_test_plan_count": len(state.impact_test_plan),
+        "fallback_from_diff_hunks": degraded_fallback,
         "top_priority_semantic_unit_ids": top_ids,
         "priority_score_top_5": _priority_score_debug_top5(catalog),
         "impact_type_distribution": stats["impact_type_distribution"],

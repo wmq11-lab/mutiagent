@@ -146,6 +146,13 @@ class GenerateTestsRequest(BaseModel):
             "也可不设本字段而使用环境变量 MUTIAGENT_AUTO_VENV=1。"
         ),
     )
+    auto_install_python: bool = Field(
+        default=False,
+        description=(
+            "仅在 auto_venv=True 时生效。为 True 且仓库声明了目标 Python 版本（如 bugsinpy_bug.info 的 "
+            "python_version）但本机缺失时，尝试用 pyenv 自动安装后再创建 venv。"
+        ),
+    )
 
 
 class TestStrategyItem(BaseModel):
@@ -366,6 +373,10 @@ class WorkflowState(BaseModel):
     auto_venv: bool = Field(
         default=False,
         description="为 True 时在仓库内自动创建 venv 并安装依赖后执行 pytest（与 MUTIAGENT_AUTO_VENV 等价）。",
+    )
+    auto_install_python: bool = Field(
+        default=False,
+        description="为 True 时，缺失目标 Python 版本会尝试通过 pyenv 自动安装（仅 auto_venv 生效）。",
     )
 
     changed_files: list[str] = Field(default_factory=list)

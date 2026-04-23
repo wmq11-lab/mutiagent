@@ -40,16 +40,18 @@
     <div class="app-body">
       <aside class="app-sidebar">
         <nav class="side-nav" id="side_nav">
-          <button type="button" class="nav-item active" data-view="dashboard"><span class="nav-icon">1</span><span>Dashboard</span></button>
-          <button type="button" class="nav-item" data-view="projects"><span class="nav-icon">2</span><span>Projects</span></button>
-          <button type="button" class="nav-item" data-view="changes"><span class="nav-icon">3</span><span>Changes</span></button>
-          <button type="button" class="nav-item" data-view="impact"><span class="nav-icon">★</span><span>Impact Analysis</span></button>
-          <button type="button" class="nav-item" data-view="testing"><span class="nav-icon">5</span><span>Testing</span></button>
-          <button type="button" class="nav-item" data-view="cases"><span class="nav-icon">6</span><span>Test Cases</span></button>
-          <button type="button" class="nav-item" data-view="execution"><span class="nav-icon">7</span><span>Execution</span></button>
+          <button type="button" class="nav-item active" data-view="dashboard"><span class="nav-icon">1</span><span>总览面板</span></button>
+          <button type="button" class="nav-item" data-view="projects"><span class="nav-icon">2</span><span>项目管理</span></button>
+          <button type="button" class="nav-item" data-view="changes"><span class="nav-icon">3</span><span>代码变更</span></button>
+          <button type="button" class="nav-item" data-view="impact"><span class="nav-icon">★</span><span>影响分析</span></button>
+          <button type="button" class="nav-item" data-view="impact-graph"><span class="nav-icon">◎</span><span>影响图谱</span></button>
+          <button type="button" class="nav-item" data-view="testing"><span class="nav-icon">5</span><span>测试策略</span></button>
+          <button type="button" class="nav-item" data-view="cases"><span class="nav-icon">6</span><span>测试用例</span></button>
+          <button type="button" class="nav-item" data-view="structured-cases"><span class="nav-icon">6+</span><span>结构化用例</span></button>
+          <button type="button" class="nav-item" data-view="execution"><span class="nav-icon">7</span><span>执行结果</span></button>
           <button type="button" class="nav-item" data-view="run-analysis"><span class="nav-icon">◆</span><span>报告分析</span></button>
-          <button type="button" class="nav-item" data-view="reports"><span class="nav-icon">8</span><span>Reports</span></button>
-          <button type="button" class="nav-item" data-view="settings"><span class="nav-icon">9</span><span>Settings</span></button>
+          <button type="button" class="nav-item" data-view="reports"><span class="nav-icon">8</span><span>分析报告</span></button>
+          <button type="button" class="nav-item" data-view="settings"><span class="nav-icon">9</span><span>系统设置</span></button>
         </nav>
       </aside>
 
@@ -165,6 +167,7 @@
                 <div class="row">
                   <label class="checkbox"><input type="checkbox" id="run_eval" checked/> 执行 pytest（run_eval）</label>
                   <label class="checkbox"><input type="checkbox" id="auto_venv"/> 自动 venv（在仓库 <code>.mutiagent/mutiagent_pytest_venv</code> 安装依赖后跑 pytest）</label>
+                  <label class="checkbox"><input type="checkbox" id="auto_install_python"/> 缺失 Python 时自动安装（pyenv）</label>
                 </div>
                 <div class="row">
                   <button type="submit" class="btn btn-primary" id="submit">运行全流程</button>
@@ -219,7 +222,7 @@
             <p class="view-desc">三栏：变更摘要 · 影响图谱 · 详情与筛选（论文创新点展示页；图谱由 impact_graph 构建）。</p>
           </div>
           <div class="toolbar-impact">
-            <label class="checkbox"><input type="checkbox" id="impact_filter_p0" checked/> 仅高优 P0 相关</label>
+            <label class="checkbox"><input type="checkbox" id="impact_filter_p0"/> 仅高优 P0 相关</label>
             <label class="checkbox"><input type="checkbox" id="impact_filter_sym" checked/> 显示符号节点</label>
             <span class="toolbar-spacer"></span>
             <span class="hint">多提交对比：需后端提供多版本 diff API（当前为 UI 占位）</span>
@@ -245,6 +248,23 @@
           <div class="card">
             <h2>语义单元目录（节选）</h2>
             <pre id="impact_catalog" class="json-out"></pre>
+          </div>
+        </section>
+
+        <!-- 4b Impact Graph -->
+        <section id="view-impact-graph" class="view">
+          <div class="view-header">
+            <h1>影响图谱</h1>
+            <p class="view-desc">独立展示影响关系图，便于演示与专注查看拓扑结构。</p>
+          </div>
+          <div class="toolbar-impact">
+            <label class="checkbox"><input type="checkbox" id="impact_graph_filter_p0"/> 仅高优 P0 相关</label>
+            <label class="checkbox"><input type="checkbox" id="impact_graph_filter_sym" checked/> 显示符号节点</label>
+          </div>
+          <div class="card impact-graph-only">
+            <div id="impact_graph_meta" class="mini-summary"></div>
+            <div id="vis_network_full" class="vis-host"></div>
+            <p class="hint">拖拽平移；按住 <kbd>Ctrl</kbd> 并滚轮缩放图谱，否则滚轮用于页面上下滚动。</p>
           </div>
         </section>
 
@@ -287,8 +307,23 @@
               <input type="text" id="case_module_tag" class="input-inline" placeholder="手动标记，仅前端会话"/>
               <label class="block-title">步骤 / 断言（可编辑，未回写服务端）</label>
               <textarea id="case_detail_body" class="case-editor" readonly></textarea>
+              <h3 class="block-title">逐条执行情况</h3>
+              <div id="case_exec_summary" class="mini-summary"></div>
+              <div id="case_exec_table_wrap" class="case-exec-wrap"></div>
             </div>
           </div>
+        </section>
+
+        <!-- 6b Structured Cases -->
+        <section id="view-structured-cases" class="view">
+          <div class="view-header">
+            <h1>结构化用例卡片</h1>
+            <p class="view-desc">逐条展示测试场景、优先级、断言与建议输入，便于评审和手工补充。</p>
+          </div>
+          <div class="card">
+            <div id="structured_cases_summary" class="mini-summary"></div>
+          </div>
+          <div id="structured_cases_list" class="structured-cases-grid"></div>
         </section>
 
         <!-- 7 Execution -->

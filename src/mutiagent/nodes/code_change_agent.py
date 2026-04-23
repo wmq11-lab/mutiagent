@@ -477,6 +477,30 @@ def _match_entities_to_range(entities: list[EntityInfo], start: int, length: int
     return hits
 
 
+def _nearest_entity(entities: list[EntityInfo], line_no: int) -> EntityInfo | None:
+    if not entities:
+        return None
+    target = max(1, int(line_no or 1))
+    return min(
+        entities,
+        key=lambda e: (
+            0 if e.start_line <= target <= e.end_line else 1,
+            min(abs(e.start_line - target), abs(e.end_line - target)),
+            e.start_line,
+        ),
+    )
+
+
+def _count_unified_changed_lines(file_diff: str) -> int:
+    n = 0
+    for line in file_diff.splitlines():
+        if line.startswith(("+++", "---", "@@")):
+            continue
+        if line.startswith("+") or line.startswith("-"):
+            n += 1
+    return n
+
+
 def _infer_hunk_change_type(hunk: Any) -> str:
     added = sum(1 for line in hunk if line.is_added)
     removed = sum(1 for line in hunk if line.is_removed)
@@ -758,6 +782,12 @@ def _extract_entities_for_patched_file(patched_file: Any, repo_path: str) -> lis
             selected = list(deleted_hits)
         if not selected:
             selected = list(inline_hits or deleted_hits)
+        if not selected:
+            nearest_pool = deleted_entities if change_type == "DELETE" else ast_entities
+            nearest_line = hunk.source_start if change_type == "DELETE" else hunk.target_start
+            near = _nearest_entity(nearest_pool, int(nearest_line or 1))
+            if near is not None:
+                selected = [near]
 
         hunk_text = _hunk_to_text(hunk)
         for entity in selected:
@@ -1569,6 +1599,53 @@ def _llm_refine_change_summary(file_path: str, file_diff: str, source: str, summ
     return FileChangeSummary(file=file_path, changes=refined)
 
 
+def _llm_guess_change_summary(file_path: str, file_diff: str, source: str) -> FileChangeSummary | None:
+    if not llm_available():
+        return None
+    system = (
+        "你是代码变更抽取器。输入一个文件的 unified diff 与源码片段，"
+        "请推断 1~3 个最可能受影响的实体。"
+        "输出 JSON：{\"changes\":[{\"entity\":\"...\",\"type\":\"function|class|method\",\"change_type\":\"ADD|MODIFY|DELETE\"}]}。"
+        "不要编造不存在的类型。"
+    )
+    payload = {"file": file_path, "diff": file_diff[:5000], "code_context": source[:3000]}
+    try:
+        resp = chat_json(system, f"输入如下（JSON）：\n{payload}\n\n请输出JSON。", temperature=0.0)
+    except Exception as exc:
+        _log_debug(f"llm guess failed: {file_path} ({type(exc).__name__}: {exc})")
+        return None
+    items = resp.get("changes", []) if isinstance(resp, dict) else []
+    changes: list[ChangeRecord] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        entity = str(item.get("entity", "")).strip()
+        entity_type = str(item.get("type", "function")).strip()
+        change_type = str(item.get("change_type", "MODIFY")).strip()
+        if not entity:
+            continue
+        if entity_type not in {"function", "class", "method"}:
+            entity_type = "function"
+        if change_type not in {"ADD", "MODIFY", "DELETE"}:
+            change_type = "MODIFY"
+        semantic_tags = infer_semantic_tags(file_diff, source)
+        changes.append(
+            ChangeRecord(
+                entity=entity,
+                type=entity_type,  # type: ignore[arg-type]
+                change_type=change_type,  # type: ignore[arg-type]
+                semantic_tags=semantic_tags,
+                test_focus=semantic_tags_to_test_focus(semantic_tags),
+                intent=classify_change_intent(semantic_tags, change_type),
+                impact_seeds=[],
+            )
+        )
+    if not changes:
+        return None
+    _log_debug(f"llm guess fallback: {file_path} ({len(changes)} changes)")
+    return FileChangeSummary(file=file_path, changes=changes[:3])
+
+
 def _build_file_diff_map(diff: str) -> dict[str, str]:
     patch = PatchSet(diff.splitlines(True))
     out: dict[str, str] = {}
@@ -1599,6 +1676,7 @@ def _build_change_analysis(diff: str, repo_path: str) -> tuple[list[FileChangeSu
     cache_hits = 0
     cache_misses = 0
     cache_writes = 0
+    degraded_files = 0
 
     for patched_file in patched_files:
         rel_path = patched_file.path
@@ -1648,7 +1726,13 @@ def _build_change_analysis(diff: str, repo_path: str) -> tuple[list[FileChangeSu
             change_diff_pairs.append((rec, merged_diff))
 
         summary = FileChangeSummary(file=rel_path, changes=changes)
-        _log_debug(f"file summary before llm: {rel_path} ({len(changes)} changes)")
+        if not summary.changes and _count_unified_changed_lines(file_diff) > 0:
+            degraded_files += 1
+            _log_debug(f"analysis degraded: {rel_path} has changed lines but extracted 0 entities")
+            guessed = _llm_guess_change_summary(rel_path, file_diff, source)
+            if guessed is not None and guessed.changes:
+                summary = guessed
+        _log_debug(f"file summary before llm: {rel_path} ({len(summary.changes)} changes)")
         need_refine = llm_available() and changes and any(
             change_requires_llm_refine(c, d) for c, d in change_diff_pairs
         )
@@ -1673,6 +1757,7 @@ def _build_change_analysis(diff: str, repo_path: str) -> tuple[list[FileChangeSu
         "cache_hits": cache_hits,
         "cache_misses": cache_misses,
         "cache_writes": cache_writes,
+        "degraded_files": degraded_files,
     }
     return out, meta
 
@@ -1703,6 +1788,8 @@ def ingest_change(state: WorkflowState) -> WorkflowState:
         "cache_hits": refine_meta["cache_hits"],
         "cache_misses": refine_meta["cache_misses"],
         "cache_writes": refine_meta["cache_writes"],
+        "degraded_files": refine_meta["degraded_files"],
+        "analysis_degraded": refine_meta["degraded_files"] > 0,
         "elapsed_seconds": round(time.perf_counter() - started_at, 3),
     }
     _log_debug(

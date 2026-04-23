@@ -1,9 +1,11 @@
 import json
+import sqlite3
 from collections.abc import Iterator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi import Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -12,6 +14,7 @@ from mutiagent.api.assistant import router as assistant_router
 from mutiagent.graph.state import GenerateTestsRequest, GenerateTestsResponse
 from mutiagent.graph.workflow import iter_workflow_events, run_workflow
 from mutiagent.utils.logging_config import configure_app_logging
+from mutiagent.utils.run_db import resolve_db_path
 
 
 @asynccontextmanager
@@ -127,6 +130,181 @@ def health() -> dict:
     return {"ok": True}
 
 
+def _app_repo_root() -> Path:
+    return Path(__file__).resolve().parents[3]
+
+
+def _open_db() -> sqlite3.Connection | None:
+    db_path = resolve_db_path(_app_repo_root())
+    if not db_path.exists():
+        return None
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+@app.get("/db/projects")
+def list_db_projects() -> dict:
+    conn = _open_db()
+    if conn is None:
+        return {"items": []}
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+                wr.repo_path AS repo_path,
+                COUNT(DISTINCT wr.run_id) AS run_count,
+                MAX(wr.started_at) AS last_started_at,
+                SUM(CASE WHEN wr.status = 'completed' THEN 1 ELSE 0 END) AS completed_count,
+                SUM(CASE WHEN wr.status = 'failed' THEN 1 ELSE 0 END) AS failed_count,
+                COUNT(gtf.id) AS generated_file_count
+            FROM workflow_runs wr
+            LEFT JOIN generated_test_files gtf ON gtf.run_id = wr.run_id
+            GROUP BY wr.repo_path
+            ORDER BY last_started_at DESC
+            """
+        ).fetchall()
+        return {
+            "items": [
+                {
+                    "repo_path": row["repo_path"],
+                    "run_count": int(row["run_count"] or 0),
+                    "last_started_at": row["last_started_at"],
+                    "completed_count": int(row["completed_count"] or 0),
+                    "failed_count": int(row["failed_count"] or 0),
+                    "generated_file_count": int(row["generated_file_count"] or 0),
+                }
+                for row in rows
+            ]
+        }
+    finally:
+        conn.close()
+
+
+@app.get("/db/project-runs")
+def list_project_runs(
+    repo_path: str = Query(..., description="项目仓库绝对路径"),
+    limit: int = Query(20, ge=1, le=100),
+) -> dict:
+    conn = _open_db()
+    if conn is None:
+        return {"repo_path": repo_path, "runs": []}
+    try:
+        run_rows = conn.execute(
+            """
+            SELECT
+                wr.run_id,
+                wr.started_at,
+                wr.finished_at,
+                wr.status,
+                wr.error_message,
+                ex.exit_code
+            FROM workflow_runs wr
+            LEFT JOIN (
+                SELECT e1.run_id, e1.exit_code
+                FROM executions e1
+                INNER JOIN (
+                    SELECT run_id, MAX(id) AS max_id
+                    FROM executions
+                    GROUP BY run_id
+                ) e2 ON e1.id = e2.max_id
+            ) ex ON ex.run_id = wr.run_id
+            WHERE wr.repo_path = ?
+            ORDER BY wr.started_at DESC
+            LIMIT ?
+            """,
+            (repo_path, limit),
+        ).fetchall()
+        if not run_rows:
+            return {"repo_path": repo_path, "runs": []}
+
+        run_ids = [str(row["run_id"]) for row in run_rows]
+        placeholders = ",".join("?" for _ in run_ids)
+        case_rows = conn.execute(
+            f"""
+            SELECT run_id, status, COUNT(*) AS cnt
+            FROM generated_test_cases
+            WHERE run_id IN ({placeholders})
+            GROUP BY run_id, status
+            """,
+            run_ids,
+        ).fetchall()
+        case_detail_rows = conn.execute(
+            f"""
+            SELECT run_id, suite, classname, case_name, case_time, status, detail
+            FROM generated_test_cases
+            WHERE run_id IN ({placeholders})
+            ORDER BY id DESC
+            """,
+            run_ids,
+        ).fetchall()
+        file_rows = conn.execute(
+            f"""
+            SELECT run_id, file_path, content, assumptions_json, status, exit_code, created_at
+            FROM generated_test_files
+            WHERE run_id IN ({placeholders})
+            ORDER BY id DESC
+            """,
+            run_ids,
+        ).fetchall()
+
+        case_summary: dict[str, dict[str, int]] = {rid: {} for rid in run_ids}
+        for row in case_rows:
+            rid = str(row["run_id"])
+            case_summary.setdefault(rid, {})[str(row["status"])] = int(row["cnt"] or 0)
+        case_details: dict[str, list[dict]] = {rid: [] for rid in run_ids}
+        for row in case_detail_rows:
+            rid = str(row["run_id"])
+            case_details.setdefault(rid, []).append(
+                {
+                    "suite": row["suite"],
+                    "classname": row["classname"],
+                    "case_name": row["case_name"],
+                    "case_time": row["case_time"],
+                    "status": row["status"],
+                    "detail": row["detail"],
+                }
+            )
+
+        files_by_run: dict[str, list[dict]] = {rid: [] for rid in run_ids}
+        for row in file_rows:
+            assumptions_raw = row["assumptions_json"] or "[]"
+            try:
+                assumptions = json.loads(assumptions_raw)
+            except json.JSONDecodeError:
+                assumptions = []
+            files_by_run.setdefault(str(row["run_id"]), []).append(
+                {
+                    "file_path": row["file_path"],
+                    "content": row["content"],
+                    "assumptions": assumptions if isinstance(assumptions, list) else [],
+                    "status": row["status"],
+                    "exit_code": row["exit_code"],
+                    "created_at": row["created_at"],
+                }
+            )
+
+        runs = []
+        for row in run_rows:
+            rid = str(row["run_id"])
+            runs.append(
+                {
+                    "run_id": rid,
+                    "started_at": row["started_at"],
+                    "finished_at": row["finished_at"],
+                    "status": row["status"],
+                    "error_message": row["error_message"],
+                    "exit_code": row["exit_code"],
+                    "case_summary": case_summary.get(rid, {}),
+                    "case_details": case_details.get(rid, []),
+                    "generated_tests": files_by_run.get(rid, []),
+                }
+            )
+        return {"repo_path": repo_path, "runs": runs}
+    finally:
+        conn.close()
+
+
 @app.post("/generate-tests", response_model=GenerateTestsResponse)
 def generate_tests(req: GenerateTestsRequest) -> GenerateTestsResponse:
     result = run_workflow(
@@ -134,6 +312,7 @@ def generate_tests(req: GenerateTestsRequest) -> GenerateTestsResponse:
         diff=req.diff,
         run_eval=req.run_eval,
         auto_venv=req.auto_venv,
+        auto_install_python=req.auto_install_python,
     )
     return GenerateTestsResponse(**result)
 
@@ -148,6 +327,7 @@ def generate_tests_stream(req: GenerateTestsRequest) -> StreamingResponse:
             diff=req.diff,
             run_eval=req.run_eval,
             auto_venv=req.auto_venv,
+            auto_install_python=req.auto_install_python,
         ):
             yield json.dumps(jsonable_encoder(ev), ensure_ascii=False) + "\n"
 

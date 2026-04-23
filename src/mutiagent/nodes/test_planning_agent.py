@@ -541,10 +541,18 @@ def plan_tests(state: WorkflowState) -> WorkflowState:
     test_layers = augment_test_layers_from_cases(test_layers, cases)
 
     if not cases:
+        reason_code = "NO_SEMANTIC_UNITS"
+        if state.impact_graph:
+            reason_code = "NO_GENERATABLE_CASES"
         root = _fallback_structured_root(pattern_hint)
         state.structured_test_plan = root
         state.test_plan = _plan_items_from_cases(root.test_cases)
-        state.debug["test_planning_agent"] = {"skipped": False, "count": len(state.test_plan), "fallback": True}
+        state.debug["test_planning_agent"] = {
+            "skipped": False,
+            "count": len(state.test_plan),
+            "fallback": True,
+            "reason_code": reason_code,
+        }
         return state
 
     root = StructuredTestPlanRoot(
@@ -569,5 +577,7 @@ def plan_tests(state: WorkflowState) -> WorkflowState:
         "structured_cases": len(cases),
         "p0_semantic_units": root.summary.p0_semantic_units,
         "p0_covered": root.summary.p0_covered,
+        "fallback": False,
+        "reason_code": "OK",
     }
     return state

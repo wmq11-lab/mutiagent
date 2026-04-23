@@ -40,6 +40,27 @@ MUTIAGENT_DEBUG=1
 
 开启后日志会写入项目根目录下的 `log/code_change_agent.log`。
 
+SQLite 持久化默认开启（在保留文件落盘的同时，额外写入工作流步骤与执行结果）。
+如需关闭可设置：
+
+```env
+MUTIAGENT_DB_ENABLED=0
+```
+
+默认数据库文件为项目根目录 `log/mutiagent.sqlite3`。  
+如需自定义路径：
+
+```env
+MUTIAGENT_DB_PATH=/your/path/mutiagent.sqlite3
+```
+
+启用后会写入以下表：
+- `workflow_runs`：每次工作流运行元信息
+- `workflow_steps`：每个节点输出快照
+- `executions`：ExecutionAgent 执行结果
+- `generated_test_files`：每次生成的测试文件内容（`path/content/assumptions`）与本次执行状态（`passed/failed`）
+- `generated_test_cases`：junit 逐条用例结果（`suite/classname/case_name/status/detail`）
+
 #### OpenAI
 
 ```bash
@@ -95,6 +116,12 @@ export MUTIAGENT_LLM_BASE_URL="https://open.bigmodel.cn/api/paas/v4"
  ```bash
  uvicorn mutiagent.api.main:app --reload --port 8000
  ```
+
+推荐开发启动方式（仅在启动时清空一次 `log/mutiagent.log`，后续热重载不再清空）：
+
+```bash
+bash scripts/dev.sh
+```
 
 ### 直接测试 CodeChangeAgent
 
