@@ -10,6 +10,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from mutiagent.utils.pip_infer import infer_enabled
+
 _FP_REL = ".install_fingerprint"
 _VENV_SEG = Path(".mutiagent") / "mutiagent_pytest_venv"
 
@@ -22,6 +24,7 @@ _FINGERPRINT_FILES = (
     "setup.cfg",
     "setup.py",
     "bugsinpy_bug.info",
+    ".mutiagent/mutiagent_inferred_pip.txt",
 )
 
 
@@ -252,9 +255,13 @@ def ensure_dataset_venv(
     if r.returncode != 0:
         return None, f"pip install --upgrade pip 失败:\n{(r.stderr or r.stdout or '').strip()}"
 
-    r = _run(pip + ["install", "pytest"], cwd=repo, timeout=min(300, timeout))
+    r = _run(
+        pip + ["install", "pytest", "pytest-cov>=5"],
+        cwd=repo,
+        timeout=min(300, timeout),
+    )
     if r.returncode != 0:
-        return None, f"pip install pytest 失败:\n{(r.stderr or r.stdout or '').strip()}"
+        return None, f"pip install pytest/pytest-cov 失败:\n{(r.stderr or r.stdout or '').strip()}"
 
     for req_name in ("requirements.txt", "bugsinpy_requirements.txt"):
         req = repo / req_name
@@ -287,6 +294,15 @@ def ensure_dataset_venv(
         if r.returncode != 0:
             return None, (
                 f"pip install -r {req_name} 失败:\n"
+                f"{(r.stderr or r.stdout or '').strip()}"
+            )
+
+    inf = repo / ".mutiagent" / "mutiagent_inferred_pip.txt"
+    if inf.is_file() and infer_enabled():
+        r = _run(pip + ["install", "-r", str(inf)], cwd=repo, timeout=timeout)
+        if r.returncode != 0:
+            return None, (
+                f"pip install 推断依赖 -r {inf.name} 失败:\n"
                 f"{(r.stderr or r.stdout or '').strip()}"
             )
 

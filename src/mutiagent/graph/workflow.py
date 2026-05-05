@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from collections.abc import Callable, Iterator
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -15,12 +16,14 @@ from mutiagent.nodes.code_change_agent import ingest_change
 from mutiagent.nodes.execution_agent import execution_agent
 from mutiagent.nodes.feedback_agent import feedback_agent
 from mutiagent.nodes.impact_analysis_agent import analyze_impact
+from mutiagent.nodes.project_probe_agent import project_probe_agent
 from mutiagent.nodes.retrieval_agent import retrieval_agent
 from mutiagent.nodes.evaluation_agent import evaluation_agent
 from mutiagent.nodes.test_gen_agent import generate_tests
 from mutiagent.nodes.test_planning_agent import plan_tests
 from mutiagent.nodes.test_prioritization_agent import test_prioritization_agent
 from mutiagent.nodes.test_repair_agent import test_repair_agent
+from mutiagent.evaluation.experiment_run_log import merge_workflow_total_time_into_experiment_record
 from mutiagent.utils.run_db import finish_workflow_run
 from mutiagent.utils.run_db import start_workflow_run
 from mutiagent.utils.run_db import write_workflow_step
@@ -30,6 +33,7 @@ _log = logging.getLogger("mutiagent.workflow")
 # 与图中节点顺序一致（用于进度 total）
 WORKFLOW_NODE_ORDER: tuple[str, ...] = (
     "CodeChangeAgent",
+    "ProjectProbeAgent",
     "ImpactAnalysisAgent",
     "BugPatternAgent",
     "TestPlanningAgent",
@@ -44,6 +48,7 @@ WORKFLOW_NODE_ORDER: tuple[str, ...] = (
 
 WORKFLOW_NODE_LABELS: dict[str, str] = {
     "CodeChangeAgent": "代码变更解析",
+    "ProjectProbeAgent": "项目探测 / 环境准备",
     "ImpactAnalysisAgent": "影响分析",
     "BugPatternAgent": "缺陷模式",
     "TestPlanningAgent": "测试规划",
@@ -80,6 +85,7 @@ def _jsonable(obj: Any) -> Any:
 def build_workflow():
     g = StateGraph(WorkflowState)
     g.add_node("CodeChangeAgent", ingest_change)
+    g.add_node("ProjectProbeAgent", project_probe_agent)
     g.add_node("ImpactAnalysisAgent", analyze_impact)
     g.add_node("BugPatternAgent", bug_pattern_agent)
     g.add_node("TestPlanningAgent", plan_tests)
@@ -92,7 +98,8 @@ def build_workflow():
     g.add_node("FeedbackAgent", feedback_agent)
 
     g.set_entry_point("CodeChangeAgent")
-    g.add_edge("CodeChangeAgent", "ImpactAnalysisAgent")
+    g.add_edge("CodeChangeAgent", "ProjectProbeAgent")
+    g.add_edge("ProjectProbeAgent", "ImpactAnalysisAgent")
     g.add_edge("ImpactAnalysisAgent", "BugPatternAgent")
     g.add_edge("BugPatternAgent", "TestPlanningAgent")
     g.add_edge("TestPlanningAgent", "TestPrioritizationAgent")
@@ -119,6 +126,7 @@ def _compiled_graph():
 def _workflow_result_dict(out: WorkflowState) -> dict[str, Any]:
     code_dbg = out.debug.get("code_change", {}) if isinstance(out.debug, dict) else {}
     impact_dbg = out.debug.get("impact", {}) if isinstance(out.debug, dict) else {}
+    dwc = out.debug.get("diff_worktree_check") if isinstance(out.debug, dict) else None
     degraded_gate = bool(code_dbg.get("analysis_degraded", False)) and int(
         impact_dbg.get("semantic_unit_catalog_count", 0) or 0
     ) == 0
@@ -133,14 +141,19 @@ def _workflow_result_dict(out: WorkflowState) -> dict[str, Any]:
         "impact_test_plan": [p.model_dump(mode="json") for p in out.impact_test_plan],
         "top_risks": [r.model_dump(mode="json") for r in out.top_risks],
         "impacted": out.impacted_ranked,
+        "project_profile": out.project_profile,
         "test_plan": out.structured_test_plan.model_dump(mode="json"),
         "test_plan_items": [p.model_dump() for p in out.test_plan],
         "generated_tests": out.generated_tests,
         "evaluation": out.evaluation.model_dump(mode="json") if out.evaluation is not None else None,
         "debug": out.debug,
+        "diff_worktree_check": dwc,
         "quality_gates": {
             "degraded_pass_gate": degraded_gate,
             "reason": "CodeChangeAgent degraded + ImpactAnalysisAgent empty" if degraded_gate else "OK",
+            "diff_worktree_mismatch": bool(
+                isinstance(dwc, dict) and dwc.get("ok") is False and dwc.get("modified_paths_missing_in_worktree")
+            ),
         },
     }
 
@@ -170,6 +183,10 @@ def _execute_workflow(
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     step_dump_dir = app_root / "log" / "workflow_steps" / stamp
     step_dump_dir.mkdir(parents=True, exist_ok=True)
+    state.debug["workflow_steps_stamp"] = stamp
+    state.debug["workflow_steps_dir"] = str(step_dump_dir.resolve())
+    state.debug["workflow_started_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    state.debug["_workflow_perf_start"] = time.perf_counter()
     _log.info("工作流步骤输出目录: %s", step_dump_dir)
     try:
         for mode, payload in g.stream(state, stream_mode=["updates", "values"]):
@@ -243,8 +260,11 @@ def _execute_workflow(
         status="completed",
     )
     if isinstance(last_values, WorkflowState):
+        merge_workflow_total_time_into_experiment_record(last_values)
         return last_values
-    return WorkflowState.model_validate(last_values)
+    validated = WorkflowState.model_validate(last_values)
+    merge_workflow_total_time_into_experiment_record(validated)
+    return validated
 
 
 def run_workflow(
@@ -252,7 +272,7 @@ def run_workflow(
     diff: str,
     run_eval: bool = True,
     *,
-    auto_venv: bool = False,
+    auto_venv: bool = True,
     auto_install_python: bool = False,
     progress_callback: Callable[[str, int, int, str], None] | None = None,
 ) -> dict[str, Any]:
@@ -277,7 +297,7 @@ def iter_workflow_events(
     diff: str,
     run_eval: bool = True,
     *,
-    auto_venv: bool = False,
+    auto_venv: bool = True,
     auto_install_python: bool = False,
 ) -> Iterator[dict[str, Any]]:
     """

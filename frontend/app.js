@@ -23,10 +23,46 @@
   let chartTrend = null;
   let chartPie = null;
   let network = null;
-  let strategyOrder = [];
-  let selectedCaseIndex = -1;
+  /** 影响图谱容器尺寸变化时同步 vis，避免首帧高度过小后不再更新 */
+  let visHostResizeObserver = null;
+
+  function unbindVisHostResize() {
+    if (visHostResizeObserver) {
+      visHostResizeObserver.disconnect();
+      visHostResizeObserver = null;
+    }
+  }
+
+  function fitVisNetworkToHost(host) {
+    if (typeof vis === "undefined" || !vis || !vis.Network || !network || !host) return;
+    const w = host.clientWidth;
+    const h = host.clientHeight;
+    if (w < 16 || h < 16) return;
+    try {
+      if (typeof network.setSize === "function") {
+        network.setSize(String(w) + "px", String(h) + "px");
+      }
+    } catch (e) {
+      /* */
+    }
+    try {
+      network.redraw();
+      network.fit({ animation: { duration: 0 }, maxZoomLevel: 1.5 });
+    } catch (e2) {
+      /* */
+    }
+  }
+
   let currentProjectDetail = -1;
   let changesReturnTab = "run";
+
+  function prioBadgeClass(prio) {
+    const p = String(prio || "").trim().toUpperCase();
+    if (p === "P0") return "prio-badge prio-p0";
+    if (p === "P1") return "prio-badge prio-p1";
+    if (p === "P2") return "prio-badge prio-p2";
+    return "prio-badge prio-p-other";
+  }
 
   function escapeHtml(s) {
     const d = document.createElement("div");
@@ -110,7 +146,6 @@
     if (id === "impact") renderImpactPage();
     if (id === "impact-graph") renderImpactGraphPage();
     if (id === "testing") renderTestingPage();
-    if (id === "cases") renderCasesPage();
     if (id === "structured-cases") renderStructuredCasesPage();
     if (id === "execution") renderExecutionPage();
     if (id === "run-analysis") renderRunAnalysisPage();
@@ -129,6 +164,7 @@
         network.destroy();
         network = null;
       }
+      unbindVisHostResize();
       return;
     }
     const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
@@ -140,17 +176,31 @@
       },
       interaction: {
         hover: true,
+        dragView: true,
         zoomView: true,
-        // 未按修饰键时滚轮交给页面滚动，避免与 .app-main 抢事件、体感“反向跳”
-        zoomKey: "ctrlKey",
+        navigationButtons: true,
+        keyboard: { enabled: true, speed: { x: 12, y: 12, zoom: 0.05 }, bindToWindow: false },
       },
     };
     if (network) network.destroy();
+    unbindVisHostResize();
     if (networkHost) networkHost.innerHTML = "";
     network = new vis.Network(networkHost, data, opts);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (networkHost) fitVisNetworkToHost(networkHost);
+      });
+    });
+    if (typeof ResizeObserver !== "undefined" && networkHost) {
+      visHostResizeObserver = new ResizeObserver(function () {
+        fitVisNetworkToHost(networkHost);
+      });
+      visHostResizeObserver.observe(networkHost);
+    }
     const stopPhysics = function () {
       try {
         network.setOptions({ physics: false });
+        network.fit({ animation: { duration: 250 }, maxZoomLevel: 1.2 });
       } catch (e) {
         /* destroyed */
       }
@@ -164,27 +214,189 @@
     setTimeout(stopPhysics, 5000);
   }
 
-  function refreshTopProjectSelect() {
-    const sel = $("#top_project");
+  function branchNoteForRepo(repoPath) {
+    const r = (repoPath || "").trim();
+    if (!r) return "";
     const projects = loadProjects();
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">— 选择项目 —</option>';
-    projects.forEach((p, i) => {
-      const o = document.createElement("option");
-      o.value = String(i);
-      o.textContent = p.name || p.path || "project";
-      sel.appendChild(o);
-    });
-    if (cur !== "" && projects[Number(cur)]) sel.value = cur;
+    const hit = projects.find((x) => (x.path || "").trim() === r);
+    return hit && hit.branch ? String(hit.branch).trim() : "";
   }
 
-  function applyTopProject() {
-    const idx = $("#top_project").value;
-    const projects = loadProjects();
-    if (idx === "" || !projects[Number(idx)]) return;
-    const p = projects[Number(idx)];
-    $("#repo_path").value = p.path || "";
-    if (p.branch) $("#top_branch").value = p.branch;
+  function pathsEqual(a, b) {
+    return (a || "").trim() === (b || "").trim();
+  }
+
+  function escapeAttr(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+  }
+
+  function collectDashboardProjectOptions() {
+    const seen = new Set();
+    const out = [];
+    loadProjects().forEach((p) => {
+      const path = (p.path || "").trim();
+      if (!path || seen.has(path)) return;
+      seen.add(path);
+      out.push({ path, label: (p.name || path).trim() || path });
+    });
+    loadHistory().forEach((h) => {
+      const path = (h.repo_path || "").trim();
+      if (!path || seen.has(path)) return;
+      seen.add(path);
+      const tail = path.replace(/\\/g, "/").split("/").filter(Boolean).pop() || path;
+      out.push({ path, label: tail });
+    });
+    return out;
+  }
+
+  function branchesForProjectPath(repoPath) {
+    const rp = (repoPath || "").trim();
+    const set = new Set();
+    loadProjects().forEach((p) => {
+      if (!pathsEqual(p.path, rp)) return;
+      if (p.branch != null && String(p.branch).trim() !== "") set.add(String(p.branch).trim());
+    });
+    loadHistory().forEach((h) => {
+      if (!pathsEqual(h.repo_path, rp)) return;
+      set.add(String(h.branch || "").trim());
+    });
+    return Array.from(set).sort(function (a, b) {
+      if (a === "" && b !== "") return 1;
+      if (a !== "" && b === "") return -1;
+      return String(a).localeCompare(String(b));
+    });
+  }
+
+  function renderDashBranchOptions(repoPath, preferredBranch) {
+    const selB = $("#dash_branch");
+    if (!selB) return;
+    const prev = selB.value;
+    const branches = branchesForProjectPath(repoPath);
+    const list = branches.length ? branches : [""];
+    selB.innerHTML = list
+      .map(function (b) {
+        const label = b === "" ? "（未标注分支）" : b;
+        return "<option value='" + escapeAttr(b) + "'>" + escapeHtml(label) + "</option>";
+      })
+      .join("");
+    const want = String(preferredBranch || "").trim();
+    if ([...selB.options].some((o) => o.value === want)) selB.value = want;
+    else if ([...selB.options].some((o) => o.value === prev)) selB.value = prev;
+    else selB.selectedIndex = 0;
+  }
+
+  function dashScopeHintText() {
+    const selP = $("#dash_project");
+    const selB = $("#dash_branch");
+    const path = selP ? String(selP.value || "").trim() : "";
+    if (!path) return "请先选择仓库。";
+    const short = path.replace(/\\/g, "/").split("/").filter(Boolean).pop() || path;
+    const brLabel =
+      selB && selB.selectedOptions[0] ? String(selB.selectedOptions[0].textContent || "").trim() : "—";
+    return "以下为「" + short + " / " + brLabel + "」范围；三项指标与风险分布取自该组合下最近一条可用的分析快照（历史中的对应运行）。";
+  }
+
+  /** 最近一次与 project+branch 匹配的快照正文（结构与 lastResult 一致） */
+  function findLatestDashboardPayload(repoPath, branch) {
+    const rp = (repoPath || "").trim();
+    const br = String(branch || "").trim();
+    if (!rp) return null;
+    const hist = loadHistory();
+    for (let i = hist.length - 1; i >= 0; i--) {
+      const h = hist[i];
+      if (!pathsEqual(h.repo_path, rp)) continue;
+      if (String(h.branch || "").trim() !== br) continue;
+      try {
+        const snap = JSON.parse(sessionStorage.getItem(SNAP + h.id) || "null");
+        if (snap && snap.response && typeof snap.response === "object") return snap.response;
+      } catch {
+        /* */
+      }
+    }
+    if (
+      lastResult &&
+      lastSnapshot &&
+      pathsEqual(lastSnapshot.client_repo, rp) &&
+      String(lastSnapshot.branch || "").trim() === br
+    ) {
+      return lastResult;
+    }
+    return null;
+  }
+
+  function filteredHistorySlice(repoPath, branch, limit) {
+    const rp = (repoPath || "").trim();
+    const br = String(branch || "").trim();
+    if (!rp) return [];
+    const all = loadHistory().filter(function (h) {
+      return pathsEqual(h.repo_path, rp) && String(h.branch || "").trim() === br;
+    });
+    return typeof limit === "number" ? all.slice(-limit) : all;
+  }
+
+  function renderDashScopeSelectors(preferredPath, preferredBranch) {
+    const selP = $("#dash_project");
+    const hint = $("#dash_scope_hint");
+    if (!selP) return;
+    const opts = collectDashboardProjectOptions();
+    if (!opts.length) {
+      selP.innerHTML = "<option value=''>— 请先添加项目或运行一次分析 —</option>";
+      renderDashBranchOptions("", "");
+      if (hint) hint.textContent = "尚无本地项目或历史记录：可在「项目管理」添加仓库路径，或通过「代码变更」运行全流程。";
+      return;
+    }
+    selP.innerHTML = opts
+      .map(function (o) {
+        return "<option value='" + escapeAttr(o.path) + "'>" + escapeHtml(o.label) + "</option>";
+      })
+      .join("");
+
+    const hist = loadHistory();
+    let path = String(preferredPath || "").trim();
+    if (!path || ![...selP.options].some((o) => o.value === path)) {
+      const lastRun = hist.length ? hist[hist.length - 1] : null;
+      if (lastRun) path = String(lastRun.repo_path || "").trim();
+      if (!path || ![...selP.options].some((o) => o.value === path)) path = opts[0].path;
+    }
+    selP.value = path;
+
+    let brSel = String(preferredBranch || "").trim();
+    if (!brSel) {
+      const lastRun = hist.length ? hist[hist.length - 1] : null;
+      if (lastRun && pathsEqual(String(lastRun.repo_path || "").trim(), path)) {
+        brSel = String(lastRun.branch || "").trim();
+      }
+    }
+    if (!brSel) {
+      const pSaved = loadProjects().find((p) => pathsEqual(p.path, path));
+      if (pSaved && pSaved.branch) brSel = String(pSaved.branch).trim();
+    }
+    renderDashBranchOptions(path, brSel);
+    if (hint) hint.textContent = dashScopeHintText();
+  }
+
+  function bindDashboardScopeEvents() {
+    const selP = $("#dash_project");
+    const selB = $("#dash_branch");
+    if (!selP || selP.dataset.bound) return;
+    selP.dataset.bound = "1";
+    selP.addEventListener("change", function () {
+      const path = String(selP.value || "").trim();
+      renderDashBranchOptions(path, "");
+      const oh = $("#dash_scope_hint");
+      if (oh) oh.textContent = dashScopeHintText();
+      refreshDashboard();
+    });
+    if (selB) {
+      selB.addEventListener("change", function () {
+        const oh = $("#dash_scope_hint");
+        if (oh) oh.textContent = dashScopeHintText();
+        refreshDashboard();
+      });
+    }
   }
 
   function setStatus(msg, kind) {
@@ -225,6 +437,34 @@
           (cs.error || 0) +
           " / skipped " +
           (cs.skipped || 0);
+        const em = run.evaluation_metrics || {};
+        const mf = run.metric_flags && typeof run.metric_flags === "object" ? run.metric_flags : {};
+        const totalN =
+          (Number(cs.passed) || 0) +
+          (Number(cs.failed) || 0) +
+          (Number(cs.error) || 0) +
+          (Number(cs.errors) || 0) +
+          (Number(cs.skipped) || 0);
+        const precisionM =
+          typeof mf.precision_meaningful === "boolean"
+            ? mf.precision_meaningful
+            : totalN > 0 && typeof em.precision === "number";
+        const recallM =
+          typeof mf.recall_meaningful === "boolean"
+            ? mf.recall_meaningful
+            : typeof em.recall === "number";
+        const f1M =
+          typeof mf.f1_meaningful === "boolean" ? mf.f1_meaningful : precisionM && recallM && typeof em.f1 === "number";
+        let metricLine = "";
+        if (typeof em.precision === "number" || typeof em.recall === "number" || typeof em.f1 === "number") {
+          const pStr =
+            precisionM && typeof em.precision === "number" ? (em.precision * 100).toFixed(1) + "%" : "—";
+          const rStr =
+            recallM && typeof em.recall === "number" ? (em.recall * 100).toFixed(1) + "%" : "—";
+          const fStr = f1M && typeof em.f1 === "number" ? (em.f1 * 100).toFixed(1) + "%" : "—";
+          metricLine =
+            " · Precision: " + pStr + "（通过率） · Recall: " + rStr + "（变更行覆盖） · F1: " + fStr;
+        }
         const files = Array.isArray(run.generated_tests) ? run.generated_tests : [];
         const caseDetails = Array.isArray(run.case_details) ? run.case_details : [];
         const caseRowsHtml = caseDetails.length
@@ -280,6 +520,7 @@
           escapeHtml(run.run_id || "") +
           "</code></p><p class='hint'>用例统计: " +
           escapeHtml(summary) +
+          escapeHtml(metricLine) +
           "</p>" +
           (run.error_message ? "<p class='hint'>错误: " + escapeHtml(run.error_message) + "</p>" : "") +
           "<h4 class='block-title'>逐条执行情况</h4>" +
@@ -407,10 +648,16 @@
 
   function updateCharts() {
     if (typeof Chart === "undefined") return;
-    const hist = loadHistory();
-    const recent = hist.slice(-10);
+    const selP = $("#dash_project");
+    const selB = $("#dash_branch");
+    const rp = selP ? String(selP.value || "").trim() : "";
+    const br = selB ? String(selB.value || "").trim() : "";
+    const recent = rp ? filteredHistorySlice(rp, br, Infinity).slice(-10) : [];
     const labels = recent.map((h) => h.at.slice(5, 16).replace("T", " "));
     const failData = recent.map((h) => (h.exit_code != null && h.exit_code !== 0 ? 1 : 0));
+
+    const payload = rp ? findLatestDashboardPayload(rp, br) : null;
+    const brk = payload ? riskBreakdown(payload) : { P0: 0, P1: 0, P2: 0 };
 
     const ctx1 = $("#chart_trend");
     if (ctx1) {
@@ -442,11 +689,15 @@
       });
     }
 
-    const br = lastResult ? riskBreakdown(lastResult) : { P0: 0, P1: 0, P2: 0 };
     const ctx2 = $("#chart_pie");
     if (ctx2) {
       if (chartPie) chartPie.destroy();
-      const vals = [br.P0, br.P1, br.P2].some((v) => v > 0) ? [br.P0, br.P1, br.P2] : [1, 0, 0];
+      const vals =
+        payload && [brk.P0, brk.P1, brk.P2].some(function (v) {
+          return v > 0;
+        })
+          ? [brk.P0, brk.P1, brk.P2]
+          : [1, 0, 0];
       chartPie = new Chart(ctx2, {
         type: "doughnut",
         data: {
@@ -475,10 +726,16 @@
     const df = $("#dash_metric_fail");
     if (!dm) return;
 
-    if (lastResult) {
-      dm.textContent = String((lastResult.changed_files || []).length);
-      dr.textContent = String(countHighRisk(lastResult));
-      const cov = lastResult.evaluation && lastResult.evaluation.coverage;
+    const selP = $("#dash_project");
+    const selB = $("#dash_branch");
+    const rp = selP ? String(selP.value || "").trim() : "";
+    const br = selB ? String(selB.value || "").trim() : "";
+    const payload = rp ? findLatestDashboardPayload(rp, br) : null;
+
+    if (payload) {
+      dm.textContent = String((payload.changed_files || []).length);
+      dr.textContent = String(countHighRisk(payload));
+      const cov = payload.evaluation && payload.evaluation.coverage;
       dc.textContent = cov != null ? (cov * 100).toFixed(1) + "%" : "—";
     } else {
       dm.textContent = "—";
@@ -486,10 +743,10 @@
       dc.textContent = "—";
     }
 
-    const hist = loadHistory().slice(-10);
-    if (hist.length) {
-      const fails = hist.filter((h) => h.exit_code != null && h.exit_code !== 0).length;
-      df.textContent = ((fails / hist.length) * 100).toFixed(0) + "%";
+    const recentTen = rp ? filteredHistorySlice(rp, br, Infinity).slice(-10) : [];
+    if (recentTen.length) {
+      const fails = recentTen.filter((h) => h.exit_code != null && h.exit_code !== 0).length;
+      df.textContent = ((fails / recentTen.length) * 100).toFixed(0) + "%";
     } else {
       df.textContent = "—";
     }
@@ -530,6 +787,8 @@
           exit_code: ev.exit_code != null ? ev.exit_code : null,
           report_dir: ev.report_dir || null,
           coverage: ev.coverage != null ? ev.coverage : null,
+          metrics: ev.metrics && typeof ev.metrics === "object" ? ev.metrics : {},
+          metric_flags: ev.metric_flags && typeof ev.metric_flags === "object" ? ev.metric_flags : {},
           pytest_summary: ev.pytest_summary && typeof ev.pytest_summary === "object" ? ev.pytest_summary : {},
           pytest_cases: Array.isArray(ev.pytest_cases) ? ev.pytest_cases : [],
         })
@@ -554,10 +813,15 @@
     $("#fab_raw").disabled = false;
     $("#raw_json").textContent = JSON.stringify(data, null, 2);
     renderChangesSummary(data);
+    bindDashboardScopeEvents();
+    renderDashScopeSelectors(
+      lastSnapshot ? String(lastSnapshot.client_repo || "").trim() : "",
+      lastSnapshot ? String(lastSnapshot.branch || "").trim() : ""
+    );
     refreshDashboard();
     renderImpactPage();
     renderTestingPage();
-    renderCasesPage();
+    renderStructuredCasesPage();
     renderExecutionPage();
     renderRunAnalysisPage();
     renderReportsPage();
@@ -607,6 +871,22 @@
       "</strong></p>";
     html += "<p>生成测试：<strong>" + (data.generated_tests || []).length + "</strong></p>";
     if (ev.ran) html += "<p>pytest 退出码：<strong>" + (ev.exit_code ?? "—") + "</strong></p>";
+    const dwc = data.diff_worktree_check;
+    const qg = data.quality_gates || {};
+    if (dwc && typeof dwc === "object") {
+      const miss = dwc.modified_paths_missing_in_worktree || [];
+      const warn =
+        qg.diff_worktree_mismatch === true ||
+        (dwc.ok === false && miss.length)
+          ? " warn"
+          : "";
+      html +=
+        "<p class='diff-worktree-line" +
+        warn +
+        "'><strong>diff / 工作区</strong>：" +
+        escapeHtml(dwc.recommendation_zh || (dwc.ok ? "已对齐" : "请检查")) +
+        "</p>";
+    }
     el.innerHTML = html;
   }
 
@@ -619,6 +899,19 @@
     (data.semantic_units_catalog || []).forEach((u) => {
       if (u.test_priority === "P0") p0ids.add(u.semantic_unit_id);
     });
+    const unitById = new Map();
+    (data.semantic_units_catalog || []).forEach((u) => {
+      if (u && u.semantic_unit_id) unitById.set(u.semantic_unit_id, u);
+    });
+    const symbolNodeBySymbolId = new Map();
+    const unitNodeIds = new Set();
+    const edgeSeen = new Set();
+    const pushEdge = function (from, to, color) {
+      const key = from + "->" + to;
+      if (edgeSeen.has(key)) return;
+      edgeSeen.add(key);
+      edges.push({ from, to, arrows: "to", color: color || { color: "#30363d" } });
+    };
 
     const ig = data.impact_graph || [];
     ig.forEach((file) => {
@@ -642,9 +935,10 @@
       (file.symbols || []).forEach((sym) => {
         const su = sym.semantic_unit_ids || [];
         if (filterP0 && su.length && !su.some((id) => p0ids.has(id))) return;
-        const sid = "s:" + file.file + "::" + (sym.symbol_id || sym.name || "");
+        const sid = "s:" + (sym.symbol_id || file.file + "::" + (sym.name || ""));
         if (seenSymIds.has(sid)) return;
         seenSymIds.add(sid);
+        if (sym.symbol_id) symbolNodeBySymbolId.set(sym.symbol_id, sid);
         nodes.push({
           id: sid,
           label: sym.name || sym.symbol_id,
@@ -653,9 +947,47 @@
           color: { background: "#1a2332", border: "#388bfd" },
           font: { color: "#8b949e", size: 12 },
         });
-        edges.push({ from: fid, to: sid, arrows: "to", color: { color: "#30363d" } });
+        pushEdge(fid, sid, { color: "#30363d" });
+
+        // 第三层：语义单元节点
+        su.forEach((uid) => {
+          if (!uid) return;
+          if (filterP0 && p0ids.size && !p0ids.has(uid)) return;
+          const nid = "u:" + uid;
+          if (!unitNodeIds.has(nid)) {
+            const u = unitById.get(uid) || {};
+            unitNodeIds.add(nid);
+            nodes.push({
+              id: nid,
+              label: uid.split(":").slice(-1)[0] || uid,
+              title: uid + (u.type ? "\n" + "type=" + u.type : ""),
+              shape: "diamond",
+              color: { background: "#2d1f3a", border: "#a371f7" },
+              font: { color: "#d2a8ff", size: 11 },
+            });
+          }
+          pushEdge(sid, nid, { color: "#4c2889" });
+        });
       });
     });
+
+    // 跨符号关联：基于 semantic_units_catalog 的 downstream / referenced_symbol_ids
+    if (showSyms) {
+      (data.semantic_units_catalog || []).forEach((u) => {
+        if (!u || !u.semantic_unit_id) return;
+        if (filterP0 && p0ids.size && !p0ids.has(u.semantic_unit_id)) return;
+        const uidNode = "u:" + u.semantic_unit_id;
+        if (!unitNodeIds.has(uidNode)) return;
+        (u.downstream || []).forEach((ds) => {
+          const sid = symbolNodeBySymbolId.get(ds);
+          if (sid) pushEdge(uidNode, sid, { color: "#3b82f6" });
+        });
+        (u.referenced_symbol_ids || []).forEach((rs) => {
+          const sid = symbolNodeBySymbolId.get(rs);
+          if (sid) pushEdge(sid, uidNode, { color: "#6e7681" });
+        });
+      });
+    }
 
     return { nodes, edges };
   }
@@ -674,6 +1006,7 @@
         network.destroy();
         network = null;
       }
+      unbindVisHostResize();
       return;
     }
 
@@ -724,10 +1057,12 @@
       if (catalog.length > 60) cat.textContent += "\n/* …共 " + catalog.length + " 条 */\n";
     }
 
-    const filterP0 = $("#impact_filter_p0").checked;
-    const showSyms = $("#impact_filter_sym").checked;
-    const networkHost = $("#vis_network");
-    renderImpactGraphInto(networkHost, filterP0, showSyms);
+    // “影响分析”页不再展示图谱，避免在缺失容器时继续渲染。
+    if (network) {
+      network.destroy();
+      network = null;
+      unbindVisHostResize();
+    }
   }
 
   function renderImpactGraphPage() {
@@ -741,6 +1076,7 @@
         network.destroy();
         network = null;
       }
+      unbindVisHostResize();
       return;
     }
     const files = (lastResult.changed_files || []).length;
@@ -806,8 +1142,6 @@
         });
       }
     });
-    const priOrder = { P0: 0, P1: 1, P2: 2 };
-    rows.sort((a, b) => (priOrder[a.priority] || 9) - (priOrder[b.priority] || 9));
     return rows;
   }
 
@@ -826,17 +1160,17 @@
     if (!box) return;
     if (!lastResult) {
       box.innerHTML = "<p class='empty'>暂无策略，请先运行分析。</p>";
-      strategyOrder = [];
       return;
     }
-    if (!strategyOrder.length) strategyOrder = mergeStrategies(lastResult);
-    box.innerHTML = strategyOrder
-      .map(function (row, i) {
+    const rows = mergeStrategies(lastResult);
+    box.innerHTML = rows
+      .map(function (row) {
         const types = inferTestTypes(row);
+        const badgeCls = prioBadgeClass(row.priority);
         return (
-          "<div class='strategy-row' data-i='" +
-          i +
-          "'><div><div class='prio'><span class='prio-badge'>" +
+          "<div class='strategy-row'><div><div class='prio'><span class='" +
+          badgeCls +
+          "'>" +
           escapeHtml(String(row.priority)) +
           "</span><strong>" +
           escapeHtml(row.target || "(未命名)") +
@@ -844,147 +1178,10 @@
           escapeHtml(row.reason || "") +
           "</div><div class='type-tags'>" +
           types.map((t) => "<span class='type-tag'>" + escapeHtml(t) + "</span>").join("") +
-          "</div></div><div class='prio'><button type='button' class='btn btn-sm strat-up' data-i='" +
-          i +
-          "'>↑</button><button type='button' class='btn btn-sm strat-down' data-i='" +
-          i +
-          "'>↓</button></div></div>"
+          "</div></div></div>"
         );
       })
       .join("");
-
-    box.querySelectorAll(".strat-up").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const i = Number(btn.dataset.i);
-        if (i > 0) {
-          const t = strategyOrder[i - 1];
-          strategyOrder[i - 1] = strategyOrder[i];
-          strategyOrder[i] = t;
-          renderTestingPage();
-        }
-      });
-    });
-    box.querySelectorAll(".strat-down").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const i = Number(btn.dataset.i);
-        if (i < strategyOrder.length - 1) {
-          const t = strategyOrder[i + 1];
-          strategyOrder[i + 1] = strategyOrder[i];
-          strategyOrder[i] = t;
-          renderTestingPage();
-        }
-      });
-    });
-  }
-
-  function renderCasesPage() {
-    const list = $("#case_list");
-    const execSummary = $("#case_exec_summary");
-    const execWrap = $("#case_exec_table_wrap");
-    const tests = (lastResult && lastResult.generated_tests) || [];
-    const ev = (lastResult && lastResult.evaluation) || {};
-    const pytestCases = Array.isArray(ev.pytest_cases) ? ev.pytest_cases : [];
-    if (!list) return;
-    if (!tests.length) {
-      list.innerHTML = "<div class='case-item'>无生成用例</div>";
-      $("#case_detail_body").value = "";
-      $("#case_detail_title").textContent = "用例中心";
-      if (execSummary) execSummary.innerHTML = "<p class='empty'>暂无执行结果。</p>";
-      if (execWrap) execWrap.innerHTML = "";
-      return;
-    }
-    list.innerHTML = tests
-      .map(
-        (t, i) =>
-          "<div class='case-item" +
-          (i === selectedCaseIndex ? " active" : "") +
-          "' data-i='" +
-          i +
-          "'>" +
-          escapeHtml(t.path || "file " + i) +
-          "</div>"
-      )
-      .join("");
-
-    list.querySelectorAll(".case-item").forEach((el) => {
-      el.addEventListener("click", () => {
-        selectedCaseIndex = Number(el.dataset.i);
-        $$(".case-item", list).forEach((x) => x.classList.remove("active"));
-        el.classList.add("active");
-        const t = tests[selectedCaseIndex];
-        $("#case_detail_title").textContent = t.path || "用例";
-        $("#case_detail_body").value = t.content || "";
-        $("#case_detail_body").readOnly = false;
-      });
-    });
-
-    if (selectedCaseIndex < 0 || selectedCaseIndex >= tests.length) selectedCaseIndex = 0;
-    const t0 = tests[selectedCaseIndex];
-    if (t0) {
-      $("#case_detail_title").textContent = t0.path || "用例";
-      $("#case_detail_body").value = t0.content || "";
-      $("#case_detail_body").readOnly = false;
-    }
-
-    if (!execSummary || !execWrap) return;
-    if (!ev.ran) {
-      execSummary.innerHTML = "<p class='hint'>本次未执行 pytest，无法展示逐条状态。</p>";
-      execWrap.innerHTML = "";
-      return;
-    }
-    if (!pytestCases.length) {
-      execSummary.innerHTML = "<p class='hint'>未解析到逐条用例结果（evaluation.pytest_cases 为空）。</p>";
-      execWrap.innerHTML = "";
-      return;
-    }
-    const passed = pytestCases.filter((c) => String(c.status || "").toLowerCase() === "passed").length;
-    const failed = pytestCases.filter((c) => String(c.status || "").toLowerCase() === "failed").length;
-    const errored = pytestCases.filter((c) => String(c.status || "").toLowerCase() === "error").length;
-    const skipped = pytestCases.filter((c) => String(c.status || "").toLowerCase() === "skipped").length;
-    execSummary.innerHTML =
-      "<p>共 <strong>" +
-      pytestCases.length +
-      "</strong> 条：通过 <strong>" +
-      passed +
-      "</strong> / 失败 <strong>" +
-      failed +
-      "</strong> / 错误 <strong>" +
-      errored +
-      "</strong> / 跳过 <strong>" +
-      skipped +
-      "</strong></p>";
-    const rows = pytestCases
-      .map(function (c) {
-        const st = String(c.status || "").toLowerCase();
-        const bc = statusBadgeClass(st);
-        const detail = (c.detail || "").trim();
-        const detailCell = detail
-          ? "<details class='ra-detail'><summary>展开</summary><pre class='ra-detail-pre'>" + escapeHtml(detail) + "</pre></details>"
-          : "—";
-        const badgeCls = bc ? " badge " + bc : " badge";
-        return (
-          "<tr class='ra-row ra-" +
-          escapeHtml(bc || "na") +
-          "'><td><span class='" +
-          escapeHtml(badgeCls.trim()) +
-          "'>" +
-          escapeHtml(statusLabelZh(c.status)) +
-          "</span></td><td class='mono ra-mono'>" +
-          escapeHtml(c.classname || "") +
-          "</td><td class='mono ra-mono'>" +
-          escapeHtml(c.name || c.case_name || "") +
-          "</td><td>" +
-          escapeHtml(String(c.time ?? c.case_time ?? "")) +
-          "</td><td>" +
-          detailCell +
-          "</td></tr>"
-        );
-      })
-      .join("");
-    execWrap.innerHTML =
-      "<table class='run-analysis-table'><thead><tr><th>状态</th><th>类名</th><th>用例</th><th>耗时(s)</th><th>详情</th></tr></thead><tbody>" +
-      rows +
-      "</tbody></table>";
   }
 
   function toChineseScenario(tc) {
@@ -1085,7 +1282,9 @@
         const stepItems = [stepsText];
         return (
           "<article class='card structured-case-card'>" +
-          "<div class='structured-case-head'><span class='prio-badge'>" +
+          "<div class='structured-case-head'><span class='" +
+          prioBadgeClass(tc.priority || "P2") +
+          "'>" +
           escapeHtml(tc.priority || "P2") +
           "</span><strong>" +
           escapeHtml(tc.test_case_id || "用例 #" + (i + 1)) +
@@ -1175,8 +1374,129 @@
     }
 
     const sum = ev.pytest_summary || {};
+    const m = ev.metrics || {};
+    const mf = ev.metric_flags && typeof ev.metric_flags === "object" ? ev.metric_flags : {};
+    const failN = Number(sum.failures) || 0;
+    const errN = Number(sum.errors) || 0;
+    let totalN = 0;
+    if (Array.isArray(ev.pytest_cases)) {
+      totalN = ev.pytest_cases.length;
+    } else {
+      try {
+        totalN = parseInt(String(sum.tests || "0"), 10) || 0;
+      } catch (_e) {
+        totalN = 0;
+      }
+    }
+    const precisionMeaningful =
+      typeof mf.precision_meaningful === "boolean"
+        ? mf.precision_meaningful
+        : totalN > 0;
+    const recallMeaningful =
+      typeof mf.recall_meaningful === "boolean"
+        ? mf.recall_meaningful
+        : typeof m.recall === "number";
+    const f1Meaningful =
+      typeof mf.f1_meaningful === "boolean"
+        ? mf.f1_meaningful
+        : precisionMeaningful && recallMeaningful && typeof m.f1 === "number";
+    const redundancyMeaningful =
+      typeof mf.redundancy_meaningful === "boolean"
+        ? mf.redundancy_meaningful
+        : typeof mf.pr_f1_redundancy_meaningful === "boolean"
+          ? mf.pr_f1_redundancy_meaningful
+          : typeof m.precision === "number" || failN + errN > 0;
+    const reductionMeaningful = mf.test_reduction_meaningful === true;
+    const timeReductionMeaningful = mf.time_reduction_meaningful === true;
     const cases = Array.isArray(ev.pytest_cases) ? ev.pytest_cases : [];
     const ok = ev.exit_code === 0;
+    const pct = function (v) {
+      return typeof v === "number" && Number.isFinite(v) ? (v * 100).toFixed(1) + "%" : "—";
+    };
+    const pctIf = function (v, meaningful) {
+      if (!meaningful) return "—";
+      return pct(v);
+    };
+    const statCard = function (label, value, title, cls) {
+      const cc = cls ? " ra-stat " + cls : " ra-stat";
+      return (
+        "<div class='" +
+        cc.trim() +
+        "' title='" +
+        escapeHtml(title || "") +
+        "'><span class='ra-stat-label'>" +
+        escapeHtml(label) +
+        "</span><strong>" +
+        escapeHtml(value) +
+        "</strong></div>"
+      );
+    };
+    const metricClass = function (name, v) {
+      if (typeof v !== "number" || !Number.isFinite(v)) return "";
+      if (name === "precision") return v >= 0.7 ? "ra-stat-good" : v >= 0.5 ? "ra-stat-warn" : "ra-stat-bad";
+      if (name === "recall") return v >= 0.8 ? "ra-stat-good" : v >= 0.6 ? "ra-stat-warn" : "ra-stat-bad";
+      if (name === "f1") return v >= 0.7 ? "ra-stat-good" : v >= 0.5 ? "ra-stat-warn" : "ra-stat-bad";
+      if (name === "reduction" || name === "time_reduction") return v > 0.3 ? "ra-stat-good" : v > 0.1 ? "ra-stat-warn" : "ra-stat-bad";
+      if (name === "redundancy") return v <= 0.3 ? "ra-stat-good" : v <= 0.5 ? "ra-stat-warn" : "ra-stat-bad";
+      return "";
+    };
+    const metricClassIf = function (name, v, meaningful) {
+      if (!meaningful) return "";
+      return metricClass(name, v);
+    };
+    const conclusion = function () {
+      const missingRecall =
+        precisionMeaningful &&
+        !recallMeaningful &&
+        typeof m.recall !== "number";
+      const missingPrecision =
+        recallMeaningful &&
+        !precisionMeaningful &&
+        typeof m.precision !== "number";
+
+      if (!precisionMeaningful && !recallMeaningful) {
+        return (
+          "结论：Precision（通过率）需 junit 解析出总用例数；Recall（变更行覆盖）需 diff 与 report_dir/coverage.json 对齐；" +
+          "二者均未就绪时（或回退为旧选测口径）部分卡片显示为 —。" +
+          (!(reductionMeaningful || timeReductionMeaningful)
+            ? " 若需压缩类指标：在上游 execution 写入 all_tests（全量可枚举集合）与 full_time（全套件耗时，秒）。"
+            : "")
+        );
+      }
+
+      const p = typeof m.precision === "number" ? m.precision : null;
+      const r = typeof m.recall === "number" ? m.recall : null;
+      const f1 = typeof m.f1 === "number" ? m.f1 : null;
+      const red = reductionMeaningful && typeof m.reduction === "number" ? m.reduction : null;
+
+      if (missingRecall || missingPrecision) {
+        let msg =
+          "结论：" +
+          (missingRecall ? "Recall（变更 + 行覆盖）不可用（缺少 coverage.json、diff 无可用块或与 coverage 路径未对齐），" : "") +
+          (missingPrecision ? "Precision（通过率）不可用（未解析到用例总数），" : "") +
+          "仅解读已显示的指标卡片。";
+        const hints = [];
+        if (!reductionMeaningful) hints.push("Test Reduction 需 execution.all_tests");
+        if (!timeReductionMeaningful) hints.push("Time Reduction 需 execution.full_time");
+        if (hints.length) msg += " （" + hints.join("；") + "）。";
+        return msg;
+      }
+
+      if (p == null || r == null || f1 == null)
+        return "结论：当前 F1 不可得（需同时具备通过率 Precision 与变更行覆盖 Recall），请检查 junit 与 coverage.json。";
+      let line = "";
+      if (r >= 0.9 && p < 0.5) line = "结论：变更行覆盖率很高，但测试通过率偏低，建议优先修复失败用例或补强未覆盖的变更行。";
+      else if (f1 >= 0.7 && (red == null || red > 0.1))
+        line = "结论：通过率与变更行覆盖较为均衡，压缩类指标可结合 Test / Time Reduction 解读。";
+      else if (red != null && red <= 0.01)
+        line = "结论：当前几乎没有测试压缩收益（Test Reduction 接近 0），可优先扩大选测与子集之差或校验 all_tests。";
+      else line = "结论：总体中等，可优先提高通过率与变更行 Recall，并关注 Reduction / Time Reduction。";
+      const hints = [];
+      if (!reductionMeaningful) hints.push("Test Reduction 需 execution.all_tests");
+      if (!timeReductionMeaningful) hints.push("Time Reduction 需 execution.full_time");
+      if (hints.length) line += " （" + hints.join("；") + "）。";
+      return line;
+    };
 
     meta.innerHTML =
       "<p class='run-analysis-meta-line'><span class='badge " +
@@ -1192,21 +1512,35 @@
       "</p>";
 
     summary.innerHTML =
-      "<div class='ra-stat'><span class='ra-stat-label'>用例数</span><strong>" +
-      escapeHtml(String(sum.tests ?? "—")) +
-      "</strong></div>" +
-      "<div class='ra-stat'><span class='ra-stat-label'>失败</span><strong>" +
-      escapeHtml(String(sum.failures ?? "—")) +
-      "</strong></div>" +
-      "<div class='ra-stat'><span class='ra-stat-label'>错误</span><strong>" +
-      escapeHtml(String(sum.errors ?? "—")) +
-      "</strong></div>" +
-      "<div class='ra-stat'><span class='ra-stat-label'>跳过</span><strong>" +
-      escapeHtml(String(sum.skipped ?? "—")) +
-      "</strong></div>" +
-      "<div class='ra-stat'><span class='ra-stat-label'>耗时(s)</span><strong>" +
-      escapeHtml(String(sum.time ?? "—")) +
-      "</strong></div>";
+      statCard("用例数", String(sum.tests ?? "—"), "junit 总用例数") +
+      statCard("失败", String(sum.failures ?? "—"), "junit failures 数") +
+      statCard("错误", String(sum.errors ?? "—"), "junit errors 数") +
+      statCard("跳过", String(sum.skipped ?? "—"), "junit skipped 数") +
+      statCard("耗时(s)", String(sum.time ?? "—"), "junit time 总耗时（秒）") +
+      statCard("Precision", pctIf(m.precision, precisionMeaningful), precisionMeaningful ? "公式：passed / tests（通过率）" : "未解析到 junit 用例总数", metricClassIf("precision", m.precision, precisionMeaningful)) +
+      statCard("Recall", pctIf(m.recall, recallMeaningful), recallMeaningful ? "公式：覆盖的变更 + 行 / 变更 + 总行" : "需 coverage.json + 与 diff 对齐的源码路径键", metricClassIf("recall", m.recall, recallMeaningful)) +
+      statCard("F1", pctIf(m.f1, f1Meaningful), f1Meaningful ? "公式：2PR / (P+R)" : "须同时具备 Precision（通过率）与 Recall（变更行覆盖）", metricClassIf("f1", m.f1, f1Meaningful)) +
+      statCard(
+        "Test Reduction",
+        pctIf(m.reduction, reductionMeaningful),
+        reductionMeaningful ? "公式：1 - (|Ts| / |Tall|)" : "需在 execution.all_tests 提供全量用例列表",
+        metricClassIf("reduction", m.reduction, reductionMeaningful)
+      ) +
+      statCard(
+        "Time Reduction",
+        pctIf(m.time_reduction, timeReductionMeaningful),
+        timeReductionMeaningful ? "公式：1 - (execution_time / full_time)" : "需在 execution.full_time 提供全量套件基准耗时（秒）",
+        metricClassIf("time_reduction", m.time_reduction, timeReductionMeaningful)
+      ) +
+      statCard(
+        "Redundancy",
+        pctIf(m.redundancy, redundancyMeaningful),
+        redundancyMeaningful ? "公式：1 - Precision（通过率）" : "与 Precision（通过率）同源",
+        metricClassIf("redundancy", m.redundancy, redundancyMeaningful)
+      ) +
+      "<div class='ra-conclusion'>" +
+      escapeHtml(conclusion()) +
+      "</div>";
 
     if (!cases.length) {
       wrap.innerHTML =
@@ -1334,8 +1668,9 @@
         if (!window.confirm("确认删除项目「" + (p.name || p.path || "未命名") + "」吗？")) return;
         list.splice(i, 1);
         saveProjects(list);
-        refreshTopProjectSelect();
         renderProjectsGrid();
+        bindDashboardScopeEvents();
+        renderDashScopeSelectors("", "");
       });
     });
   }
@@ -1359,15 +1694,17 @@
       "<div id='proj_db_runs'><p class='hint'>加载中…</p></div>";
 
     $("#proj_use").onclick = () => {
-      $("#top_project").value = String(i);
-      applyTopProject();
+      $("#repo_path").value = p.path || "";
+      bindDashboardScopeEvents();
+      renderDashScopeSelectors(p.path || "", p.branch || "");
       switchView("changes");
     };
     $("#proj_del_cur").onclick = () => {
       const list = loadProjects();
       list.splice(i, 1);
       saveProjects(list);
-      refreshTopProjectSelect();
+      bindDashboardScopeEvents();
+      renderDashScopeSelectors("", "");
       $("#project_detail_back").click();
     };
     fetchProjectRunsFromDb(p.path)
@@ -1499,6 +1836,7 @@
           exit_code: ev.exit_code,
           report_dir: ev.report_dir || null,
           coverage: ev.coverage,
+          metrics: ev.metrics || {},
         },
         generated_test_paths: (lastResult.generated_tests || []).map((t) => t.path),
         generated_preview: (lastResult.generated_tests || []).slice(0, 2).map((t) => ({
@@ -1592,11 +1930,9 @@
   /* Events */
   $$(".nav-item").forEach((btn) => btn.addEventListener("click", () => switchView(btn.dataset.view)));
 
-  $("#top_project").addEventListener("change", applyTopProject);
-
   $("#dash_go_changes").addEventListener("click", () => switchView("changes"));
   $("#dash_go_impact").addEventListener("click", () => switchView("impact"));
-  $("#dash_go_cases").addEventListener("click", () => switchView("cases"));
+  $("#dash_go_structured_cases").addEventListener("click", () => switchView("structured-cases"));
   $("#dash_refresh_health").addEventListener("click", checkHealth);
 
   $("#proj_add").addEventListener("click", () => {
@@ -1612,8 +1948,9 @@
     $("#proj_path").value = "";
     $("#proj_branch").value = "";
     $("#proj_ci").value = "";
-    refreshTopProjectSelect();
     renderProjectsGrid();
+    bindDashboardScopeEvents();
+    renderDashScopeSelectors(path, branch || "");
   });
 
   $("#project_detail_back").addEventListener("click", () => {
@@ -1672,7 +2009,7 @@
         at: new Date().toISOString(),
         author,
         repo_path: repo,
-        branch: $("#top_branch").value.trim(),
+        branch: branchNoteForRepo(repo),
         changed_count: (data.changed_files || []).length,
         high_risk_count: countHighRisk(data),
         coverage: data.evaluation && data.evaluation.coverage,
@@ -1691,7 +2028,6 @@
       lastSnapshot = snapshot;
       recordHistory(entry, snapshot);
       saveLastResult(data, snapshot);
-      strategyOrder = [];
       setStatus("完成", "");
       setWorkflowProgress(true, { current: 11, total: 11, label: "已完成" });
       setTimeout(function () {
@@ -1718,8 +2054,6 @@
   $("#clear_result").addEventListener("click", () => {
     lastResult = null;
     lastSnapshot = null;
-    strategyOrder = [];
-    selectedCaseIndex = -1;
     sessionStorage.removeItem(SS_LAST);
     try {
       sessionStorage.removeItem(SS_EVAL_LITE);
@@ -1729,10 +2063,12 @@
     $("#fab_raw").disabled = true;
     $("#raw_json").textContent = "";
     renderChangesSummary(null);
+    bindDashboardScopeEvents();
+    renderDashScopeSelectors("", "");
     refreshDashboard();
     renderImpactPage();
     renderTestingPage();
-    renderCasesPage();
+    renderStructuredCasesPage();
     renderExecutionPage();
     renderRunAnalysisPage();
     renderReportsPage();
@@ -1763,7 +2099,6 @@
   $("#set_save_user").addEventListener("click", () => {
     const v = $("#set_user_label").value.trim() || "本地用户";
     localStorage.setItem(LS_USER, v);
-    $("#top_user").textContent = v;
   });
 
   $("#set_rules_save").addEventListener("click", () => {
@@ -1774,27 +2109,11 @@
   $("#set_clear_cache").addEventListener("click", () => $("#clear_result").click());
 
   $("#testing_go_changes").addEventListener("click", () => switchView("changes"));
-  $("#testing_reset_prio").addEventListener("click", () => {
-    strategyOrder = [];
-    renderTestingPage();
-  });
 
   $("#impact_filter_p0").addEventListener("change", renderImpactPage);
   $("#impact_filter_sym").addEventListener("change", renderImpactPage);
   $("#impact_graph_filter_p0").addEventListener("change", renderImpactGraphPage);
   $("#impact_graph_filter_sym").addEventListener("change", renderImpactGraphPage);
-
-  $("#case_export_one").addEventListener("click", () => {
-    const tests = (lastResult && lastResult.generated_tests) || [];
-    const t = tests[selectedCaseIndex];
-    if (!t) return alert("先选择用例");
-    downloadJson(t.path.replace(/\//g, "_") + ".json", t);
-  });
-
-  $("#case_export_all").addEventListener("click", () => {
-    if (!lastResult || !lastResult.generated_tests) return;
-    downloadJson("generated_tests.json", lastResult.generated_tests);
-  });
 
   function downloadJson(name, obj) {
     const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
@@ -1878,17 +2197,15 @@
     renderRunAnalysisPage();
     renderReportsPage();
   }
-  refreshTopProjectSelect();
   const u = localStorage.getItem(LS_USER);
   if (u) {
     $("#set_user_label").value = u;
-    $("#top_user").textContent = u;
   }
   const evalOn = localStorage.getItem(LS_DEFAULT_EVAL) !== "0";
   $("#run_eval").checked = evalOn;
   const sde = $("#set_default_run_eval");
   if (sde) sde.checked = evalOn;
-  const autoVenvOn = localStorage.getItem(LS_DEFAULT_AUTO_VENV) === "1";
+  const autoVenvOn = localStorage.getItem(LS_DEFAULT_AUTO_VENV) !== "0";
   if (autoVenvEl) autoVenvEl.checked = autoVenvOn;
   const autoInstallPythonOn = localStorage.getItem(LS_DEFAULT_AUTO_INSTALL_PY) === "1";
   if (autoInstallPythonEl) autoInstallPythonEl.checked = autoInstallPythonOn;
@@ -1898,6 +2215,8 @@
   renderChangesTable();
   checkHealth();
   $("#fab_raw").disabled = !lastResult;
+  bindDashboardScopeEvents();
+  renderDashScopeSelectors("", "");
   switchView("dashboard");
 
   window.addEventListener("beforeunload", () => {

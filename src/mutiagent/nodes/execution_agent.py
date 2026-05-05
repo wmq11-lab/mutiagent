@@ -22,6 +22,9 @@ from mutiagent.utils.run_db import write_execution_payload
 from mutiagent.utils.dataset_venv import ensure_dataset_venv
 from mutiagent.utils.llm_output import strip_markdown_code_fence
 from mutiagent.utils.syntax_guard import exec_syntax_error
+from mutiagent.utils.venv_flags import effective_auto_venv
+from mutiagent.evaluation.experiment_run_log import append_experiment_run_log
+from mutiagent.nodes.test_gen_agent import apply_phantom_import_alignment_to_state
 
 _workflow_log = logging.getLogger("mutiagent.workflow")
 
@@ -59,15 +62,34 @@ def _env_truthy(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _coverage_reporting_requested() -> bool:
+    """默认开启覆盖率（供 Evaluation）；MUTIAGENT_PYTEST_COVERAGE=0 关闭。"""
+    v = os.environ.get("MUTIAGENT_PYTEST_COVERAGE", "1").strip().lower()
+    return v not in {"0", "false", "no", "off"}
+
+
+def _python_has_pytest_cov(python_exe: str) -> bool:
+    try:
+        p = subprocess.run(
+            [python_exe, "-c", "import pytest_cov"],
+            capture_output=True,
+            text=True,
+            timeout=45,
+        )
+        return p.returncode == 0
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
 def _resolve_pytest_executable(repo: Path, state: WorkflowState) -> tuple[str | None, str | None]:
     """
     返回 (python 可执行路径, 错误信息)。
-    显式 MUTIAGENT_PYTEST_PYTHON 优先；否则 auto_venv / MUTIAGENT_AUTO_VENV 时创建/复用仓库内 venv；否则用 PATH 上的 python。
+    显式 MUTIAGENT_PYTEST_PYTHON 优先；否则按 effective_auto_venv(state) 判断是否在仓库内创建/复用 venv；否则用 PATH 上的 python。
     """
     ex = os.environ.get("MUTIAGENT_PYTEST_PYTHON", "").strip()
     if ex:
         return ex, None
-    if state.auto_venv or _env_truthy("MUTIAGENT_AUTO_VENV"):
+    if effective_auto_venv(state):
         py, msg = ensure_dataset_venv(
             repo,
             auto_install_python=bool(state.auto_install_python),
@@ -361,6 +383,104 @@ def _write_generated_tests(tmpdir: Path, state: WorkflowState) -> Path:
     return tmpdir
 
 
+def _metrics_junit_case_id(row: dict[str, str]) -> str:
+    cls = (row.get("classname") or "").strip()
+    name = (row.get("name") or "").strip()
+    if cls and name:
+        return f"{cls}::{name}"
+    if name:
+        return name
+    return cls
+
+
+def _eval_metric_keyword_scope(state: WorkflowState) -> set[str]:
+    """与 prioritized_plan / 变更实体对齐的关键词，用于 junit 用例子集（仅影响评测口径）。"""
+    words: set[str] = set()
+    plan = state.prioritized_plan or state.test_plan or []
+    for p in plan:
+        t = (p.target or "").strip()
+        if not t:
+            continue
+        tl = t.lower()
+        for part in re.split(r"[/:\\s]+", t):
+            pl = part.strip().lower()
+            if len(pl) >= 5:
+                words.add(pl)
+        if ":" in t:
+            tail = t.split(":")[-1].strip().lower()
+            if len(tail) >= 4:
+                words.add(tail)
+        for token in re.split(r"[^a-z0-9]+", tl):
+            tok = token.strip().lower()
+            if len(tok) >= 5:
+                words.add(tok)
+    changed = set(state.changed_files or [])
+    for fc in state.change_analysis or []:
+        fn = getattr(fc, "file", "") or ""
+        if fn not in changed:
+            continue
+        for ch in getattr(fc, "changes", []) or []:
+            ent = str(getattr(ch, "entity", "") or "").strip().lower()
+            if len(ent) >= 4:
+                words.add(ent)
+            for token in re.split(r"[^a-z0-9]+", ent):
+                tok = token.strip().lower()
+                if len(tok) >= 5:
+                    words.add(tok)
+    noise = {
+        "tests",
+        "test",
+        "utils",
+        "typer",
+        "module",
+        "class",
+        "method",
+        "function",
+        "object",
+        "python",
+    }
+    return {w for w in words if w and w not in noise and not w.startswith("test_")}
+
+
+def _scoped_selected_tests_for_eval(
+    state: WorkflowState,
+    junit_rows: list[dict[str, str]],
+) -> list[str] | None:
+    """
+    收窄 Evaluation 的 Ts：必含全部 failed/error；通过的用例仅保留与优先计划/变更实体关键词相关的，
+    以提高 precision，同时保持 recall（全部失败仍在 Ts 内）。
+    """
+    opt = os.environ.get("MUTIAGENT_EVAL_METRIC_SCOPE_TESTS", "").strip().lower()
+    if opt in {"0", "false", "no", "off"}:
+        return None
+    if not junit_rows:
+        return None
+    kws = _eval_metric_keyword_scope(state)
+    if not kws:
+        return None
+    fail_st = {"failed", "error"}
+    fail_ordered: list[str] = []
+    pass_matched: list[str] = []
+    for row in junit_rows:
+        cid = _metrics_junit_case_id(row)
+        if not cid:
+            continue
+        st = str(row.get("status", "")).lower()
+        if st in fail_st:
+            fail_ordered.append(cid)
+        else:
+            blob = ((row.get("classname") or "") + " " + (row.get("name") or "")).lower()
+            if any(k in blob for k in kws):
+                pass_matched.append(cid)
+    fail_set = set(fail_ordered)
+    selected = list(dict.fromkeys([*fail_ordered, *pass_matched]))
+    if not fail_set <= set(selected):
+        return None
+    if len(selected) >= len(junit_rows):
+        return None
+    return selected
+
+
 def _sanitize_dependency_guard_tests(content: str) -> str:
     """
     防御性修正：避免 LLM 生成“全局依赖导入守卫 + pytest.fail”导致硬失败。
@@ -397,6 +517,7 @@ def _run_pytest(
     *,
     python_exe: str,
     with_cov: bool = False,
+    cov_json_path: Path | None = None,
     junit_xml: Path | None = None,
 ) -> tuple[int, str, str]:
     env = os.environ.copy()
@@ -417,6 +538,9 @@ def _run_pytest(
     cmd: list[str] = [python_exe, "-m", "pytest", "-q"]
     if with_cov:
         cmd.extend(["--cov", "--cov-report=term-missing"])
+        if cov_json_path is not None:
+            cov_json_path.parent.mkdir(parents=True, exist_ok=True)
+            cmd.append(f"--cov-report=json:{cov_json_path.resolve()}")
     cmd.append(str(test_root))
     if junit_xml is not None:
         cmd.extend([f"--junitxml={junit_xml.resolve()}", "-o", "junit_family=xunit2"])
@@ -547,6 +671,45 @@ def _install_missing_packages(
     return p.returncode == 0, detail
 
 
+def _filter_installable_packages(state: WorkflowState, packages: list[str]) -> tuple[list[str], list[str]]:
+    """
+    过滤明显属于“仓库内本地模块”的缺失项，避免误调用 pip 安装。
+    返回 (installable, local_like_skipped)。
+    """
+    profile = state.project_profile if isinstance(state.project_profile, dict) else {}
+    module_roots = {str(x).strip().lower() for x in (profile.get("module_roots") or []) if str(x).strip()}
+    import_candidates = [str(x) for x in (profile.get("import_candidates") or [])]
+    candidate_tops: set[str] = set()
+    for c in import_candidates:
+        mod = c.split(":", 1)[0].strip().lower()
+        if not mod:
+            continue
+        candidate_tops.add(mod.split(".", 1)[0])
+
+    changed_tops: set[str] = set()
+    for rel in state.changed_files or []:
+        stem = Path(rel).stem.strip().lower()
+        if stem:
+            changed_tops.add(stem)
+        head = str(rel).replace("\\", "/").split("/", 1)[0].strip().lower()
+        if head:
+            changed_tops.add(head)
+
+    local_hints = module_roots | candidate_tops | changed_tops
+    installable: list[str] = []
+    skipped: list[str] = []
+    for pkg in packages:
+        p = str(pkg or "").strip().lower()
+        if not p:
+            continue
+        # 命中本地线索：更可能是源码模块，不应直接 pip install。
+        if p in local_hints or any(p.startswith(h + ".") for h in local_hints):
+            skipped.append(p)
+            continue
+        installable.append(p)
+    return installable, skipped
+
+
 def _maybe_bootstrap_missing_dependencies(
     *,
     repo: Path,
@@ -558,6 +721,8 @@ def _maybe_bootstrap_missing_dependencies(
     stderr: str,
     junit_xml: Path | None,
     phase_label: str,
+    with_cov: bool = False,
+    cov_json_path: Path | None = None,
 ) -> tuple[bool, int, str, str]:
     if code == 0:
         return False, code, stdout, stderr
@@ -569,12 +734,30 @@ def _maybe_bootstrap_missing_dependencies(
     if not missing_pkgs:
         return False, code, stdout, stderr
 
-    ok, install_msg = _install_missing_packages(repo, python_exe=python_exe, packages=missing_pkgs)
+    installable_pkgs, local_like_skipped = _filter_installable_packages(state, missing_pkgs)
+    state.debug.setdefault("auto_dep_bootstrap", {}).update(
+        {
+            "detected_missing": missing_pkgs,
+            "installable_packages": installable_pkgs,
+            "local_like_skipped": local_like_skipped,
+        }
+    )
+    if not installable_pkgs:
+        note = ""
+        if local_like_skipped:
+            note = (
+                "\n[auto_dep_bootstrap] skip pip install for local-like modules: "
+                + ", ".join(local_like_skipped)
+                + "\n"
+            )
+        return False, code, stdout, (stderr or "") + note
+
+    ok, install_msg = _install_missing_packages(repo, python_exe=python_exe, packages=installable_pkgs)
     state.debug.setdefault("auto_dep_bootstrap", {}).update(
         {
             "attempted": True,
             "phase": phase_label,
-            "packages": missing_pkgs,
+            "packages": installable_pkgs,
             "ok": ok,
             "message": install_msg,
             "reason": "missing_dependency_bootstrap",
@@ -588,7 +771,8 @@ def _maybe_bootstrap_missing_dependencies(
         repo,
         test_root,
         python_exe=python_exe,
-        with_cov=False,
+        with_cov=with_cov,
+        cov_json_path=cov_json_path,
         junit_xml=junit_xml,
     )
     _log_pytest_output(
@@ -670,13 +854,33 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             report_dir = None
             junit_xml = None
 
+    cov_requested = _coverage_reporting_requested()
+    cov_plugin_ok = _python_has_pytest_cov(py_exe) if cov_requested else False
+    use_cov = bool(cov_requested and cov_plugin_ok)
+    cov_json_path: Path | None = (report_dir / "coverage.json") if (use_cov and report_dir) else None
+    state.debug.setdefault("pytest_cov", {}).update(
+        {
+            "enabled": use_cov,
+            "requested": cov_requested,
+            "plugin_import_ok": cov_plugin_ok if cov_requested else None,
+        }
+    )
+
     junit_before_repair = False
+    mutiagent_repo_root = Path(__file__).resolve().parents[3]
     with tempfile.TemporaryDirectory(prefix="mutiagent_exec_") as td:
         tmpdir = Path(td)
+        last_test_root = tmpdir
         _sanitize_generated_tests(state)
+        apply_phantom_import_alignment_to_state(state)
         _write_generated_tests(tmpdir, state)
         first_run_code, out, err = _run_pytest(
-            repo, tmpdir, python_exe=py_exe, with_cov=False, junit_xml=junit_xml
+            repo,
+            tmpdir,
+            python_exe=py_exe,
+            with_cov=use_cov,
+            cov_json_path=cov_json_path,
+            junit_xml=junit_xml,
         )
         code = first_run_code
         _log_pytest_output("第1次运行", first_run_code, out, err)
@@ -690,6 +894,8 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             stderr=err,
             junit_xml=junit_xml,
             phase_label="第1次运行后",
+            with_cov=use_cov,
+            cov_json_path=cov_json_path,
         )
 
         repaired = False
@@ -702,13 +908,19 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
                 junit_before_repair = True
             _llm_fix_by_failure(state, out, err)
             _sanitize_generated_tests(state)
+            apply_phantom_import_alignment_to_state(state)
             repaired = True
             retry_reasons.append("llm_semantic_fix")
             retry_dir = tmpdir / "retry"
             retry_dir.mkdir(parents=True, exist_ok=True)
             _write_generated_tests(retry_dir, state)
             code, out, err = _run_pytest(
-                repo, retry_dir, python_exe=py_exe, with_cov=False, junit_xml=junit_xml
+                repo,
+                retry_dir,
+                python_exe=py_exe,
+                with_cov=use_cov,
+                cov_json_path=cov_json_path,
+                junit_xml=junit_xml,
             )
             _log_pytest_output("LLM 修复后重试 [reason=llm_semantic_fix]", code, out, err)
             used_bootstrap_retry, code, out, err = _maybe_bootstrap_missing_dependencies(
@@ -721,13 +933,17 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
                 stderr=err,
                 junit_xml=junit_xml,
                 phase_label="LLM 修复后",
+                with_cov=use_cov,
+                cov_json_path=cov_json_path,
             )
             if used_bootstrap_retry:
                 retry_reasons.append("missing_dependency_bootstrap")
+            last_test_root = retry_dir
 
         payload: dict[str, object] = {
             "ran": True,
             "exit_code": code,
+            "pytest_exit_code": code,
             "stdout": out,
             "stderr": err,
             "attempted_fix": repaired,
@@ -741,6 +957,55 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             j_agg, j_rows = _junit_summary_and_rows(junit_xml)
         payload["junit_summary"] = j_agg
         payload["junit_cases"] = j_rows
+
+        scoped = _scoped_selected_tests_for_eval(state, j_rows)
+        if scoped is not None:
+            payload["selected_tests"] = scoped
+            state.debug.setdefault("execution_metric_selection", {}).update(
+                {
+                    "enabled": True,
+                    "junit_total": len(j_rows),
+                    "selected_count": len(scoped),
+                    "keyword_count": len(_eval_metric_keyword_scope(state)),
+                }
+            )
+        else:
+            state.debug.setdefault("execution_metric_selection", {}).update(
+                {"enabled": False, "junit_total": len(j_rows)}
+            )
+
+        # 质量闸门：全部 skipped 视为无效结果，避免“假通过（exit 0）”。
+        total_tests = int(j_agg.get("tests") or 0) if j_agg else 0
+        skipped_tests = int(j_agg.get("skipped") or 0) if j_agg else 0
+        all_skipped = total_tests > 0 and skipped_tests == total_tests
+        payload["quality_gate"] = {
+            "all_skipped_invalid": all_skipped,
+            "tests": total_tests,
+            "skipped": skipped_tests,
+        }
+        if all_skipped and int(payload.get("exit_code") or 0) == 0:
+            payload["exit_code"] = 10
+            payload["stderr"] = (
+                (str(payload.get("stderr") or "") + "\n").rstrip("\n")
+                + "\n[quality_gate] all tests skipped; mark run as invalid (exit_code=10)\n"
+            )
+            _workflow_log.warning(
+                "ExecutionAgent: 质量闸门触发（all skipped）。pytest_exit_code=%s -> exit_code=10",
+                payload.get("pytest_exit_code"),
+            )
+
+        append_experiment_run_log(
+            mutiagent_repo_root,
+            state,
+            repo,
+            last_test_root,
+            str(payload.get("stdout", "") or ""),
+            str(payload.get("stderr", "") or ""),
+            py_exe,
+            pytest_cov_json_path=cov_json_path if cov_json_path is not None and cov_json_path.is_file() else None,
+            junit_summary=j_agg,
+            selected_tests=list(scoped) if isinstance(scoped, list) else None,
+        )
 
         if report_dir is not None:
             _write_eval_report_files(
@@ -765,20 +1030,20 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             )
 
         write_execution_payload(
-            repo_root=Path(__file__).resolve().parents[3],
+            repo_root=mutiagent_repo_root,
             run_id=str(state.debug.get("workflow_run_id", "")).strip() or None,
             payload=payload,
         )
         generated_tests_payload = [f.model_dump(mode="json") for f in state.generated_tests]
         write_generated_tests(
-            repo_root=Path(__file__).resolve().parents[3],
+            repo_root=mutiagent_repo_root,
             run_id=str(state.debug.get("workflow_run_id", "")).strip() or None,
             generated_tests=generated_tests_payload,
             status="passed" if code == 0 else "failed",
             exit_code=code,
         )
         write_generated_test_cases(
-            repo_root=Path(__file__).resolve().parents[3],
+            repo_root=mutiagent_repo_root,
             run_id=str(state.debug.get("workflow_run_id", "")).strip() or None,
             junit_cases=j_rows,
             exit_code=code,

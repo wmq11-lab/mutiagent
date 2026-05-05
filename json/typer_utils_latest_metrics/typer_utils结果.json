@@ -1,0 +1,76 @@
+{
+  "module": "typer.utils",
+  "run_id": "42f88818-c56a-4e02-9d61-5a3e147a0c9a",
+  "workflow_steps_stamp": "20260505_142710",
+  "语句覆盖率_percent": 38.38383838383838,
+  "语句覆盖率_source": "log/workflow_steps/20260505_142710/experiment_record.json#line_coverage",
+  "分支覆盖率_percent": 17.647058823529413,
+  "分支覆盖率_source": "log/workflow_steps/20260505_142710/experiment_record.json#branch_coverage",
+  "变更函数覆盖率_percent": 50.0,
+  "变更函数覆盖率_ratio": 0.5,
+  "变更函数覆盖率_sidecar_file": "log/workflow_steps/<stamp>/changed_function_coverage.json",
+  "变更函数覆盖率_note_zh": "每次测试跑完写入 workflow_steps 与本次 run 同目录；experiment_record.json 会同步简短字段 changed_function_coverage_ratio / changed_function_coverage_percent。下同以 20260505_142710 为例。",
+  "变更函数覆盖率_derived": {
+    "algorithm_zh": "见 src/mutiagent/evaluation/changed_function_coverage.py：对变更文件下 function/method 实体，在 coverage json 的 files[path].functions 中匹配条目；summary.covered_lines>0 计为有覆盖；比率 = 有覆盖变更函数数 / 变更函数数。",
+    "implementation": "mutiagent.evaluation.experiment_run_log.append_experiment_run_log → _write_changed_function_coverage_under_workflow_steps",
+    "changed_function_entities": [
+      {
+        "entity": "_param_type_to_user_string",
+        "change_type": "MODIFY",
+        "covered_lines_in_cov_json": 0,
+        "any_line_covered": false
+      },
+      {
+        "entity": "parse_boolean_env_var",
+        "change_type": "ADD",
+        "covered_lines_in_cov_json": 8,
+        "any_line_covered": true
+      }
+    ],
+    "changed_function_coverage_ratio": 0.5,
+    "caveat_zh": "与「变更行覆盖率」不同；行级对齐见 scripts/collect_experiment_metrics.change_line_coverage_from_diff"
+  },
+  "覆盖函数_list": [
+    "parse_boolean_env_var"
+  ],
+  "覆盖函数_count": 1,
+  "覆盖函数_note_zh": "在 typer/utils.py 的 functions 字典中，除模块级 \"\" 外，仅 parse_boolean_env_var 的 covered_lines>0（见 log/last_workflow_coverage.json）。",
+  "语法正确率_percent": 100.0,
+  "语法正确率_basis": "experiment_record.syntax_correct === true → 生成测试源码均可 ast.parse",
+  "测试通过率_percent": 96.08,
+  "测试用例数量": {
+    "生成物中_test_函数数_ast": 15,
+    "本轮_pytest_收集并运行总数": 51,
+    "passed": 49,
+    "failed": 2
+  },
+  "人工修复时间": null,
+  "人工修复时间_note_zh": "仓库内无该字段；未记录人工介入时间。",
+  "生成时间": {
+    "test_gen_agent_total_ms_from_log": 20940,
+    "test_gen_agent_total_s_approx": 20.94,
+    "log_excerpt_source": "log/mutiagent.log 中「TestGenAgent: 完成，总耗时 20940ms」",
+    "caveat_zh": "仅 LLM 测试生成阶段墙钟；不含其它 Agent 或人工时间。"
+  },
+  "评测指标_evaluation_metrics_来自_EvaluationAgent": {
+    "precision": 0.039216,
+    "recall_bug_detection_rate": 1.0,
+    "f1": 0.075472,
+    "test_reduction_rate": 0.0,
+    "time_reduction_rate": 0.0,
+    "redundancy": 0.960784,
+    "metric_flags": {
+      "pr_f1_redundancy_meaningful": true,
+      "test_reduction_meaningful": false,
+      "time_reduction_meaningful": false
+    },
+    "source_file": "log/workflow_steps/20260505_142710/11_EvaluationAgent.json",
+    "json_path": "evaluation.metrics / evaluation.metric_flags",
+    "definitions_code": "src/mutiagent/evaluation/metrics.py::compute_all_metrics",
+    "semantic_notes_zh": {
+      "precision": "|Ts∩Tf|/|Ts|，非「生成测试有效占比」的通俗定义。",
+      "recall": "|Ts∩Tf|/|Tf|（对失败用例的召回），非「变更代码被测比例」。",
+      "test_reduction": "未提供 execution.all_tests 时恒为 0 且无解读意义（metric_flags.test_reduction_meaningful=false）。"
+    }
+  }
+}

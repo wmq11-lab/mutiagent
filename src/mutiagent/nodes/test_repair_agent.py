@@ -53,33 +53,8 @@ def _semantic_repair_known_patterns(code: str) -> tuple[str, list[str]]:
     return updated, applied
 
 
-def test_repair_agent(state: WorkflowState) -> WorkflowState:
-    """
-    图中 TestRepairAgent 在执行前做一次“可运行性修复”。
-    MVP：只做语法检查；若失败且有LLM则修复一次。
-    """
-    if not state.generated_tests:
-        return state
-
-    code = state.generated_tests[0].content
-    semantic_applied: list[str] = []
-    if _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1"):
-        repaired, semantic_applied = _semantic_repair_known_patterns(code)
-        if repaired != code:
-            state.generated_tests[0].content = repaired
-            code = repaired
-    err = exec_syntax_error(code, filename="<generated_test>")
-    state.debug["test_repair_agent"] = {
-        "attempted": False,
-        "fixed": False,
-        "syntax_error": err,
-        "semantic_enabled": _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1"),
-        "semantic_applied": semantic_applied,
-    }
-
-    if err is None or not llm_available():
-        return state
-
+def _llm_fix_syntax(code: str, err: str, state: WorkflowState, test_path: str) -> tuple[str | None, bool]:
+    """Returns (fixed_content_if_ok, repaired_ok)."""
     system = (
         "你是资深Python测试工程师。给定一份pytest测试文件，存在语法错误。"
         "请修复语法错误并保持测试意图不变。不要借机把用例改成整批 pytest.skip 或含糊的“缺模块就跳过”。"
@@ -90,6 +65,7 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
         "只输出修复后的完整Python文件内容（不要markdown，不要解释）。"
     )
     user = (
+        f"test_path: {test_path}\n"
         f"repo_path: {state.repo_path}\n"
         f"changed_files: {state.changed_files}\n\n"
         f"syntax_error: {err}\n\n"
@@ -97,11 +73,91 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
         f"{code}\n"
     )
     fixed = strip_markdown_code_fence(chat_text(system, user, temperature=0.2))
-    state.debug["test_repair_agent"]["attempted"] = True
-    if fixed and "def test_" in fixed:
-        newc = fixed.strip() + "\n"
-        if exec_syntax_error(newc, filename="<generated_test>") is None:
-            state.generated_tests[0].content = newc
-            state.debug["test_repair_agent"]["fixed"] = True
+    if not fixed or "def test_" not in fixed:
+        return None, False
+    newc = fixed.strip() + "\n"
+    label = test_path if test_path else "<generated_test>"
+    if exec_syntax_error(newc, filename=label) is None:
+        return newc, True
+    return None, False
+
+
+def test_repair_agent(state: WorkflowState) -> WorkflowState:
+    """
+    图中 TestRepairAgent 在执行前做一次“可运行性修复”。
+    MVP：对每个生成文件做语法检查；失败且有 LLM 则逐项修复。
+    """
+    semantic_enabled = _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1")
+    dbg: dict[str, object] = {
+        "skipped": False,
+        "semantic_enabled": semantic_enabled,
+        "attempted": False,
+        "fixed": False,
+        "files_processed": 0,
+        "per_file": [],
+        "semantic_applied": [],
+        "syntax_error": None,
+    }
+
+    if not state.generated_tests:
+        dbg["skipped"] = True
+        dbg["reason"] = "no_generated_tests"
+        state.debug["test_repair_agent"] = dbg
+        return state
+
+    llm_ok = llm_available()
+    merged_semantic: list[str] = []
+    per_file: list[dict[str, object]] = []
+    any_attempted = False
+    any_fixed = False
+
+    for idx, tf in enumerate(state.generated_tests):
+        code = tf.content
+        file_patterns: list[str] = []
+        if semantic_enabled:
+            repaired, file_patterns = _semantic_repair_known_patterns(code)
+            if repaired != code:
+                state.generated_tests[idx].content = repaired
+                code = repaired
+        merged_semantic.extend(file_patterns)
+
+        label = tf.path if tf.path.strip() else f"<generated_test_{idx}>"
+        err = exec_syntax_error(code, filename=label)
+
+        row: dict[str, object] = {
+            "path": tf.path,
+            "semantic_applied": list(file_patterns),
+            "syntax_error": err,
+            "llm_attempted": False,
+            "fixed": False,
+        }
+        if err is not None:
+            if llm_ok:
+                fixed_content, repair_ok = _llm_fix_syntax(code, err, state, tf.path or label)
+                row["llm_attempted"] = True
+                any_attempted = True
+                if repair_ok and fixed_content is not None:
+                    state.generated_tests[idx].content = fixed_content
+                    row["fixed"] = True
+                    row["syntax_error"] = exec_syntax_error(fixed_content, filename=label)
+                    any_fixed = True
+        per_file.append(row)
+
+    dbg["files_processed"] = len(state.generated_tests)
+    dbg["per_file"] = per_file
+    dbg["semantic_applied"] = list(dict.fromkeys(merged_semantic))
+    dbg["attempted"] = any_attempted
+    dbg["fixed"] = any_fixed
+
+    unresolved_err: str | None = None
+    for row in per_file:
+        syn = row.get("syntax_error")
+        if syn is not None:
+            unresolved_err = syn if isinstance(syn, str) else str(syn)
+            break
+    dbg["syntax_error"] = unresolved_err
+    dbg["syntax_ok"] = unresolved_err is None
+
+    state.debug["test_repair_agent"] = dbg
     return state
 

@@ -109,8 +109,8 @@ _INDEX_HTML = """<!DOCTYPE html>
       <li>LLM 与 Key 由环境变量 / 项目根目录 <code>.env</code> 配置（见 README）。</li>
       <li><code>run_eval=true</code> 时会在目标仓库下生成 <code>.mutiagent/reports/&lt;时间戳&gt;/</code>（含 <code>report.html</code>、junit 等）。</li>
       <li>关闭写盘可设环境变量 <code>MUTIAGENT_DISABLE_TEST_REPORT=1</code>。</li>
-      <li>pytest 默认用当前环境的 <code>python</code>；请求体 <code>auto_venv: true</code>（或环境变量 <code>MUTIAGENT_AUTO_VENV=1</code>）可在 <code>repo_path</code> 下自动创建 <code>.mutiagent/mutiagent_pytest_venv</code> 并安装依赖。</li>
-      <li>也可手动为每个被测仓库建 venv，设 <code>MUTIAGENT_PYTEST_PYTHON</code> 指向该解释器。</li>
+      <li>默认在 <code>run_eval</code> 时自动为被测仓库创建 <code>.mutiagent/mutiagent_pytest_venv</code> 并安装 <code>requirements.txt</code> 等；无 requirements 时根据变更的 .py 中 import 白名单推断常见 PyPI 依赖（<code>mutiagent_inferred_pip.txt</code>，可用 <code>MUTIAGENT_INFER_PIP=0</code> 关闭）。请求体中 <code>auto_venv: false</code> 或 <code>MUTIAGENT_DISABLE_AUTO_VENV=1</code> 可改回用 PATH 上 <code>python</code>。也可设 <code>MUTIAGENT_PYTEST_PYTHON</code> 显式指定解释器。</li>
+      <li>工作流在「项目探测」阶段会预建/复用上述 venv，再进入生成与执行。</li>
       <li>Ansible 等含 <code>lib/ansible</code> 的仓库：pytest 默认只把 <code>lib</code> 与仓库根加入 <code>PYTHONPATH</code>，不继承外层，减轻与 conda 里 <code>pip install ansible</code> 的冲突；需要继承时设 <code>MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1</code>。</li>
       <li>pytest 文本：每次运行会写入仓库 <code>.mutiagent/reports/&lt;时间戳&gt;/pytest_stdout.txt</code> 与 <code>pytest_stderr.txt</code>；摘要同时写入项目根 <code>log/mutiagent.log</code>（<code>ExecutionAgent</code> 段落）。API 每次启动默认清空该日志，保留历史请设 <code>MUTIAGENT_LOG_APPEND=1</code>。</li>
       <li>流水线与 <code>mutiagent.workflow</code> 日志默认写入项目根目录 <code>log/mutiagent.log</code>。</li>
@@ -247,6 +247,19 @@ def list_project_runs(
             """,
             run_ids,
         ).fetchall()
+        eval_rows = conn.execute(
+            f"""
+            SELECT ws.run_id, ws.payload_json
+            FROM workflow_steps ws
+            INNER JOIN (
+                SELECT run_id, MAX(step_index) AS max_step
+                FROM workflow_steps
+                WHERE node = 'EvaluationAgent' AND run_id IN ({placeholders})
+                GROUP BY run_id
+            ) wmax ON ws.run_id = wmax.run_id AND ws.step_index = wmax.max_step
+            """,
+            run_ids,
+        ).fetchall()
 
         case_summary: dict[str, dict[str, int]] = {rid: {} for rid in run_ids}
         for row in case_rows:
@@ -283,6 +296,29 @@ def list_project_runs(
                     "created_at": row["created_at"],
                 }
             )
+        metrics_by_run: dict[str, dict] = {rid: {} for rid in run_ids}
+        metric_flags_by_run: dict[str, dict] = {rid: {} for rid in run_ids}
+        for row in eval_rows:
+            rid = str(row["run_id"])
+            payload_raw = row["payload_json"] or "{}"
+            try:
+                payload = json.loads(payload_raw)
+            except json.JSONDecodeError:
+                payload = {}
+            if isinstance(payload, dict):
+                evaluation_obj = payload.get("evaluation") if isinstance(payload.get("evaluation"), dict) else None
+                metrics_src = (
+                    evaluation_obj.get("metrics") if isinstance(evaluation_obj, dict) else payload.get("metrics")
+                )
+                flags_src = (
+                    evaluation_obj.get("metric_flags")
+                    if isinstance(evaluation_obj, dict)
+                    else payload.get("metric_flags")
+                )
+                if isinstance(metrics_src, dict):
+                    metrics_by_run[rid] = metrics_src
+                if isinstance(flags_src, dict):
+                    metric_flags_by_run[rid] = flags_src
 
         runs = []
         for row in run_rows:
@@ -298,6 +334,8 @@ def list_project_runs(
                     "case_summary": case_summary.get(rid, {}),
                     "case_details": case_details.get(rid, []),
                     "generated_tests": files_by_run.get(rid, []),
+                    "evaluation_metrics": metrics_by_run.get(rid, {}),
+                    "metric_flags": metric_flags_by_run.get(rid, {}),
                 }
             )
         return {"repo_path": repo_path, "runs": runs}

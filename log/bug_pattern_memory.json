@@ -1,0 +1,1270 @@
+[
+  {
+    "pattern_id": "9c9e5a0db49f",
+    "name": "api_contract_or_integration_regression",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "api_contract_or_integration_regression": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 和 api:dependency_call (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.804；多符号引用×10)、api:dependency_call (priority_score=0.804；多符号引用×10)。相关受影响符号数=10，包括多个函数（如 get_params_from_function、_param_type_to_user_string、_split_annotation_from_typer_annotations、parse_boolean_env_var）和类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultS",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 和 api:dependency_call (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.804；多符号引用×10)、api:dependency_call (priority_score=0.804；多符号引用×10)。相关受影响符号数=10，包括多个函数（如 get_params_from_function、_param_type_to_user_string、_split_annotation_from_typer_annotations、parse_boolean_env_var）和类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultS",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.814；多符号引用×26)、api:dependency_call (priority_score=0.814；多符号引用×26)、api:append (priority_score=0.731；调用链枢纽；多符号引用×6)、api:init (priority_score=0.680；调用链枢纽；多符号引用×5)、api:make_metavar (priority_score=0.680；调用链枢纽；多符号引用×5)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式（confide",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "api:append",
+          "api:init",
+          "api:make_metavar"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.814；多符号引用×26)、api:dependency_call (priority_score=0.814；多符号引用×26)、api:append (priority_score=0.731；调用链枢纽；多符号引用×6)、api:init (priority_score=0.680；调用链枢纽；多符号引用×5)、api:make_metavar (priority_score=0.680；调用链枢纽；多符号引用×5)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式（confide",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "api:append",
+          "api:init",
+          "api:make_metavar"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 和 api:dependency_call (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.804；多符号引用×10)、api:dependency_call (priority_score=0.804；多符号引用×10)。相关受影响符号数=10，包括多个函数（如 get_params_from_function、_param_type_to_user_string、_split_annotation_from_typer_annotations、parse_boolean_env_var）和类。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式（confidence=0.7601, similarit",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 和 api:dependency_call (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.804；多符号引用×10)、api:dependency_call (priority_score=0.804；多符号引用×10)。相关受影响符号数=10，包括多个函数（如 get_params_from_function、_param_type_to_user_string、_split_annotation_from_typer_annotations、parse_boolean_env_var）和类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultS",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.814；多符号引用×26)、api:dependency_call (priority_score=0.814；多符号引用×26)、api:append (priority_score=0.731；调用链枢纽；多符号引用×6)、api:init (priority_score=0.680；调用链枢纽；多符号引用×5)、api:make_metavar (priority_score=0.680；调用链枢纽；多符号引用×5)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式 (confid",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "api:append",
+          "api:init",
+          "api:make_metavar"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.814；多符号引用×26)、api:dependency_call (priority_score=0.814；多符号引用×26)、api:append (priority_score=0.731；调用链枢纽；多符号引用×6)、api:init (priority_score=0.680；调用链枢纽；多符号引用×5)、api:make_metavar (priority_score=0.680；调用链枢纽；多符号引用×5)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式 (confid",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "api:append",
+          "api:init",
+          "api:make_metavar"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 api:api_signature (type=api, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：api:api_signature (priority_score=0.814；多符号引用×26)、api:dependency_call (priority_score=0.814；多符号引用×26)、api:append (priority_score=0.731；调用链枢纽；多符号引用×6)、api:init (priority_score=0.680；调用链枢纽；多符号引用×5)、api:make_metavar (priority_score=0.680；调用链枢纽；多符号引用×5)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式（confide",
+        "confidence": 0.76,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "api:append",
+          "api:init",
+          "api:make_metavar"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing, priority=P1, propagation_depth=0）与历史模式中的 data_processing 单元在类型和优先级上相似。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'api_contract_or_integration_regression' 模式（confidence=0.7601, similarity=0.546），迁移学习支持 API 契约或集成回归风险。",
+        "confidence": 0.7601,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 31,
+    "confidence": 0.7601
+  },
+  {
+    "pattern_id": "f850babb2afe",
+    "name": "data_processing_boundary_regression",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "data_processing_boundary_regression": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=api:request;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_add_white_list;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_list_by_type;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P2;integration=False;depth=0\ntop_risk=api:request;reason=priority_score=0.900；多符号引用×2\ntop_risk=api:api_signature;reason=priority_score=0.553；多符号引用×2\ntop_risk=api:dependency_call;reason=priority_score=0.553；多符号引用×2\ntop_risk=data_processing:manager_add_white_list;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:manager_list_by_type;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:return_value;reason=priority_score=0.200；多符号引用×2\n",
+        "reason": "语义单元 data_processing:manager_add_white_list (type=data_processing, priority=P2, propagation_depth=0) 和 data_processing:manager_list_by_type 被标记为 top_risks，priority_score 均为 0.458 且多符号引用×2；data_processing:return_value 的 priority_score=0.200 且多符号引用×2。impacted_symbols 中的两个函数均涉及数据管理操作。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=0.9991），语义签名完全匹配，迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8725,
+        "linked_risks": [
+          "data_processing:manager_add_white_list",
+          "data_processing:manager_list_by_type",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=0.7483），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8725,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=1.0），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8725,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=1.0），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8725,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:readme_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:readme_md;reason=高 priority_score（0.450）\nimpacted_symbol=README.md:function:__diff_hunk___1;name=__diff_hunk__;entity_type=function",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:readme_md（type=data_processing, priority=P1）与历史模式中的 data_processing 单元（如 data_processing:get, data_processing:compile）在类型和优先级上相似，且 top_risks 中 data_processing:readme_md 被标记为高 priority_score（0.450）。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=0.6743），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8725,
+        "linked_risks": [
+          "data_processing:readme_md"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8725, similarity=0.6633），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.87,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8713, similarity=1.0），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.87,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8706, similarity=1.0），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.87,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "多个 data_processing 语义单元（如 data_processing:compile, data_processing:find_all, data_processing:get, data_processing:write, data_processing:findall, data_processing:append, data_processing:get_html, data_processing:logic_branch, data_processing:sleep）被标记为 top_risks，且作为调用链枢纽。这些单元集中处理爬虫数据获取、解析和存储的边界条件（如 HTML 解析、图片保存、URL 处理）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8703, similarity=1.0），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.87,
+        "linked_risks": [
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:get",
+          "data_processing:write",
+          "data_processing:findall",
+          "data_processing:append",
+          "data_processing:get_html",
+          "data_processing:logic_branch",
+          "data_processing:sleep"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing, priority=P1, propagation_depth=0）与历史模式中的 data_processing 单元（如 data_processing:get, data_processing:compile）在类型和优先级上相似。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8701, similarity=0.6918），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.8701,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 14,
+    "confidence": 0.8701
+  },
+  {
+    "pattern_id": "b71a807449b9",
+    "name": "api_contract_validation_regression",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "api_contract_validation_regression": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:model_defaults;t",
+        "reason": "高优先级（P0）的 api:api_signature 和 api:dependency_call 语义单元被标记为 top_risks，并与高风险的 exception:input_validation 单元同时出现。这些单元共同影响 get 函数及多个测试符号，表明 API 接口的签名、依赖调用及输入验证逻辑的契约可能被破坏，导致集成或调用方错误。参考 historical_patterns 中的 'api_contract_validation_regression' 模式，相似度 0.9998，且当前 top_risks 中明确指出了 '多符号引用×6' 的高传播风险。",
+        "confidence": 0.83,
+        "linked_risks": [
+          "api:api_signature",
+          "api:dependency_call",
+          "exception:input_validation"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:request;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_add_white_list;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_list_by_type;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P2;integration=False;depth=0\ntop_risk=api:request;reason=priority_score=0.900；多符号引用×2\ntop_risk=api:api_signature;reason=priority_score=0.553；多符号引用×2\ntop_risk=api:dependency_call;reason=priority_score=0.553；多符号引用×2\ntop_risk=data_processing:manager_add_white_list;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:manager_list_by_type;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:return_value;reason=priority_score=0.200；多符号引用×2\n",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 api:request, api:api_signature, api:dependency_call 与历史模式中的 API 单元匹配，且 top_risks 中这些单元被标记为'多符号引用×2'，表明 API 契约可能被破坏。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:request;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_add_white_list;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_list_by_type;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P2;integration=False;depth=0\ntop_risk=api:request;reason=priority_score=0.900；多符号引用×2\ntop_risk=api:api_signature;reason=priority_score=0.553；多符号引用×2\ntop_risk=api:dependency_call;reason=priority_score=0.553；多符号引用×2\ntop_risk=data_processing:manager_add_white_list;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:manager_list_by_type;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:return_value;reason=priority_score=0.200；多符号引用×2\n",
+        "reason": "语义单元 api:request (priority_score=0.900, 多符号引用×2)、api:api_signature (priority_score=0.553, 多符号引用×2) 和 api:dependency_call (priority_score=0.553, 多符号引用×2) 同时作为 top_risks 出现，且与 data_processing 单元耦合。impacted_symbols 中的两个函数是 API 端点处理函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=0.9991），语义签名完全匹配，迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "语义单元 api:request (type=api, priority=P0, propagation_depth=0) 被标记为 top_risk，priority_score=0.900 且多符号引用×31；api:api_signature 和 api:dependency_call 也作为 top_risks，priority_score 分别为 0.886 和 0.900，均有多符号引用（×30 和 ×31）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=0.7483），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "语义单元 api:request (type=api, priority=P0, propagation_depth=0) 被标记为 top_risk，priority_score=0.900 且多符号引用×31；api:api_signature 和 api:dependency_call 也作为 top_risks，priority_score 分别为 0.886 和 0.900，均有多符号引用（×30 和 ×31）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=1.0），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "语义单元 api:request (type=api, priority=P0, propagation_depth=0) 被标记为 top_risk，priority_score=0.900 且多符号引用×31；api:api_signature 和 api:dependency_call 也作为 top_risks，priority_score 分别为 0.886 和 0.900，均有多符号引用（×30 和 ×31）。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=1.0），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:readme_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:readme_md;reason=高 priority_score（0.450）\nimpacted_symbol=README.md:function:__diff_hunk___1;name=__diff_hunk__;entity_type=function",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:readme_md（type=data_processing, priority=P1）与历史模式中的 data_processing 单元在类型和优先级上相似，且 top_risks 中 data_processing:readme_md 被标记为高 priority_score（0.450）。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=0.6743），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8275,
+        "linked_risks": [
+          "data_processing:readme_md"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "语义单元 api:request (priority_score=0.900, 多符号引用×31)、api:api_signature (priority_score=0.886, 多符号引用×30) 和 api:dependency_call (priority_score=0.900, 多符号引用×31) 同时作为 top_risks 出现，且与 data_processing 单元耦合。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8275, similarity=0.6633），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.83,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "语义单元 api:request (priority_score=0.900, 多符号引用×31)、api:api_signature (priority_score=0.886, 多符号引用×30) 和 api:dependency_call (priority_score=0.900, 多符号引用×31) 同时作为 top_risks 出现，且与 data_processing 单元耦合。impacted_symbols 包含 31 个符号，涉及多个爬虫类和函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8287, similarity=1.0），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.83,
+        "linked_risks": [
+          "api:request",
+          "api:api_signature",
+          "api:dependency_call"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing, priority=P1, propagation_depth=0）与历史模式中的 data_processing 单元在类型和优先级上相似。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'api_contract_validation_regression' 模式（confidence=0.8294, similarity=0.6918），迁移学习支持 API 契约验证回归风险。",
+        "confidence": 0.8294,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 12,
+    "confidence": 0.8294
+  },
+  {
+    "pattern_id": "bc0266f5552e",
+    "name": "test_suite_semantic_coupling",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "test_suite_semantic_coupling": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:model_defaults;t",
+        "reason": "多个测试函数（test_return_exclude_defaults, test_return_exclude_none, test_return_exclude_unset, test_return_exclude_unset_none）和测试客户端（data_processing:test_client）作为 impacted_symbols 被集中影响，且对应的 data_processing 语义单元（如 test_return_exclude_defaults 等）均被标记为 top_risks 和'调用链枢纽'。这表明测试套件与核心数据逻辑（ModelDefaults）存在高语义耦合，对默认值处理逻辑的修改极易导致多个测试同时失效。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "data_processing:test_return_defaults",
+          "data_processing:test_return_exclude_defaults",
+          "data_processing:test_return_exclude_none",
+          "data_processing:test_return_exclude_unset",
+          "data_processing:test_return_exclude_unset_none",
+          "data_processing:test_client",
+          "data_processing:model_subclass"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:model_defaults;t",
+        "reason": "多个测试函数（test_return_exclude_defaults, test_return_exclude_none, test_return_exclude_unset, test_return_exclude_unset_none）和测试客户端（data_processing:test_client）作为 impacted_symbols 被集中影响，且对应的 data_processing 语义单元（如 test_return_exclude_defaults 等）均被标记为 top_risks 和'调用链枢纽'。这表明测试套件与核心数据逻辑（ModelDefaults）存在高语义耦合，对默认值处理逻辑的修改极易导致多个测试同时失效。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式，相似度 0.9975，模式匹配度高。",
+        "confidence": 0.8,
+        "linked_risks": [
+          "data_processing:test_return_defaults",
+          "data_processing:test_return_exclude_defaults",
+          "data_processing:test_return_exclude_none",
+          "data_processing:test_return_exclude_unset",
+          "data_processing:test_return_exclude_unset_none",
+          "data_processing:test_client",
+          "data_processing:model_subclass"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_defaults;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:test_return_exclude_unset_none;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:model_defaults;t",
+        "reason": "多个测试函数（test_return_exclude_defaults, test_return_exclude_none, test_return_exclude_unset, test_return_exclude_unset_none）和测试客户端（data_processing:test_client）作为 impacted_symbols 被集中影响，且对应的 data_processing 语义单元（如 test_return_exclude_defaults 等）均被标记为 top_risks 和'调用链枢纽'。这表明测试套件与核心数据逻辑（ModelDefaults）存在高语义耦合，对默认值处理逻辑的修改极易导致多个测试同时失效。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式，相似度 0.9998，模式匹配度高。",
+        "confidence": 0.8,
+        "linked_risks": [
+          "data_processing:test_return_defaults",
+          "data_processing:test_return_exclude_defaults",
+          "data_processing:test_return_exclude_none",
+          "data_processing:test_return_exclude_unset",
+          "data_processing:test_return_exclude_unset_none",
+          "data_processing:test_client",
+          "data_processing:model_subclass"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:request;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_add_white_list;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_list_by_type;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P2;integration=False;depth=0\ntop_risk=api:request;reason=priority_score=0.900；多符号引用×2\ntop_risk=api:api_signature;reason=priority_score=0.553；多符号引用×2\ntop_risk=api:dependency_call;reason=priority_score=0.553；多符号引用×2\ntop_risk=data_processing:manager_add_white_list;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:manager_list_by_type;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:return_value;reason=priority_score=0.200；多符号引用×2\n",
+        "reason": "来自历史 memory 的相似模式迁移。当前 impacted_symbols 包含 phoneRangeManagerAddWhiteList 和 phoneRangeManagerListByType 函数，与历史模式中测试函数被集中影响的情况类似，表明测试套件与核心数据逻辑存在高语义耦合。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "data_processing:manager_add_white_list",
+          "data_processing:manager_list_by_type",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:request;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_add_white_list;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:manager_list_by_type;type=data_processing;priority=P2;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P2;integration=False;depth=0\ntop_risk=api:request;reason=priority_score=0.900；多符号引用×2\ntop_risk=api:api_signature;reason=priority_score=0.553；多符号引用×2\ntop_risk=api:dependency_call;reason=priority_score=0.553；多符号引用×2\ntop_risk=data_processing:manager_add_white_list;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:manager_list_by_type;reason=priority_score=0.458；多符号引用×2\ntop_risk=data_processing:return_value;reason=priority_score=0.200；多符号引用×2\n",
+        "reason": "impacted_symbols 包含 phoneRangeManagerAddWhiteList 和 phoneRangeManagerListByType 两个函数，它们被多个 top_risks 单元（api:request, api:api_signature, api:dependency_call, data_processing:manager_add_white_list, data_processing:manager_list_by_type, data_processing:return_value）共同影响，且所有 top_risks 均标记为多符号引用×2。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=0.9991），语义签名完全匹配，迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "data_processing:manager_add_white_list",
+          "data_processing:manager_list_by_type",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "impacted_symbols 包含 31 个符号，涵盖多个爬虫类和函数（如 GetHtml, GetImg, QiubaiSpider, SpiderHTML, TaobaommSpider, zhihuCollectionSpider 等），这些符号被多个 top_risks 单元（如 api:dependency_call, api:api_signature, data_processing:compile, data_processing:find_all, data_processing:logic_branch）共同影响，且所有 top_risks 均标记为多符号引用（×31, ×30, ×14, ×14, ×31）。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=0.7483），迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "api:dependency_call",
+          "api:api_signature",
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "impacted_symbols 包含 31 个符号，涵盖多个爬虫类和函数（如 GetHtml, GetImg, QiubaiSpider, SpiderHTML, TaobaommSpider, zhihuCollectionSpider 等），这些符号被多个 top_risks 单元（如 api:dependency_call, api:api_signature, data_processing:compile, data_processing:find_all, data_processing:logic_branch）共同影响，且所有 top_risks 均标记为多符号引用（×31, ×30, ×14, ×14, ×31）。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=1.0），迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "api:dependency_call",
+          "api:api_signature",
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:compile;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:find_all;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=True;depth=0\nsemantic_unit_id=data_processing:get;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:write;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:findall;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:append;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:get_html;type=data_processing;priority=P1;integration=True;depth=0\nsemantic_unit_id=data_processing:logic_branch;type",
+        "reason": "impacted_symbols 包含 31 个符号，涵盖多个爬虫类和函数（如 GetHtml, GetImg, QiubaiSpider, SpiderHTML, TaobaommSpider, zhihuCollectionSpider 等），这些符号被多个 top_risks 单元（如 api:dependency_call, api:api_signature, data_processing:compile, data_processing:find_all, data_processing:logic_branch）共同影响，且所有 top_risks 均标记为多符号引用（×31, ×30, ×14, ×14, ×31）。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=1.0），迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "api:dependency_call",
+          "api:api_signature",
+          "data_processing:compile",
+          "data_processing:find_all",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:readme_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:readme_md;reason=高 priority_score（0.450）\nimpacted_symbol=README.md:function:__diff_hunk___1;name=__diff_hunk__;entity_type=function",
+        "reason": "来自历史 memory 的相似模式迁移。当前 impacted_symbols 包含 __diff_hunk__ 函数，与历史模式中测试函数被集中影响的情况类似，表明测试套件与核心数据逻辑存在高语义耦合。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=0.6743），迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "data_processing:readme_md"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing, priority=P1, propagation_depth=0）与历史模式中的 data_processing 单元（如 data_processing:readme_md）在类型和优先级上相似。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=0.8074），迁移学习支持测试套件与核心逻辑的高语义耦合风险。",
+        "confidence": 0.795,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 10,
+    "confidence": 0.795
+  },
+  {
+    "pattern_id": "4d3907686644",
+    "name": "default_value_propagation_anomaly",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "default_value_propagation_anomaly": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:default (type=data_processing, priority=P2, propagation_depth=0) 和 data_processing:env_var_value (type=data_processing, priority=P2, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:default (priority_score=0.265)、data_processing:env_var_value (priority_score=0.265)、data_processing:return_value (priority_score=0.608；多符号引用×10)、data_processing:value (priority_score=0.608；多符号引用×10)。相关受影响符号包括 _param_type_to_user_string 和 parse_boolean_env_var，涉及默认值和环境变量处理。参考 histori",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:default",
+          "data_processing:env_var_value",
+          "data_processing:return_value",
+          "data_processing:value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:default (type=data_processing, priority=P2, propagation_depth=0) 和 data_processing:env_var_value (type=data_processing, priority=P2, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:default (priority_score=0.265)、data_processing:env_var_value (priority_score=0.265)、data_processing:return_value (priority_score=0.608；多符号引用×10)、data_processing:value (priority_score=0.608；多符号引用×10)。相关受影响符号包括 _param_type_to_user_string 和 parse_boolean_env_var，涉及默认值和环境变量处理。参考 histori",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:default",
+          "data_processing:env_var_value",
+          "data_processing:return_value",
+          "data_processing:value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:return_value (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:return_value (priority_score=0.629；多符号引用×26)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式（confidence=0.77, similarity=0.8974），迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:return_value",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:return_value (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:return_value (priority_score=0.629；多符号引用×26)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式（confidence=0.77, similarity=1.0），迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:return_value",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:default (type=data_processing, priority=P2, propagation_depth=0) 和 data_processing:env_var_value (type=data_processing, priority=P2, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:default (priority_score=0.265)、data_processing:env_var_value (priority_score=0.265)、data_processing:return_value (priority_score=0.608；多符号引用×10)、data_processing:value (priority_score=0.608；多符号引用×10)。相关受影响符号包括 _param_type_to_user_string 和 parse_boolean_env_var，涉及默认值和环境变量处理。参考 histori",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:default",
+          "data_processing:env_var_value",
+          "data_processing:return_value",
+          "data_processing:value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:default (type=data_processing, priority=P2, propagation_depth=0) 和 data_processing:env_var_value (type=data_processing, priority=P2, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:default (priority_score=0.265)、data_processing:env_var_value (priority_score=0.265)、data_processing:return_value (priority_score=0.608；多符号引用×10)、data_processing:value (priority_score=0.608；多符号引用×10)。相关受影响符号包括 _param_type_to_user_string 和 parse_boolean_env_var，涉及默认值和环境变量处理。参考 histori",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:default",
+          "data_processing:env_var_value",
+          "data_processing:return_value",
+          "data_processing:value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:return_value (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:return_value (priority_score=0.629；多符号引用×26)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式 (confidence=0.77, similarity=0.8974)，迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:return_value",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:return_value (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:return_value (priority_score=0.629；多符号引用×26)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式 (confidence=0.77, similarity=1.0)，迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:return_value",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:return_value (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:return_value (priority_score=0.629；多符号引用×26)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式（confidence=0.77, similarity=1.0），迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:return_value",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "来自历史 memory 的相似模式迁移。当前语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing, priority=P1, propagation_depth=0）与历史模式中的 data_processing 单元（如 data_processing:default, data_processing:return_value）在类型和优先级上相似。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'default_value_propagation_anomaly' 模式（confidence=0.77, similarity=0.546），迁移学习支持默认值传播异常风险。",
+        "confidence": 0.77,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 26,
+    "confidence": 0.77
+  },
+  {
+    "pattern_id": "1e712e32610f",
+    "name": "cross_symbol_propagation_regression",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "cross_symbol_propagation_regression": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception、exception:exception_handling、exception:input_validation、exception:null_check）均标记为多符号引用（×4, ×10, ×10, ×10），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 包含 10 个符号，涵盖多个异常类和函数。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.5703, similarity=1.0），迁移学习支持跨符号传播回归风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception、exception:exception_handling、exception:input_validation、exception:null_check）均标记为多符号引用（×4, ×10, ×10, ×10），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 包含 10 个符号，涵盖多个异常类和函数。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.5701, similarity=1.0），迁移学习支持跨符号传播回归风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception_handling, exception:input_validation, exception:null_check, api:api_signature）均标记为多符号引用（×26），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 数量高达 26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.57, similarity=0.8974），迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check",
+          "api:api_signature"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception_handling, exception:input_validation, exception:null_check, api:api_signature）均标记为多符号引用（×26），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 数量高达 26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.57, similarity=1.0），迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check",
+          "api:api_signature"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception、exception:exception_handling、exception:input_validation、exception:null_check）均标记为多符号引用（×4, ×10, ×10, ×10），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 包含 10 个符号，涵盖多个异常类和函数。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.57, similarity=0.8974），迁移学习支持跨符号传播回归风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception、exception:exception_handling、exception:input_validation、exception:null_check）均标记为多符号引用（×4, ×10, ×10, ×10），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 包含 10 个符号，涵盖多个异常类和函数。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式 (confidence=0.57, similarity=1.0)，迁移学习支持跨符号传播回归风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception_handling, exception:input_validation, exception:null_check, api:api_signature）均标记为多符号引用（×26），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 数量高达 26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式 (confidence=0.57, similarity=0.8974)，迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check",
+          "api:api_signature"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception_handling, exception:input_validation, exception:null_check, api:api_signature）均标记为多符号引用（×26），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 数量高达 26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式 (confidence=0.57, similarity=1.0)，迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check",
+          "api:api_signature"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "has_change_graph=True 且 top_risks 中多个语义单元（如 exception:exception_handling, exception:input_validation, exception:null_check, api:api_signature）均标记为多符号引用（×26），表明变更可能通过调用链在符号间广泛传播。impacted_symbols 数量高达 26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'cross_symbol_propagation_regression' 模式（confidence=0.57, similarity=1.0），迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check",
+          "api:api_signature"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "change_graph 与 top_risks 同时存在，提示跨符号传播风险。语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing）在影响图中被标记；priority=P1，propagation_depth=0。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'test_suite_semantic_coupling' 模式（confidence=0.795, similarity=0.8074），迁移学习支持跨符号传播风险。",
+        "confidence": 0.57,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 28,
+    "confidence": 0.57
+  },
+  {
+    "pattern_id": "faffc5577f85",
+    "name": "exception_handler_integration_risk",
+    "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\ntop_risk=api:dependency_call;reason=高 priority_score（0.550）\nimpacted_symbol=fastapi/exception_handlers.py:function:request_validation_exception_handler;name=request_validation_exception_handler;entity_type=function",
+    "embedding": {
+      "api": 0.525226,
+      "dependency_call": 0.393919,
+      "request_validation_exception_handler": 0.393919,
+      "top_risk": 0.262613,
+      "fastapi": 0.262613,
+      "function": 0.262613,
+      "semantic_unit_id": 0.131306,
+      "priority": 0.131306,
+      "integration": 0.131306,
+      "false": 0.131306,
+      "depth": 0.131306,
+      "priority_score": 0.131306,
+      "impacted_symbol": 0.131306,
+      "exception_handlers": 0.131306,
+      "name": 0.131306,
+      "entity_type": 0.131306,
+      "exception_handler_integration_risk": 0.131306,
+      "impacted_symbols": 0.131306
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\ntop_risk=api:dependency_call;reason=高 priority_score（0.550）\nimpacted_symbol=fastapi/exception_handlers.py:function:request_validation_exception_handler;name=request_validation_exception_handler;entity_type=function",
+        "reason": "top_risk 单元 api:dependency_call 直接且唯一地影响了关键异常处理函数 'request_validation_exception_handler'。该函数是 FastAPI 请求验证异常的处理入口，对其依赖调用的修改可能引入未处理的异常流、改变错误响应格式或破坏客户端错误处理逻辑，构成高集成风险。这是一个基于 impacted_symbols 语义的新模式。",
+        "confidence": 0.72,
+        "linked_risks": [
+          "api:dependency_call"
+        ]
+      }
+    ],
+    "frequency": 1,
+    "confidence": 0.72
+  },
+  {
+    "pattern_id": "9767b7579883",
+    "name": "data_transformation_or_boundary_regression",
+    "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv2.md:function:__diff_hunk___10;name=__diff_hunk__;entity_type=function",
+    "embedding": {
+      "data_processing": 0.561336,
+      "function": 0.374224,
+      "semantic_unit_id": 0.187112,
+      "priority": 0.187112,
+      "integration": 0.187112,
+      "false": 0.187112,
+      "depth": 0.187112,
+      "top_risk": 0.187112,
+      "priority_score": 0.187112,
+      "impacted_symbol": 0.187112,
+      "templates": 0.187112,
+      "docs": 0.187112,
+      "name": 0.187112,
+      "__diff_hunk__": 0.187112,
+      "entity_type": 0.187112,
+      "templates_docs_apiv1_html_fragment": 0.093556,
+      "templates_docs_apiv1_md": 0.093556,
+      "templates_docs_apiv2_html_fragment": 0.093556,
+      "templates_docs_apiv2_md": 0.093556,
+      "apiv1": 0.093556,
+      "html": 0.093556,
+      "fragment": 0.093556,
+      "__diff_hunk___7": 0.093556,
+      "__diff_hunk___10": 0.093556,
+      "apiv2": 0.093556,
+      "data_transformation_or_boundary_regression": 0.046778
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:parameter_info (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:parameter_info (priority_score=0.732；调用链枢纽；多符号引用×6)、data_processing:argument_name (priority_score=0.677；调用链枢纽；多符号引用×5)、data_processing:param_type (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:param_type_to_user_string (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:logic_branch (priority_score=0.608；多符号引用×10)、data_processing:return_value (priority_sco",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:parameter_info",
+          "data_processing:argument_name",
+          "data_processing:param_type",
+          "data_processing:param_type_to_user_string",
+          "data_processing:logic_branch",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:parameter_info (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:parameter_info (priority_score=0.732；调用链枢纽；多符号引用×6)、data_processing:argument_name (priority_score=0.677；调用链枢纽；多符号引用×5)、data_processing:param_type (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:param_type_to_user_string (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:logic_branch (priority_score=0.608；多符号引用×10)、data_processing:return_value (priority_sco",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:parameter_info",
+          "data_processing:argument_name",
+          "data_processing:param_type",
+          "data_processing:param_type_to_user_string",
+          "data_processing:logic_branch",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:click (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:click (priority_score=0.771；调用链枢纽；多符号引用×15)、data_processing:any (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:ctx (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'data_transformation_or_boundary_regression' 模式（",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:click",
+          "data_processing:any",
+          "data_processing:ctx",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:click (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:click (priority_score=0.771；调用链枢纽；多符号引用×15)、data_processing:any (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:ctx (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'data_transformation_or_boundary_regression' 模式（",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:click",
+          "data_processing:any",
+          "data_processing:ctx",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:parameter_info (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:parameter_info (priority_score=0.732；调用链枢纽；多符号引用×6)、data_processing:argument_name (priority_score=0.677；调用链枢纽；多符号引用×5)、data_processing:param_type (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:param_type_to_user_string (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:logic_branch (priority_score=0.608；多符号引用×10)、data_processing:return_value (priority_sco",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:parameter_info",
+          "data_processing:argument_name",
+          "data_processing:param_type",
+          "data_processing:param_type_to_user_string",
+          "data_processing:logic_branch",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 data_processing:parameter_info (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:parameter_info (priority_score=0.732；调用链枢纽；多符号引用×6)、data_processing:argument_name (priority_score=0.677；调用链枢纽；多符号引用×5)、data_processing:param_type (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:param_type_to_user_string (priority_score=0.611；调用链枢纽；多符号引用×4)、data_processing:logic_branch (priority_score=0.608；多符号引用×10)、data_processing:return_value (priority_sco",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:parameter_info",
+          "data_processing:argument_name",
+          "data_processing:param_type",
+          "data_processing:param_type_to_user_string",
+          "data_processing:logic_branch",
+          "data_processing:return_value"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:click (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:click (priority_score=0.771；调用链枢纽；多符号引用×15)、data_processing:any (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:ctx (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'data_transformation_or_boundary_regression' 模式 ",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:click",
+          "data_processing:any",
+          "data_processing:ctx",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:click (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:click (priority_score=0.771；调用链枢纽；多符号引用×15)、data_processing:any (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:ctx (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'data_transformation_or_boundary_regression' 模式 ",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:click",
+          "data_processing:any",
+          "data_processing:ctx",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 data_processing:click (type=data_processing, priority=P1, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：data_processing:click (priority_score=0.771；调用链枢纽；多符号引用×15)、data_processing:any (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:ctx (priority_score=0.700；调用链枢纽；多符号引用×11)、data_processing:logic_branch (priority_score=0.629；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'data_transformation_or_boundary_regression' 模式（",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:click",
+          "data_processing:any",
+          "data_processing:ctx",
+          "data_processing:logic_branch"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=data_processing:templates_docs_apiv1_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv1_md;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_html_fragment;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:templates_docs_apiv2_md;type=data_processing;priority=P1;integration=False;depth=0\ntop_risk=data_processing:templates_docs_apiv1_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv1_md;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_html_fragment;reason=高 priority_score（0.450）\ntop_risk=data_processing:templates_docs_apiv2_md;reason=高 priority_score（0.450）\nimpacted_symbol=templates/docs/apiv1.html-fragment:function:__diff_hunk___7;name=__diff_hunk__;entity_type=function\nimpacted_symbol=templates/docs/apiv1.md:function:__diff_",
+        "reason": "语义单元 data_processing:templates_docs_apiv1_html_fragment（type=data_processing）在影响图中被标记；priority=P1，propagation_depth=0。命中 top_risks 强信号：data_processing:templates_docs_apiv1_html_fragment（priority_score=0.450）。相关受影响符号数=4，包括 __diff_hunk__ 函数。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8701, similarity=0.6918），迁移学习支持数据处理边界回归风险。",
+        "confidence": 0.7,
+        "linked_risks": [
+          "data_processing:templates_docs_apiv1_html_fragment",
+          "data_processing:templates_docs_apiv1_md",
+          "data_processing:templates_docs_apiv2_html_fragment",
+          "data_processing:templates_docs_apiv2_md"
+        ]
+      }
+    ],
+    "frequency": 20,
+    "confidence": 0.7
+  },
+  {
+    "pattern_id": "d38941a5b942",
+    "name": "exception_path_or_error_handling_regression",
+    "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:logic_branch;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:return_value;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:get;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:callable;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:escape_before_html_export;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:extract_default_help_str;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:format;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:format_help;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:get_default_string;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:join_options;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:rich_format_help;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:args;type=data_pr",
+    "embedding": {
+      "semantic_unit_id": 0.38786,
+      "priority": 0.38786,
+      "integration": 0.38786,
+      "false": 0.381983,
+      "depth": 0.381983,
+      "api": 0.376106,
+      "data_processing": 0.329093,
+      "exception": 0.07052,
+      "extract_default_help_str": 0.011753,
+      "get_default_string": 0.011753,
+      "exception_handling": 0.005877,
+      "input_validation": 0.005877,
+      "null_check": 0.005877,
+      "api_signature": 0.005877,
+      "dependency_call": 0.005877,
+      "click": 0.005877,
+      "append": 0.005877,
+      "any": 0.005877,
+      "ctx": 0.005877,
+      "init": 0.005877,
+      "make_metavar": 0.005877,
+      "logic_branch": 0.005877,
+      "return_value": 0.005877,
+      "get": 0.005877,
+      "callable": 0.005877,
+      "escape_before_html_export": 0.005877,
+      "format": 0.005877,
+      "format_help": 0.005877,
+      "join_options": 0.005877,
+      "rich_format_help": 0.005877,
+      "args": 0.005877,
+      "autocompletion": 0.005877,
+      "complete_var": 0.005877,
+      "formatter": 0.005877,
+      "main": 0.005877,
+      "sequence": 0.005877,
+      "typer_format_options": 0.005877,
+      "describe_range": 0.005877,
+      "ensure_object": 0.005877,
+      "exit": 0.005877,
+      "format_commands": 0.005877,
+      "get_metavar": 0.005877,
+      "items": 0.005877,
+      "keys": 0.005877,
+      "resolve_command": 0.005877,
+      "rstrip": 0.005877,
+      "completion_item": 0.005877,
+      "ctx_args": 0.005877,
+      "default_value": 0.005877,
+      "has_rich": 0.005877,
+      "markup_mode_key": 0.005877,
+      "mutable_mapping": 0.005877,
+      "opts": 0.005877,
+      "param": 0.005877,
+      "prog_name": 0.005877,
+      "typer_main_shell_completion": 0.005877,
+      "union": 0.005877,
+      "value": 0.005877,
+      "abort": 0.005877,
+      "rich_abort_error": 0.005877,
+      "rich_format_error": 0.005877,
+      "argument": 0.005877,
+      "command": 0.005877,
+      "detect_program_name": 0.005877
+    },
+    "examples": [
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 exception:exception（type=exception）在影响图中被标记；priority=P0，propagation_depth=0。命中 top_risks 强信号：exception:exception（priority_score=0.900；调用链枢纽；多符号引用×4）。相关受影响符号数=10，包括多个自定义异常类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError 等）。参考 historical_patterns 中的 'data_processing_boundary_regression' 模式（confidence=0.8701, similarity=0.9374），迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 exception:exception (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception (priority_score=0.900；调用链枢纽；多符号引用×4)、exception:exception_handling (priority_score=0.894；多符号引用×10)、exception:input_validation (priority_score=0.894；多符号引用×10)、exception:null_check (priority_score=0.894；多符号引用×10)。相关受影响符号数=10，包括多个自定义异常类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultStyleError、MultipleTyperAnnotationsError）和函数（如 _",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 exception:exception (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception (priority_score=0.900；调用链枢纽；多符号引用×4)、exception:exception_handling (priority_score=0.894；多符号引用×10)、exception:input_validation (priority_score=0.894；多符号引用×10)、exception:null_check (priority_score=0.894；多符号引用×10)。相关受影响符号数=10，包括多个自定义异常类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultStyleError、MultipleTyperAnnotationsError）和函数（如 _",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 exception:exception_handling (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception_handling (priority_score=0.900；多符号引用×26)、exception:input_validation (priority_score=0.900；多符号引用×26)、exception:null_check (priority_score=0.900；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'exception_path_or_error_handling_regression' 模式（confidence=0.7801, similarity=0.8974），迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 exception:exception_handling (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception_handling (priority_score=0.900；多符号引用×26)、exception:input_validation (priority_score=0.900；多符号引用×26)、exception:null_check (priority_score=0.900；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'exception_path_or_error_handling_regression' 模式（confidence=0.7801, similarity=1.0），迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 exception:exception (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception (priority_score=0.900；调用链枢纽；多符号引用×4)、exception:exception_handling (priority_score=0.894；多符号引用×10)、exception:input_validation (priority_score=0.894；多符号引用×10)、exception:null_check (priority_score=0.894；多符号引用×10)。相关受影响符号数=10，包括多个异常类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultStyleError、MultipleTyperAnnotationsError）和函数。参考 his",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:parameter_info;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:argument_name;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:param_type_to_user_string;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_p",
+        "reason": "语义单元 exception:exception (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception (priority_score=0.900；调用链枢纽；多符号引用×4)、exception:exception_handling (priority_score=0.894；多符号引用×10)、exception:input_validation (priority_score=0.894；多符号引用×10)、exception:null_check (priority_score=0.894；多符号引用×10)。相关受影响符号数=10，包括多个自定义异常类（如 AnnotatedParamWithDefaultValueError、DefaultFactoryAndDefaultValueError、MixedAnnotatedAndDefaultStyleError、MultipleTyperAnnotationsError）和函数（如 _",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception",
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 exception:exception_handling (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception_handling (priority_score=0.900；多符号引用×26)、exception:input_validation (priority_score=0.900；多符号引用×26)、exception:null_check (priority_score=0.900；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'exception_path_or_error_handling_regression' 模式 (confidence=0.7801, similarity=0.8974)，迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 exception:exception_handling (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception_handling (priority_score=0.900；多符号引用×26)、exception:input_validation (priority_score=0.900；多符号引用×26)、exception:null_check (priority_score=0.900；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'exception_path_or_error_handling_regression' 模式 (confidence=0.7801, similarity=1.0)，迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      },
+      {
+        "semantic_signature": "semantic_unit_id=exception:exception_handling;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:input_validation;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=exception:null_check;type=exception;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:api_signature;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:dependency_call;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:click;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:append;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_processing:any;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=data_processing:ctx;type=data_processing;priority=P1;integration=False;depth=0\nsemantic_unit_id=api:init;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=api:make_metavar;type=api;priority=P0;integration=False;depth=0\nsemantic_unit_id=data_proces",
+        "reason": "语义单元 exception:exception_handling (type=exception, priority=P0, propagation_depth=0) 在影响图中被标记；命中 top_risks 强信号：exception:exception_handling (priority_score=0.900；多符号引用×26)、exception:input_validation (priority_score=0.900；多符号引用×26)、exception:null_check (priority_score=0.900；多符号引用×26)。相关受影响符号数=26，涵盖多个类和方法（如 TyperArgument, TyperCommand, TyperGroup, TyperOption 等）。参考 historical_patterns 中的 'exception_path_or_error_handling_regression' 模式（confidence=0.7801, similarity=1.0），迁移学习支持异常路径回归风险。",
+        "confidence": 0.78,
+        "linked_risks": [
+          "exception:exception_handling",
+          "exception:input_validation",
+          "exception:null_check"
+        ]
+      }
+    ],
+    "frequency": 23,
+    "confidence": 0.7801
+  }
+]

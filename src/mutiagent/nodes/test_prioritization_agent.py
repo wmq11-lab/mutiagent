@@ -1,7 +1,21 @@
 from __future__ import annotations
 
+import os
+
 from mutiagent.graph.state import TestPlanItem, WorkflowState
 from mutiagent.utils.change_graph_builder import impact_candidate_graph_boost
+
+
+def _truthy_env(name: str, default: bool = True) -> bool:
+    v = os.environ.get(name, "").strip().lower()
+    if not v:
+        return default
+    if v in {"0", "false", "no", "off"}:
+        return False
+    if v in {"1", "true", "yes", "on"}:
+        return True
+    return default
+
 
 
 def test_prioritization_agent(state: WorkflowState) -> WorkflowState:
@@ -51,9 +65,21 @@ def test_prioritization_agent(state: WorkflowState) -> WorkflowState:
         pr = "high" if s >= 0.72 else ("medium" if s >= 0.42 else "low")
         out.append(TestPlanItem(target=p.target, intent=p.intent, priority=pr))  # type: ignore[arg-type]
 
-    state.prioritized_plan = out
+    ranked_no_low = [p for p in out if p.priority != "low"]
+    dropped_low_n = len(out) - len(ranked_no_low)
+    drop_on = _truthy_env("MUTIAGENT_PRIORITIZATION_DROP_LOW", default=True)
+    if drop_on and ranked_no_low:
+        filtered = ranked_no_low
+        used_drop_low = True
+    else:
+        filtered = out
+        used_drop_low = False
+
+    state.prioritized_plan = filtered
     state.debug["test_prioritization_agent"] = {
-        "count": len(out),
+        "count": len(filtered),
+        "count_before_drop_low": len(out),
+        "dropped_low_count": dropped_low_n if used_drop_low else 0,
         "used_change_graph": graph is not None,
     }
     return state

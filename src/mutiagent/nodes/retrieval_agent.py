@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import re
 import time
 from pathlib import Path
@@ -44,6 +45,17 @@ _STOPWORDS = {
     "class",
     "method",
 }
+
+
+def _env_enabled() -> bool:
+    raw = (os.getenv("MUTIAGENT_ENABLE_RETRIEVAL", "1") or "").strip().lower()
+    return raw not in {"0", "false", "off", "no"}
+
+
+def _is_enabled(state: WorkflowState) -> bool:
+    if state.retrieval_enabled is not None:
+        return bool(state.retrieval_enabled)
+    return _env_enabled()
 
 
 def _tokenize(text: str) -> list[str]:
@@ -195,13 +207,39 @@ def retrieval_agent(state: WorkflowState) -> WorkflowState:
     impacted_cnt = len(state.impacted_ranked or [])
     plan_cnt = len(state.prioritized_plan or state.test_plan or [])
     changed_cnt = len(state.changed_files or [])
+    enabled = _is_enabled(state)
     _log.info(
-        "RetrievalAgent: 开始上下文检索 repo=%s, changed_files=%s, impacted=%s, planned_cases=%s",
+        "RetrievalAgent: 开始上下文检索 repo=%s, enabled=%s, changed_files=%s, impacted=%s, planned_cases=%s",
         state.repo_path,
+        enabled,
         changed_cnt,
         impacted_cnt,
         plan_cnt,
     )
+    if not enabled:
+        state.retrieved_context = {
+            "enabled": False,
+            "backend": "disabled",
+            "items": [],
+            "reason": "disabled_by_switch",
+        }
+        state.debug["retrieval_agent"] = {
+            "enabled": False,
+            "phase": "disabled",
+            "input": {
+                "changed_files": changed_cnt,
+                "impacted": impacted_cnt,
+                "planned_cases": plan_cnt,
+            },
+            "switch": {
+                "state_override": state.retrieval_enabled,
+                "env_MUTIAGENT_ENABLE_RETRIEVAL": os.getenv("MUTIAGENT_ENABLE_RETRIEVAL"),
+            },
+        }
+        elapsed_ms = int((time.perf_counter() - start) * 1000)
+        _log.info("RetrievalAgent: 开关关闭，跳过检索，耗时 %sms", elapsed_ms)
+        return state
+
     _log.info("RetrievalAgent: 阶段 1/3 - 生成检索关键词")
     terms = _query_terms(state)
     _log.info("RetrievalAgent: 关键词数=%s", len(terms))

@@ -19,6 +19,7 @@ from mutiagent.graph.state import ChangeRecord, FileChangeSummary, ImpactSeed, W
 from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_json
 from mutiagent.utils.diff import parse_unified_diff
+from mutiagent.utils.diff_worktree_check import check_diff_worktree_consistency
 from mutiagent.utils.code_change_cache import (
     cache_enabled,
     file_analysis_fingerprint,
@@ -1768,6 +1769,14 @@ def ingest_change(state: WorkflowState) -> WorkflowState:
     _log_debug("parse unified diff start")
     parsed = parse_unified_diff(state.diff)
     _log_debug(f"parse unified diff done: files={len(parsed['changed_files'])}")
+    repo_p = Path(state.repo_path) if state.repo_path else Path()
+    dwt = check_diff_worktree_consistency(repo_p, state.diff or "")
+    state.debug["diff_worktree_check"] = dwt
+    if not dwt.get("ok", True) and dwt.get("modified_paths_missing_in_worktree"):
+        _workflow_log.warning(
+            "CodeChangeAgent: diff 与工作区不一致 — 以下路径在 diff 中为「修改/重命名」但工作区无文件: %s。建议先 pull/合并/应用与 diff 一致的变更。",
+            dwt.get("modified_paths_missing_in_worktree"),
+        )
     state.changed_files = parsed["changed_files"]
     state.diff_hunks = parsed["hunks_by_file"]
     change_analysis, refine_meta = _build_change_analysis(state.diff, state.repo_path)

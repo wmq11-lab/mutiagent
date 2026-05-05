@@ -111,7 +111,12 @@ def get_model() -> str:
     return os.getenv("MUTIAGENT_LLM_MODEL") or os.getenv("MUTIAGENT_OPENAI_MODEL", cfg.default_model)
 
 
-def chat_messages(messages: list[dict[str, str]], *, temperature: float = 0.3) -> str:
+def chat_messages(
+    messages: list[dict[str, str]],
+    *,
+    temperature: float = 0.3,
+    timeout_s: float | None = None,
+) -> str:
     """
     多轮对话：messages 为 OpenAI Chat 格式，须包含 role（system/user/assistant）与 content。
     """
@@ -121,15 +126,24 @@ def chat_messages(messages: list[dict[str, str]], *, temperature: float = 0.3) -
         raise RuntimeError(f"缺少 API Key 环境变量，请配置：{' / '.join(cfg.api_key_envs)}")
 
     c = _client()
-    resp = c.chat.completions.create(
-        model=get_model(),
-        temperature=temperature,
-        messages=messages,
-    )
+    kwargs: dict[str, Any] = {
+        "model": get_model(),
+        "temperature": temperature,
+        "messages": messages,
+    }
+    if timeout_s is not None:
+        kwargs["timeout"] = timeout_s
+    resp = c.chat.completions.create(**kwargs)
     return (resp.choices[0].message.content or "").strip()
 
 
-def chat_text(system: str, user: str, *, temperature: float = 0.2) -> str:
+def chat_text(
+    system: str,
+    user: str,
+    *,
+    temperature: float = 0.2,
+    timeout_s: float | None = None,
+) -> str:
     api_key = _get_api_key()
     if not api_key:
         cfg = _get_provider_config()
@@ -141,14 +155,21 @@ def chat_text(system: str, user: str, *, temperature: float = 0.2) -> str:
             {"role": "user", "content": user},
         ],
         temperature=temperature,
+        timeout_s=timeout_s,
     )
 
 
-def chat_json(system: str, user: str, *, temperature: float = 0.2) -> dict[str, Any]:
+def chat_json(
+    system: str,
+    user: str,
+    *,
+    temperature: float = 0.2,
+    timeout_s: float | None = None,
+) -> dict[str, Any]:
     """
     尽量从 LLM 输出中解析 JSON 对象；解析失败则抛错。
     """
-    text = chat_text(system, user, temperature=temperature)
+    text = chat_text(system, user, temperature=temperature, timeout_s=timeout_s)
     start = text.find("{")
     end = text.rfind("}")
     if start == -1 or end == -1 or end <= start:

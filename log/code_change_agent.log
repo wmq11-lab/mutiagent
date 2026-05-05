@@ -2346,3 +2346,908 @@
 2026-04-23 11:28:04 [CodeChangeAgent] cache hit: fastapi/routing.py (3 changes)
 2026-04-23 11:28:04 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
 2026-04-23 11:28:04 [CodeChangeAgent] ingest done: files_analyzed=1 changes=3 elapsed=0.004s
+2026-04-23 11:57:58 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent/.mutiagent/bugsinpy_workspace/fastapi
+2026-04-23 11:57:58 [CodeChangeAgent] parse unified diff start
+2026-04-23 11:57:58 [CodeChangeAgent] parse unified diff done: files=5
+2026-04-23 11:57:58 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-23 11:57:58 [CodeChangeAgent] analyzing file: fastapi/applications.py
+2026-04-23 11:57:58 [CodeChangeAgent] cache hit: fastapi/applications.py (0 changes)
+2026-04-23 11:57:58 [CodeChangeAgent] analyzing file: fastapi/encoders.py
+2026-04-23 11:57:58 [CodeChangeAgent] cache hit: fastapi/encoders.py (0 changes)
+2026-04-23 11:57:58 [CodeChangeAgent] analyzing file: fastapi/openapi/utils.py
+2026-04-23 11:57:58 [CodeChangeAgent] cache hit: fastapi/openapi/utils.py (0 changes)
+2026-04-23 11:57:58 [CodeChangeAgent] analyzing file: fastapi/routing.py
+2026-04-23 11:57:58 [CodeChangeAgent] cache hit: fastapi/routing.py (0 changes)
+2026-04-23 11:57:58 [CodeChangeAgent] analyzing file: tests/test_skip_defaults.py
+2026-04-23 11:57:58 [CodeChangeAgent] cache hit: tests/test_skip_defaults.py (6 changes)
+2026-04-23 11:57:58 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-04-23 11:57:58 [CodeChangeAgent] ingest done: files_analyzed=5 changes=6 elapsed=0.028s
+2026-04-23 13:00:48 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent/.mutiagent/bugsinpy_workspace/fastapi
+2026-04-23 13:00:48 [CodeChangeAgent] parse unified diff start
+2026-04-23 13:00:48 [CodeChangeAgent] parse unified diff done: files=5
+2026-04-23 13:00:48 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-23 13:00:48 [CodeChangeAgent] analyzing file: fastapi/applications.py
+2026-04-23 13:00:48 [CodeChangeAgent] cache hit: fastapi/applications.py (0 changes)
+2026-04-23 13:00:48 [CodeChangeAgent] analyzing file: fastapi/encoders.py
+2026-04-23 13:00:48 [CodeChangeAgent] cache hit: fastapi/encoders.py (0 changes)
+2026-04-23 13:00:48 [CodeChangeAgent] analyzing file: fastapi/openapi/utils.py
+2026-04-23 13:00:48 [CodeChangeAgent] cache hit: fastapi/openapi/utils.py (0 changes)
+2026-04-23 13:00:48 [CodeChangeAgent] analyzing file: fastapi/routing.py
+2026-04-23 13:00:48 [CodeChangeAgent] cache hit: fastapi/routing.py (0 changes)
+2026-04-23 13:00:48 [CodeChangeAgent] analyzing file: tests/test_skip_defaults.py
+2026-04-23 13:00:48 [CodeChangeAgent] cache hit: tests/test_skip_defaults.py (6 changes)
+2026-04-23 13:00:48 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-04-23 13:00:48 [CodeChangeAgent] ingest done: files_analyzed=5 changes=6 elapsed=0.03s
+2026-04-23 13:29:53 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent/.mutiagent/bugsinpy_workspace/fastapi
+2026-04-23 13:29:53 [CodeChangeAgent] parse unified diff start
+2026-04-23 13:29:53 [CodeChangeAgent] parse unified diff done: files=5
+2026-04-23 13:29:53 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-23 13:29:53 [CodeChangeAgent] analyzing file: fastapi/applications.py
+2026-04-23 13:29:53 [CodeChangeAgent] cache hit: fastapi/applications.py (0 changes)
+2026-04-23 13:29:53 [CodeChangeAgent] analyzing file: fastapi/encoders.py
+2026-04-23 13:29:53 [CodeChangeAgent] cache hit: fastapi/encoders.py (0 changes)
+2026-04-23 13:29:53 [CodeChangeAgent] analyzing file: fastapi/openapi/utils.py
+2026-04-23 13:29:53 [CodeChangeAgent] cache hit: fastapi/openapi/utils.py (0 changes)
+2026-04-23 13:29:53 [CodeChangeAgent] analyzing file: fastapi/routing.py
+2026-04-23 13:29:53 [CodeChangeAgent] cache hit: fastapi/routing.py (0 changes)
+2026-04-23 13:29:53 [CodeChangeAgent] analyzing file: tests/test_skip_defaults.py
+2026-04-23 13:29:53 [CodeChangeAgent] cache hit: tests/test_skip_defaults.py (6 changes)
+2026-04-23 13:29:53 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-04-23 13:29:53 [CodeChangeAgent] ingest done: files_analyzed=5 changes=6 elapsed=0.012s
+2026-04-23 14:10:23 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent/.mutiagent/bugsinpy_workspace/fastapi
+2026-04-23 14:10:23 [CodeChangeAgent] parse unified diff start
+2026-04-23 14:10:23 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-23 14:10:23 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-23 14:10:23 [CodeChangeAgent] analyzing file: fastapi/exception_handlers.py
+2026-04-23 14:10:23 [CodeChangeAgent] analysis degraded: fastapi/exception_handlers.py has changed lines but extracted 0 entities
+2026-04-23 14:10:28 [CodeChangeAgent] llm guess fallback: fastapi/exception_handlers.py (1 changes)
+2026-04-23 14:10:28 [CodeChangeAgent] file summary before llm: fastapi/exception_handlers.py (1 changes)
+2026-04-23 14:10:28 [CodeChangeAgent] file summary complete: fastapi/exception_handlers.py (1 changes)
+2026-04-23 14:10:28 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-23 14:10:28 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=4.261s
+2026-04-24 17:41:30 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/platform-boss-front
+2026-04-24 17:41:30 [CodeChangeAgent] parse unified diff start
+2026-04-24 17:48:09 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/platform-boss-front
+2026-04-24 17:48:09 [CodeChangeAgent] parse unified diff start
+2026-04-24 17:48:09 [CodeChangeAgent] parse unified diff done: files=2
+2026-04-24 17:48:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-24 17:48:09 [CodeChangeAgent] analyzing file: src/api/zpTools/phoneRangeManager.js
+2026-04-24 17:48:09 [CodeChangeAgent] file summary before llm: src/api/zpTools/phoneRangeManager.js (2 changes)
+2026-04-24 17:48:09 [CodeChangeAgent] llm refine start: src/api/zpTools/phoneRangeManager.js (2 changes)
+2026-04-24 17:48:11 [CodeChangeAgent] llm refine done: src/api/zpTools/phoneRangeManager.js (2.45s)
+2026-04-24 17:48:11 [CodeChangeAgent] file summary complete: src/api/zpTools/phoneRangeManager.js (2 changes)
+2026-04-24 17:48:11 [CodeChangeAgent] analyzing file: src/views/zpTools/statistics/phoneRangeManager.vue
+2026-04-24 17:48:11 [CodeChangeAgent] file summary complete: src/views/zpTools/statistics/phoneRangeManager.vue (0 changes, unsupported kind)
+2026-04-24 17:48:11 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-24 17:48:11 [CodeChangeAgent] ingest done: files_analyzed=2 changes=2 elapsed=2.466s
+2026-04-24 18:14:38 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/platform-boss-front
+2026-04-24 18:14:38 [CodeChangeAgent] parse unified diff start
+2026-04-24 18:14:38 [CodeChangeAgent] parse unified diff done: files=2
+2026-04-24 18:14:38 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-24 18:14:38 [CodeChangeAgent] analyzing file: src/api/zpTools/phoneRangeManager.js
+2026-04-24 18:14:38 [CodeChangeAgent] cache hit: src/api/zpTools/phoneRangeManager.js (2 changes)
+2026-04-24 18:14:38 [CodeChangeAgent] analyzing file: src/views/zpTools/statistics/phoneRangeManager.vue
+2026-04-24 18:14:38 [CodeChangeAgent] file summary complete: src/views/zpTools/statistics/phoneRangeManager.vue (0 changes, unsupported kind)
+2026-04-24 18:14:38 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-04-24 18:14:38 [CodeChangeAgent] ingest done: files_analyzed=2 changes=2 elapsed=0.007s
+2026-04-24 18:27:51 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-24 18:27:51 [CodeChangeAgent] parse unified diff start
+2026-04-24 18:27:51 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-24 18:27:51 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-24 18:27:51 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-24 18:27:51 [CodeChangeAgent] file summary before llm: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-24 18:27:51 [CodeChangeAgent] llm refine start: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-24 18:27:53 [CodeChangeAgent] llm refine done: Crawler_Exercise/GetPhotos2.py (1.95s)
+2026-04-24 18:27:53 [CodeChangeAgent] file summary complete: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-24 18:27:53 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-24 18:27:53 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-24 18:27:53 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-24 18:27:53 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-24 18:27:53 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-24 18:27:53 [CodeChangeAgent] file summary before llm: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-24 18:27:53 [CodeChangeAgent] llm refine start: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-24 18:27:55 [CodeChangeAgent] llm refine done: Crawler_Exercise/WebSpider/qiubai.py (1.95s)
+2026-04-24 18:27:55 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-24 18:27:55 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-24 18:27:55 [CodeChangeAgent] file summary before llm: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-24 18:27:55 [CodeChangeAgent] llm refine start: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-24 18:27:57 [CodeChangeAgent] llm refine done: Crawler_Exercise/WebSpider/spider.py (1.97s)
+2026-04-24 18:27:57 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-24 18:27:57 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-24 18:27:57 [CodeChangeAgent] file summary before llm: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-24 18:27:57 [CodeChangeAgent] llm refine start: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-24 18:27:59 [CodeChangeAgent] llm refine done: Crawler_Exercise/WebSpider/taobaomm.py (2.00s)
+2026-04-24 18:27:59 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-24 18:27:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-24 18:27:59 [CodeChangeAgent] file summary before llm: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-24 18:27:59 [CodeChangeAgent] llm refine start: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-24 18:28:03 [CodeChangeAgent] llm refine done: Crawler_Exercise/WebSpider/zhihu.py (4.41s)
+2026-04-24 18:28:03 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-24 18:28:03 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-24 18:28:03 [CodeChangeAgent] file summary before llm: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-24 18:28:03 [CodeChangeAgent] llm refine start: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-24 18:28:05 [CodeChangeAgent] llm refine done: Crawler_Exercise/baiduImg.py (1.92s)
+2026-04-24 18:28:05 [CodeChangeAgent] file summary complete: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-24 18:28:05 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-24 18:28:05 [CodeChangeAgent] file summary before llm: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-24 18:28:05 [CodeChangeAgent] llm refine start: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-24 18:28:08 [CodeChangeAgent] llm refine done: Crawler_Exercise/baiduImg2.py (2.31s)
+2026-04-24 18:28:08 [CodeChangeAgent] file summary complete: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-24 18:28:08 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-24 18:28:08 [CodeChangeAgent] file summary before llm: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-24 18:28:08 [CodeChangeAgent] llm refine start: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-24 18:28:13 [CodeChangeAgent] llm refine done: Crawler_Exercise/getWebAllImg.py (5.11s)
+2026-04-24 18:28:13 [CodeChangeAgent] file summary complete: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-24 18:28:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-24 18:28:13 [CodeChangeAgent] analysis degraded: Crawler_Exercise/one_img.py has changed lines but extracted 0 entities
+2026-04-24 18:28:13 [CodeChangeAgent] file summary before llm: Crawler_Exercise/one_img.py (0 changes)
+2026-04-24 18:28:13 [CodeChangeAgent] file summary complete: Crawler_Exercise/one_img.py (0 changes)
+2026-04-24 18:28:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-24 18:28:13 [CodeChangeAgent] analysis degraded: Crawler_Exercise/qiubaipic.py has changed lines but extracted 0 entities
+2026-04-24 18:28:14 [CodeChangeAgent] llm guess fallback: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-24 18:28:14 [CodeChangeAgent] file summary before llm: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-24 18:28:14 [CodeChangeAgent] file summary complete: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-24 18:28:14 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-24 18:28:14 [CodeChangeAgent] analysis degraded: Crawler_Exercise/student_img.py has changed lines but extracted 0 entities
+2026-04-24 18:28:15 [CodeChangeAgent] file summary before llm: Crawler_Exercise/student_img.py (0 changes)
+2026-04-24 18:28:15 [CodeChangeAgent] file summary complete: Crawler_Exercise/student_img.py (0 changes)
+2026-04-24 18:28:15 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-24 18:28:15 [CodeChangeAgent] file summary before llm: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-24 18:28:15 [CodeChangeAgent] llm refine start: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-24 18:28:16 [CodeChangeAgent] llm refine done: Crawler_Exercise/zhuabiaoti.py (1.47s)
+2026-04-24 18:28:16 [CodeChangeAgent] file summary complete: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-24 18:28:16 [CodeChangeAgent] analyzing file: README.md
+2026-04-24 18:28:16 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-24 18:28:16 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=12 cache_writes=12
+2026-04-24 18:28:16 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=25.385s
+2026-04-24 18:37:13 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-24 18:37:13 [CodeChangeAgent] parse unified diff start
+2026-04-24 18:37:13 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-24 18:37:13 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-24 18:37:13 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-24 18:37:13 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-24 18:37:13 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-24 18:37:13 [CodeChangeAgent] analyzing file: README.md
+2026-04-24 18:37:13 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-24 18:37:13 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-24 18:37:13 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.098s
+2026-04-24 18:43:11 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-24 18:43:11 [CodeChangeAgent] parse unified diff start
+2026-04-24 18:43:11 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-24 18:43:11 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-24 18:43:11 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-24 18:43:11 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-24 18:43:11 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-24 18:43:11 [CodeChangeAgent] analyzing file: README.md
+2026-04-24 18:43:11 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-24 18:43:11 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-24 18:43:11 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.026s
+2026-04-25 14:15:31 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-25 14:15:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 14:15:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 14:15:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 14:15:31 [CodeChangeAgent] analyzing file: README.md
+2026-04-25 14:15:31 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-25 14:15:31 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=0 cache_writes=0
+2026-04-25 14:15:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=0 elapsed=0.004s
+2026-04-25 14:27:17 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-25 14:27:17 [CodeChangeAgent] parse unified diff start
+2026-04-25 14:27:17 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-25 14:27:17 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-25 14:27:17 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-25 14:27:17 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-25 14:27:17 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-25 14:27:17 [CodeChangeAgent] analyzing file: README.md
+2026-04-25 14:27:17 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-25 14:27:17 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-25 14:27:17 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.03s
+2026-04-25 15:22:59 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-25 15:22:59 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:22:59 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-25 15:22:59 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-25 15:22:59 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-25 15:22:59 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-25 15:22:59 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-25 15:22:59 [CodeChangeAgent] analyzing file: README.md
+2026-04-25 15:22:59 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-25 15:22:59 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-25 15:22:59 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.087s
+2026-04-25 15:32:00 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_builds_stru0
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:00 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:00 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:00 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.026s
+2026-04-25 15:32:00 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_cache_secon0/repo
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:00 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:00 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:00 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.015s
+2026-04-25 15:32:00 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_cache_secon0/repo
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:00 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:00 [CodeChangeAgent] cache hit: app.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-04-25 15:32:00 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.01s
+2026-04-25 15:32:00 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_drops_ignor0
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:00 [CodeChangeAgent] analyzing file: src/main.py
+2026-04-25 15:32:00 [CodeChangeAgent] file summary before llm: src/main.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] file summary complete: src/main.py (1 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:00 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.011s
+2026-04-25 15:32:00 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_extracts_js0
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:00 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:00 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-04-25 15:32:00 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-04-25 15:32:00 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:00 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.013s
+2026-04-25 15:32:01 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_extracts_ja0
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:01 [CodeChangeAgent] analyzing file: src/Service.java
+2026-04-25 15:32:01 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:01 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.01s
+2026-04-25 15:32:01 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_extracts_cp0
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:01 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-04-25 15:32:01 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:01 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.016s
+2026-04-25 15:32:01 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_llm_refine_skipped_for_sm0
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:01 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:01 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] skip llm refine for app.py: heuristic gate (no high-risk signals)
+2026-04-25 15:32:01 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:01 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.016s
+2026-04-25 15:32:01 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_llm_refine_invoked_when_d0
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:01 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:01 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-04-25 15:32:01 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:01 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.013s
+2026-04-25 15:32:01 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_llm_refine_invoked_for_lo0
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:32:01 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:32:01 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 15:32:01 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-04-25 15:32:01 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 15:32:01 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 15:32:01 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.017s
+2026-04-25 15:35:48 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-25 15:35:48 [CodeChangeAgent] parse unified diff start
+2026-04-25 15:35:48 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-25 15:35:48 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-25 15:35:48 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-25 15:35:48 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-25 15:35:48 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-25 15:35:48 [CodeChangeAgent] analyzing file: README.md
+2026-04-25 15:35:48 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-25 15:35:48 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-25 15:35:48 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.025s
+2026-04-25 16:11:19 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/PythonCrawler
+2026-04-25 16:11:19 [CodeChangeAgent] parse unified diff start
+2026-04-25 16:11:19 [CodeChangeAgent] parse unified diff done: files=15
+2026-04-25 16:11:19 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/GetPhotos2.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/GetPhotos2.py (2 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/README.md
+2026-04-25 16:11:19 [CodeChangeAgent] file summary complete: Crawler_Exercise/README.md (0 changes, unsupported kind)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc
+2026-04-25 16:11:19 [CodeChangeAgent] file summary complete: Crawler_Exercise/WebSpider/__pycache__/spider.cpython-35.pyc (0 changes, unsupported kind)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/qiubai.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/qiubai.py (3 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/spider.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/spider.py (5 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/taobaomm.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/taobaomm.py (3 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/WebSpider/zhihu.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/WebSpider/zhihu.py (6 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg.py (2 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/baiduImg2.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/baiduImg2.py (2 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/getWebAllImg.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/getWebAllImg.py (6 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/one_img.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/one_img.py (0 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/qiubaipic.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/qiubaipic.py (1 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/student_img.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/student_img.py (0 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: Crawler_Exercise/zhuabiaoti.py
+2026-04-25 16:11:19 [CodeChangeAgent] cache hit: Crawler_Exercise/zhuabiaoti.py (1 changes)
+2026-04-25 16:11:19 [CodeChangeAgent] analyzing file: README.md
+2026-04-25 16:11:19 [CodeChangeAgent] file summary complete: README.md (0 changes, unsupported kind)
+2026-04-25 16:11:19 [CodeChangeAgent] change analysis done: cache_hits=12 cache_misses=0 cache_writes=0
+2026-04-25 16:11:19 [CodeChangeAgent] ingest done: files_analyzed=15 changes=31 elapsed=0.032s
+2026-04-25 19:06:31 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-8/test_ingest_change_builds_stru0
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:06:31 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 19:06:31 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 19:06:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.014s
+2026-04-25 19:06:31 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-8/test_ingest_change_cache_secon0/repo
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:06:31 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 19:06:31 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 19:06:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.011s
+2026-04-25 19:06:31 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-8/test_ingest_change_cache_secon0/repo
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:06:31 [CodeChangeAgent] analyzing file: app.py
+2026-04-25 19:06:31 [CodeChangeAgent] cache hit: app.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-04-25 19:06:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.008s
+2026-04-25 19:06:31 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-8/test_ingest_change_drops_ignor0
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:06:31 [CodeChangeAgent] analyzing file: src/main.py
+2026-04-25 19:06:31 [CodeChangeAgent] file summary before llm: src/main.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] file summary complete: src/main.py (1 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 19:06:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.011s
+2026-04-25 19:06:31 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-8/test_ingest_change_extracts_js0
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:06:31 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:06:31 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-04-25 19:06:31 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-04-25 19:06:31 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 19:06:31 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-04-25 19:10:12 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-04-25 19:10:12 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:10:12 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:10:12 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:10:12 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-04-25 19:10:12 [CodeChangeAgent] file summary before llm: typer/utils.py (2 changes)
+2026-04-25 19:10:12 [CodeChangeAgent] llm refine start: typer/utils.py (2 changes)
+2026-04-25 19:10:15 [CodeChangeAgent] llm refine done: typer/utils.py (3.40s)
+2026-04-25 19:10:15 [CodeChangeAgent] file summary complete: typer/utils.py (2 changes)
+2026-04-25 19:10:15 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-04-25 19:10:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=3.413s
+2026-04-25 19:20:57 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-04-25 19:20:57 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:20:57 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:20:57 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:20:57 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-04-25 19:20:57 [CodeChangeAgent] cache hit: typer/utils.py (2 changes)
+2026-04-25 19:20:57 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-04-25 19:20:57 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.003s
+2026-04-25 19:26:29 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-04-25 19:26:29 [CodeChangeAgent] parse unified diff start
+2026-04-25 19:26:29 [CodeChangeAgent] parse unified diff done: files=1
+2026-04-25 19:26:29 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-04-25 19:26:29 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-04-25 19:26:29 [CodeChangeAgent] cache hit: typer/utils.py (2 changes)
+2026-04-25 19:26:29 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-04-25 19:26:29 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.004s
+2026-05-05 13:17:42 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 13:17:42 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:17:42 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:17:42 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:17:42 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 13:17:42 [CodeChangeAgent] cache hit: typer/utils.py (2 changes)
+2026-05-05 13:17:42 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 13:17:42 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.004s
+2026-05-05 13:39:15 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_builds_stru0
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:39:15 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 13:39:15 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 13:39:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.025s
+2026-05-05 13:39:15 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_cache_secon0/repo
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:39:15 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 13:39:15 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 13:39:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.028s
+2026-05-05 13:39:15 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_cache_secon0/repo
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:39:15 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 13:39:15 [CodeChangeAgent] cache hit: app.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 13:39:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.041s
+2026-05-05 13:39:15 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_drops_ignor0
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:39:15 [CodeChangeAgent] analyzing file: src/main.py
+2026-05-05 13:39:15 [CodeChangeAgent] file summary before llm: src/main.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] file summary complete: src/main.py (1 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 13:39:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.019s
+2026-05-05 13:39:15 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-0/test_ingest_change_extracts_js0
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff start
+2026-05-05 13:39:15 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 13:39:15 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-05-05 13:39:15 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-05-05 13:39:15 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 13:39:15 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.021s
+2026-05-05 14:14:32 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 14:14:32 [CodeChangeAgent] parse unified diff start
+2026-05-05 14:14:32 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 14:14:32 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 14:14:32 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 14:14:32 [CodeChangeAgent] cache hit: typer/utils.py (2 changes)
+2026-05-05 14:14:32 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 14:14:32 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.005s
+2026-05-05 14:27:10 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 14:27:10 [CodeChangeAgent] parse unified diff start
+2026-05-05 14:27:10 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 14:27:10 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 14:27:10 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 14:27:10 [CodeChangeAgent] cache hit: typer/utils.py (2 changes)
+2026-05-05 14:27:10 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 14:27:10 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.007s
+2026-05-05 15:33:26 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 15:33:26 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:33:26 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:33:26 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:33:26 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 15:33:26 [CodeChangeAgent] file summary before llm: typer/utils.py (16 changes)
+2026-05-05 15:33:26 [CodeChangeAgent] llm refine start: typer/utils.py (16 changes)
+2026-05-05 15:33:34 [CodeChangeAgent] llm refine done: typer/utils.py (7.59s)
+2026-05-05 15:33:34 [CodeChangeAgent] file summary complete: typer/utils.py (16 changes)
+2026-05-05 15:33:34 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:33:34 [CodeChangeAgent] ingest done: files_analyzed=1 changes=16 elapsed=7.624s
+2026-05-05 15:37:35 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 15:37:35 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:37:35 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:37:35 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:37:35 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 15:37:35 [CodeChangeAgent] cache hit: typer/utils.py (16 changes)
+2026-05-05 15:37:35 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 15:37:35 [CodeChangeAgent] ingest done: files_analyzed=1 changes=16 elapsed=0.017s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_builds_stru0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.023s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_cache_secon0/repo
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.014s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_cache_secon0/repo
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:52 [CodeChangeAgent] cache hit: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.008s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_drops_ignor0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: src/main.py
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: src/main.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: src/main.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.013s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_extracts_js0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_extracts_ja0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: src/Service.java
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.017s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_ingest_change_extracts_cp0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.012s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_llm_refine_skipped_for_sm0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] skip llm refine for app.py: heuristic gate (no high-risk signals)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.014s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_llm_refine_invoked_when_d0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:52 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-05-05 15:45:52 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:52 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.019s
+2026-05-05 15:45:52 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-3/test_llm_refine_invoked_for_lo0
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:45:52 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:45:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:45:52 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 15:45:53 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 15:45:53 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-05-05 15:45:53 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-05-05 15:45:53 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 15:45:53 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 15:45:53 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.018s
+2026-05-05 15:50:39 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 15:50:39 [CodeChangeAgent] parse unified diff start
+2026-05-05 15:50:39 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 15:50:39 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 15:50:39 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 15:50:39 [CodeChangeAgent] cache hit: typer/utils.py (16 changes)
+2026-05-05 15:50:39 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 15:50:39 [CodeChangeAgent] ingest done: files_analyzed=1 changes=16 elapsed=0.009s
+2026-05-05 16:33:02 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/typer/typer
+2026-05-05 16:33:02 [CodeChangeAgent] parse unified diff start
+2026-05-05 16:33:02 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 16:33:02 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 16:33:02 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-05 16:33:02 [CodeChangeAgent] file summary before llm: typer/core.py (38 changes)
+2026-05-05 16:33:02 [CodeChangeAgent] llm refine start: typer/core.py (38 changes)
+2026-05-05 16:33:26 [CodeChangeAgent] llm refine done: typer/core.py (23.92s)
+2026-05-05 16:33:26 [CodeChangeAgent] file summary complete: typer/core.py (38 changes)
+2026-05-05 16:33:26 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 16:33:26 [CodeChangeAgent] ingest done: files_analyzed=1 changes=38 elapsed=23.972s
+2026-05-05 17:00:48 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/typer/typer
+2026-05-05 17:00:48 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:00:48 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:00:48 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:00:48 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-05 17:00:48 [CodeChangeAgent] cache hit: typer/core.py (38 changes)
+2026-05-05 17:00:48 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 17:00:48 [CodeChangeAgent] ingest done: files_analyzed=1 changes=38 elapsed=0.011s
+2026-05-05 17:38:25 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/typer/typer
+2026-05-05 17:38:25 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:38:25 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:38:25 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:38:25 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 17:38:25 [CodeChangeAgent] file summary before llm: typer/utils.py (16 changes)
+2026-05-05 17:38:25 [CodeChangeAgent] llm refine start: typer/utils.py (16 changes)
+2026-05-05 17:38:34 [CodeChangeAgent] llm refine done: typer/utils.py (8.63s)
+2026-05-05 17:38:34 [CodeChangeAgent] file summary complete: typer/utils.py (16 changes)
+2026-05-05 17:38:34 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:38:34 [CodeChangeAgent] ingest done: files_analyzed=1 changes=16 elapsed=8.684s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_builds_stru0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.047s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_cache_secon0/repo
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.014s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_cache_secon0/repo
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] cache hit: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.006s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_drops_ignor0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: src/main.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: src/main.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: src/main.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.009s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_js0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: src/App.jsx
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: src/App.jsx (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: src/App.jsx (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.01s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_ja0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: src/Service.java
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: src/Service.java (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: src/Service.java (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.009s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_ingest_change_extracts_cp0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: src/math.cpp
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: src/math.cpp (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: src/math.cpp (2 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=2 elapsed=0.009s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_llm_refine_skipped_for_sm0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] skip llm refine for app.py: heuristic gate (no high-risk signals)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.008s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_llm_refine_invoked_when_d0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.01s
+2026-05-05 17:53:09 [CodeChangeAgent] ingest start: repo=/private/var/folders/f6/27bx81tx4gjbmf7d8m2dph1m0000ks/T/pytest-of-admin/pytest-13/test_llm_refine_invoked_for_lo0
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:53:09 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:53:09 [CodeChangeAgent] analyzing file: app.py
+2026-05-05 17:53:09 [CodeChangeAgent] file summary before llm: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] llm refine start: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] llm refine done: app.py (0.00s)
+2026-05-05 17:53:09 [CodeChangeAgent] file summary complete: app.py (1 changes)
+2026-05-05 17:53:09 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 17:53:09 [CodeChangeAgent] ingest done: files_analyzed=1 changes=1 elapsed=0.011s
+2026-05-05 17:54:53 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 17:54:53 [CodeChangeAgent] parse unified diff start
+2026-05-05 17:54:53 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 17:54:53 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 17:54:53 [CodeChangeAgent] analyzing file: typer/utils.py
+2026-05-05 17:54:53 [CodeChangeAgent] cache hit: typer/utils.py (16 changes)
+2026-05-05 17:54:53 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 17:54:53 [CodeChangeAgent] ingest done: files_analyzed=1 changes=16 elapsed=0.006s
+2026-05-05 19:07:59 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 19:07:59 [CodeChangeAgent] parse unified diff start
+2026-05-05 19:07:59 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 19:07:59 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 19:07:59 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-05 19:07:59 [CodeChangeAgent] file summary before llm: typer/core.py (38 changes)
+2026-05-05 19:07:59 [CodeChangeAgent] llm refine start: typer/core.py (38 changes)
+2026-05-05 19:08:19 [CodeChangeAgent] llm refine done: typer/core.py (19.30s)
+2026-05-05 19:08:19 [CodeChangeAgent] file summary complete: typer/core.py (38 changes)
+2026-05-05 19:08:19 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=1 cache_writes=1
+2026-05-05 19:08:19 [CodeChangeAgent] ingest done: files_analyzed=1 changes=38 elapsed=19.367s
+2026-05-05 19:26:14 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 19:26:14 [CodeChangeAgent] parse unified diff start
+2026-05-05 19:26:14 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 19:26:14 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 19:26:14 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-05 19:26:14 [CodeChangeAgent] cache hit: typer/core.py (38 changes)
+2026-05-05 19:26:14 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 19:26:14 [CodeChangeAgent] ingest done: files_analyzed=1 changes=38 elapsed=0.022s
+2026-05-05 19:41:06 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-05 19:41:06 [CodeChangeAgent] parse unified diff start
+2026-05-05 19:41:06 [CodeChangeAgent] parse unified diff done: files=1
+2026-05-05 19:41:06 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 19:41:06 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-05 19:41:06 [CodeChangeAgent] cache hit: typer/core.py (38 changes)
+2026-05-05 19:41:06 [CodeChangeAgent] change analysis done: cache_hits=1 cache_misses=0 cache_writes=0
+2026-05-05 19:41:06 [CodeChangeAgent] ingest done: files_analyzed=1 changes=38 elapsed=0.018s
+2026-05-05 20:50:30 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/b/healthchecks
+2026-05-05 20:50:30 [CodeChangeAgent] parse unified diff start
+2026-05-05 20:50:30 [CodeChangeAgent] parse unified diff done: files=4
+2026-05-05 20:50:30 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-05 20:50:30 [CodeChangeAgent] analyzing file: templates/docs/apiv1.html-fragment
+2026-05-05 20:50:30 [CodeChangeAgent] file summary complete: templates/docs/apiv1.html-fragment (0 changes, unsupported kind)
+2026-05-05 20:50:30 [CodeChangeAgent] analyzing file: templates/docs/apiv1.md
+2026-05-05 20:50:30 [CodeChangeAgent] file summary complete: templates/docs/apiv1.md (0 changes, unsupported kind)
+2026-05-05 20:50:30 [CodeChangeAgent] analyzing file: templates/docs/apiv2.html-fragment
+2026-05-05 20:50:30 [CodeChangeAgent] file summary complete: templates/docs/apiv2.html-fragment (0 changes, unsupported kind)
+2026-05-05 20:50:30 [CodeChangeAgent] analyzing file: templates/docs/apiv2.md
+2026-05-05 20:50:30 [CodeChangeAgent] file summary complete: templates/docs/apiv2.md (0 changes, unsupported kind)
+2026-05-05 20:50:30 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=0 cache_writes=0
+2026-05-05 20:50:30 [CodeChangeAgent] ingest done: files_analyzed=4 changes=0 elapsed=0.009s

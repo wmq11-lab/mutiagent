@@ -139,11 +139,12 @@ class GenerateTestsRequest(BaseModel):
         ),
     )
     auto_venv: bool = Field(
-        default=False,
+        default=True,
         description=(
-            "为 True 时，在 repo_path 下自动创建/复用 `.mutiagent/mutiagent_pytest_venv`，"
-            "并按 requirements.txt / pyproject.toml 等安装依赖后使用该 venv 的 python 跑 pytest。"
-            "也可不设本字段而使用环境变量 MUTIAGENT_AUTO_VENV=1。"
+            "默认 True：在 repo_path 下自动创建/复用 `.mutiagent/mutiagent_pytest_venv`，"
+            "并按 requirements.txt / pyproject.toml 及（无清单时）根据变更文件推断的 PyPI 包安装依赖后，"
+            "使用该 venv 的 python 跑 pytest。设为 false 可改用当前 PATH 的 python。"
+            "关闭自动行为可设环境变量 MUTIAGENT_DISABLE_AUTO_VENV=1；仅脚本强制开启可设 MUTIAGENT_AUTO_VENV=1。"
         ),
     )
     auto_install_python: bool = Field(
@@ -322,6 +323,14 @@ class EvalSummary(BaseModel):
         default_factory=list,
         description="逐条用例状态（passed/failed/error/skipped）与详情",
     )
+    metrics: dict[str, float] = Field(
+        default_factory=dict,
+        description="指标：默认选测 P/R/F1；主流程可覆盖为通过率 precision、变更行覆盖 recall、F1=2PR/(P+R)，及 reduction 等。",
+    )
+    metric_flags: dict[str, bool] = Field(
+        default_factory=dict,
+        description="前端展示意义位：precision/recall/f1/redundancy 及兼容键 pr_f1_redundancy_meaningful。",
+    )
 
 
 class GenerateTestsResponse(BaseModel):
@@ -349,9 +358,21 @@ class GenerateTestsResponse(BaseModel):
         default_factory=list,
         description="供 TestGen / 排序使用的扁平 intent 列表（由结构化计划派生）",
     )
+    project_profile: dict[str, Any] = Field(
+        default_factory=dict,
+        description="仓库级项目画像（语言/框架/模块根/依赖/可导入符号），用于生成与执行前置适配",
+    )
     generated_tests: list[GeneratedTestFile]
     evaluation: Optional[EvalSummary] = None
     debug: dict[str, Any] = Field(default_factory=dict)
+    quality_gates: dict[str, Any] = Field(
+        default_factory=dict,
+        description="degraded_pass_gate、diff_worktree_mismatch 等质量闸门。",
+    )
+    diff_worktree_check: Optional[dict[str, Any]] = Field(
+        default=None,
+        description="diff 中「修改/重命名」类路径与本地 repo 工作区存在性检查（ok / recommendation_zh 等）。",
+    )
 
 
 class ImpactedCandidate(BaseModel):
@@ -371,12 +392,26 @@ class WorkflowState(BaseModel):
     diff: str
     run_eval: bool = False
     auto_venv: bool = Field(
-        default=False,
-        description="为 True 时在仓库内自动创建 venv 并安装依赖后执行 pytest（与 MUTIAGENT_AUTO_VENV 等价）。",
+        default=True,
+        description="为 True 时在仓库内自动创建 venv 并安装依赖后执行 pytest；默认开启（可用 MUTIAGENT_DISABLE_AUTO_VENV=1 关闭）。",
     )
     auto_install_python: bool = Field(
         default=False,
         description="为 True 时，缺失目标 Python 版本会尝试通过 pyenv 自动安装（仅 auto_venv 生效）。",
+    )
+    retrieval_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 RetrievalAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_RETRIEVAL（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    bug_pattern_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 BugPatternAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_BUG_PATTERN（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
     )
 
     changed_files: list[str] = Field(default_factory=list)
@@ -418,6 +453,7 @@ class WorkflowState(BaseModel):
 
     # agent outputs (aligned with diagram)
     bug_patterns: list[dict[str, Any]] = Field(default_factory=list)
+    project_profile: dict[str, Any] = Field(default_factory=dict)
     prioritized_plan: list[TestPlanItem] = Field(default_factory=list)
     retrieved_context: dict[str, Any] = Field(default_factory=dict)
     execution: dict[str, Any] = Field(default_factory=dict)
