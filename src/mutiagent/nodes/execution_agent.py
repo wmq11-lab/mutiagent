@@ -443,6 +443,65 @@ def _write_generated_tests(tmpdir: Path, state: WorkflowState) -> Path:
     return tmpdir
 
 
+def _normalize_rel_path(rel: str) -> str:
+    return rel.replace("\\", "/").strip().lstrip("/")
+
+
+def _tests_py_paths_for_package_context(state: WorkflowState) -> set[str]:
+    """收集需要在临时目录中补齐包上下文的 ``tests/.../*.py`` 路径（相对仓库根）。"""
+    out: set[str] = set()
+    for rel in state.changed_files or []:
+        rel_n = _normalize_rel_path(rel)
+        if rel_n.startswith("tests/") and rel_n.endswith(".py"):
+            out.add(rel_n)
+    for f in state.generated_tests or []:
+        rel_n = _normalize_rel_path(f.path)
+        if rel_n.startswith("tests/") and rel_n.endswith(".py"):
+            out.add(rel_n)
+    return out
+
+
+def _sync_tests_package_context(repo: Path, test_root: Path, tests_py_rels: set[str]) -> None:
+    """
+    将 ``tests/`` 下 ``__init__.py``、``conftest.py``、同目录 ``utils``（文件或包）同步到临时根，
+    使 ``from .utils`` 等相对导入在 pytest 收集阶段可用的父包语义更完整。
+    """
+    if not tests_py_rels:
+        return
+    dirs_to_seed: set[Path] = set()
+    for rel in tests_py_rels:
+        p = Path(rel)
+        if not p.parts or p.parts[0] != "tests":
+            continue
+        cur = p.parent
+        while True:
+            dirs_to_seed.add(cur)
+            if cur.name == "tests" and len(cur.parts) == 1:
+                break
+            parent = cur.parent
+            if parent == cur:
+                break
+            cur = parent
+
+    for d_rel in sorted(dirs_to_seed, key=lambda x: (len(x.parts), str(x))):
+        repo_dir = repo / d_rel
+        if not repo_dir.is_dir():
+            continue
+        dst_dir = test_root / d_rel
+        dst_dir.mkdir(parents=True, exist_ok=True)
+        for name in ("__init__.py", "conftest.py"):
+            src = repo_dir / name
+            if src.is_file():
+                shutil.copy2(src, dst_dir / name)
+        util_py = repo_dir / "utils.py"
+        if util_py.is_file():
+            shutil.copy2(util_py, dst_dir / "utils.py")
+        util_pkg = repo_dir / "utils"
+        if util_pkg.is_dir():
+            dst_pkg = dst_dir / "utils"
+            shutil.copytree(util_pkg, dst_pkg, dirs_exist_ok=True)
+
+
 def _sync_repo_tests_artifacts_for_exec(repo: Path, test_root: Path, state: WorkflowState) -> None:
     """
     将仓库中 ``tests/`` 下与生成用例常见相对路径一致的支撑物复制到 pytest 临时根目录。
@@ -457,7 +516,7 @@ def _sync_repo_tests_artifacts_for_exec(repo: Path, test_root: Path, state: Work
         shutil.copytree(assets, dst, dirs_exist_ok=True)
 
     for rel in state.changed_files or []:
-        rel_n = rel.replace("\\", "/").strip().lstrip("/")
+        rel_n = _normalize_rel_path(rel)
         if not rel_n.startswith("tests/"):
             continue
         src = repo / rel_n
@@ -466,6 +525,8 @@ def _sync_repo_tests_artifacts_for_exec(repo: Path, test_root: Path, state: Work
         out = test_root / rel_n
         out.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, out)
+
+    _sync_tests_package_context(repo, test_root, _tests_py_paths_for_package_context(state))
 
 
 def _metrics_junit_case_id(row: dict[str, str]) -> str:

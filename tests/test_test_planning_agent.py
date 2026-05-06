@@ -9,6 +9,7 @@ from mutiagent.graph.state import (
     ImpactSeed,
     ImpactTestPlanEntry,
     SemanticUnit,
+    StructuredTestCase,
     WorkflowState,
 )
 from mutiagent.nodes.impact_analysis_agent import analyze_impact
@@ -20,6 +21,7 @@ from mutiagent.nodes.test_planning_agent import (
     ensure_p0_coverage,
     generate_test_cases,
     plan_tests,
+    _merge_dup_template_cases,
 )
 from mutiagent.utils.change_graph_builder import build_change_graph
 
@@ -132,3 +134,22 @@ def test_plan_tests_end_to_end_after_impact() -> None:
     assert planned.structured_test_plan.execution_plan.ci_blocking == ["P0"]
     assert planned.test_plan
     assert all(hasattr(p, "intent") for p in planned.test_plan)
+
+
+def test_merge_dup_template_cases_combines_semantic_unit_ids() -> None:
+    base_kw = dict(
+        target="Typer",
+        symbol_id="typer/main.py:class:Typer",
+        layer="unit",
+        priority="P1",
+        input={"preconditions": "same"},
+        mock={"type": "none", "behavior": "隔离"},
+        assertions=["合法通过"],
+        scenario="identical template",
+    )
+    a = StructuredTestCase(test_case_id="TC_X_001", semantic_unit_ids=["data_processing:a"], **base_kw)
+    b = StructuredTestCase(test_case_id="TC_X_002", semantic_unit_ids=["data_processing:b"], **base_kw)
+    out = _merge_dup_template_cases([a, b])
+    assert len(out) == 1
+    assert set(out[0].semantic_unit_ids) == {"data_processing:a", "data_processing:b"}
+    assert out[0].test_case_id == "TC_X_001"

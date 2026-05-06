@@ -409,6 +409,34 @@ def _dedupe_cases(cases: list[StructuredTestCase]) -> list[StructuredTestCase]:
     return out
 
 
+def _case_merge_key(c: StructuredTestCase) -> tuple[Any, ...]:
+    """结构化字段完全一致时合并（避免同 symbol 上数十条仅 semantic_unit_id 不同的重复模板）。"""
+    return (
+        c.symbol_id,
+        c.layer,
+        c.priority,
+        c.scenario,
+        json.dumps(c.input, sort_keys=True, ensure_ascii=False),
+        json.dumps(c.mock, sort_keys=True, ensure_ascii=False),
+        json.dumps(c.assertions, ensure_ascii=False),
+    )
+
+
+def _merge_dup_template_cases(cases: list[StructuredTestCase]) -> list[StructuredTestCase]:
+    by_key: dict[tuple[Any, ...], StructuredTestCase] = {}
+    order: list[tuple[Any, ...]] = []
+    for c in cases:
+        k = _case_merge_key(c)
+        if k not in by_key:
+            by_key[k] = c.model_copy(deep=True)
+            order.append(k)
+            continue
+        prev = by_key[k]
+        merged_ids = sorted(set(prev.semantic_unit_ids + c.semantic_unit_ids))
+        by_key[k] = prev.model_copy(update={"semantic_unit_ids": merged_ids})
+    return [by_key[k] for k in order]
+
+
 def _cap_cases(cases: list[StructuredTestCase], limit: int = 96) -> list[StructuredTestCase]:
     if len(cases) <= limit:
         return cases
@@ -535,8 +563,10 @@ def plan_tests(state: WorkflowState) -> WorkflowState:
 
     cases = generate_test_cases(state, uid_to_unit, symbol_to_units, plan_by)
     cases = _dedupe_cases(cases)
+    cases = _merge_dup_template_cases(cases)
     scope_ids = _scope_semantic_unit_ids(state)
     cases = ensure_p0_coverage(cases, uid_to_unit, scope_ids)
+    cases = _merge_dup_template_cases(cases)
     cases = _cap_cases(cases)
     test_layers = augment_test_layers_from_cases(test_layers, cases)
 

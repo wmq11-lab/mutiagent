@@ -357,6 +357,23 @@ def _build_semantic_strategies(
                 break
         return out
 
+    if unit_type == "data_processing":
+        aspect = _data_processing_aspect_from_source(source_hint, label_symbol)
+        return [
+            ExecutableTestStrategy(
+                scenario=f"{label_symbol}：{aspect} — 合法路径与典型值（{base}）",
+                input=f"构造触达「{aspect}」的最小可运行输入；含一处边界（空/极值/缺省）",
+                mock="不依赖外网；需要时用 monkeypatch 隔离环境或 time",
+                assert_=f"与「{aspect}」相关的类型/结构与变更后约定一致；非法输入可测地失败",
+            ),
+            ExecutableTestStrategy(
+                scenario=f"{label_symbol}：{aspect} — 反例与解析失败（{base}）",
+                input="类型不符、缺段、不可解析串或违反 CLI/参数约束的输入",
+                mock="不依赖外网",
+                assert_="失败形态可观测（非零退出/预期异常/明确错误输出），不静默吞错",
+            ),
+        ]
+
     return [
         ExecutableTestStrategy(
             scenario=f"{label_symbol} 数据解析/校验（{base}）",
@@ -365,6 +382,27 @@ def _build_semantic_strategies(
             assert_="合法通过；非法显式失败",
         ),
     ]
+
+
+def _data_processing_aspect_from_source(source_hint: str, label_symbol: str) -> str:
+    """从 seed / 语义单元提示中抽出可读侧重，避免各单元共用同一句「数据解析/校验」。"""
+    raw = (source_hint or "").strip()
+    low = raw.lower()
+    m = re.search(r"seed:(?:variable|function|method):([A-Za-z0-9_]+)", raw, re.I)
+    if m:
+        return f"符号 `{m.group(1)}` 相关数据路径"
+    m2 = re.search(r"data_processing:([A-Za-z0-9_]+)\s*$", raw)
+    if m2:
+        return f"语义面 `{m2.group(1)}`"
+    if "list[" in low or "tuple[" in low or "__args__" in low:
+        return "容器/泛型参数与元素转换"
+    if "enum" in low:
+        return "枚举与取值规范化"
+    if "path" in low or "pathlib" in low:
+        return "路径类参数解析"
+    if label_symbol and label_symbol != "unknown":
+        return f"与 `{label_symbol}` 绑定的数据流"
+    return "变更相关的数据解析与校验"
 
 
 # ---------------------------------------------------------------------------
