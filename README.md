@@ -6,14 +6,17 @@
  - **Python**：3.10+
  - **运行环境**：使用你已创建的 conda 环境 `mutiagent`
  
- ### 安装
- 在项目根目录：
- 
- ```bash
- pip install -e .
- ```
- 
- 如果需要本地执行测试与覆盖率（可选能力）：
+### 安装
+在项目根目录：
+
+```bash
+pip install -e .
+```
+
+**协作者本机分步命令**见 [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md)。  
+**完整环境变量说明**见 [docs/CONFIGURATION.md](docs/CONFIGURATION.md)（pytest/评测指标、流水线开关）。
+
+如果需要本地执行测试与覆盖率（可选能力）：
  
  ```bash
  pip install -e ".[eval]"

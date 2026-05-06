@@ -37,6 +37,7 @@ from mutiagent.evaluation.coverage_json import parse_coverage_json
 from mutiagent.evaluation.extended_experiment_metrics import compute_extended_experiment_metrics
 from mutiagent.evaluation.pytest_parsing import parse_pytest_output
 from mutiagent.graph.state import WorkflowState
+from mutiagent.utils.paths import production_changed_files
 
 _log = logging.getLogger("mutiagent.workflow")
 
@@ -74,7 +75,7 @@ def infer_experiment_module(state: WorkflowState, dataset_repo: Path) -> str | N
     raw = state.debug.get("experiment_cov_module")
     if isinstance(raw, str) and raw.strip():
         return raw.strip()
-    for rel in state.changed_files or []:
+    for rel in production_changed_files(state.changed_files or []):
         if isinstance(rel, str) and rel.endswith(".py"):
             p = dataset_repo / rel
             if p.is_file():
@@ -207,15 +208,50 @@ def _zero_coverage() -> dict[str, Any]:
     }
 
 
+def _merge_pytest_exec_with_junit(
+    exec_p: dict[str, Any],
+    junit_summary: dict[str, str] | None,
+) -> dict[str, Any]:
+    """parse_pytest_output 未解析到任何用例时，用 junit.xml 聚合回填计数与 execution_success。"""
+    try:
+        parsed_total = int(exec_p.get("total_tests", 0) or 0)
+    except (TypeError, ValueError):
+        parsed_total = 0
+    if parsed_total > 0 or not junit_summary:
+        return exec_p
+    try:
+        j_tests = int(str(junit_summary.get("tests") or "0").strip() or 0)
+        j_fail = int(str(junit_summary.get("failures") or "0").strip() or 0)
+        j_err = int(str(junit_summary.get("errors") or "0").strip() or 0)
+        j_skip = int(str(junit_summary.get("skipped") or "0").strip() or 0)
+    except (TypeError, ValueError):
+        return exec_p
+    if j_tests <= 0:
+        return exec_p
+    passed = max(0, j_tests - j_fail - j_err - j_skip)
+    pass_rate = (passed / max(j_tests, 1)) * 100
+    out = dict(exec_p)
+    out["total_tests"] = j_tests
+    out["passed"] = passed
+    out["failed"] = j_fail
+    out["errors"] = j_err
+    out["skipped"] = j_skip
+    out["pass_rate"] = round(pass_rate, 2)
+    out["execution_success"] = j_fail == 0 and j_err == 0
+    return out
+
+
 def build_experiment_run_record(
     state: WorkflowState,
     dataset_repo: Path,
     *,
     combined_pytest_text: str,
     coverage_data: dict[str, Any] | None,
+    junit_summary: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     mod = infer_experiment_module(state, dataset_repo) or "unknown"
     exec_p = parse_pytest_output(combined_pytest_text)
+    exec_p = _merge_pytest_exec_with_junit(exec_p, junit_summary)
     t_count = 0
     syn = True
     for gt in state.generated_tests or []:
@@ -357,8 +393,13 @@ def merge_workflow_total_time_into_experiment_record(state: WorkflowState) -> No
         try:
             loaded = json.loads(dest.read_text(encoding="utf-8"))
             data = loaded if isinstance(loaded, dict) else {}
-        except (OSError, json.JSONDecodeError):
-            data = {}
+        except (OSError, json.JSONDecodeError) as e:
+            _log.warning(
+                "experiment_run_log: 合并工作流耗时时无法解析既有 experiment_record.json，跳过写入以免清空指标: %s",
+                e,
+            )
+            return
+
     else:
         resolved = Path(str(raw_dir).strip()).resolve()
         data["workflow_steps_dir"] = str(resolved)
@@ -397,7 +438,9 @@ def append_experiment_run_log(
     *,
     pytest_cov_json_path: Path | None = None,
     junit_summary: dict[str, str] | None = None,
+    junit_cases: list[dict[str, str]] | None = None,
     selected_tests: list[str] | None = None,
+    full_suite_wall_seconds: float | None = None,
 ) -> None:
     if not state.run_eval:
         return
@@ -427,6 +470,7 @@ def append_experiment_run_log(
             dataset_repo,
             combined_pytest_text=combined,
             coverage_data=coverage_data,
+            junit_summary=junit_summary,
         )
         rid = state.debug.get("workflow_run_id")
         if rid is not None and str(rid).strip() != "":
@@ -446,9 +490,11 @@ def append_experiment_run_log(
             combined_pytest_output=combined,
             selected_tests=list(selected_tests) if selected_tests else None,
             junit_summary=dict(junit_summary or {}),
+            junit_cases=list(junit_cases) if junit_cases else None,
             python_exe=python_exe,
             mutiagent_repo_root=mutiagent_repo_root.resolve(),
             generated_test_function_count=int(record.get("test_count", 0) or 0),
+            full_suite_wall_seconds=full_suite_wall_seconds,
         )
         record.update(ext)
 

@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from openai import OpenAI
+
+_log = logging.getLogger("mutiagent.llm")
 
 
 @dataclass(frozen=True)
@@ -134,7 +137,20 @@ def chat_messages(
     if timeout_s is not None:
         kwargs["timeout"] = timeout_s
     resp = c.chat.completions.create(**kwargs)
-    return (resp.choices[0].message.content or "").strip()
+    choices = getattr(resp, "choices", None)
+    if not choices:
+        _log.warning(
+            "chat.completions 返回空 choices（model=%s）；可能限流、内容审核或 API 异常。",
+            kwargs.get("model"),
+        )
+        return ""
+    first = choices[0]
+    msg = getattr(first, "message", None)
+    if msg is None:
+        _log.warning("chat.completions choices[0] 无 message（model=%s）", kwargs.get("model"))
+        return ""
+    raw = getattr(msg, "content", None)
+    return (raw or "").strip()
 
 
 def chat_text(

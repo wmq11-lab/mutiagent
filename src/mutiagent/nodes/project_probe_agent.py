@@ -9,6 +9,7 @@ from typing import Any
 from mutiagent.graph.state import WorkflowState
 from mutiagent.utils.dataset_venv import ensure_dataset_venv
 from mutiagent.utils.pip_infer import write_inferred_pip_requirements
+from mutiagent.utils.paths import production_changed_files
 from mutiagent.utils.venv_flags import effective_auto_venv
 
 _log = logging.getLogger("mutiagent.workflow")
@@ -172,8 +173,8 @@ def _build_profile(repo: Path, state: WorkflowState) -> dict[str, Any]:
         "framework": framework,
         "module_roots": _detect_module_roots(repo),
         "dependencies": _read_deps(repo),
-        "importable_symbols": _probe_symbols(repo, state.changed_files or []),
-        "import_candidates": _probe_import_candidates(repo, state.changed_files or []),
+        "importable_symbols": _probe_symbols(repo, production_changed_files(state.changed_files or [])),
+        "import_candidates": _probe_import_candidates(repo, production_changed_files(state.changed_files or [])),
         "updated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 

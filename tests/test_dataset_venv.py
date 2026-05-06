@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 from mutiagent.utils.dataset_venv import fingerprint
@@ -23,6 +24,21 @@ def test_read_bugsinpy_python_version(tmp_path: Path) -> None:
     info = tmp_path / "bugsinpy_bug.info"
     info.write_text('python_version="3.6.9"\n', encoding="utf-8")
     assert _read_bugsinpy_python_version(tmp_path) == "3.6.9"
+
+
+def test_resolve_venv_seed_python_non_bugsinpy_venv_env_override(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv("MUTIAGENT_VENV_PYTHON", raising=False)
+    monkeypatch.setenv("MUTIAGENT_VENV_PYTHON", "/opt/py312/bin/python")
+    py, err = _resolve_venv_seed_python(tmp_path)
+    assert err is None
+    assert py == "/opt/py312/bin/python"
+
+
+def test_resolve_venv_seed_python_non_bugsinpy_uses_sys_executable(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.delenv("MUTIAGENT_VENV_PYTHON", raising=False)
+    py, err = _resolve_venv_seed_python(tmp_path)
+    assert err is None
+    assert py == sys.executable
 
 
 def test_resolve_venv_seed_python_from_bugsinpy(

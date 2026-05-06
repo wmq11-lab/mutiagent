@@ -21,10 +21,12 @@ from mutiagent.utils.run_db import write_generated_tests
 from mutiagent.utils.run_db import write_execution_payload
 from mutiagent.utils.dataset_venv import ensure_dataset_venv
 from mutiagent.utils.llm_output import strip_markdown_code_fence
+from mutiagent.utils.paths import production_changed_files
 from mutiagent.utils.syntax_guard import exec_syntax_error
 from mutiagent.utils.venv_flags import effective_auto_venv
 from mutiagent.evaluation.experiment_run_log import append_experiment_run_log
-from mutiagent.nodes.test_gen_agent import apply_phantom_import_alignment_to_state
+from mutiagent.evaluation.extended_experiment_metrics import measure_full_suite_wall_seconds
+from mutiagent.nodes.test_gen_agent import apply_phantom_import_alignment_to_state, sanitize_typer_private_imports
 
 _workflow_log = logging.getLogger("mutiagent.workflow")
 
@@ -51,6 +53,62 @@ def _log_pytest_output(phase: str, exit_code: int, stdout: str, stderr: str) -> 
         clip(stdout, half),
         clip(stderr, half),
     )
+
+
+def _repo_pytest_env(repo: Path, base: dict[str, str] | None = None) -> dict[str, str]:
+    """与 _run_pytest 一致的 PYTHONPATH 拼接，供 collect-only 等子进程复用。"""
+    env = dict(base or os.environ)
+    pp = [str(repo)]
+    lib = repo / "lib"
+    if lib.is_dir():
+        pp.insert(0, str(lib.resolve()))
+    inherit = env.get("PYTHONPATH", "").strip()
+    if inherit and (_env_truthy("MUTIAGENT_PYTEST_APPEND_PYTHONPATH") or not (lib / "ansible").is_dir()):
+        pp.append(inherit)
+    env["PYTHONPATH"] = os.pathsep.join(pp)
+    return env
+
+
+def _pytest_collect_all_nodeids(repo: Path, python_exe: str) -> list[str] | None:
+    """全仓库 pytest 节点 id 列表，供 Evaluation reduction 等指标；可用 MUTIAGENT_EXEC_COLLECT_ALL_TESTS=0 跳过。"""
+    v = os.getenv("MUTIAGENT_EXEC_COLLECT_ALL_TESTS", "1").strip().lower()
+    if v in {"0", "false", "no", "off"}:
+        return None
+    try:
+        timeout_s = int(os.getenv("MUTIAGENT_COLLECT_TIMEOUT_S", "300") or 300)
+    except ValueError:
+        timeout_s = 300
+    env = _repo_pytest_env(repo)
+    cmd = [python_exe, "-m", "pytest", "--collect-only", "-q"]
+    try:
+        proc = subprocess.run(
+            cmd,
+            cwd=str(repo),
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=max(30, timeout_s),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        _workflow_log.warning("ExecutionAgent: pytest --collect-only 失败: %s", exc)
+        return None
+    blob = (proc.stdout or "") + "\n" + (proc.stderr or "")
+    out: list[str] = []
+    for line in blob.splitlines():
+        s = line.strip()
+        if not s or s.startswith("=") or s.startswith("<"):
+            continue
+        if "::" not in s:
+            continue
+        head = s.split()[0]
+        if "::" in head:
+            out.append(head)
+    if not out:
+        _workflow_log.warning(
+            "ExecutionAgent: collect-only 未解析到节点（pytest exit=%s）",
+            proc.returncode,
+        )
+    return out
 
 
 def _test_reports_enabled() -> bool:
@@ -84,7 +142,9 @@ def _python_has_pytest_cov(python_exe: str) -> bool:
 def _resolve_pytest_executable(repo: Path, state: WorkflowState) -> tuple[str | None, str | None]:
     """
     返回 (python 可执行路径, 错误信息)。
-    显式 MUTIAGENT_PYTEST_PYTHON 优先；否则按 effective_auto_venv(state) 判断是否在仓库内创建/复用 venv；否则用 PATH 上的 python。
+    显式 MUTIAGENT_PYTEST_PYTHON 优先（将跳过自动 venv，不会代你 pip install 数据集依赖）；
+    否则按 effective_auto_venv(state) 在仓库内创建/复用 venv（无 bugsinpy 时可用 MUTIAGENT_VENV_PYTHON
+    指定用于「创建该 venv」的 3.12+ 等解释器）；否则用 PATH 上的 python。
     """
     ex = os.environ.get("MUTIAGENT_PYTEST_PYTHON", "").strip()
     if ex:
@@ -383,6 +443,31 @@ def _write_generated_tests(tmpdir: Path, state: WorkflowState) -> Path:
     return tmpdir
 
 
+def _sync_repo_tests_artifacts_for_exec(repo: Path, test_root: Path, state: WorkflowState) -> None:
+    """
+    将仓库中 ``tests/`` 下与生成用例常见相对路径一致的支撑物复制到 pytest 临时根目录。
+
+    生成用例常写 ``Path(__file__).parent / \"assets/...\"``；ExecutionAgent 仅写入
+    ``generated_tests`` 时，临时目录里尚无 ``tests/assets``，会导致 FileNotFoundError。
+    """
+    assets = repo / "tests" / "assets"
+    if assets.is_dir():
+        dst = test_root / "tests" / "assets"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(assets, dst, dirs_exist_ok=True)
+
+    for rel in state.changed_files or []:
+        rel_n = rel.replace("\\", "/").strip().lstrip("/")
+        if not rel_n.startswith("tests/"):
+            continue
+        src = repo / rel_n
+        if not src.is_file():
+            continue
+        out = test_root / rel_n
+        out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, out)
+
+
 def _metrics_junit_case_id(row: dict[str, str]) -> str:
     cls = (row.get("classname") or "").strip()
     name = (row.get("name") or "").strip()
@@ -414,7 +499,7 @@ def _eval_metric_keyword_scope(state: WorkflowState) -> set[str]:
             tok = token.strip().lower()
             if len(tok) >= 5:
                 words.add(tok)
-    changed = set(state.changed_files or [])
+    changed = set(production_changed_files(state.changed_files or []))
     for fc in state.change_analysis or []:
         fn = getattr(fc, "file", "") or ""
         if fn not in changed:
@@ -505,10 +590,13 @@ def _sanitize_generated_tests(state: WorkflowState) -> None:
     if not state.generated_tests:
         return
     for i, tf in enumerate(state.generated_tests):
-        new_content = _sanitize_dependency_guard_tests(tf.content)
+        new_content = sanitize_typer_private_imports(_sanitize_dependency_guard_tests(tf.content))
         if new_content != tf.content:
             state.generated_tests[i].content = new_content
-            _workflow_log.info("ExecutionAgent: sanitized dependency guard hard-fail in %s", tf.path)
+            _workflow_log.info(
+                "ExecutionAgent: sanitized typer private / dependency guard in %s",
+                tf.path,
+            )
 
 
 def _run_pytest(
@@ -795,6 +883,16 @@ def _llm_fix_by_failure(state: WorkflowState, stdout: str, stderr: str) -> None:
         "patch( 与 patch.object( 的第一个参数字符串必须单行完整闭合引号与括号，禁止在引号未闭合时换行；过长路径用变量承接。"
         "若错误为 ansible 无 galaxy / patch 解析失败：检查 patch 目标是否与 collection.py 中 import 的符号一致"
         "（Display 常在 ansible.utils.display；在 collection 模块命名空间下多用 patch('ansible.galaxy.collection.Display') 或对已 import 的模块 patch.object）。"
+        "Typer/Click：必须使用 ``typer.testing.CliRunner`` + ``runner.invoke(typer_app, args)``，"
+        "勿用 ``click.testing.CliRunner`` 对裸 ``Typer`` 调用 invoke。"
+        "若 pytest 报 ``exit_code==2`` 或 ``Could not get a command for this Typer instance``：检查是否 **单命令 app 却在 argv 里写了子命令名**、"
+        "或 **空 app 未 pytest.raises**、或 **patch TyperGroup 但 app 并非 Group**；缺参用 ``invoke(app, [])``。"
+        "断言 ``RuntimeError``/``TimeoutError``/``ConnectionError`` 时须 ``catch_exceptions=False``，否则会收到 ``SystemExit(2)``。"
+        "异常场景勿只断言 ``result.output``，用 ``pytest.raises`` 或 ``result.exception``（配合 catch_exceptions=False）。"
+        "勿 ``patch('typer.main.rich_utils')`` 对应 lazy import；勿 ``arg.type is int``；勿 ``resolve_command(ctx, [])``。"
+        "删除或改写对 ``TyperArgument.full_process_value``、``TyperGroup('名称')`` 位置参、``callback.__self__`` 等不成立用法；"
+        "``patch`` 仅用真实模块路径（如 ``urllib.request.urlopen``），禁止 ``typer.core.urllib`` 类假路径。"
+        "严禁 ``from typer``/``typer.core``/``typer.main`` 导入下划线开头名称或 ``import *``（收集阶段 ImportError）；改公开 API 或 getattr + skip。"
         "只输出修复后的完整Python测试文件内容（不要markdown，不要解释）。"
     )
     user = (
@@ -804,12 +902,22 @@ def _llm_fix_by_failure(state: WorkflowState, stdout: str, stderr: str) -> None:
         "current_test_file:\n"
         f"{state.generated_tests[0].content}\n"
     )
-    fixed = strip_markdown_code_fence(chat_text(system, user, temperature=0.2))
+    try:
+        fixed = strip_markdown_code_fence(chat_text(system, user, temperature=0.2))
+    except Exception as exc:
+        _workflow_log.warning(
+            "ExecutionAgent: LLM 按失败修复未执行（调用异常）。%s",
+            exc,
+        )
+        return
+    if not fixed:
+        _workflow_log.warning("ExecutionAgent: LLM 按失败修复返回空内容，已保留原测试。")
+        return
     if fixed and "def test_" in fixed:
         newc = fixed.strip() + "\n"
         syn_fix = exec_syntax_error(newc, filename="<generated_test>")
         if syn_fix is None:
-            state.generated_tests[0].content = newc
+            state.generated_tests[0].content = sanitize_typer_private_imports(newc)
         else:
             _workflow_log.warning(
                 "ExecutionAgent: LLM 按失败修复后的代码仍有语法错误，已保留修复前版本。%s",
@@ -844,6 +952,14 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
         }
         return state
 
+    mutiagent_repo_root = Path(__file__).resolve().parents[3]
+    all_test_nodeids: list[str] | None = _pytest_collect_all_nodeids(repo, py_exe)
+    full_suite_wall: float | None = None
+    try:
+        full_suite_wall = measure_full_suite_wall_seconds(repo, py_exe, mutiagent_repo_root)
+    except Exception as exc:
+        _workflow_log.warning("ExecutionAgent: 全量套件耗时（缓存/测量）不可用: %s", exc)
+
     report_dir: Path | None = None
     junit_xml: Path | None = None
     if _test_reports_enabled():
@@ -867,13 +983,13 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
     )
 
     junit_before_repair = False
-    mutiagent_repo_root = Path(__file__).resolve().parents[3]
     with tempfile.TemporaryDirectory(prefix="mutiagent_exec_") as td:
         tmpdir = Path(td)
         last_test_root = tmpdir
         _sanitize_generated_tests(state)
         apply_phantom_import_alignment_to_state(state)
         _write_generated_tests(tmpdir, state)
+        _sync_repo_tests_artifacts_for_exec(repo, tmpdir, state)
         first_run_code, out, err = _run_pytest(
             repo,
             tmpdir,
@@ -914,6 +1030,7 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             retry_dir = tmpdir / "retry"
             retry_dir.mkdir(parents=True, exist_ok=True)
             _write_generated_tests(retry_dir, state)
+            _sync_repo_tests_artifacts_for_exec(repo, retry_dir, state)
             code, out, err = _run_pytest(
                 repo,
                 retry_dir,
@@ -951,6 +1068,10 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             "first_run_exit_code": first_run_code,
             "retry_reasons": retry_reasons,
         }
+        if all_test_nodeids is not None:
+            payload["all_tests"] = all_test_nodeids
+        if full_suite_wall is not None and full_suite_wall > 0:
+            payload["full_time"] = float(full_suite_wall)
         j_agg: dict[str, str] = {}
         j_rows: list[dict[str, str]] = []
         if junit_xml is not None and junit_xml.exists():
@@ -1004,7 +1125,9 @@ def execution_agent(state: WorkflowState) -> WorkflowState:
             py_exe,
             pytest_cov_json_path=cov_json_path if cov_json_path is not None and cov_json_path.is_file() else None,
             junit_summary=j_agg,
+            junit_cases=j_rows,
             selected_tests=list(scoped) if isinstance(scoped, list) else None,
+            full_suite_wall_seconds=full_suite_wall,
         )
 
         if report_dir is not None:

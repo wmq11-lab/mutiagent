@@ -132,8 +132,10 @@ class GenerateTestsRequest(BaseModel):
             "是否在目标项目中执行生成的 pytest 并返回摘要；默认开启并在仓库下写入 "
             "`.mutiagent/reports/<时间戳>/`（`report.html`、`junit.xml`、stdout/stderr 文本、summary.json）。"
             "需目标环境可运行 pytest。关闭文件落盘可设环境变量 MUTIAGENT_DISABLE_TEST_REPORT=1。"
-            "换数据集时不必往 mutiagent 本机环境里反复混装依赖：可对每个被测仓库建独立 venv，"
-            "并设环境变量 MUTIAGENT_PYTEST_PYTHON 为该 venv 的 python 可执行文件路径后再跑全流程。"
+            "换数据集时不必往 mutiagent 本机环境里反复混装依赖：默认在 repo 下自动建 venv 并安装依赖；"
+            "若 mutiagent 进程 Python 版本偏低（如 Django 6 需 ≥3.12），请设 MUTIAGENT_VENV_PYTHON 指向 3.12+ 解释器，"
+            "并删除该 repo 下旧目录 `.mutiagent/mutiagent_pytest_venv` 后重跑。"
+            "若已自行建好 venv 且希望完全绕过自动安装，可设 MUTIAGENT_PYTEST_PYTHON 为该 venv 的 python 路径。"
             "对含 lib/ansible 的源码仓库，pytest 子进程默认不再继承宿主 PYTHONPATH，避免与 conda 中 pip 版 ansible 冲突；"
             "若确需拼接请设 MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1。"
         ),

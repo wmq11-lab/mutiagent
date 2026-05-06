@@ -6,10 +6,12 @@ import json
 from pathlib import Path
 from typing import Any
 
+from mutiagent.utils.paths import production_changed_files
+
 
 def _changed_function_rows(state: Any) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
-    changed = set(state.changed_files or [])
+    changed = set(production_changed_files(state.changed_files or []))
     for fc in state.change_analysis or []:
         fn = getattr(fc, "file", "") or ""
         if fn not in changed:
@@ -47,6 +49,14 @@ def _normalize_rel_path(p: str) -> str:
     return p.strip().replace("\\", "/")
 
 
+def _last_name_segment(qualified: str) -> str:
+    """取 ``a.b.c`` / ``a::b::c`` 的最后一段，用于 coverage 键与 entity 的宽松对齐。"""
+    q = qualified.strip().replace("::", ".")
+    if not q:
+        return q
+    return q.split(".")[-1]
+
+
 def _file_cov_block(files_map: dict[str, Any], rel: str) -> dict[str, Any] | None:
     rel_n = _normalize_rel_path(rel)
     if rel_n in files_map and isinstance(files_map[rel_n], dict):
@@ -59,22 +69,71 @@ def _file_cov_block(files_map: dict[str, Any], rel: str) -> dict[str, Any] | Non
     return None
 
 
+def _summary_dict(v: Any) -> dict[str, Any] | None:
+    if isinstance(v, dict):
+        summ = v.get("summary")
+        return summ if isinstance(summ, dict) else None
+    return None
+
+
 def _lookup_function_summary(funcs_map: dict[str, Any], entity: str) -> dict[str, Any] | None:
-    """coverage JSON 内 functions 键可能是 simple name 或 Qualified.name。"""
+    """coverage JSON 内 functions 键可能是 simple name、Qualified.name、或与 change_analysis 短名不一致。"""
     if not isinstance(funcs_map, dict) or not entity.strip():
         return None
     ent = entity.strip()
-    raw = funcs_map.get(ent)
-    if isinstance(raw, dict):
-        summ = raw.get("summary")
-        return summ if isinstance(summ, dict) else None
+    ent_dots = ent.replace("::", ".")
+
+    for key in (ent, ent_dots):
+        s = _summary_dict(funcs_map.get(key))
+        if s:
+            return s
+
+    qualified_suffix: list[dict[str, Any]] = []
     for k, v in funcs_map.items():
         if k == "" or not isinstance(k, str) or not isinstance(v, dict):
             continue
-        if k == ent or k.endswith("." + ent) or k.endswith("::" + ent):
-            summ = v.get("summary")
-            return summ if isinstance(summ, dict) else None
-    return None
+        kd = k.replace("::", ".")
+        s = _summary_dict(v)
+        if s is None:
+            continue
+        if k == ent or kd == ent_dots:
+            return s
+        if kd.endswith("." + ent_dots) or k.endswith("::" + ent):
+            qualified_suffix.append(s)
+            continue
+        if ent_dots and (kd.endswith("." + ent) or k.endswith("::" + ent)):
+            qualified_suffix.append(s)
+
+    if qualified_suffix:
+        return max(qualified_suffix, key=lambda sm: int(sm.get("covered_lines", 0) or 0))
+
+    ent_last = _last_name_segment(ent_dots)
+    if not ent_last:
+        return None
+
+    ent_variants = {ent_last}
+    if ent_last.startswith("_") and len(ent_last) > 1:
+        ent_variants.add(ent_last[1:])
+
+    loose: list[dict[str, Any]] = []
+    for k, v in funcs_map.items():
+        if k == "" or not isinstance(k, str) or not isinstance(v, dict):
+            continue
+        s = _summary_dict(v)
+        if s is None:
+            continue
+        k_last = _last_name_segment(k.replace("::", "."))
+        if k_last in ent_variants:
+            loose.append(s)
+            continue
+        if k_last.startswith("_") and len(k_last) > 1 and ent_last == k_last[1:]:
+            loose.append(s)
+
+    if not loose:
+        return None
+    if len(loose) == 1:
+        return loose[0]
+    return max(loose, key=lambda sm: int(sm.get("covered_lines", 0) or 0))
 
 
 def build_changed_function_coverage_report(
@@ -102,7 +161,9 @@ def build_changed_function_coverage_report(
         "schema_version": 1,
         "algorithm_zh": (
             "对 change_analysis 中变更文件下的 function/method 实体，在 coverage json 的 "
-            "files[path].functions 中查找同名或后缀匹配条目；summary.covered_lines>0 视为该变更函数已被测试执行到。"
+            "files[path].functions 中匹配：精确键、:: 与 . 统一、qualified 后缀（多键同后缀时取 covered_lines 较大者）、"
+            "**最后一段同名**（及可选的单侧下划线差异；多候选时同样取 covered_lines 较大者）。"
+            "summary.covered_lines>0 视为该变更函数已被测试执行到。"
         ),
         "coverage_json_source": src,
     }

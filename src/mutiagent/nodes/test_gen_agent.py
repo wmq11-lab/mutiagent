@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import logging
 import os
 import re
@@ -11,6 +12,7 @@ from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
 from mutiagent.utils.code_extract import extract_context_by_hunks
 from mutiagent.utils.llm_output import strip_markdown_code_fence
+from mutiagent.utils.paths import is_under_project_tests_tree, production_changed_files
 from mutiagent.utils.syntax_guard import exec_syntax_error
 
 _workflow_log = logging.getLogger("mutiagent.workflow")
@@ -34,6 +36,47 @@ def _testgen_timeout_seconds() -> float:
         return max(10.0, float(raw))
     except ValueError:
         return 120.0
+
+
+def _testgen_static_guard_enabled() -> bool:
+    v = os.getenv("MUTIAGENT_TESTGEN_STATIC_GUARD", "1").strip().lower()
+    return v not in {"0", "false", "no", "off"}
+
+
+def _log_generated_test_static_hints(code: str) -> None:
+    """嗅探常见反模式，仅写日志，不改正文。"""
+    hints: list[str] = []
+    if re.search(
+        r"^\s*from\s+typer(\.\w+)?\s+import\s+.*\b_[A-Za-z0-9_]+",
+        code,
+        flags=re.MULTILINE,
+    ):
+        hints.append(
+            "from typer… import _私有名: sanitize 会改为 import + getattr；若仍未解析，核对模块路径。"
+        )
+    if re.search(r"patch\s*\(\s*[\"']typer\.main\.rich_utils[\"']", code):
+        hints.append(
+            "patch('typer.main.rich_utils'): 常见 lazy-import 后模块无该属性，应改 patch 实际加载路径（如 typer.rich_utils）。"
+        )
+    if re.search(r"patch\s*\(\s*[\"']typer\.cli\.rich_utils[\"']", code):
+        hints.append(
+            "patch('typer.cli.rich_utils'): lazy import 后 cli 模块常无该属性，优先 patch('typer.rich_utils', ...)。"
+        )
+    if re.search(r"resolve_command\s*\(\s*ctx\s*,\s*\[\s*\]\s*\)", code):
+        hints.append("resolve_command(ctx, []): 易触发 IndexError，避免空 argv。")
+    if re.search(r"\.type\s+is\s+int\b", code) or re.search(r"arg\.type\s+is\s+None\b", code):
+        hints.append("TyperArgument.type: 勿用 `is int` / `is None`，Click 使用 ParamType。")
+    n_cmd = len(re.findall(r"@app\.command\s*\(", code))
+    if n_cmd == 1 and "runner.invoke" in code and re.search(
+        r"invoke\s*\(\s*app\s*,\s*\[\s*[\"'](?!-)[^\"']+[\"']", code
+    ):
+        hints.append(
+            "单 @app.command 且 invoke(app, [非选项字符串])：首段常为子命令名误用，应为单命令 argv（不含命令名）。"
+        )
+    if re.search(r"TyperCLIGroup\s*\(\s*[\"'][^\"']+[\"']\s*,", code):
+        hints.append("TyperCLIGroup(\"…\", …): 勿臆造 Click Group 风格位置参，核对 typer.cli 源码。")
+    for h in hints:
+        _workflow_log.warning("TestGenAgent: static_hint %s", h)
 
 
 def _sanitize_global_dependency_guards(code: str) -> str:
@@ -128,6 +171,122 @@ def _sanitize_timeout_test_antipatterns(code: str) -> str:
     return updated
 
 
+def sanitize_typer_private_imports(code: str) -> str:
+    """
+    处理 ``from typer`` / ``from typer.xxx``中对 **下划线开头** 符号及 ``import *``。
+
+    - ``import *``：整句移除（各版本导出集不一致）。
+    - 私有符号：改为 ``import <mod> as _alias`` + ``name = getattr(_alias, '_name', None)``，
+      避免 ``from typer… import _foo`` 在收集期 ImportError，同时保留测试中对绑定名的使用。
+    """
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return code
+
+    def _mod_alias(mod: str) -> str:
+        tail = mod.replace(".", "_").replace("-", "_")
+        if not tail.isidentifier():
+            tail = "mod"
+        return f"_mutiagent_typer_{tail}"
+
+    new_body: list[ast.stmt] = []
+
+    for node in tree.body:
+        if not isinstance(node, ast.ImportFrom):
+            new_body.append(node)
+            continue
+        if node.level and node.level > 0:
+            new_body.append(node)
+            continue
+        mod = node.module or ""
+        if mod != "typer" and not mod.startswith("typer."):
+            new_body.append(node)
+            continue
+
+        priv: list[ast.alias] = []
+        pub: list[ast.alias] = []
+        stripped_star = False
+        for alias in node.names:
+            if alias.name == "*":
+                stripped_star = True
+                break
+            if alias.name.startswith("_"):
+                priv.append(alias)
+            else:
+                pub.append(alias)
+
+        if stripped_star:
+            _workflow_log.warning(
+                "mutiagent: 已移除 %s 的 star import（避免拉取不存在或私有的 Typer 符号）",
+                mod,
+            )
+            continue
+
+        if priv and pub:
+            new_body.append(
+                ast.ImportFrom(module=node.module, names=list(pub), level=node.level or 0)
+            )
+            malias = _mod_alias(mod)
+            new_body.append(ast.Import(names=[ast.alias(name=mod, asname=malias)]))
+            for a in priv:
+                asnm = a.asname or a.name
+                new_body.append(
+                    ast.Assign(
+                        targets=[ast.Name(id=asnm, ctx=ast.Store())],
+                        value=ast.Call(
+                            func=ast.Name(id="getattr", ctx=ast.Load()),
+                            args=[
+                                ast.Name(id=malias, ctx=ast.Load()),
+                                ast.Constant(value=a.name),
+                                ast.Constant(value=None),
+                            ],
+                            keywords=[],
+                        ),
+                    )
+                )
+            _workflow_log.warning(
+                "mutiagent: 已将 Typer 私有符号从 `from %s import` 拆为 import + getattr（保留公开符号）",
+                mod,
+            )
+            continue
+
+        if priv and not pub:
+            malias = _mod_alias(mod)
+            new_body.append(ast.Import(names=[ast.alias(name=mod, asname=malias)]))
+            for a in priv:
+                asnm = a.asname or a.name
+                new_body.append(
+                    ast.Assign(
+                        targets=[ast.Name(id=asnm, ctx=ast.Store())],
+                        value=ast.Call(
+                            func=ast.Name(id="getattr", ctx=ast.Load()),
+                            args=[
+                                ast.Name(id=malias, ctx=ast.Load()),
+                                ast.Constant(value=a.name),
+                                ast.Constant(value=None),
+                            ],
+                            keywords=[],
+                        ),
+                    )
+                )
+            _workflow_log.warning(
+                "mutiagent: 已将仅含私有的 `from %s import …` 改为 import + getattr（避免收集期 ImportError）",
+                mod,
+            )
+            continue
+
+        new_body.append(node)
+
+    tree.body = new_body
+    ast.fix_missing_locations(tree)
+    try:
+        out = ast.unparse(tree)
+    except (TypeError, ValueError, RecursionError):
+        return code
+    return out + ("" if out.endswith("\n") else "\n")
+
+
 def _sanitize_async_patch_context(code: str) -> str:
     """修复 async with patch 反模式。"""
     updated = code
@@ -138,6 +297,23 @@ def _sanitize_async_patch_context(code: str) -> str:
     if "async with patch" in updated:
         _workflow_log.warning("TestGenAgent: 仍存在 async with patch，可能需要手动修复")
     return updated
+
+
+def _must_cover_changed_entities(state: WorkflowState) -> list[str]:
+    """生产变更文件 × change_analysis 中的 function/method，供 TestGen user 消息强制覆盖。"""
+    keys: list[str] = []
+    changed = set(production_changed_files(state.changed_files or []))
+    for fc in state.change_analysis or []:
+        fn = (getattr(fc, "file", "") or "").replace("\\", "/")
+        if fn not in changed:
+            continue
+        for ch in getattr(fc, "changes", []) or []:
+            if str(getattr(ch, "type", "") or "") not in {"function", "method"}:
+                continue
+            ent = str(getattr(ch, "entity", "") or "").strip()
+            if ent:
+                keys.append(f"{fn}::{ent}")
+    return sorted(set(keys))
 
 
 def _extract_changed_markers(diff: str) -> tuple[str | None, str | None]:
@@ -398,7 +574,7 @@ def _fix_mistaken_importorskip_stems(
             return m.group(0)
         if _top_level_path_exists(repo, stem) or (repo / f"{stem}.py").is_file():
             return m.group(0)
-        for rel in state.changed_files or []:
+        for rel in production_changed_files(state.changed_files or []):
             if not str(rel).endswith(".py"):
                 continue
             if Path(rel).stem != stem:
@@ -419,7 +595,7 @@ def _align_phantom_imports(code: str, state: WorkflowState) -> str:
     repo = Path(state.repo_path or "")
     if not repo.is_dir():
         return code
-    sym_mod = _symbol_to_module_map(repo, list(state.changed_files or []))
+    sym_mod = _symbol_to_module_map(repo, list(production_changed_files(state.changed_files or [])))
     _enrich_symbol_map(repo, state, code, sym_mod)
     if not sym_mod:
         return _fix_mistaken_importorskip_stems(code, repo, state, sym_mod)
@@ -507,11 +683,18 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
     fast_mode = _testgen_fast_mode()
     timeout_s = _testgen_timeout_seconds()
     _workflow_log.info("TestGenAgent: 阶段 1/4 - 收集上下文（timeout=%.1fs fast_mode=%s）", timeout_s, fast_mode)
-    snippets = extract_context_by_hunks(state.repo_path, state.diff_hunks)
+    hunks_for_context = {
+        k: v
+        for k, v in (state.diff_hunks or {}).items()
+        if not is_under_project_tests_tree(k)
+    }
+    snippets = extract_context_by_hunks(state.repo_path, hunks_for_context)
+    test_targets = production_changed_files(state.changed_files or [])
     snippet_items = list(snippets.items())[: (2 if fast_mode else 4)]
     _workflow_log.info(
-        "TestGenAgent: 上下文收集完成 snippets=%s changed_files=%s",
+        "TestGenAgent: 上下文收集完成 snippets=%s test_targets=%s (全量变更路径=%s)",
         len(snippet_items),
+        len(test_targets),
         len(state.changed_files or []),
     )
 
@@ -527,7 +710,8 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "7. 不要因笼统 ImportError 对整文件/整类批量 skip；仅在单条测试确实无法构造时才就地 skip\n"
         "8. 不要生成 test_import_paths/test_dependencies 这类全局依赖自检并 pytest.fail\n"
         "9. 可选依赖（如 fastapi）在具体用例内用 pytest.importorskip('fastapi')\n"
-        "10. 禁止直接导入下划线私有符号；需使用模块导入 + getattr 判定\n\n"
+        "10. 优先使用公开 Typer API；若必须触达私有实现，用 ``import typer.core as m`` + ``getattr(m, '_name', None)`` 或依赖后处理 "
+        "把 ``from typer… import _x`` 转为 import + getattr。``from typer… import *`` 禁止（版本导出差导致的收集期失败）。\n\n"
         "11. 对每个核心目标（函数/接口/语义单元）尽量覆盖三类流程：\n"
         "   - 正常流程：有效输入下返回正确结果或成功状态\n"
         "   - 边界流程：空值/最小值/最大值/缺省字段等边界输入\n"
@@ -538,6 +722,67 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "若导入路径不确定，先尝试保守导入并在测试中用明确断言暴露导入失败原因。\n\n"
         "15. 若输入里存在 project_profile.import_candidates，必须优先按这些候选导入路径生成测试；"
         "不要臆造新的模块路径。必要时可遍历多个候选并在首个成功导入后执行断言。\n\n"
+        "16. 当 changed_files / 代码上下文显示本次变更涉及 **2 个及以上的不同源文件**（模块）时，"
+        "至少在一个（或少数几个）测试函数中 **显式覆盖多个变更模块**：例如分别 "
+        "``from pkg import mod_a, mod_b`` / ``import pkg.mod_a, pkg.mod_b``，或对每个变更文件各写一条有断言的用例，"
+        "避免全部测试只 import、只断言单个模块；这有助于验证跨模块交互与回归。\n"
+        "    user 消息中的 ``changed_files (测试生成目标)`` 列表内每个 **生产** ``.py`` 路径，至少应有一条用例通过 "
+        "import、公开函数/CLI 或间接行为 **触达该文件**（优先与 diff 新增/移动的 import 或分支一致），勿只测与变更无关的泛化内部类。\n\n"
+        "17. Typer/Click（必读）：\n"
+        "   - 用 ``from typer.testing import CliRunner``，对 **Typer 应用** ``app = typer.Typer()`` 执行 "
+        "``runner.invoke(app, [...])``；不要用 ``click.testing.CliRunner`` 直接 ``invoke(app, ...)``，把裸 ``Typer`` 误当 "
+        "``click.Command``（常见报错：无 ``name``、``prog_name`` / ``KeyError: prog_name``）。\n"
+        "   - **禁止臆造 API**：``TyperArgument`` / ``TyperOption`` 上 **没有** ``full_process_value`` 之类方法；"
+        "不要用 ``TyperGroup('名称')`` 传入位置参数（``TyperGroup.__init__`` 签名以仓库为准，通常不能像 ``click.Group('x')`` 那样写）。\n"
+        "   - **禁止** 从 ``app.registered_commands[].callback.__self__`` 取对象：callback 常为普通函数，无 ``__self__``。\n"
+        "   - 测参数/解析行为：**优先**建最小 ``typer.Typer()`` + ``@app.command()``，用 ``CliRunner.invoke`` 走 CLI；"
+        "若必须触达 Click 层，仅用 ``click`` / ``typer`` 源码或 **仓库内已有测试** 中已出现的方法名（可 ``import inspect; inspect.getmembers`` 核对）。\n"
+        "   - **单命令 vs 多命令 argv（高频错误）**：仅注册 **一个** ``@app.command`` 且无 ``@app.callback()`` / ``add_typer`` 子组时，"
+        "Typer 常把 CLI 落成 **单个 Click Command**，此时 ``runner.invoke(app, argv)`` 的 argv **不得** 再包含该命令名；"
+        "应直接跟该命令的 CLI 参数（如 ``hello(name)`` → ``invoke(app, [\"World\"])``）。写成 ``invoke(app, [\"hello\", \"World\"])`` 会触发用法错误（常见 ``exit_code==2``）。\n"
+        "     仅当出现 **多个并列** ``@app.command``、``add_typer`` 子组、或 ``@app.callback()`` 等使 CLI 成为 **Group** 时，argv 才需要子命令名（如 ``[\"sub\", \"sub-cmd\"]``；"
+        "多子命令时函数名常转为 kebab-case，如 ``cmd_a`` → ``cmd-a``）。\n"
+        "   - **校验“缺少必填参数”**：在单命令扁平化下，若仍写 ``invoke(app, [\"greet\"])``，Click 会把 ``greet`` 当作第一个 **位置参数** 的值而非子命令名，导致误报成功；"
+        "应使用 ``invoke(app, [])`` 或省略该参数来触发缺参错误。\n"
+        "   - **空的 ``Typer()``（未注册任何 command）**：``invoke`` 可能抛出 ``RuntimeError: Could not get a command for this Typer instance``；"
+        "边界用例请用 ``pytest.raises(RuntimeError, match=\"Could not get a command\")`` 包裹，或先注册占位命令。\n"
+        "   - **CliRunner 与未捕获异常**：回调里抛出的 ``RuntimeError``/``TimeoutError`` 等可能使 ``result.output`` 为空；"
+        "应使用 ``with pytest.raises(...): runner.invoke(...)`` 或断言 ``result.exception``，**不要** 强行在 ``result.output`` 中搜索 ``HTTP 500``/``timeout``。\n"
+        "   - **集成真实 Typer 应用**：调用 ``invoke(real_app, [...])`` 前应对照本仓库 ``tests/`` 或 ``runner.invoke(real_app, [\"--help\"])`` 的输出确认子命令名，**禁止臆造** 不存在的子命令。\n"
+        "   - **禁止** ``from typer`` / ``from typer.core`` / ``from typer.main`` 等导入 **任何** 以下划线开头的符号 "
+        "或 ``import *``：Typer fork/版本间 **不存在** 同名私有导出是常态，会导致 **pytest 收集即失败**。仅使用公开 API、`import typer`、"
+        "或 ``getattr(importlib.import_module('typer.core'), '_name', None)`` 并在缺失时跳过。\n"
+        "   - 若需 patch ``typer.core.TyperGroup.resolve_command``：须先让 ``app`` 成为 **Group**（例如两个及以上 ``@app.command``、``@app.callback()`` 或 ``add_typer``）；"
+        "单命令扁平化时根 CLI 不是 ``TyperGroup``，此类 patch 与测试目标不匹配。\n"
+        "   - **不要调用** ``TyperGroup.resolve_command(ctx, [])``：在无参数时对底层 Click 会引发 ``IndexError``，属于无效用法。\n"
+        "   - **CliRunner 默认 ``catch_exceptions=True``**：回调里抛出的 ``RuntimeError``/``TimeoutError``/``ConnectionError`` 常被转为 ``SystemExit(2)``，"
+        "若需断言 ``isinstance(result.exception, RuntimeError)`` 或异常消息，请 ``runner.invoke(app, argv, catch_exceptions=False)`` 或用 ``pytest.raises`` 包裹 invoke。\n"
+        "   - **TyperArgument / Click 类型**：``arg.type`` 多为 ``click.types.ParamType`` 实例（如 ``INT``），**禁止** ``arg.type is int`` 或 ``arg.type is None``；"
+        "应使用 ``isinstance``、``.name``、或与 ``click.INT`` 等比较。\n"
+        "   - **lazy import（函数内 ``from . import rich_utils``）**：不要 ``patch('typer.main.rich_utils')`` / ``patch('typer.cli.rich_utils')`` "
+        "除非能确认该 **模块对象上** 在 patch 时已存在该属性；`rich_utils` 常在函数内 lazy import，模块级无属性，应 "
+        "``patch('typer.rich_utils', ...)`` 或对 **调用方本地名** ``patch('typer.cli._parse_html')`` 等能解析的目标使用 ``patch.object``。\n"
+        "   - **utils_app / ``typer.cli`` 子命令（如 ``docs``）**：以 ``retrieved_context`` 或仓库 ``typer/cli.py`` 为准构造 "
+        "``CliRunner.invoke`` 的 argv 与必填选项；``exit_code==2`` 多为用法/缺参，**勿**写死 ``==1`` 作为唯一失败码；"
+        "失败路径断言 ``!= 0``、``result.exception`` 或输出中含 ``Error``/Rich 错误块片段即可。\n"
+        "   - **勿臆造 ``typer.core._main`` 参数列表**：签名以源码为准；优先 ``CliRunner`` + 最小 ``Typer()`` 覆盖行为，"
+        "仅在上下文给出与安全调用示例时才直接调用 ``_main``。\n"
+        "   - **CLI 错误文案**：Rich/Click 版本差异大，断言 **exit_code** 为主，子串仅作宽松匹配（如 ``\"Error\"``、子命令片段），"
+        "勿绑定 ``ambiguous``/``is not a unique prefix`` 等固定英文。\n"
+        "   - **集成 typer.cli**：禁止臆造 ``TyperCLIGroup(\"name\", callback=...)``、``typer_app.info_name`` 等；须阅读本仓库 ``typer/cli.py`` 或复用 ``tests/`` 中的构造方式。\n"
+        "   - **禁止猜测 Typer/Click 内部构造**：除非 user 消息中的 ``retrieved_context``/``code_context_snippets``/仓库 ``tests/`` 已出现相同 API。\n"
+        "   - ``patch`` 目标必须是 **真实存在的导入路径**（如 ``urllib.request.urlopen``），禁止 ``typer.core.urllib``、``typer.core.socket`` 等假路径。\n\n"
+        "18. 用户消息中的 ``changed_files`` 仅含 **tests/ 以外的生产/库代码**；``tests/`` 下辅助脚本与测试文件"
+        "不应作为本次生成的主要被测目标（勿集中断言 print_modules 等小工具而忽略 typer/ 下真实业务变更）。\n\n"
+        "19. 若项目为 Typer 或 changed_files 含 ``typer/``：请先 **模仿仓库 ``tests/`` 里已有用例** 的 import 与 ``CliRunner`` 用法，"
+        "不要凭空发明 Typer 内部类构造方式。\n\n"
+        "20. **变更函数强制覆盖（直接影响 changed_function_coverage 指标）**：\n"
+        "   user 消息中的 ``must_cover_changed_entities`` 列出本次 **生产文件** 上 change_analysis 登记的 function/method（``path/to.py::entity``）。\n"
+        "   你必须为列表中 **每一项** 至少提供 **一条** 可执行覆盖路径（可分布在多个 ``test_*`` 中），并 **显式** 执行到该符号的实现：\n"
+        "   - 模块级函数：在测试中 ``import`` 模块后 **直接调用** 该函数，或通过 **CliRunner / 公开入口** 能稳定进入该函数体；\n"
+        "   - **类方法**（如 ``TyperCommand.format_help``、``TyperGroup.format_help``）：须 ``import`` 类，按源码或仓库 ``tests/`` 方式 **构造实例**（可用 ``MagicMock`` 注入依赖、``factory_boy`` 等），再 ``instance.method(...)``；禁止只测无关包装函数却声称覆盖该方法。\n"
+        "   若 user 中给出 ``structured_test_plan.test_cases``，生成用例须与其 ``target`` / ``symbol_id`` **对齐**，不得整体忽略。\n"
+        "   仅对经注释论证确实不可测的条目使用 ``pytest.skip``，且比例应极低。\n\n"
         "# 正确示例（必须遵循）\n\n"
         "## 示例1：异步API超时测试（正确写法）\n"
         "```python\n"
@@ -565,11 +810,47 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "        mock_get.return_value = mock_response\n"
         "        # 测试你的函数...\n"
         "```\n\n"
+        "## 示例3：Typer CLI — 仅一个 @app.command（argv 不含命令名）\n"
+        "```python\n"
+        "from typer.testing import CliRunner\n"
+        "import typer\n\n"
+        "def test_typer_single_command_argv():\n"
+        "    app = typer.Typer()\n"
+        "    @app.command()\n"
+        "    def hello(name: str) -> None:\n"
+        "        typer.echo(f\"hi {name}\")\n"
+        "    runner = CliRunner()\n"
+        "    r = runner.invoke(app, [\"a\"])  # 单命令：不要写 \"hello\"\n"
+        "    assert r.exit_code == 0\n"
+        "```\n\n"
+        "## 示例3b：Typer CLI — 多个 @app.command（argv 第一段为子命令）\n"
+        "```python\n"
+        "def test_typer_multi_command_argv():\n"
+        "    app = typer.Typer()\n"
+        "    @app.command()\n"
+        "    def cmd_a() -> None:\n"
+        "        typer.echo(\"a\")\n"
+        "    @app.command()\n"
+        "    def cmd_b() -> None:\n"
+        "        typer.echo(\"b\")\n"
+        "    runner = CliRunner()\n"
+        "    r = runner.invoke(app, [\"cmd-a\"])\n"
+        "    assert r.exit_code == 0\n"
+        "```\n\n"
         "# 禁止写法（会导致测试失败）\n"
         "❌ async with patch(...)  （patch不是异步上下文管理器）\n"
         "❌ try: ... pytest.fail('Expected timeout') except: pass  （应使用 pytest.raises）\n"
         "❌ pytest.fail('Missing dependency')  （应使用 pytest.importorskip）\n"
         "❌ patch 目标字符串跨行未闭合\n"
+        "❌ TyperArgument.full_process_value / TyperGroup('x') 位置参数 / callback.__self__ / click.CliRunner(Typer)\n"
+        "❌ 仅一个 @app.command 时仍使用 invoke(app, [\"命令名\", ...])（应去掉命令名，直接跟参数）\n"
+        "❌ 依赖 result.output 断言 TyperArgument 回调里未捕获的异常文案（应 pytest.raises 或检查 result.exception）\n"
+        "❌ 需要原始异常类型时仍使用默认 CliRunner.invoke（未设 catch_exceptions=False）\n"
+        "❌ TyperArgument/Hidden 参数上 ``arg.type is int`` / ``is None``、``get_help_record()``/``make_metavar()`` 不传 ``ctx``\n"
+        "❌ 未读源码即 ``patch('typer.main.rich_utils')`` / ``patch('typer.cli.rich_utils')``（常见于改为 lazy import 后模块无该属性）\n"
+        "❌ ``from typer`` / ``typer.core`` / ``typer.main`` 导入下划线名称或 ``import *``\n"
+        "❌ TyperGroup.resolve_command(ctx, [])\n"
+        "❌ patch('typer.core.urllib...') 等不存在的命名空间\n"
     )
 
     user_lines: list[str] = []
@@ -579,7 +860,31 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
     user_lines.append(
         "runtime_hint: pytest cwd=repo_path; PYTHONPATH includes repo root and repo/lib if that directory exists."
     )
-    user_lines.append(f"changed_files: {state.changed_files}")
+    user_lines.append(f"changed_files (测试生成目标，已排除 tests/): {test_targets}")
+    must_cover = _must_cover_changed_entities(state)
+    if must_cover:
+        cap_mc = 12 if fast_mode else 48
+        user_lines.append(
+            "must_cover_changed_entities (规则20：每项至少一条测试显式执行到该函数/方法；类方法需合法构造实例后调用):"
+        )
+        for item in must_cover[:cap_mc]:
+            user_lines.append(f"  - {item}")
+        if len(must_cover) > cap_mc:
+            user_lines.append(f"  ... 共 {len(must_cover)} 项，此处列前 {cap_mc} 项，其余同等必须覆盖")
+    stp = state.structured_test_plan
+    if stp is not None and getattr(stp, "test_cases", None):
+        tcs = stp.test_cases
+        if tcs:
+            cap_stp = 6 if fast_mode else 24
+            user_lines.append("structured_test_plan.test_cases (生成用例须对齐 target/symbol_id，勿整体忽略):")
+            for tc in tcs[:cap_stp]:
+                scen = (tc.scenario or "")[:120]
+                user_lines.append(
+                    f"  - id={tc.test_case_id} target={tc.target} symbol_id={tc.symbol_id} "
+                    f"layer={tc.layer} scenario={scen}"
+                )
+            if len(tcs) > cap_stp:
+                user_lines.append(f"  ... 另有 {len(tcs) - cap_stp} 条结构化用例")
     user_lines.append("test_plan:")
     plan = state.prioritized_plan or state.test_plan
     for p in plan[: (6 if fast_mode else 12)]:
@@ -614,6 +919,19 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
             "例如 patch('ansible.galaxy.collection.Display') 或对 importlib.import_module('ansible.galaxy.collection') 返回的模块 patch.object(..., 'display', ...)。"
             "若运行时报 ansible 无 galaxy，多半是环境里 pip 安装的 ansible 与源码 lib/ansible 冲突：执行 pytest 时默认不再继承外层 PYTHONPATH；"
             "需要拼接时请设环境变量 MUTIAGENT_PYTEST_APPEND_PYTHONPATH=1。"
+        )
+
+    if any(
+        "typer/" in (f or "").replace("\\", "/").lower() for f in (test_targets or [])
+    ) or ("typer" in (state.repo_path or "").lower()):
+        user_lines.append(
+            "\ntyper_testing_hint: 编写 Typer 测试时务必打开本仓库 ``tests/`` 中现有用例作为蓝本；"
+            "集成测试用 ``typer.testing.CliRunner``；不要调用 ``TyperArgument.full_process_value``、"
+            "不要 ``TyperGroup('name')`` 位置参、不要 ``callback.__self__``。"
+            "牢记：仅一个 ``@app.command`` 时 ``invoke`` 的 argv 不要包含命令名；多命令/子组才需要子命令段。"
+            "缺参场景勿把命令名误当第一个参数。异常断言用 ``pytest.raises`` 或 ``result.exception``，勿死盯 ``result.output``。"
+            "需原始异常类型时用 ``catch_exceptions=False``。lazy import 勿盲 patch ``typer.main.rich_utils`` 或 ``typer.cli.rich_utils``。"
+            "勿假定 ``TyperArgument.type`` 为裸 ``int``；勿编造 ``TyperCLIGroup`` 构造函数。"
         )
 
     user_blob = "\n".join(user_lines)
@@ -679,9 +997,12 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
     code = _sanitize_global_dependency_guards(code)
     code = _sanitize_import_failure_skips(code)
     code = _sanitize_private_symbol_imports(code)
+    code = sanitize_typer_private_imports(code)
     code = _sanitize_timeout_test_antipatterns(code)
     code = _sanitize_async_patch_context(code)
     code = _append_changed_api_assertion(code, state)
+    if _testgen_static_guard_enabled():
+        _log_generated_test_static_hints(code)
     _workflow_log.info(
         "TestGenAgent: 完成，总耗时 %sms，最终输出长度=%s",
         int((time.perf_counter() - tg_start) * 1000),

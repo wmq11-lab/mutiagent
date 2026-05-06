@@ -4,6 +4,7 @@ import os
 
 from mutiagent.graph.state import TestPlanItem, WorkflowState
 from mutiagent.utils.change_graph_builder import impact_candidate_graph_boost
+from mutiagent.utils.paths import production_changed_files
 
 
 def _truthy_env(name: str, default: bool = True) -> bool:
@@ -43,11 +44,12 @@ def test_prioritization_agent(state: WorkflowState) -> WorkflowState:
             score_by_target[it.id] = max(score_by_target.get(it.id, 0.0), float(it.score))
 
     graph = state.change_graph
+    prod_changed = set(production_changed_files(state.changed_files or []))
 
     def graph_tie_break(target: str) -> float:
         if graph is None:
             return 0.0
-        if target in state.changed_files:
+        if target in prod_changed:
             return impact_candidate_graph_boost("file", target, graph) * 0.15
         if target.startswith("seed:"):
             return impact_candidate_graph_boost("seed", target, graph) * 0.15

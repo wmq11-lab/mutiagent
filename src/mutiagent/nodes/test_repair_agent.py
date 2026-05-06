@@ -8,6 +8,7 @@ from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
 from mutiagent.utils.llm_output import strip_markdown_code_fence
 from mutiagent.utils.syntax_guard import exec_syntax_error
+from mutiagent.nodes.test_gen_agent import sanitize_typer_private_imports
 
 
 def _truthy_env(name: str, default: str = "1") -> bool:
@@ -60,8 +61,21 @@ def _llm_fix_syntax(code: str, err: str, state: WorkflowState, test_path: str) -
         "请修复语法错误并保持测试意图不变。不要借机把用例改成整批 pytest.skip 或含糊的“缺模块就跳过”。"
         "unittest.mock.patch / patch.object 的第一个参数（目标路径字符串）必须在一行内写完整："
         "开引号与闭引号、闭括号齐全，禁止在字符串未闭合时换行；过长路径可先赋给变量再 patch(变量)。"
-        "Ansible：若报 module ansible has no attribute galaxy，检查 patch 目标；"
-        "Display 类在 ansible.utils.display.Display；在 collection 内 mock 时 patch 该模块命名空间下的 Display 或 display，勿编造 ansible.galaxy.collection.display 子模块路径。"
+        "Typer/Click：必须用 ``typer.testing.CliRunner``；禁止 ``TyperArgument.full_process_value``、``TyperGroup('x')``、``callback.__self__``、"
+        "``click.testing.CliRunner``+裸 ``Typer``。"
+        "Typer 仅一个 ``@app.command`` 时 ``invoke(app, argv)`` 的 argv 不要含命令名；多命令/子组才需要子命令段；"
+        "缺参测试用 ``invoke(app, [])`` 勿误传命令名字符串。"
+        "空 ``Typer()`` 的 invoke 可能 ``RuntimeError: Could not get a command``，用 ``pytest.raises`` 或注册占位命令。"
+        "需断言回调里原始异常类型时：``runner.invoke(..., catch_exceptions=False)``，否则常为 ``SystemExit(2)``。"
+        "回调未捕获异常时不要只断言 ``result.output``，改用 ``pytest.raises`` 或 ``result.exception``。"
+        "``TyperArgument.type`` 多为 Click ``ParamType``，勿 ``arg.type is int``；``get_help_record``/``make_metavar`` 须传入 ``click.Context``。"
+        "lazy import 后勿 ``patch('typer.main.rich_utils')`` 或 ``patch('typer.cli.rich_utils')``（常为模块级无属性）；"
+        "优先 ``patch('typer.rich_utils', ...)``。"
+        "typer.cli 子命令须对照源码构造 argv；失败时 exit_code 可能是 2，勿只认 1。"
+        "勿臆造 typer.core._main 的多参数调用；优先 CliRunner。"
+        "patch ``TyperGroup.resolve_command`` 时须构造 Group 型 app（多命令或 callback/subtyper）。"
+        "禁止 ``resolve_command(ctx, [])``。勿臆造 ``TyperCLIGroup(\"name\", callback=...)``。"
+        "勿手写 ``from typer``/``typer.core``/``typer.main`` 导入下划线名或 ``import *``；请改为 ``import … as _m`` + ``getattr``（与卫生器一致）。"
         "只输出修复后的完整Python文件内容（不要markdown，不要解释）。"
     )
     user = (
@@ -119,6 +133,11 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
             if repaired != code:
                 state.generated_tests[idx].content = repaired
                 code = repaired
+        stripped = sanitize_typer_private_imports(code)
+        if stripped != code:
+            state.generated_tests[idx].content = stripped
+            code = stripped
+            file_patterns = list(file_patterns) + ["sanitize_typer_private_imports"]
         merged_semantic.extend(file_patterns)
 
         label = tf.path if tf.path.strip() else f"<generated_test_{idx}>"
@@ -137,9 +156,10 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
                 row["llm_attempted"] = True
                 any_attempted = True
                 if repair_ok and fixed_content is not None:
-                    state.generated_tests[idx].content = fixed_content
+                    cleaned = sanitize_typer_private_imports(fixed_content)
+                    state.generated_tests[idx].content = cleaned
                     row["fixed"] = True
-                    row["syntax_error"] = exec_syntax_error(fixed_content, filename=label)
+                    row["syntax_error"] = exec_syntax_error(cleaned, filename=label)
                     any_fixed = True
         per_file.append(row)
 

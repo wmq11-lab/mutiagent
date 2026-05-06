@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 import os
 import re
 import shutil
@@ -12,8 +13,14 @@ from pathlib import Path
 
 from mutiagent.utils.pip_infer import infer_enabled
 
+_log = logging.getLogger("mutiagent.workflow")
+
 _FP_REL = ".install_fingerprint"
 _VENV_SEG = Path(".mutiagent") / "mutiagent_pytest_venv"
+
+# AnyIO 4.12+ 在类型桩中使用 ``TypeVar(..., default=…)``（语法级），仅 Python 3.12+ 支持；
+# 在 3.11 上会因 pytest 加载 pytest11 入口而 import anyio → 启动即 TypeError。
+_ANYIO_PY311_SPEC = "anyio>=4.0,<4.12"
 
 # 参与指纹的文件：变更后触发重装
 _FINGERPRINT_FILES = (
@@ -74,6 +81,47 @@ def _env_truthy(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _venv_python_minor(py: Path, repo: Path) -> tuple[int, int] | None:
+    r = _run(
+        [str(py), "-c", "import sys; print(sys.version_info[0], sys.version_info[1])"],
+        cwd=repo,
+        timeout=30,
+    )
+    if r.returncode != 0:
+        return None
+    parts = (r.stdout or "").strip().split()
+    if len(parts) < 2:
+        return None
+    try:
+        return int(parts[0]), int(parts[1])
+    except ValueError:
+        return None
+
+
+def _maybe_pin_anyio_for_py311(py: Path, repo: Path, timeout: int) -> None:
+    """
+    AnyIO 4.12+ 在包内使用 ``TypeVar(..., default=…)``，CPython 3.11 的 ``typing.TypeVar`` 不支持该参数，
+    会在 pytest 加载 pytest11 插件并 import anyio 时立即崩溃。
+    """
+    ver = _venv_python_minor(py, repo)
+    if ver is None or ver >= (3, 12):
+        return
+    spec = os.environ.get("MUTIAGENT_VENV_ANYIO_SPEC", _ANYIO_PY311_SPEC).strip()
+    if not spec:
+        return
+    r = _run(
+        [str(py), "-m", "pip", "install", spec],
+        cwd=repo,
+        timeout=min(180, timeout),
+    )
+    if r.returncode != 0:
+        _log.warning(
+            "dataset_venv: 未能将 anyio 约束为 Python 3.11 兼容版本 (%s): %s",
+            spec,
+            (r.stderr or r.stdout or "")[:800],
+        )
+
+
 def _read_bugsinpy_python_version(repo: Path) -> str | None:
     info = repo / "bugsinpy_bug.info"
     if not info.is_file():
@@ -95,10 +143,13 @@ def _resolve_venv_seed_python(
     """
     选择用于创建 venv 的解释器：
     - 若存在 bugsinpy_bug.info 的 python_version，优先匹配该版本；
-    - 否则回退到当前进程解释器。
+    - 否则：若设置 MUTIAGENT_VENV_PYTHON 则用之；否则回退到当前进程解释器。
     """
     required = _read_bugsinpy_python_version(repo)
     if not required:
+        forced = os.environ.get("MUTIAGENT_VENV_PYTHON", "").strip()
+        if forced:
+            return forced, None
         return sys.executable, None
 
     parts = required.split(".")
@@ -236,6 +287,7 @@ def ensure_dataset_venv(
     if py.is_file() and fp_file.is_file():
         try:
             if fp_file.read_text(encoding="utf-8", errors="replace").strip() == fp:
+                _maybe_pin_anyio_for_py311(py, repo, timeout)
                 return str(py), "reuse venv (fingerprint match)"
         except OSError:
             pass
@@ -310,6 +362,8 @@ def ensure_dataset_venv(
         r = _run(pip + ["install", "-e", "."], cwd=repo, timeout=timeout)
         if r.returncode != 0:
             return None, f"pip install -e . 失败:\n{(r.stderr or r.stdout or '').strip()}"
+
+    _maybe_pin_anyio_for_py311(py, repo, timeout)
 
     try:
         fp_file.write_text(fp + "\n", encoding="utf-8")

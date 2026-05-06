@@ -33,6 +33,68 @@ def test_recall_frac_all_git_chunks_match_executed_lines(tmp_path: Path) -> None
     assert r["recall_frac"] == 1.0
 
 
+def test_skips_tests_dir_py_for_denominator(tmp_path: Path) -> None:
+    cov = tmp_path / "cov.json"
+    cov.write_text(
+        json.dumps(
+            {
+                "files": {
+                    "pkg/mod.py": {"executed_lines": [10]},
+                    "tests/t.py": {"executed_lines": [2]},
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    diff = (
+        "diff --git a/pkg/mod.py b/pkg/mod.py\n"
+        "--- a/pkg/mod.py\n+++ b/pkg/mod.py\n"
+        "@@ -8,4 +8,5 @@ def f():\n"
+        "     pass\n"
+        "+in prod\n"
+        "     return\n"
+        "diff --git a/tests/t.py b/tests/t.py\n"
+        "--- a/tests/t.py\n+++ b/tests/t.py\n"
+        "@@ -1,2 +1,3 @@\n"
+        " x\n"
+        "+only test file\n"
+    )
+    r = change_line_coverage_from_diff_and_cov_paths(diff, cov)
+    assert r["change_plus_lines"] == 1
+    assert r["covered_plus_lines"] == 1
+    assert r["recall_frac"] == 1.0
+
+
+def test_non_py_chunks_skipped_in_change_coverage(tmp_path: Path) -> None:
+    cov = tmp_path / "cov.json"
+    cov.write_text(
+        json.dumps(
+            {
+                "files": {
+                    "pkg/mod.py": {"executed_lines": [2]},
+                    "README.md": {"executed_lines": [1]},
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    diff = (
+        "diff --git a/pkg/mod.py b/pkg/mod.py\n"
+        "--- a/pkg/mod.py\n+++ b/pkg/mod.py\n"
+        "@@ -1,2 +1,3 @@\n"
+        " a\n"
+        "+b\n"
+        "diff --git a/README.md b/README.md\n"
+        "--- a/README.md\n+++ b/README.md\n"
+        "@@ -1 +1 @@\n"
+        "-x\n"
+        "+y\n"
+    )
+    r = change_line_coverage_from_diff_and_cov_paths(diff, cov)
+    assert r["change_plus_lines"] == 1
+    assert r["covered_plus_lines"] == 1
+
+
 def test_executed_misses_plus_lines(tmp_path: Path) -> None:
     cov = tmp_path / "cov.json"
     cov.write_text(

@@ -27,11 +27,57 @@ def test_parse_pytest_output_full_summary() -> None:
     assert d["pass_rate"] == 25.0
 
 
+def test_parse_pytest_output_failed_only_loose() -> None:
+    d = parse_pytest_output("some noise\n=========== 27 failed in 4.04s ============\n")
+    assert d["failed"] == 27
+    assert d["passed"] == 0
+    assert d["total_tests"] == 27
+    assert d["execution_success"] is False
+
+
 def test_parse_pytest_output_all_passed() -> None:
     d = parse_pytest_output("8 passed in 0.1s")
     assert d["passed"] == 8
     assert d["total_tests"] == 8
     assert d["execution_success"] is True
+
+
+def test_build_experiment_run_record_junit_fallback(tmp_path: Path) -> None:
+    from mutiagent.evaluation.experiment_run_log import build_experiment_run_record
+    from mutiagent.graph.state import WorkflowState
+
+    state = WorkflowState(repo_path=str(tmp_path), diff="", run_eval=True)
+    rec = build_experiment_run_record(
+        state,
+        tmp_path,
+        combined_pytest_text="(no pytest summary keywords)",
+        coverage_data=None,
+        junit_summary={"tests": "31", "failures": "20", "errors": "1", "skipped": "2"},
+    )
+    assert rec["total_tests"] == 31
+    assert rec["failed"] == 20
+    assert rec["errors"] == 1
+    assert rec["skipped"] == 2
+    assert rec["passed"] == 8
+    assert rec["execution_success"] is False
+
+
+def test_build_experiment_run_record_keeps_parse_when_nonzero(tmp_path: Path) -> None:
+    from mutiagent.evaluation.experiment_run_log import build_experiment_run_record
+    from mutiagent.graph.state import WorkflowState
+
+    state = WorkflowState(repo_path=str(tmp_path), diff="", run_eval=True)
+    text = "=== 2 passed, 1 failed in 0.1s ===\n"
+    rec = build_experiment_run_record(
+        state,
+        tmp_path,
+        combined_pytest_text=text,
+        coverage_data=None,
+        junit_summary={"tests": "99", "failures": "99", "errors": "0", "skipped": "0"},
+    )
+    assert rec["total_tests"] == 3
+    assert rec["passed"] == 2
+    assert rec["failed"] == 1
 
 
 def test_parse_coverage_json_aggregates_from_files(tmp_path: Path) -> None:

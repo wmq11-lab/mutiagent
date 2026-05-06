@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from mutiagent.graph.state import WorkflowState
+from mutiagent.utils.paths import production_changed_files
 
 _log = logging.getLogger("mutiagent.workflow")
 
@@ -70,7 +71,7 @@ def _tokenize(text: str) -> list[str]:
 
 def _query_terms(state: WorkflowState) -> list[str]:
     raw_terms: list[str] = []
-    for rel in state.changed_files or []:
+    for rel in production_changed_files(state.changed_files or []):
         raw_terms.extend(_tokenize(rel.replace("\\", "/")))
         raw_terms.extend(_tokenize(Path(rel).stem))
 
@@ -246,7 +247,11 @@ def retrieval_agent(state: WorkflowState) -> WorkflowState:
 
     _log.info("RetrievalAgent: 阶段 2/3 - 扫描候选文件并执行词法检索")
     repo_root = Path(state.repo_path or "")
-    candidates = _candidate_paths(repo_root, state.changed_files or []) if repo_root.exists() else []
+    candidates = (
+        _candidate_paths(repo_root, production_changed_files(state.changed_files or []))
+        if repo_root.exists()
+        else []
+    )
     items = _build_items(repo_root, candidates, terms) if repo_root.exists() else []
 
     _log.info("RetrievalAgent: 阶段 3/3 - 回填检索上下文（items=%s）", len(items))

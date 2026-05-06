@@ -18,12 +18,15 @@ from mutiagent.graph.state import (
     ImpactGraphSymbol,
     ImpactTestFocusDerived,
     ImpactTestPlanEntry,
+    ImpactedItem,
     SemanticUnit,
     SemanticUnitType,
     TestPriorityTier,
     TopRiskEntry,
     WorkflowState,
 )
+
+from mutiagent.utils.paths import is_under_project_tests_tree, production_changed_files
 
 logger = logging.getLogger(__name__)
 
@@ -591,7 +594,7 @@ def _edge_types_for_unit(ut: SemanticUnitType, sources: list[str]) -> list[str]:
 def _finalize_catalog_units(state: WorkflowState, acc_map: dict[str, _UnitAcc]) -> list[SemanticUnit]:
     """V4：priority_score 公式 + 映射 0.2~0.9；upstream 反推；edge_types。"""
     seed_idx = _seed_occurrence_index(state)
-    changed_set = set(state.changed_files)
+    changed_set = set(production_changed_files(state.changed_files))
 
     prelim: dict[str, dict[str, float | list[str] | bool | str]] = {}
 
@@ -829,6 +832,8 @@ def build_impact_graph(state: WorkflowState) -> tuple[list[ImpactGraphFile], lis
     for fs in state.change_analysis:
         if not fs.changes:
             continue
+        if is_under_project_tests_tree(fs.file):
+            continue
         for ch in fs.changes:
             sym_id = f"{fs.file}:{ch.type}:{ch.entity}"
             for ut, src1 in _atomic_rows_for_change(ch):
@@ -841,6 +846,8 @@ def build_impact_graph(state: WorkflowState) -> tuple[list[ImpactGraphFile], lis
     graph: list[ImpactGraphFile] = []
     for fs in state.change_analysis:
         if not fs.changes:
+            continue
+        if is_under_project_tests_tree(fs.file):
             continue
         # 同一文件下多条 ChangeRecord 可能指向同一 symbol_id（例如同一 method 多处 hunk），
         # 合并语义单元并只保留一个符号节点，避免前端 vis.DataSet 因重复 id 报错。
@@ -877,7 +884,7 @@ def _fallback_semantic_units_from_diff(state: WorkflowState) -> tuple[list[Impac
     """当上游没有抽出变更实体时，基于 diff_hunks 生成最小可用影响图。"""
     graph: list[ImpactGraphFile] = []
     catalog: list[SemanticUnit] = []
-    for file_path in state.changed_files or []:
+    for file_path in production_changed_files(state.changed_files or []):
         hunks = state.diff_hunks.get(file_path, []) if isinstance(state.diff_hunks, dict) else []
         if not hunks:
             continue
@@ -942,7 +949,7 @@ def _impact_debug_stats_v3(graph: list[ImpactGraphFile], catalog: list[SemanticU
 def analyze_impact(state: WorkflowState) -> WorkflowState:
     """
     Impact V4：原子语义单元、priority_score 梯度、upstream/edge_types、impact_test_plan、top_risks。
-    平铺 impacted / impacted_ranked 仍清空。
+    ``impacted_ranked`` 由语义单元目录按 priority 填充，供 Retrieval 等下游使用；``impacted`` 仍保留为空列表。
     """
     started = time.perf_counter()
     graph, catalog = build_impact_graph(state)
@@ -956,13 +963,25 @@ def analyze_impact(state: WorkflowState) -> WorkflowState:
     state.semantic_units_catalog = catalog
     state.impact_test_plan = _build_impact_test_plan(graph, uid_to_unit)
     state.top_risks = _build_top_risks(catalog)
-    state.impacted = []
-    state.impacted_ranked = []
 
     stats = _impact_debug_stats_v3(graph, catalog)
     elapsed = round(time.perf_counter() - started, 3)
     top_n = int(os.getenv("MUTIAGENT_IMPACT_TOP_N", "15") or 15)
-    top_ids = [u.semantic_unit_id for u in catalog[: max(1, top_n)]]
+    sorted_units = sorted(catalog, key=lambda u: float(u.priority_score), reverse=True)
+    slice_units = sorted_units[: max(1, top_n)]
+    state.impacted_ranked = [
+        ImpactedItem(
+            kind="focus",
+            id=u.semantic_unit_id,
+            score=float(u.priority_score),
+            reason=f"{u.type} {u.source}"[:500],
+            impact_type=[str(u.type)],
+        )
+        for u in slice_units
+    ]
+    state.impacted = []
+
+    top_ids = [u.semantic_unit_id for u in slice_units]
 
     _impact_debug_log(
         f"impact_v4 files={stats['file_count']} symbols={stats['symbol_count']} "
@@ -972,8 +991,8 @@ def analyze_impact(state: WorkflowState) -> WorkflowState:
     refine = os.getenv("MUTIAGENT_IMPACT_LLM_REFINE", "").strip().lower() in {"1", "true", "yes", "on"}
     state.debug["impact"] = {
         "mode": "impact_graph_v4",
-        "candidate_count": 0,
-        "ranked_count": 0,
+        "candidate_count": len(catalog),
+        "ranked_count": len(state.impacted_ranked),
         "used_llm": False,
         "change_graph_used": state.change_graph is not None,
         "propagation_hops_max": int(os.getenv("MUTIAGENT_IMPACT_MAX_PROPAGATION_HOPS", "3") or 3),

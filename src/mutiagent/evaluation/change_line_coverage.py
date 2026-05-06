@@ -12,6 +12,14 @@ def _norm_rel(p: str) -> str:
     return (p or "").strip().replace("\\", "/")
 
 
+def _is_change_coverage_counted_py(b_path: str) -> bool:
+    """变更覆盖率只统计 ``.py`` 且路径中不含名为 ``tests`` 的目录段（如 ``tests/``、``pkg/tests/``）。"""
+    n = _norm_rel(b_path)
+    if not n.endswith(".py"):
+        return False
+    return not any(p.casefold() == "tests" for p in n.split("/") if p)
+
+
 def _iter_git_chunks(diff_text: str) -> list[tuple[str, str]]:
     """返回 (normalized b_path, chunk_text) 列表。"""
     if not (diff_text or "").strip():
@@ -86,6 +94,7 @@ def change_line_coverage_from_diff_and_cov_paths(
 ) -> dict[str, Any]:
     """
     在 unified diff 中聚合 ``preferred_rels`` 所指文件（或未指定则处理所有 chunk）的变更 + 行与 coverage.json 对齐。
+    仅统计 ``.py`` 且路径中不包含 ``tests`` 目录段的文件（不把 ``tests/`` 下测试文件的 + 行计入分母/分子）。
 
     返回::
         recall_frac: 0~1（covered_plus / change_plus），无变更 + 行则为 None
@@ -121,6 +130,8 @@ def change_line_coverage_from_diff_and_cov_paths(
     used_files: list[str] = []
     for b_path, chunk in chunks:
         if not use_chunk(b_path):
+            continue
+        if not _is_change_coverage_counted_py(b_path):
             continue
         nums = _plus_line_numbers_from_chunk(chunk)
         if not nums:

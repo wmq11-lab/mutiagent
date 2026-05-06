@@ -8,6 +8,7 @@ from mutiagent.evaluation.change_line_coverage import change_line_coverage_from_
 from mutiagent.evaluation.coverage_json import parse_coverage_json
 from mutiagent.evaluation.metrics import compute_all_metrics
 from mutiagent.graph.state import EvalSummary, PytestCaseResult, WorkflowState
+from mutiagent.utils.paths import production_changed_files
 
 _log = logging.getLogger("mutiagent.workflow")
 
@@ -143,7 +144,7 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
             cov_cl = change_line_coverage_from_diff_and_cov_paths(
                 state.diff or "",
                 cov_json,
-                preferred_rels=state.changed_files if state.changed_files else None,
+                preferred_rels=(production_changed_files(state.changed_files) if state.changed_files else None),
             )
             recall_line = cov_cl.get("recall_frac")
 

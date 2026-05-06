@@ -114,7 +114,8 @@ def test_analyze_impact_builds_layered_impact_graph() -> None:
     )
     out = analyze_impact(state)
     assert out.impacted == []
-    assert out.impacted_ranked == []
+    assert out.impacted_ranked
+    assert len(out.impacted_ranked) == out.debug["impact"]["ranked_count"]
     assert out.impact_graph
     assert out.impact_graph[0].file == "src/App.jsx"
     sym = out.impact_graph[0].symbols[0]

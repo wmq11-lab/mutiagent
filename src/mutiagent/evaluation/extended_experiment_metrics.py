@@ -1,12 +1,16 @@
 """
 实验扩展指标：变更行 / 新增函数 / 跨模块用例 / 压缩率 / Bug detection / 执行时间缩减等。
 
+跨模块用例数：在每个 ``test_*`` 中统计 **import** 与 **函数调用**（``ast.Call``）所解析到的、
+落在变更文件集合中的模块路径数是否不少于 2（调用会按属性链与 import 别名还原到可能的包路径）。
+
 环境变量（可选）::
   CHANGED_FILES                 逗号分隔相对路径，缺省使 WorkflowState.changed_files
   CHANGED_FUNCS                 ``name`` 或 ``path/to.py:name``
-  FAILING_TESTS                 逗号分隔失败 nodeid（与 selected_tests 做集合交）
+  FAILING_TESTS                 逗号分隔失败 nodeid（与 selected_tests 做集合交）；未设时若有 junit 失败用例则自动以其为基准
   MUTIAGENT_FULL_SUITE_PYTEST_ARGS      测全量耗时时的附加 pytest 参数（shlex 分词）
   MUTIAGENT_MEASURE_FULL_SUITE_TIME      若为 1/true：无缓存时对数据集跑完整 pytest 并写入缓存（可能很慢）
+  MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE 若为 1：无全量耗时时用 selected_wall×(project_collected/generated) 粗估 full 墙钟（仅产出比例用）
 """
 
 from __future__ import annotations
@@ -27,6 +31,7 @@ from mutiagent.evaluation.change_line_coverage import (
     _lookup_fd,
 )
 from mutiagent.graph.state import WorkflowState
+from mutiagent.utils.paths import is_under_project_tests_tree, production_changed_files
 
 
 def _env_csv(name: str) -> list[str]:
@@ -48,6 +53,82 @@ def _safe_div(n: float, d: float) -> float | None:
     if d <= 0:
         return None
     return n / d
+
+
+def _truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _junit_failed_case_ids(rows: list[dict[str, str]] | None) -> list[str]:
+    """与 ExecutionAgent._metrics_junit_case_id 一致，便于与 selected_tests 求交。"""
+    if not rows:
+        return []
+    fail_st = {"failed", "error"}
+    seen: set[str] = set()
+    out: list[str] = []
+    for row in rows:
+        if str(row.get("status", "")).lower() not in fail_st:
+            continue
+        cls = (row.get("classname") or "").strip()
+        name = (row.get("name") or "").strip()
+        cid = f"{cls}::{name}" if cls and name else (name or cls)
+        if cid and cid not in seen:
+            seen.add(cid)
+            out.append(cid)
+    return out
+
+
+def _specs_from_change_analysis_added_funcs(state: WorkflowState) -> list[tuple[str, str]]:
+    """change_analysis 中 ADD 的 function/method，补「diff 无 +def」类变更的新增函数覆盖口径。"""
+    specs: list[tuple[str, str]] = []
+    changed = set(production_changed_files(state.changed_files or []))
+    for fc in state.change_analysis or []:
+        fn = _norm_rel(getattr(fc, "file", "") or "")
+        if fn not in changed:
+            continue
+        if is_under_project_tests_tree(fn):
+            continue
+        for ch in getattr(fc, "changes", []) or []:
+            if str(getattr(ch, "change_type", "") or "").upper() != "ADD":
+                continue
+            if str(getattr(ch, "type", "") or "") not in {"function", "method"}:
+                continue
+            ent = str(getattr(ch, "entity", "") or "").strip()
+            if ent:
+                specs.append((fn, ent))
+    return specs
+
+
+def _cross_module_loose_substring_count(state: WorkflowState, changed: set[str]) -> int:
+    """AST Strict 未命中时：同一 test_* 源码子串同时出现≥2 个变更模块的 ``a.b.c`` 或 ``path/to.py``。"""
+    rels = sorted({_norm_rel(p) for p in changed if str(p).strip()}, key=len, reverse=True)
+    rels_py = [r for r in rels if r.endswith(".py")]
+    if len(rels_py) < 2:
+        return 0
+    n = 0
+    for gt in state.generated_tests or []:
+        raw = gt.content or ""
+        try:
+            tree = ast.parse(raw)
+        except SyntaxError:
+            continue
+        lines = raw.splitlines()
+        for node in tree.body:
+            if not isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
+                continue
+            if not node.name.startswith("test_"):
+                continue
+            lo = max(0, node.lineno - 1)
+            hi = getattr(node, "end_lineno", node.lineno) or node.lineno
+            chunk = "\n".join(lines[lo:hi])
+            touched: set[str] = set()
+            for rel in rels_py:
+                dotted = rel[:-3].replace("/", ".")
+                if dotted in chunk or rel in chunk or _norm_rel(rel) in chunk:
+                    touched.add(rel)
+            if len(touched) >= 2:
+                n += 1
+    return n
 
 
 def _load_cov_files_map(cov_path: Path) -> dict[str, Any]:
@@ -137,20 +218,30 @@ def compute_added_function_coverage_pct(
             else:
                 rels_py = [_norm_rel(r) for r in sorted(by_file_defs.keys())] if by_file_defs else []
                 if not rels_py:
-                    rels_py = [_norm_rel(r) for r in sorted(state.changed_files or []) if str(r).endswith(".py")]
+                    rels_py = [
+                        _norm_rel(r)
+                        for r in sorted(production_changed_files(state.changed_files or []))
+                        if str(r).endswith(".py")
+                    ]
                 for rel in rels_py:
                     specs.append((rel, tok))
     else:
         for rel, nms in by_file_defs.items():
+            if is_under_project_tests_tree(rel):
+                continue
             for nm in nms:
                 specs.append((rel, nm))
+
+    if not specs:
+        for rel, nm in _specs_from_change_analysis_added_funcs(state):
+            specs.append((rel, nm))
 
     if not specs:
         return {
             "added_function_coverage_pct": None,
             "added_function_total": 0,
             "added_function_covered": 0,
-            "note": "无 CHANGED_FUNCS 且 diff 中无 +def 可解析",
+            "note": "无 CHANGED_FUNCS、diff 中无 +def、change_analysis 无 ADD 的 function/method",
         }
 
     seen: set[tuple[str, str]] = set()
@@ -187,6 +278,41 @@ def compute_added_function_coverage_pct(
     }
 
 
+def _unpack_attribute_chain(expr: ast.expr) -> tuple[str | None, list[str]]:
+    """解析 ``a.b.c`` 调用目标为 (``a``, [``b``, ``c``])。"""
+    attrs: list[str] = []
+    cur: ast.expr = expr
+    while isinstance(cur, ast.Attribute):
+        attrs.append(cur.attr)
+        cur = cur.value
+    if isinstance(cur, ast.Name):
+        return cur.id, list(reversed(attrs))
+    return None, []
+
+
+def _top_level_import_local_to_dotted(imports: list[ast.Import | ast.ImportFrom]) -> dict[str, str]:
+    """模块内本地名 -> 用于路径解析的 dotted 前缀（与 ``dotted_to_rel`` 一致）。"""
+    out: dict[str, str] = {}
+    for im in imports:
+        if isinstance(im, ast.Import):
+            for alias in im.names:
+                parts = alias.name.split(".")
+                if not parts:
+                    continue
+                local = alias.asname or parts[0]
+                out[local] = parts[0]
+        elif isinstance(im, ast.ImportFrom) and im.module:
+            if im.level and im.level > 0:
+                continue
+            base = im.module
+            for alias in im.names:
+                if alias.name == "*":
+                    continue
+                local = alias.asname or alias.name
+                out[local] = f"{base}.{alias.name}"
+    return out
+
+
 def compute_cross_module_test_cases(
     state: WorkflowState,
     dataset_repo: Path,
@@ -213,10 +339,53 @@ def compute_cross_module_test_cases(
                 r = dotted_to_rel(alias.name)
                 if r and r in changed:
                     touched.add(r)
+                parts = alias.name.split(".")
+                if parts:
+                    r2 = dotted_to_rel(parts[0])
+                    if r2 and r2 in changed:
+                        touched.add(r2)
         elif isinstance(sub, ast.ImportFrom) and sub.module:
-            r = dotted_to_rel(sub.module)
-            if r and r in changed:
-                touched.add(r)
+            if not (getattr(sub, "level", 0) or 0):
+                r = dotted_to_rel(sub.module)
+                if r and r in changed:
+                    touched.add(r)
+                for alias in sub.names:
+                    if alias.name == "*":
+                        continue
+                    subpath = f"{sub.module}.{alias.name}"
+                    r3 = dotted_to_rel(subpath)
+                    if r3 and r3 in changed:
+                        touched.add(r3)
+
+    def register_dotted_prefixes(touched: set[str], dotted: str) -> None:
+        parts = [p for p in dotted.split(".") if p]
+        for i in range(len(parts), 0, -1):
+            prefix = ".".join(parts[:i])
+            rel_h = dotted_to_rel(prefix)
+            if rel_h and rel_h in changed:
+                touched.add(rel_h)
+
+    def register_call(
+        touched: set[str],
+        func: ast.expr,
+        local_to_dotted: dict[str, str],
+    ) -> None:
+        if isinstance(func, ast.Name):
+            d = local_to_dotted.get(func.id)
+            if d:
+                register_dotted_prefixes(touched, d)
+            register_dotted_prefixes(touched, func.id)
+        elif isinstance(func, ast.Attribute):
+            base, rest = _unpack_attribute_chain(func)
+            if base is None:
+                return
+            root = local_to_dotted.get(base, base)
+            for j in range(len(rest) + 1):
+                if j == 0:
+                    cand = root
+                else:
+                    cand = f"{root}.{'.'.join(rest[:j])}"
+                register_dotted_prefixes(touched, cand)
 
     count = 0
     notes: list[str] = []
@@ -234,6 +403,8 @@ def compute_cross_module_test_cases(
             if isinstance(bn, ast.Import | ast.ImportFrom):
                 module_aliases.append(bn)
 
+        local_to_dotted = _top_level_import_local_to_dotted(module_aliases)
+
         for node in tree.body:
             if not isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
                 continue
@@ -244,8 +415,16 @@ def compute_cross_module_test_cases(
                 register_import_aliases(touched, im)
             for sub in ast.walk(node):
                 register_import_aliases(touched, sub)
+                if isinstance(sub, ast.Call):
+                    register_call(touched, sub.func, local_to_dotted)
             if len(touched) >= 2:
                 count += 1
+
+    if count == 0 and len(changed) >= 2:
+        loose = _cross_module_loose_substring_count(state, changed)
+        if loose > 0:
+            count = loose
+            notes.append("跨模块：宽松子串模式（同一 test_* 含≥2 个变更 .py 路径或对应 import 点号路径）")
 
     out: dict[str, Any] = {"cross_module_test_case_count": count}
     if notes:
@@ -357,9 +536,11 @@ def compute_extended_experiment_metrics(
     combined_pytest_output: str,
     selected_tests: list[str] | None,
     junit_summary: dict[str, str],
+    junit_cases: list[dict[str, str]] | None = None,
     python_exe: str,
     mutiagent_repo_root: Path,
     generated_test_function_count: int,
+    full_suite_wall_seconds: float | None = None,
 ) -> dict[str, Any]:
     notes: list[str] = []
     covp: Path | None = None
@@ -373,7 +554,7 @@ def compute_extended_experiment_metrics(
         changed_lines_block = change_line_coverage_from_diff_and_cov_paths(
             state.diff or "",
             covp,
-            preferred_rels=state.changed_files if state.changed_files else None,
+            preferred_rels=(production_changed_files(state.changed_files) if state.changed_files else None),
         )
     frac = changed_lines_block.get("recall_frac")
     tp = int(changed_lines_block.get("change_plus_lines") or 0)
@@ -385,12 +566,19 @@ def compute_extended_experiment_metrics(
         missed = tp - hit
 
     fn_cov = compute_added_function_coverage_pct(state, dataset_repo, covp)
+    if fn_cov.get("note"):
+        notes.append(str(fn_cov["note"]))
 
-    changed_for_cross = list(state.changed_files or [])
+    changed_for_cross = list(production_changed_files(state.changed_files or []))
     ef = _env_csv("CHANGED_FILES")
     if ef:
         changed_for_cross = [_norm_rel(x) for x in ef]
     cross = compute_cross_module_test_cases(state, dataset_repo, changed_for_cross)
+    if cross.get("note"):
+        notes.append(str(cross["note"]))
+    for x in cross.get("notes") or []:
+        if x:
+            notes.append(str(x))
 
     collected, cerr = _pytest_collect_test_count(dataset_repo, python_exe)
     if collected is None and cerr:
@@ -400,15 +588,22 @@ def compute_extended_experiment_metrics(
         compression = round((1.0 - generated_test_function_count / float(collected)) * 100.0, 3)
 
     failing_env = _env_csv("FAILING_TESTS")
+    bdr_src = "FAILING_TESTS"
+    if not failing_env:
+        failing_env = _junit_failed_case_ids(junit_cases)
+        if failing_env:
+            bdr_src = "junit_failures"
+
     bdr_pct: float | None = None
     bdr_note: str | None = None
     if not failing_env:
-        bdr_note = "N/A: FAILING_TESTS 未设置"
+        bdr_note = "N/A: 未设置 FAILING_TESTS 且 junit 无失败用例"
     else:
         sel_set = {_norm_casefold_id(x) for x in (selected_tests or []) if str(x).strip()}
         inter = sum(1 for fe in failing_env if _norm_casefold_id(fe) in sel_set)
         r = _safe_div(100.0 * float(inter), float(len(failing_env)))
         bdr_pct = None if r is None else round(r, 3)
+        bdr_note = f"失败用例命中 selected_tests: {inter}/{len(failing_env)}（来源: {bdr_src}）"
 
     selected_sec = _parse_pytest_duration_seconds(combined_pytest_output)
     if selected_sec is None and junit_summary.get("time"):
@@ -416,13 +611,34 @@ def compute_extended_experiment_metrics(
         if parts:
             selected_sec = sum(float(x) for x in parts)
 
-    full_sec = measure_full_suite_wall_seconds(dataset_repo, python_exe, mutiagent_repo_root)
-    time_red = None
+    full_sec: float | None = None
+    if full_suite_wall_seconds is not None and float(full_suite_wall_seconds) > 0:
+        full_sec = float(full_suite_wall_seconds)
+    if full_sec is None:
+        full_sec = measure_full_suite_wall_seconds(dataset_repo, python_exe, mutiagent_repo_root)
+
+    time_red: float | None = None
     if selected_sec is not None and full_sec is not None and full_sec > 0:
         time_red = round((1.0 - selected_sec / full_sec) * 100.0, 3)
+    elif (
+        _truthy_env("MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE")
+        and selected_sec is not None
+        and selected_sec > 0
+        and collected is not None
+        and collected > 0
+        and generated_test_function_count > 0
+        and collected >= generated_test_function_count
+    ):
+        full_sec = float(selected_sec) * (float(collected) / float(generated_test_function_count))
+        time_red = round((1.0 - selected_sec / full_sec) * 100.0, 3)
+        notes.append(
+            "exec_time_reduction: 全量墙钟由 selected×(project_collected/generated) 粗估 "
+            f"（full≈{round(full_sec, 2)}s）；实测请设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1"
+        )
     elif full_sec is None and _read_cached_full_seconds(dataset_repo, mutiagent_repo_root) is None:
         notes.append(
-            "exec_time_reduction: 无全量耗时缓存；设置 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1 可首次测量并缓存"
+            "exec_time_reduction: 无全量耗时缓存；可设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1 实测并缓存，"
+            "或 MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE=1 启用粗估"
         )
 
     return {
