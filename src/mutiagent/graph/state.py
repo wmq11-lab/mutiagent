@@ -156,6 +156,20 @@ class GenerateTestsRequest(BaseModel):
             "python_version）但本机缺失时，尝试用 pyenv 自动安装后再创建 venv。"
         ),
     )
+    retrieval_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 RetrievalAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_RETRIEVAL（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    bug_pattern_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 BugPatternAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_BUG_PATTERN（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
     impact_analysis_enabled: Optional[bool] = Field(
         default=None,
         description=(

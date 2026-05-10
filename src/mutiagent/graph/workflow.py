@@ -161,13 +161,12 @@ def _workflow_result_dict(out: WorkflowState) -> dict[str, Any]:
     }
 
 
-def _execute_workflow(
+def _iter_workflow_step_progress(
     state: WorkflowState,
-    progress_sink: Callable[[dict[str, Any]], None] | None,
     *,
     progress_log: bool = True,
-) -> WorkflowState:
-    """stream 执行 LangGraph，可选将进度写入 sink（dict 含 type/node/current/total/label）。"""
+):
+    """执行 LangGraph，每完成一个节点 ``yield`` 一条 progress dict；正常结束时 ``return`` 最终 ``WorkflowState``。"""
     g = _compiled_graph()
     total = len(WORKFLOW_NODE_ORDER)
     last_values: dict[str, Any] | WorkflowState | None = None
@@ -228,16 +227,18 @@ def _execute_workflow(
                         next_node = WORKFLOW_NODE_ORDER[done_updates]
                         next_label = WORKFLOW_NODE_LABELS.get(next_node, next_node)
                         _log.info("步骤 %s/%s 开始: %s — %s", done_updates + 1, total, next_node, next_label)
-                if progress_sink is not None:
-                    progress_sink(
-                        {
-                            "type": "progress",
-                            "node": node,
-                            "current": done_updates,
-                            "total": total,
-                            "label": label,
-                        }
-                    )
+                next_label_out = ""
+                if done_updates < total:
+                    nn = WORKFLOW_NODE_ORDER[done_updates]
+                    next_label_out = WORKFLOW_NODE_LABELS.get(nn, nn)
+                yield {
+                    "type": "progress",
+                    "node": node,
+                    "current": done_updates,
+                    "total": total,
+                    "label": label,
+                    "next_label": next_label_out,
+                }
             elif mode == "values":
                 last_values = payload
     except Exception as exc:
@@ -270,6 +271,23 @@ def _execute_workflow(
     return validated
 
 
+def _execute_workflow(
+    state: WorkflowState,
+    progress_sink: Callable[[dict[str, Any]], None] | None,
+    *,
+    progress_log: bool = True,
+) -> WorkflowState:
+    """stream 执行 LangGraph，可选将进度写入 sink（dict 含 type/node/current/total/label）。"""
+    gen = _iter_workflow_step_progress(state, progress_log=progress_log)
+    while True:
+        try:
+            ev = next(gen)
+        except StopIteration as ex:
+            return ex.value
+        if progress_sink is not None:
+            progress_sink(ev)
+
+
 def run_workflow(
     repo_path: str,
     diff: str,
@@ -277,6 +295,8 @@ def run_workflow(
     *,
     auto_venv: bool = True,
     auto_install_python: bool = False,
+    retrieval_enabled: Optional[bool] = None,
+    bug_pattern_enabled: Optional[bool] = None,
     impact_analysis_enabled: Optional[bool] = None,
     progress_callback: Callable[[str, int, int, str], None] | None = None,
 ) -> dict[str, Any]:
@@ -286,6 +306,8 @@ def run_workflow(
         run_eval=run_eval,
         auto_venv=auto_venv,
         auto_install_python=auto_install_python,
+        retrieval_enabled=retrieval_enabled,
+        bug_pattern_enabled=bug_pattern_enabled,
         impact_analysis_enabled=impact_analysis_enabled,
     )
 
@@ -304,6 +326,8 @@ def iter_workflow_events(
     *,
     auto_venv: bool = True,
     auto_install_python: bool = False,
+    retrieval_enabled: Optional[bool] = None,
+    bug_pattern_enabled: Optional[bool] = None,
     impact_analysis_enabled: Optional[bool] = None,
 ) -> Iterator[dict[str, Any]]:
     """
@@ -315,17 +339,28 @@ def iter_workflow_events(
         run_eval=run_eval,
         auto_venv=auto_venv,
         auto_install_python=auto_install_python,
+        retrieval_enabled=retrieval_enabled,
+        bug_pattern_enabled=bug_pattern_enabled,
         impact_analysis_enabled=impact_analysis_enabled,
     )
-    buf: list[dict[str, Any]] = []
-
     try:
-        out = _execute_workflow(state, buf.append)
+        gen = _iter_workflow_step_progress(state, progress_log=True)
+        out: WorkflowState | None = None
+        while True:
+            try:
+                ev = next(gen)
+            except StopIteration as ex:
+                out = ex.value
+                break
+            yield ev
     except Exception as exc:
         _log.exception("工作流失败: %s", exc)
         yield {"type": "error", "message": str(exc)}
         return
 
-    for ev in buf:
-        yield ev
+    if out is None:
+        _log.error("工作流迭代未返回终止状态（内部错误）")
+        yield {"type": "error", "message": "工作流未返回有效状态"}
+        return
+
     yield {"type": "complete", "result": _workflow_result_dict(out)}

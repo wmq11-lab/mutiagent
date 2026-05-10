@@ -18,6 +18,23 @@
   /** 与 SS_LAST 分离：仅含 evaluation 中「报告分析」所需字段，避免整包过大未写入 sessionStorage 时无表数据 */
   const SS_EVAL_LITE = "mutiagent_eval_lite";
 
+  /** 与后端 WORKFLOW_NODE_ORDER / WORKFLOW_NODE_LABELS 对齐（占位与首屏提示）；步骤数以服务端 stream 字段为准 */
+  const WORKFLOW_PIPELINE_LABELS = [
+    "代码变更解析",
+    "项目探测 / 环境准备",
+    "影响分析",
+    "缺陷模式",
+    "测试规划",
+    "用例优先级",
+    "上下文检索",
+    "生成测试代码",
+    "测试修复",
+    "执行 pytest",
+    "结果评估",
+    "反馈汇总",
+  ];
+  const WORKFLOW_PIPELINE_TOTAL = WORKFLOW_PIPELINE_LABELS.length;
+
   let lastResult = null;
   let lastSnapshot = null;
   let chartTrend = null;
@@ -538,21 +555,50 @@
     const wrap = $("#workflow_progress_wrap");
     const fill = $("#workflow_progress_fill");
     const lab = $("#workflow_progress_label");
+    const hintEl = $("#workflow_progress_hint");
     const bar = wrap && wrap.querySelector(".workflow-progress-bar");
     if (!wrap || !fill || !lab) return;
     if (!show) {
       wrap.classList.add("hidden");
+      if (hintEl) hintEl.textContent = "";
       if (bar) bar.removeAttribute("aria-valuenow");
       return;
     }
     wrap.classList.remove("hidden");
-    const total = ev && ev.total > 0 ? ev.total : 1;
-    const cur = ev && ev.current != null ? ev.current : 0;
+    const total =
+      ev && typeof ev.total === "number" && ev.total > 0 ? ev.total : WORKFLOW_PIPELINE_TOTAL;
+    let cur = ev && ev.current != null ? Number(ev.current) : 0;
+    if (cur < 0) cur = 0;
+    if (cur > total) cur = total;
     const pct = Math.min(100, Math.round((cur / total) * 100));
     fill.style.width = pct + "%";
-    const label = ev && ev.label ? ev.label : "处理中";
-    lab.textContent = label + "（" + cur + "/" + total + "）";
-    if (bar) bar.setAttribute("aria-valuenow", String(pct));
+    const completedLabel = ev && ev.label != null ? String(ev.label).trim() : "";
+    let mainText = "";
+    let hintText = "";
+
+    if (cur === 0 && !completedLabel) {
+      mainText =
+        "已提交，等待首步「" + WORKFLOW_PIPELINE_LABELS[0] + "」…（0/" + total + "）";
+      hintText = total > 1 ? "后续将串联执行共 " + total + " 个节点" : "";
+    } else if (completedLabel) {
+      mainText = "「" + completedLabel + "」已完成（" + cur + "/" + total + "）";
+      if (ev && ev.next_label) {
+        hintText = "正在执行「" + String(ev.next_label) + "」…";
+      } else if (cur >= total) {
+        hintText = "全部节点已完成";
+      }
+    } else {
+      mainText = "处理中…（" + cur + "/" + total + "）";
+    }
+
+    lab.textContent = mainText;
+    if (hintEl) hintEl.textContent = hintText;
+
+    if (bar) {
+      bar.setAttribute("aria-valuenow", String(pct));
+      bar.setAttribute("aria-valuemax", "100");
+      bar.setAttribute("aria-label", mainText + (hintText ? " · " + hintText : ""));
+    }
   }
 
   async function readNdjsonWorkflow(repo, diff, runEval, autoVenv, autoInstallPython) {
@@ -596,7 +642,18 @@
         } catch {
           continue;
         }
-        if (ev.type === "progress") setWorkflowProgress(true, ev);
+        if (ev.type === "progress") {
+          setWorkflowProgress(true, ev);
+          await new Promise(function (resolve) {
+            if (typeof requestAnimationFrame !== "undefined") {
+              requestAnimationFrame(function () {
+                resolve(undefined);
+              });
+            } else {
+              setTimeout(resolve, 0);
+            }
+          });
+        }
         else if (ev.type === "error") lastError = ev.message || String(ev);
         else if (ev.type === "complete") lastComplete = ev.result;
       }
@@ -1985,7 +2042,7 @@
     }
     $("#submit").disabled = true;
     setStatus("运行中，请稍候…", "running");
-    setWorkflowProgress(true, { current: 0, total: 11, label: "排队启动" });
+    setWorkflowProgress(true, { current: 0, total: WORKFLOW_PIPELINE_TOTAL });
     try {
       let data;
       try {
@@ -2029,10 +2086,9 @@
       recordHistory(entry, snapshot);
       saveLastResult(data, snapshot);
       setStatus("完成", "");
-      setWorkflowProgress(true, { current: 11, total: 11, label: "已完成" });
       setTimeout(function () {
         setWorkflowProgress(false);
-      }, 900);
+      }, 550);
     } catch (err) {
       setWorkflowProgress(false);
       setStatus(err.message || String(err), "error");
