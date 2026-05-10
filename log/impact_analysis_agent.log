@@ -166,3 +166,6 @@
 2026-05-08 14:55:31 [ImpactAnalysisAgent] impact_v4 files=3 symbols=9 catalog_units=68 elapsed_s=0.004
 2026-05-08 15:06:05 [ImpactAnalysisAgent] impact_v4 files=2 symbols=12 catalog_units=90 elapsed_s=0.004
 2026-05-08 15:22:12 [ImpactAnalysisAgent] impact_v4 files=2 symbols=12 catalog_units=90 elapsed_s=0.004
+2026-05-10 13:35:37 [ImpactAnalysisAgent] impact_v4 files=3 symbols=9 catalog_units=68 elapsed_s=0.004
+2026-05-10 14:10:47 [ImpactAnalysisAgent] impact disabled by switch, skipping analyze_impact
+2026-05-10 14:10:47 [ImpactAnalysisAgent] impact_v4 files=1 symbols=1 catalog_units=3 elapsed_s=0.001

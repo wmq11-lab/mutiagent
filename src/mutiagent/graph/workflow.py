@@ -6,7 +6,7 @@ import time
 from collections.abc import Callable, Iterator
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from langgraph.graph import END, StateGraph
 
@@ -127,9 +127,12 @@ def _workflow_result_dict(out: WorkflowState) -> dict[str, Any]:
     code_dbg = out.debug.get("code_change", {}) if isinstance(out.debug, dict) else {}
     impact_dbg = out.debug.get("impact", {}) if isinstance(out.debug, dict) else {}
     dwc = out.debug.get("diff_worktree_check") if isinstance(out.debug, dict) else None
-    degraded_gate = bool(code_dbg.get("analysis_degraded", False)) and int(
-        impact_dbg.get("semantic_unit_catalog_count", 0) or 0
-    ) == 0
+    impact_disabled = bool(impact_dbg.get("disabled_by_switch"))
+    degraded_gate = (
+        bool(code_dbg.get("analysis_degraded", False))
+        and int(impact_dbg.get("semantic_unit_catalog_count", 0) or 0) == 0
+        and not impact_disabled
+    )
     return {
         "changed_files": out.changed_files,
         "change_analysis": out.change_analysis,
@@ -274,6 +277,7 @@ def run_workflow(
     *,
     auto_venv: bool = True,
     auto_install_python: bool = False,
+    impact_analysis_enabled: Optional[bool] = None,
     progress_callback: Callable[[str, int, int, str], None] | None = None,
 ) -> dict[str, Any]:
     state = WorkflowState(
@@ -282,6 +286,7 @@ def run_workflow(
         run_eval=run_eval,
         auto_venv=auto_venv,
         auto_install_python=auto_install_python,
+        impact_analysis_enabled=impact_analysis_enabled,
     )
 
     def _sink(ev: dict[str, Any]) -> None:
@@ -299,6 +304,7 @@ def iter_workflow_events(
     *,
     auto_venv: bool = True,
     auto_install_python: bool = False,
+    impact_analysis_enabled: Optional[bool] = None,
 ) -> Iterator[dict[str, Any]]:
     """
     供流式 API：按顺序产生 progress，最后一条为 complete；异常时为 error。
@@ -309,6 +315,7 @@ def iter_workflow_events(
         run_eval=run_eval,
         auto_venv=auto_venv,
         auto_install_python=auto_install_python,
+        impact_analysis_enabled=impact_analysis_enabled,
     )
     buf: list[dict[str, Any]] = []
 

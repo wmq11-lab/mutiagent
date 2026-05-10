@@ -37,6 +37,8 @@ def _quality_metrics(state: WorkflowState) -> dict[str, float]:
 def _should_mark_degraded_pass(state: WorkflowState) -> bool:
     code_dbg = state.debug.get("code_change", {}) if isinstance(state.debug, dict) else {}
     impact_dbg = state.debug.get("impact", {}) if isinstance(state.debug, dict) else {}
+    if bool(impact_dbg.get("disabled_by_switch")):
+        return False
     analysis_degraded = bool(code_dbg.get("analysis_degraded", False))
     impact_empty = int(impact_dbg.get("semantic_unit_catalog_count", 0) or 0) == 0
     return analysis_degraded and impact_empty

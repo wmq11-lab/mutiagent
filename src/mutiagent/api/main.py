@@ -351,6 +351,7 @@ def generate_tests(req: GenerateTestsRequest) -> GenerateTestsResponse:
         run_eval=req.run_eval,
         auto_venv=req.auto_venv,
         auto_install_python=req.auto_install_python,
+        impact_analysis_enabled=req.impact_analysis_enabled,
     )
     return GenerateTestsResponse(**result)
 
@@ -366,6 +367,7 @@ def generate_tests_stream(req: GenerateTestsRequest) -> StreamingResponse:
             run_eval=req.run_eval,
             auto_venv=req.auto_venv,
             auto_install_python=req.auto_install_python,
+            impact_analysis_enabled=req.impact_analysis_enabled,
         ):
             yield json.dumps(jsonable_encoder(ev), ensure_ascii=False) + "\n"
 

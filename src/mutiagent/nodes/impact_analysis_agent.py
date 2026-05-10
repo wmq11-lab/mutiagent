@@ -67,6 +67,17 @@ def _impact_debug_log(message: str) -> None:
         pass
 
 
+def _impact_switch_env_enabled() -> bool:
+    raw = (os.getenv("MUTIAGENT_ENABLE_IMPACT_ANALYSIS", "1") or "").strip().lower()
+    return raw not in {"0", "false", "off", "no"}
+
+
+def _is_impact_analysis_enabled(state: WorkflowState) -> bool:
+    if state.impact_analysis_enabled is not None:
+        return bool(state.impact_analysis_enabled)
+    return _impact_switch_env_enabled()
+
+
 # ---------------------------------------------------------------------------
 # 1) 语义剪枝
 # ---------------------------------------------------------------------------
@@ -989,6 +1000,30 @@ def analyze_impact(state: WorkflowState) -> WorkflowState:
     Impact V4：原子语义单元、priority_score 梯度、upstream/edge_types、impact_test_plan、top_risks。
     ``impacted_ranked`` 由语义单元目录按 priority 填充，供 Retrieval 等下游使用；``impacted`` 仍保留为空列表。
     """
+    if not _is_impact_analysis_enabled(state):
+        state.impact_graph = []
+        state.semantic_units_catalog = []
+        state.impact_test_plan = []
+        state.top_risks = []
+        state.impacted_ranked = []
+        state.impacted = []
+        state.debug["impact"] = {
+            "disabled_by_switch": True,
+            "mode": "disabled",
+            "semantic_unit_catalog_count": 0,
+            "ranked_count": 0,
+            "candidate_count": 0,
+            "impact_test_plan_count": 0,
+            "elapsed_seconds": 0.0,
+            "switch": {
+                "state_override": state.impact_analysis_enabled,
+                "env_MUTIAGENT_ENABLE_IMPACT_ANALYSIS": os.getenv("MUTIAGENT_ENABLE_IMPACT_ANALYSIS"),
+            },
+            "note": "ImpactAnalysisAgent 已通过开关跳过（消融实验）",
+        }
+        _impact_debug_log("impact disabled by switch, skipping analyze_impact")
+        return state
+
     started = time.perf_counter()
     graph, catalog = build_impact_graph(state)
     degraded_fallback = False

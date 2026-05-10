@@ -156,6 +156,13 @@ class GenerateTestsRequest(BaseModel):
             "python_version）但本机缺失时，尝试用 pyenv 自动安装后再创建 venv。"
         ),
     )
+    impact_analysis_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 ImpactAnalysisAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_IMPACT_ANALYSIS（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
 
 
 class TestStrategyItem(BaseModel):
@@ -412,6 +419,13 @@ class WorkflowState(BaseModel):
         default=None,
         description=(
             "是否启用 BugPatternAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_BUG_PATTERN（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    impact_analysis_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 ImpactAnalysisAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_IMPACT_ANALYSIS（默认启用）；"
             "显式 True/False 可覆盖环境变量，便于消融实验。"
         ),
     )
