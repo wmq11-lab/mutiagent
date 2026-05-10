@@ -207,14 +207,23 @@ def sanitize_typer_private_imports(code: str) -> str:
         priv: list[ast.alias] = []
         pub: list[ast.alias] = []
         stripped_star = False
+        stripped_callback = False
         for alias in node.names:
             if alias.name == "*":
                 stripped_star = True
                 break
+            if mod == "typer.main" and alias.name == "callback":
+                stripped_callback = True
+                continue
             if alias.name.startswith("_"):
                 priv.append(alias)
             else:
                 pub.append(alias)
+
+        if stripped_callback:
+            _workflow_log.warning(
+                "mutiagent: 已移除 `from typer.main import callback`（非模块级导出；请用 typer.Typer + @app.callback()）"
+            )
 
         if stripped_star:
             _workflow_log.warning(
@@ -276,7 +285,12 @@ def sanitize_typer_private_imports(code: str) -> str:
             )
             continue
 
-        new_body.append(node)
+        if not priv and not pub:
+            continue
+
+        new_body.append(
+            ast.ImportFrom(module=node.module, names=list(pub), level=node.level or 0)
+        )
 
     tree.body = new_body
     ast.fix_missing_locations(tree)
@@ -749,6 +763,8 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "   - **CliRunner 与未捕获异常**：回调里抛出的 ``RuntimeError``/``TimeoutError`` 等可能使 ``result.output`` 为空；"
         "应使用 ``with pytest.raises(...): runner.invoke(...)`` 或断言 ``result.exception``，**不要** 强行在 ``result.output`` 中搜索 ``HTTP 500``/``timeout``。\n"
         "   - **集成真实 Typer 应用**：调用 ``invoke(real_app, [...])`` 前应对照本仓库 ``tests/`` 或 ``runner.invoke(real_app, [\"--help\"])`` 的输出确认子命令名，**禁止臆造** 不存在的子命令。\n"
+        "   - **禁止** ``from typer.main import callback``（及同义项）：``callback`` **不是** ``typer.main`` 的模块级名称，收集期会 "
+        "``ImportError``；回调仅用 ``app = typer.Typer()`` + ``@app.callback()`` 注册。\n"
         "   - **禁止** ``from typer`` / ``from typer.core`` / ``from typer.main`` 等导入 **任何** 以下划线开头的符号 "
         "或 ``import *``：Typer fork/版本间 **不存在** 同名私有导出是常态，会导致 **pytest 收集即失败**。仅使用公开 API、`import typer`、"
         "或 ``getattr(importlib.import_module('typer.core'), '_name', None)`` 并在缺失时跳过。\n"
@@ -851,6 +867,7 @@ def _llm_generate(state: WorkflowState) -> list[GeneratedTestFile]:
         "❌ 需要原始异常类型时仍使用默认 CliRunner.invoke（未设 catch_exceptions=False）\n"
         "❌ TyperArgument/Hidden 参数上 ``arg.type is int`` / ``is None``、``get_help_record()``/``make_metavar()`` 不传 ``ctx``\n"
         "❌ 未读源码即 ``patch('typer.main.rich_utils')`` / ``patch('typer.cli.rich_utils')``（常见于改为 lazy import 后模块无该属性）\n"
+        "❌ ``from typer.main import …, callback`` / 单独 ``from typer.main import callback``（应 ``typer.Typer`` + ``@app.callback()``）\n"
         "❌ ``from typer`` / ``typer.core`` / ``typer.main`` 导入下划线名称或 ``import *``\n"
         "❌ TyperGroup.resolve_command(ctx, [])\n"
         "❌ patch('typer.core.urllib...') 等不存在的命名空间\n"

@@ -105,6 +105,31 @@ def test_parse_coverage_json_aggregates_from_files(tmp_path: Path) -> None:
     assert abs(c["line_coverage"] - 30.0) < 0.01
 
 
+def test_parse_coverage_json_branch_none_when_meta_disabled(tmp_path: Path) -> None:
+    """未采集分支且 meta.branch_coverage 为 false 时，不应误报 branch_coverage=0%。"""
+    p = tmp_path / "no_branch.json"
+    p.write_text(
+        json.dumps(
+            {
+                "meta": {"format": 3, "branch_coverage": False},
+                "files": {
+                    "a.py": {
+                        "summary": {
+                            "covered_lines": 3,
+                            "num_statements": 10,
+                            "missing_lines": 0,
+                        }
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    c = parse_coverage_json(str(p))
+    assert c.get("branch_coverage") is None
+    assert abs(c["line_coverage"] - 30.0) < 0.01
+
+
 def test_parse_coverage_json_total_lines(tmp_path: Path) -> None:
     p = tmp_path / "c.json"
     p.write_text(

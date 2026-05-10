@@ -3620,3 +3620,722 @@
 2026-05-06 17:22:32 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
 2026-05-06 17:22:32 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
 2026-05-06 17:22:32 [CodeChangeAgent] ingest done: files_analyzed=3 changes=17 elapsed=0.015s
+2026-05-06 17:44:23 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 17:44:23 [CodeChangeAgent] parse unified diff start
+2026-05-06 17:44:23 [CodeChangeAgent] parse unified diff done: files=3
+2026-05-06 17:44:23 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 17:44:23 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-06 17:44:23 [CodeChangeAgent] cache hit: tests/test_others.py (4 changes)
+2026-05-06 17:44:23 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-06 17:44:23 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (10 changes)
+2026-05-06 17:44:23 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 17:44:23 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-06 17:44:23 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
+2026-05-06 17:44:23 [CodeChangeAgent] ingest done: files_analyzed=3 changes=17 elapsed=0.013s
+2026-05-06 18:00:55 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 18:00:55 [CodeChangeAgent] parse unified diff start
+2026-05-06 18:00:55 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-06 18:00:55 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 18:00:55 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-06 18:00:55 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-06 18:00:55 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-06 18:00:55 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-06 18:00:55 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-06 18:00:55 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-06 18:00:55 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-06 18:00:55 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-06 18:00:55 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 18:00:55 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-06 18:00:55 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-06 18:00:55 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.067s
+2026-05-06 18:03:29 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 18:03:29 [CodeChangeAgent] parse unified diff start
+2026-05-06 18:03:29 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-06 18:03:29 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 18:03:29 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-06 18:03:29 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-06 18:03:29 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-06 18:03:29 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-06 18:03:29 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-06 18:03:29 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-06 18:03:29 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-06 18:03:29 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-06 18:03:29 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 18:03:29 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-06 18:03:29 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-06 18:03:29 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.037s
+2026-05-06 18:23:16 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 18:23:16 [CodeChangeAgent] parse unified diff start
+2026-05-06 18:23:16 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-06 18:23:16 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 18:23:16 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-06 18:23:16 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-06 18:23:16 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-06 18:23:16 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-06 18:23:16 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-06 18:23:16 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-06 18:23:16 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-06 18:23:16 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-06 18:23:16 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 18:23:16 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-06 18:23:16 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-06 18:23:16 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.019s
+2026-05-06 19:21:23 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 19:21:23 [CodeChangeAgent] parse unified diff start
+2026-05-06 19:21:23 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-06 19:21:23 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 19:21:23 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-06 19:21:23 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-06 19:21:23 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-06 19:21:23 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-06 19:21:23 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-06 19:21:23 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-06 19:21:23 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-06 19:21:23 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-06 19:21:23 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 19:21:23 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-06 19:21:23 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-06 19:21:23 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.02s
+2026-05-06 19:37:47 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 19:37:47 [CodeChangeAgent] parse unified diff start
+2026-05-06 19:37:47 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-06 19:37:47 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 19:37:47 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-06 19:37:47 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-06 19:37:47 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-06 19:37:47 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-06 19:37:47 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-06 19:37:47 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-06 19:37:47 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-06 19:37:47 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-06 19:37:47 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 19:37:47 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-06 19:37:47 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-06 19:37:47 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.02s
+2026-05-06 19:52:18 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 19:52:18 [CodeChangeAgent] parse unified diff start
+2026-05-06 19:52:18 [CodeChangeAgent] parse unified diff done: files=3
+2026-05-06 19:52:18 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 19:52:18 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-06 19:52:18 [CodeChangeAgent] cache hit: tests/test_others.py (4 changes)
+2026-05-06 19:52:18 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-06 19:52:18 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (10 changes)
+2026-05-06 19:52:18 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 19:52:18 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-06 19:52:18 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
+2026-05-06 19:52:18 [CodeChangeAgent] ingest done: files_analyzed=3 changes=17 elapsed=0.032s
+2026-05-06 20:06:42 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-06 20:06:42 [CodeChangeAgent] parse unified diff start
+2026-05-06 20:06:42 [CodeChangeAgent] parse unified diff done: files=3
+2026-05-06 20:06:42 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-06 20:06:42 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-06 20:06:42 [CodeChangeAgent] cache hit: tests/test_others.py (4 changes)
+2026-05-06 20:06:42 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-06 20:06:42 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (10 changes)
+2026-05-06 20:06:42 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-06 20:06:42 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-06 20:06:42 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
+2026-05-06 20:06:42 [CodeChangeAgent] ingest done: files_analyzed=3 changes=17 elapsed=0.017s
+2026-05-07 12:42:55 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 12:42:55 [CodeChangeAgent] parse unified diff start
+2026-05-07 12:42:55 [CodeChangeAgent] parse unified diff done: files=8
+2026-05-07 12:42:55 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 12:42:55 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-07 12:42:55 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-07 12:42:55 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-07 12:42:55 [CodeChangeAgent] file summary before llm: tests/test_completion/test_completion_show.py (3 changes)
+2026-05-07 12:42:55 [CodeChangeAgent] skip llm refine for tests/test_completion/test_completion_show.py: heuristic gate (no high-risk signals)
+2026-05-07 12:42:55 [CodeChangeAgent] file summary complete: tests/test_completion/test_completion_show.py (3 changes)
+2026-05-07 12:42:55 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-07 12:42:55 [CodeChangeAgent] file summary before llm: tests/test_others.py (3 changes)
+2026-05-07 12:42:55 [CodeChangeAgent] skip llm refine for tests/test_others.py: heuristic gate (no high-risk signals)
+2026-05-07 12:42:55 [CodeChangeAgent] file summary complete: tests/test_others.py (3 changes)
+2026-05-07 12:42:55 [CodeChangeAgent] analyzing file: tests/utils.py
+2026-05-07 12:42:55 [CodeChangeAgent] file summary before llm: tests/utils.py (1 changes)
+2026-05-07 12:42:55 [CodeChangeAgent] llm refine start: tests/utils.py (1 changes)
+2026-05-07 12:42:57 [CodeChangeAgent] llm refine done: tests/utils.py (1.85s)
+2026-05-07 12:42:57 [CodeChangeAgent] file summary complete: tests/utils.py (1 changes)
+2026-05-07 12:42:57 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-07 12:42:57 [CodeChangeAgent] analysis degraded: typer/_completion_classes.py has changed lines but extracted 0 entities
+2026-05-07 12:42:58 [CodeChangeAgent] llm guess fallback: typer/_completion_classes.py (1 changes)
+2026-05-07 12:42:58 [CodeChangeAgent] file summary before llm: typer/_completion_classes.py (1 changes)
+2026-05-07 12:42:58 [CodeChangeAgent] file summary complete: typer/_completion_classes.py (1 changes)
+2026-05-07 12:42:58 [CodeChangeAgent] analyzing file: typer/_completion_shared.py
+2026-05-07 12:42:58 [CodeChangeAgent] file summary before llm: typer/_completion_shared.py (3 changes)
+2026-05-07 12:42:58 [CodeChangeAgent] llm refine start: typer/_completion_shared.py (3 changes)
+2026-05-07 12:43:00 [CodeChangeAgent] llm refine done: typer/_completion_shared.py (2.57s)
+2026-05-07 12:43:00 [CodeChangeAgent] file summary complete: typer/_completion_shared.py (3 changes)
+2026-05-07 12:43:00 [CodeChangeAgent] analyzing file: typer/completion.py
+2026-05-07 12:43:00 [CodeChangeAgent] file summary before llm: typer/completion.py (2 changes)
+2026-05-07 12:43:00 [CodeChangeAgent] llm refine start: typer/completion.py (2 changes)
+2026-05-07 12:43:02 [CodeChangeAgent] llm refine done: typer/completion.py (1.74s)
+2026-05-07 12:43:02 [CodeChangeAgent] file summary complete: typer/completion.py (2 changes)
+2026-05-07 12:43:02 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-07 12:43:02 [CodeChangeAgent] file summary before llm: typer/core.py (1 changes)
+2026-05-07 12:43:02 [CodeChangeAgent] skip llm refine for typer/core.py: heuristic gate (no high-risk signals)
+2026-05-07 12:43:02 [CodeChangeAgent] file summary complete: typer/core.py (1 changes)
+2026-05-07 12:43:02 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=7 cache_writes=7
+2026-05-07 12:43:02 [CodeChangeAgent] ingest done: files_analyzed=8 changes=14 elapsed=7.294s
+2026-05-07 12:59:21 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 12:59:21 [CodeChangeAgent] parse unified diff start
+2026-05-07 12:59:21 [CodeChangeAgent] parse unified diff done: files=3
+2026-05-07 12:59:21 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 12:59:21 [CodeChangeAgent] analyzing file: tests/test_launch.py
+2026-05-07 12:59:21 [CodeChangeAgent] file summary before llm: tests/test_launch.py (3 changes)
+2026-05-07 12:59:21 [CodeChangeAgent] llm refine start: tests/test_launch.py (3 changes)
+2026-05-07 12:59:23 [CodeChangeAgent] llm refine done: tests/test_launch.py (2.42s)
+2026-05-07 12:59:23 [CodeChangeAgent] file summary complete: tests/test_launch.py (3 changes)
+2026-05-07 12:59:23 [CodeChangeAgent] analyzing file: typer/__init__.py
+2026-05-07 12:59:23 [CodeChangeAgent] analysis degraded: typer/__init__.py has changed lines but extracted 0 entities
+2026-05-07 12:59:24 [CodeChangeAgent] llm guess fallback: typer/__init__.py (1 changes)
+2026-05-07 12:59:24 [CodeChangeAgent] file summary before llm: typer/__init__.py (1 changes)
+2026-05-07 12:59:24 [CodeChangeAgent] file summary complete: typer/__init__.py (1 changes)
+2026-05-07 12:59:24 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-07 12:59:24 [CodeChangeAgent] file summary before llm: typer/main.py (4 changes)
+2026-05-07 12:59:24 [CodeChangeAgent] llm refine start: typer/main.py (4 changes)
+2026-05-07 12:59:27 [CodeChangeAgent] llm refine done: typer/main.py (3.19s)
+2026-05-07 12:59:27 [CodeChangeAgent] file summary complete: typer/main.py (4 changes)
+2026-05-07 12:59:27 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=3 cache_writes=3
+2026-05-07 12:59:27 [CodeChangeAgent] ingest done: files_analyzed=3 changes=8 elapsed=6.502s
+2026-05-07 13:21:40 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 13:21:40 [CodeChangeAgent] parse unified diff start
+2026-05-07 13:22:41 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 13:22:41 [CodeChangeAgent] parse unified diff start
+2026-05-07 13:22:41 [CodeChangeAgent] parse unified diff done: files=3
+2026-05-07 13:22:41 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 13:22:41 [CodeChangeAgent] analyzing file: tests/test_launch.py
+2026-05-07 13:22:41 [CodeChangeAgent] cache hit: tests/test_launch.py (3 changes)
+2026-05-07 13:22:41 [CodeChangeAgent] analyzing file: typer/__init__.py
+2026-05-07 13:22:41 [CodeChangeAgent] cache hit: typer/__init__.py (1 changes)
+2026-05-07 13:22:41 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-07 13:22:41 [CodeChangeAgent] cache hit: typer/main.py (4 changes)
+2026-05-07 13:22:41 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
+2026-05-07 13:22:41 [CodeChangeAgent] ingest done: files_analyzed=3 changes=8 elapsed=0.026s
+2026-05-07 19:29:07 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 19:29:07 [CodeChangeAgent] parse unified diff start
+2026-05-07 19:29:07 [CodeChangeAgent] parse unified diff done: files=32
+2026-05-07 19:29:07 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 19:29:07 [CodeChangeAgent] analyzing file: .env
+2026-05-07 19:29:07 [CodeChangeAgent] file summary complete: .env (0 changes, unsupported kind)
+2026-05-07 19:29:07 [CodeChangeAgent] analyzing file: .github/workflows/test.yml
+2026-05-07 19:29:07 [CodeChangeAgent] file summary complete: .github/workflows/test.yml (0 changes, unsupported kind)
+2026-05-07 19:29:07 [CodeChangeAgent] analyzing file: docs/tutorial/testing.md
+2026-05-07 19:29:07 [CodeChangeAgent] file summary complete: docs/tutorial/testing.md (0 changes, unsupported kind)
+2026-05-07 19:29:07 [CodeChangeAgent] analyzing file: docs_src/testing/app01/test_main.py
+2026-05-07 19:29:07 [CodeChangeAgent] analysis degraded: docs_src/testing/app01/test_main.py has changed lines but extracted 0 entities
+2026-05-07 19:29:08 [CodeChangeAgent] llm guess fallback: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-07 19:29:08 [CodeChangeAgent] file summary before llm: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-07 19:29:08 [CodeChangeAgent] file summary complete: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-07 19:29:08 [CodeChangeAgent] analyzing file: docs_src/testing/app02/test_main.py
+2026-05-07 19:29:08 [CodeChangeAgent] analysis degraded: docs_src/testing/app02/test_main.py has changed lines but extracted 0 entities
+2026-05-07 19:29:10 [CodeChangeAgent] llm guess fallback: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] file summary before llm: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] file summary complete: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] analyzing file: docs_src/testing/app02_an/test_main.py
+2026-05-07 19:29:10 [CodeChangeAgent] analysis degraded: docs_src/testing/app02_an/test_main.py has changed lines but extracted 0 entities
+2026-05-07 19:29:10 [CodeChangeAgent] llm guess fallback: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] file summary before llm: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] file summary complete: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-07 19:29:10 [CodeChangeAgent] analyzing file: docs_src/testing/app03/test_main.py
+2026-05-07 19:29:10 [CodeChangeAgent] analysis degraded: docs_src/testing/app03/test_main.py has changed lines but extracted 0 entities
+2026-05-07 19:29:11 [CodeChangeAgent] llm guess fallback: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-07 19:29:11 [CodeChangeAgent] file summary before llm: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-07 19:29:11 [CodeChangeAgent] file summary complete: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-07 19:29:11 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-07 19:29:11 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-07 19:29:11 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-07 19:29:11 [CodeChangeAgent] file summary before llm: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-07 19:29:11 [CodeChangeAgent] llm refine start: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-07 19:29:13 [CodeChangeAgent] llm refine done: tests/test_completion/test_completion_show.py (1.19s)
+2026-05-07 19:29:13 [CodeChangeAgent] file summary complete: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-07 19:29:13 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_index/test_tutorial003.py
+2026-05-07 19:29:13 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_commands/test_index/test_tutorial003.py has changed lines but extracted 0 entities
+2026-05-07 19:29:14 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-07 19:29:14 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-07 19:29:14 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-07 19:29:14 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001.py
+2026-05-07 19:29:14 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 19:29:14 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 19:29:15 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (1.55s)
+2026-05-07 19:29:15 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 19:29:15 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py
+2026-05-07 19:29:15 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:16 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:16 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:16 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:16 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003.py
+2026-05-07 19:29:16 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-07 19:29:16 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-07 19:29:18 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (1.87s)
+2026-05-07 19:29:18 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-07 19:29:18 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py
+2026-05-07 19:29:18 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:19 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:19 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:19 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:19 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004.py
+2026-05-07 19:29:19 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-07 19:29:19 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-07 19:29:22 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2.51s)
+2026-05-07 19:29:22 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-07 19:29:22 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py
+2026-05-07 19:29:22 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:22 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-07 19:29:22 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-07 19:29:22 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-07 19:29:22 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001.py
+2026-05-07 19:29:22 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_required/test_tutorial001.py has changed lines but extracted 0 entities
+2026-05-07 19:29:23 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-07 19:29:23 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py
+2026-05-07 19:29:24 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:24 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003.py
+2026-05-07 19:29:24 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-07 19:29:24 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-07 19:29:27 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2.17s)
+2026-05-07 19:29:27 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-07 19:29:27 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py
+2026-05-07 19:29:27 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:28 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:28 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:28 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-07 19:29:28 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py
+2026-05-07 19:29:28 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-07 19:29:28 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-07 19:29:31 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (3.41s)
+2026-05-07 19:29:31 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-07 19:29:31 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py
+2026-05-07 19:29:31 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 19:29:31 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 19:29:33 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (1.90s)
+2026-05-07 19:29:33 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 19:29:33 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py
+2026-05-07 19:29:33 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-07 19:29:33 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-07 19:29:36 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2.16s)
+2026-05-07 19:29:36 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-07 19:29:36 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py
+2026-05-07 19:29:36 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:37 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-07 19:29:37 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-07 19:29:37 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-07 19:29:37 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py
+2026-05-07 19:29:37 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-07 19:29:37 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-07 19:29:39 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (2.39s)
+2026-05-07 19:29:39 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-07 19:29:39 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py
+2026-05-07 19:29:39 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py has changed lines but extracted 0 entities
+2026-05-07 19:29:41 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-07 19:29:41 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-07 19:29:41 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-07 19:29:41 [CodeChangeAgent] analyzing file: tests/test_types.py
+2026-05-07 19:29:41 [CodeChangeAgent] file summary before llm: tests/test_types.py (3 changes)
+2026-05-07 19:29:41 [CodeChangeAgent] llm refine start: tests/test_types.py (3 changes)
+2026-05-07 19:29:44 [CodeChangeAgent] llm refine done: tests/test_types.py (3.06s)
+2026-05-07 19:29:44 [CodeChangeAgent] file summary complete: tests/test_types.py (3 changes)
+2026-05-07 19:29:44 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-07 19:29:44 [CodeChangeAgent] file summary before llm: typer/_completion_classes.py (10 changes)
+2026-05-07 19:29:44 [CodeChangeAgent] llm refine start: typer/_completion_classes.py (10 changes)
+2026-05-07 19:29:50 [CodeChangeAgent] llm refine done: typer/_completion_classes.py (6.55s)
+2026-05-07 19:29:50 [CodeChangeAgent] file summary complete: typer/_completion_classes.py (10 changes)
+2026-05-07 19:29:50 [CodeChangeAgent] analyzing file: typer/_types.py
+2026-05-07 19:29:50 [CodeChangeAgent] file summary before llm: typer/_types.py (2 changes)
+2026-05-07 19:29:50 [CodeChangeAgent] llm refine start: typer/_types.py (2 changes)
+2026-05-07 19:29:53 [CodeChangeAgent] llm refine done: typer/_types.py (2.69s)
+2026-05-07 19:29:53 [CodeChangeAgent] file summary complete: typer/_types.py (2 changes)
+2026-05-07 19:29:53 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-07 19:29:53 [CodeChangeAgent] file summary before llm: typer/core.py (8 changes)
+2026-05-07 19:29:53 [CodeChangeAgent] llm refine start: typer/core.py (8 changes)
+2026-05-07 19:30:00 [CodeChangeAgent] llm refine done: typer/core.py (6.67s)
+2026-05-07 19:30:00 [CodeChangeAgent] file summary complete: typer/core.py (8 changes)
+2026-05-07 19:30:00 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-07 19:30:00 [CodeChangeAgent] file summary before llm: typer/main.py (3 changes)
+2026-05-07 19:30:00 [CodeChangeAgent] llm refine start: typer/main.py (3 changes)
+2026-05-07 19:30:02 [CodeChangeAgent] llm refine done: typer/main.py (2.40s)
+2026-05-07 19:30:02 [CodeChangeAgent] file summary complete: typer/main.py (3 changes)
+2026-05-07 19:30:02 [CodeChangeAgent] analyzing file: typer/rich_utils.py
+2026-05-07 19:30:02 [CodeChangeAgent] file summary before llm: typer/rich_utils.py (1 changes)
+2026-05-07 19:30:02 [CodeChangeAgent] llm refine start: typer/rich_utils.py (1 changes)
+2026-05-07 19:30:04 [CodeChangeAgent] llm refine done: typer/rich_utils.py (2.15s)
+2026-05-07 19:30:04 [CodeChangeAgent] file summary complete: typer/rich_utils.py (1 changes)
+2026-05-07 19:30:04 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=28 cache_writes=28
+2026-05-07 19:30:04 [CodeChangeAgent] ingest done: files_analyzed=32 changes=62 elapsed=57.307s
+2026-05-07 19:46:57 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 19:46:57 [CodeChangeAgent] parse unified diff start
+2026-05-07 19:46:57 [CodeChangeAgent] parse unified diff done: files=13
+2026-05-07 19:46:57 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 19:46:57 [CodeChangeAgent] analyzing file: docs/tutorial/parameter-types/custom_types.md
+2026-05-07 19:46:57 [CodeChangeAgent] file summary complete: docs/tutorial/parameter-types/custom_types.md (0 changes, unsupported kind)
+2026-05-07 19:46:57 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/__init__.py
+2026-05-07 19:46:57 [CodeChangeAgent] file summary before llm: docs_src/parameter_types/custom_types/__init__.py (0 changes)
+2026-05-07 19:46:57 [CodeChangeAgent] file summary complete: docs_src/parameter_types/custom_types/__init__.py (0 changes)
+2026-05-07 19:46:57 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial001.py
+2026-05-07 19:46:57 [CodeChangeAgent] file summary before llm: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-07 19:46:57 [CodeChangeAgent] llm refine start: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-07 19:47:03 [CodeChangeAgent] llm refine done: docs_src/parameter_types/custom_types/tutorial001.py (5.51s)
+2026-05-07 19:47:03 [CodeChangeAgent] file summary complete: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-07 19:47:03 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial002.py
+2026-05-07 19:47:03 [CodeChangeAgent] file summary before llm: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-07 19:47:03 [CodeChangeAgent] llm refine start: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-07 19:47:07 [CodeChangeAgent] llm refine done: docs_src/parameter_types/custom_types/tutorial002.py (4.73s)
+2026-05-07 19:47:07 [CodeChangeAgent] file summary complete: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-07 19:47:07 [CodeChangeAgent] analyzing file: mkdocs.yml
+2026-05-07 19:47:07 [CodeChangeAgent] file summary complete: mkdocs.yml (0 changes, unsupported kind)
+2026-05-07 19:47:07 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-07 19:47:07 [CodeChangeAgent] file summary before llm: tests/test_others.py (9 changes)
+2026-05-07 19:47:07 [CodeChangeAgent] llm refine start: tests/test_others.py (9 changes)
+2026-05-07 19:47:15 [CodeChangeAgent] llm refine done: tests/test_others.py (7.74s)
+2026-05-07 19:47:15 [CodeChangeAgent] file summary complete: tests/test_others.py (9 changes)
+2026-05-07 19:47:15 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py
+2026-05-07 19:47:15 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py (0 changes)
+2026-05-07 19:47:15 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py (0 changes)
+2026-05-07 19:47:15 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py
+2026-05-07 19:47:15 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-07 19:47:15 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-07 19:47:20 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4.87s)
+2026-05-07 19:47:20 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-07 19:47:20 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py
+2026-05-07 19:47:20 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-07 19:47:20 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-07 19:47:24 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (3.95s)
+2026-05-07 19:47:24 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-07 19:47:24 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-07 19:47:24 [CodeChangeAgent] file summary before llm: tests/test_type_conversion.py (5 changes)
+2026-05-07 19:47:24 [CodeChangeAgent] llm refine start: tests/test_type_conversion.py (5 changes)
+2026-05-07 19:47:30 [CodeChangeAgent] llm refine done: tests/test_type_conversion.py (5.81s)
+2026-05-07 19:47:30 [CodeChangeAgent] file summary complete: tests/test_type_conversion.py (5 changes)
+2026-05-07 19:47:30 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-07 19:47:30 [CodeChangeAgent] file summary before llm: typer/main.py (2 changes)
+2026-05-07 19:47:30 [CodeChangeAgent] llm refine start: typer/main.py (2 changes)
+2026-05-07 19:47:33 [CodeChangeAgent] llm refine done: typer/main.py (3.49s)
+2026-05-07 19:47:33 [CodeChangeAgent] file summary complete: typer/main.py (2 changes)
+2026-05-07 19:47:33 [CodeChangeAgent] analyzing file: typer/models.py
+2026-05-07 19:47:33 [CodeChangeAgent] file summary before llm: typer/models.py (9 changes)
+2026-05-07 19:47:33 [CodeChangeAgent] llm refine start: typer/models.py (9 changes)
+2026-05-07 19:47:40 [CodeChangeAgent] llm refine done: typer/models.py (7.03s)
+2026-05-07 19:47:40 [CodeChangeAgent] file summary complete: typer/models.py (9 changes)
+2026-05-07 19:47:40 [CodeChangeAgent] analyzing file: typer/params.py
+2026-05-07 19:47:40 [CodeChangeAgent] file summary before llm: typer/params.py (1 changes)
+2026-05-07 19:47:40 [CodeChangeAgent] llm refine start: typer/params.py (1 changes)
+2026-05-07 19:47:43 [CodeChangeAgent] llm refine done: typer/params.py (2.34s)
+2026-05-07 19:47:43 [CodeChangeAgent] file summary complete: typer/params.py (1 changes)
+2026-05-07 19:47:43 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=11 cache_writes=11
+2026-05-07 19:47:43 [CodeChangeAgent] ingest done: files_analyzed=13 changes=45 elapsed=45.809s
+2026-05-07 19:59:26 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-07 19:59:26 [CodeChangeAgent] parse unified diff start
+2026-05-07 19:59:26 [CodeChangeAgent] parse unified diff done: files=53
+2026-05-07 19:59:26 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-07 19:59:26 [CodeChangeAgent] analyzing file: .github/workflows/test.yml
+2026-05-07 19:59:26 [CodeChangeAgent] file summary complete: .github/workflows/test.yml (0 changes, unsupported kind)
+2026-05-07 19:59:26 [CodeChangeAgent] analyzing file: docs/tutorial/options/callback-and-context.md
+2026-05-07 19:59:26 [CodeChangeAgent] file summary complete: docs/tutorial/options/callback-and-context.md (0 changes, unsupported kind)
+2026-05-07 19:59:26 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial001.py
+2026-05-07 19:59:26 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial001.py (1 changes)
+2026-05-07 19:59:26 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial001.py (1 changes)
+2026-05-07 19:59:29 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial001.py (3.43s)
+2026-05-07 19:59:29 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial001.py (1 changes)
+2026-05-07 19:59:29 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial001_an.py
+2026-05-07 19:59:29 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial001_an.py (1 changes)
+2026-05-07 19:59:29 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial001_an.py (1 changes)
+2026-05-07 19:59:32 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial001_an.py (2.50s)
+2026-05-07 19:59:32 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial001_an.py (1 changes)
+2026-05-07 19:59:32 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial002.py
+2026-05-07 19:59:32 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial002.py (1 changes)
+2026-05-07 19:59:32 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial002.py (1 changes)
+2026-05-07 19:59:34 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial002.py (2.80s)
+2026-05-07 19:59:35 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial002.py (1 changes)
+2026-05-07 19:59:35 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial002_an.py
+2026-05-07 19:59:35 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial002_an.py (1 changes)
+2026-05-07 19:59:35 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial002_an.py (1 changes)
+2026-05-07 19:59:37 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial002_an.py (2.34s)
+2026-05-07 19:59:37 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial002_an.py (1 changes)
+2026-05-07 19:59:37 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial003.py
+2026-05-07 19:59:37 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial003.py (1 changes)
+2026-05-07 19:59:37 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial003.py (1 changes)
+2026-05-07 19:59:39 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial003.py (2.59s)
+2026-05-07 19:59:39 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial003.py (1 changes)
+2026-05-07 19:59:39 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial003_an.py
+2026-05-07 19:59:40 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial003_an.py (1 changes)
+2026-05-07 19:59:40 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial003_an.py (1 changes)
+2026-05-07 19:59:42 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial003_an.py (2.59s)
+2026-05-07 19:59:42 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial003_an.py (1 changes)
+2026-05-07 19:59:42 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial004.py
+2026-05-07 19:59:42 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial004.py (1 changes)
+2026-05-07 19:59:42 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial004.py (1 changes)
+2026-05-07 19:59:45 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial004.py (2.59s)
+2026-05-07 19:59:45 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial004.py (1 changes)
+2026-05-07 19:59:45 [CodeChangeAgent] analyzing file: docs_src/options/callback/tutorial004_an.py
+2026-05-07 19:59:45 [CodeChangeAgent] file summary before llm: docs_src/options/callback/tutorial004_an.py (1 changes)
+2026-05-07 19:59:45 [CodeChangeAgent] llm refine start: docs_src/options/callback/tutorial004_an.py (1 changes)
+2026-05-07 19:59:47 [CodeChangeAgent] llm refine done: docs_src/options/callback/tutorial004_an.py (2.71s)
+2026-05-07 19:59:47 [CodeChangeAgent] file summary complete: docs_src/options/callback/tutorial004_an.py (1 changes)
+2026-05-07 19:59:47 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-07 19:59:47 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-07 19:59:47 [CodeChangeAgent] analyzing file: tests/test_compat/test_option_get_help.py
+2026-05-07 19:59:47 [CodeChangeAgent] analysis degraded: tests/test_compat/test_option_get_help.py has changed lines but extracted 0 entities
+2026-05-07 19:59:50 [CodeChangeAgent] llm guess fallback: tests/test_compat/test_option_get_help.py (1 changes)
+2026-05-07 19:59:50 [CodeChangeAgent] file summary before llm: tests/test_compat/test_option_get_help.py (1 changes)
+2026-05-07 19:59:50 [CodeChangeAgent] file summary complete: tests/test_compat/test_option_get_help.py (1 changes)
+2026-05-07 19:59:50 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_install.py
+2026-05-07 19:59:50 [CodeChangeAgent] file summary before llm: tests/test_completion/test_completion_install.py (2 changes)
+2026-05-07 19:59:50 [CodeChangeAgent] llm refine start: tests/test_completion/test_completion_install.py (2 changes)
+2026-05-07 19:59:53 [CodeChangeAgent] llm refine done: tests/test_completion/test_completion_install.py (3.04s)
+2026-05-07 19:59:53 [CodeChangeAgent] file summary complete: tests/test_completion/test_completion_install.py (2 changes)
+2026-05-07 19:59:53 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-07 19:59:53 [CodeChangeAgent] file summary before llm: tests/test_completion/test_completion_show.py (3 changes)
+2026-05-07 19:59:53 [CodeChangeAgent] llm refine start: tests/test_completion/test_completion_show.py (3 changes)
+2026-05-07 19:59:57 [CodeChangeAgent] llm refine done: tests/test_completion/test_completion_show.py (3.85s)
+2026-05-07 19:59:57 [CodeChangeAgent] file summary complete: tests/test_completion/test_completion_show.py (3 changes)
+2026-05-07 19:59:57 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-07 19:59:57 [CodeChangeAgent] file summary before llm: tests/test_others.py (9 changes)
+2026-05-07 19:59:57 [CodeChangeAgent] llm refine start: tests/test_others.py (9 changes)
+2026-05-07 20:00:04 [CodeChangeAgent] llm refine done: tests/test_others.py (7.00s)
+2026-05-07 20:00:04 [CodeChangeAgent] file summary complete: tests/test_others.py (9 changes)
+2026-05-07 20:00:04 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_callback/test_tutorial001.py
+2026-05-07 20:00:04 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 20:00:04 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_commands/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 20:00:08 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_commands/test_callback/test_tutorial001.py (4.35s)
+2026-05-07 20:00:08 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_callback/test_tutorial001.py (2 changes)
+2026-05-07 20:00:08 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_help/test_tutorial001.py
+2026-05-07 20:00:08 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_help/test_tutorial001.py (5 changes)
+2026-05-07 20:00:08 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_commands/test_help/test_tutorial001.py (5 changes)
+2026-05-07 20:00:14 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_commands/test_help/test_tutorial001.py (5.56s)
+2026-05-07 20:00:14 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_help/test_tutorial001.py (5 changes)
+2026-05-07 20:00:14 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_help/test_tutorial001_an.py
+2026-05-07 20:00:14 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_commands/test_help/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:17 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_commands/test_help/test_tutorial001_an.py (4 changes)
+2026-05-07 20:00:17 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_help/test_tutorial001_an.py (3 changes)
+2026-05-07 20:00:17 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_help/test_tutorial001_an.py (3 changes)
+2026-05-07 20:00:17 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_options/test_tutorial001.py
+2026-05-07 20:00:17 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_options/test_tutorial001.py (6 changes)
+2026-05-07 20:00:17 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_commands/test_options/test_tutorial001.py (6 changes)
+2026-05-07 20:00:22 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_commands/test_options/test_tutorial001.py (5.52s)
+2026-05-07 20:00:22 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_options/test_tutorial001.py (6 changes)
+2026-05-07 20:00:22 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_options/test_tutorial001_an.py
+2026-05-07 20:00:23 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_commands/test_options/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:26 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_commands/test_options/test_tutorial001_an.py (5 changes)
+2026-05-07 20:00:26 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_commands/test_options/test_tutorial001_an.py (3 changes)
+2026-05-07 20:00:26 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_commands/test_options/test_tutorial001_an.py (3 changes)
+2026-05-07 20:00:26 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002.py
+2026-05-07 20:00:26 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002.py (2 changes)
+2026-05-07 20:00:26 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002.py (2 changes)
+2026-05-07 20:00:30 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002.py (3.78s)
+2026-05-07 20:00:30 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002.py (2 changes)
+2026-05-07 20:00:30 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002_an.py
+2026-05-07 20:00:30 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:32 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002_an.py (1 changes)
+2026-05-07 20:00:32 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002_an.py (1 changes)
+2026-05-07 20:00:32 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_multiple_values/test_arguments_with_multiple_values/test_tutorial002_an.py (1 changes)
+2026-05-07 20:00:32 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001.py
+2026-05-07 20:00:32 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001.py (2 changes)
+2026-05-07 20:00:32 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001.py (2 changes)
+2026-05-07 20:00:35 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001.py (3.21s)
+2026-05-07 20:00:35 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001.py (2 changes)
+2026-05-07 20:00:35 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001_an.py
+2026-05-07 20:00:35 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:38 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:38 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:38 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_multiple_values/test_options_with_multiple_values/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:38 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_name/test_tutorial001.py
+2026-05-07 20:00:38 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_name/test_tutorial001.py (2 changes)
+2026-05-07 20:00:38 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_name/test_tutorial001.py (2 changes)
+2026-05-07 20:00:41 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_name/test_tutorial001.py (3.30s)
+2026-05-07 20:00:41 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_name/test_tutorial001.py (2 changes)
+2026-05-07 20:00:41 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_name/test_tutorial001_an.py
+2026-05-07 20:00:41 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_name/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:44 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_name/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:44 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_name/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:44 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_name/test_tutorial001_an.py (1 changes)
+2026-05-07 20:00:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_prompt/test_tutorial003.py
+2026-05-07 20:00:44 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_prompt/test_tutorial003.py (1 changes)
+2026-05-07 20:00:44 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options/test_prompt/test_tutorial003.py (1 changes)
+2026-05-07 20:00:47 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options/test_prompt/test_tutorial003.py (2.94s)
+2026-05-07 20:00:47 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_prompt/test_tutorial003.py (1 changes)
+2026-05-07 20:00:47 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_prompt/test_tutorial003_an.py
+2026-05-07 20:00:47 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options/test_prompt/test_tutorial003_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:49 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options/test_prompt/test_tutorial003_an.py (1 changes)
+2026-05-07 20:00:49 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options/test_prompt/test_tutorial003_an.py (1 changes)
+2026-05-07 20:00:49 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options/test_prompt/test_tutorial003_an.py (1 changes)
+2026-05-07 20:00:49 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options_autocompletion/test_tutorial008.py
+2026-05-07 20:00:49 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options_autocompletion/test_tutorial008.py (1 changes)
+2026-05-07 20:00:49 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options_autocompletion/test_tutorial008.py (1 changes)
+2026-05-07 20:00:52 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options_autocompletion/test_tutorial008.py (2.65s)
+2026-05-07 20:00:52 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options_autocompletion/test_tutorial008.py (1 changes)
+2026-05-07 20:00:52 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options_autocompletion/test_tutorial008_an.py
+2026-05-07 20:00:52 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options_autocompletion/test_tutorial008_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:54 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options_autocompletion/test_tutorial008_an.py (1 changes)
+2026-05-07 20:00:54 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options_autocompletion/test_tutorial008_an.py (1 changes)
+2026-05-07 20:00:54 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options_autocompletion/test_tutorial008_an.py (1 changes)
+2026-05-07 20:00:54 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options_autocompletion/test_tutorial009.py
+2026-05-07 20:00:54 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options_autocompletion/test_tutorial009.py (1 changes)
+2026-05-07 20:00:54 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_options_autocompletion/test_tutorial009.py (1 changes)
+2026-05-07 20:00:57 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_options_autocompletion/test_tutorial009.py (2.53s)
+2026-05-07 20:00:57 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options_autocompletion/test_tutorial009.py (1 changes)
+2026-05-07 20:00:57 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options_autocompletion/test_tutorial009_an.py
+2026-05-07 20:00:57 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_options_autocompletion/test_tutorial009_an.py has changed lines but extracted 0 entities
+2026-05-07 20:00:59 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_options_autocompletion/test_tutorial009_an.py (1 changes)
+2026-05-07 20:00:59 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_options_autocompletion/test_tutorial009_an.py (1 changes)
+2026-05-07 20:00:59 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_options_autocompletion/test_tutorial009_an.py (1 changes)
+2026-05-07 20:00:59 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001.py
+2026-05-07 20:00:59 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001.py (2 changes)
+2026-05-07 20:00:59 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001.py (2 changes)
+2026-05-07 20:01:03 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001.py (3.61s)
+2026-05-07 20:01:03 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001.py (2 changes)
+2026-05-07 20:01:03 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001_an.py
+2026-05-07 20:01:03 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:01:05 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001_an.py (1 changes)
+2026-05-07 20:01:05 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001_an.py (1 changes)
+2026-05-07 20:01:05 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial001_an.py (1 changes)
+2026-05-07 20:01:05 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002.py
+2026-05-07 20:01:05 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002.py (1 changes)
+2026-05-07 20:01:05 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002.py (1 changes)
+2026-05-07 20:01:08 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002.py (3.25s)
+2026-05-07 20:01:08 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002.py (1 changes)
+2026-05-07 20:01:08 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002_an.py
+2026-05-07 20:01:08 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002_an.py has changed lines but extracted 0 entities
+2026-05-07 20:01:11 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:11 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:11 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_bool/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:11 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_datetime/test_tutorial001.py
+2026-05-07 20:01:11 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_datetime/test_tutorial001.py (2 changes)
+2026-05-07 20:01:11 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_datetime/test_tutorial001.py (2 changes)
+2026-05-07 20:01:14 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_datetime/test_tutorial001.py (3.64s)
+2026-05-07 20:01:14 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_datetime/test_tutorial001.py (2 changes)
+2026-05-07 20:01:14 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py
+2026-05-07 20:01:14 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (3 changes)
+2026-05-07 20:01:14 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (3 changes)
+2026-05-07 20:01:18 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4.03s)
+2026-05-07 20:01:18 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (3 changes)
+2026-05-07 20:01:18 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py
+2026-05-07 20:01:18 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 20:01:18 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 20:01:21 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2.97s)
+2026-05-07 20:01:21 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-07 20:01:21 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py
+2026-05-07 20:01:21 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (3 changes)
+2026-05-07 20:01:21 [CodeChangeAgent] llm refine start: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (3 changes)
+2026-05-07 20:01:30 [CodeChangeAgent] llm refine done: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (8.93s)
+2026-05-07 20:01:30 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (3 changes)
+2026-05-07 20:01:30 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py
+2026-05-07 20:01:30 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py has changed lines but extracted 0 entities
+2026-05-07 20:01:33 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (3 changes)
+2026-05-07 20:01:33 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (3 changes)
+2026-05-07 20:01:33 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (3 changes)
+2026-05-07 20:01:33 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002.py
+2026-05-07 20:01:33 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002.py has changed lines but extracted 0 entities
+2026-05-07 20:01:35 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002.py (1 changes)
+2026-05-07 20:01:35 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002.py (1 changes)
+2026-05-07 20:01:36 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002.py (1 changes)
+2026-05-07 20:01:36 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002_an.py
+2026-05-07 20:01:36 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002_an.py has changed lines but extracted 0 entities
+2026-05-07 20:01:38 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:38 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:38 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_number/test_tutorial002_an.py (1 changes)
+2026-05-07 20:01:38 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_uuid/test_tutorial001.py
+2026-05-07 20:01:38 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_parameter_types/test_uuid/test_tutorial001.py has changed lines but extracted 0 entities
+2026-05-07 20:01:40 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_parameter_types/test_uuid/test_tutorial001.py (1 changes)
+2026-05-07 20:01:40 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_parameter_types/test_uuid/test_tutorial001.py (1 changes)
+2026-05-07 20:01:40 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_parameter_types/test_uuid/test_tutorial001.py (1 changes)
+2026-05-07 20:01:40 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_using_click/test_tutorial003.py
+2026-05-07 20:01:40 [CodeChangeAgent] analysis degraded: tests/test_tutorial/test_using_click/test_tutorial003.py has changed lines but extracted 0 entities
+2026-05-07 20:01:42 [CodeChangeAgent] llm guess fallback: tests/test_tutorial/test_using_click/test_tutorial003.py (1 changes)
+2026-05-07 20:01:42 [CodeChangeAgent] file summary before llm: tests/test_tutorial/test_using_click/test_tutorial003.py (1 changes)
+2026-05-07 20:01:42 [CodeChangeAgent] file summary complete: tests/test_tutorial/test_using_click/test_tutorial003.py (1 changes)
+2026-05-07 20:01:42 [CodeChangeAgent] analyzing file: typer/_compat_utils.py
+2026-05-07 20:01:42 [CodeChangeAgent] file summary before llm: typer/_compat_utils.py (1 changes)
+2026-05-07 20:01:42 [CodeChangeAgent] llm refine start: typer/_compat_utils.py (1 changes)
+2026-05-07 20:01:45 [CodeChangeAgent] llm refine done: typer/_compat_utils.py (3.06s)
+2026-05-07 20:01:45 [CodeChangeAgent] file summary complete: typer/_compat_utils.py (1 changes)
+2026-05-07 20:01:45 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-07 20:01:45 [CodeChangeAgent] file summary before llm: typer/_completion_classes.py (0 changes)
+2026-05-07 20:01:45 [CodeChangeAgent] file summary complete: typer/_completion_classes.py (0 changes)
+2026-05-07 20:01:45 [CodeChangeAgent] analyzing file: typer/_completion_click7.py
+2026-05-07 20:01:45 [CodeChangeAgent] file summary before llm: typer/_completion_click7.py (9 changes)
+2026-05-07 20:01:45 [CodeChangeAgent] llm refine start: typer/_completion_click7.py (9 changes)
+2026-05-07 20:01:53 [CodeChangeAgent] llm refine done: typer/_completion_click7.py (7.07s)
+2026-05-07 20:01:53 [CodeChangeAgent] file summary complete: typer/_completion_click7.py (9 changes)
+2026-05-07 20:01:53 [CodeChangeAgent] analyzing file: typer/_completion_shared.py
+2026-05-07 20:01:53 [CodeChangeAgent] file summary before llm: typer/_completion_shared.py (1 changes)
+2026-05-07 20:01:53 [CodeChangeAgent] llm refine start: typer/_completion_shared.py (1 changes)
+2026-05-07 20:01:56 [CodeChangeAgent] llm refine done: typer/_completion_shared.py (3.07s)
+2026-05-07 20:01:56 [CodeChangeAgent] file summary complete: typer/_completion_shared.py (1 changes)
+2026-05-07 20:01:56 [CodeChangeAgent] analyzing file: typer/completion.py
+2026-05-07 20:01:56 [CodeChangeAgent] file summary before llm: typer/completion.py (2 changes)
+2026-05-07 20:01:56 [CodeChangeAgent] llm refine start: typer/completion.py (2 changes)
+2026-05-07 20:01:59 [CodeChangeAgent] llm refine done: typer/completion.py (3.51s)
+2026-05-07 20:01:59 [CodeChangeAgent] file summary complete: typer/completion.py (2 changes)
+2026-05-07 20:01:59 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-07 20:01:59 [CodeChangeAgent] file summary before llm: typer/core.py (11 changes)
+2026-05-07 20:01:59 [CodeChangeAgent] llm refine start: typer/core.py (11 changes)
+2026-05-07 20:02:14 [CodeChangeAgent] llm refine done: typer/core.py (14.83s)
+2026-05-07 20:02:14 [CodeChangeAgent] file summary complete: typer/core.py (11 changes)
+2026-05-07 20:02:14 [CodeChangeAgent] analyzing file: typer/models.py
+2026-05-07 20:02:14 [CodeChangeAgent] file summary before llm: typer/models.py (1 changes)
+2026-05-07 20:02:14 [CodeChangeAgent] llm refine start: typer/models.py (1 changes)
+2026-05-07 20:02:17 [CodeChangeAgent] llm refine done: typer/models.py (2.78s)
+2026-05-07 20:02:17 [CodeChangeAgent] file summary complete: typer/models.py (1 changes)
+2026-05-07 20:02:17 [CodeChangeAgent] analyzing file: typer/rich_utils.py
+2026-05-07 20:02:17 [CodeChangeAgent] file summary before llm: typer/rich_utils.py (2 changes)
+2026-05-07 20:02:17 [CodeChangeAgent] llm refine start: typer/rich_utils.py (2 changes)
+2026-05-07 20:02:21 [CodeChangeAgent] llm refine done: typer/rich_utils.py (4.17s)
+2026-05-07 20:02:21 [CodeChangeAgent] file summary complete: typer/rich_utils.py (2 changes)
+2026-05-07 20:02:21 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=50 cache_writes=50
+2026-05-07 20:02:21 [CodeChangeAgent] ingest done: files_analyzed=53 changes=106 elapsed=175.398s
+2026-05-08 14:55:30 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-08 14:55:30 [CodeChangeAgent] parse unified diff start
+2026-05-08 14:55:30 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-08 14:55:30 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-08 14:55:30 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-08 14:55:30 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-08 14:55:30 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-08 14:55:30 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-08 14:55:30 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-08 14:55:30 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-08 14:55:30 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-08 14:55:30 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-08 14:55:30 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-08 14:55:30 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-08 14:55:30 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-08 14:55:30 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.023s
+2026-05-08 15:05:52 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-08 15:05:52 [CodeChangeAgent] parse unified diff start
+2026-05-08 15:05:52 [CodeChangeAgent] parse unified diff done: files=4
+2026-05-08 15:05:52 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-08 15:05:52 [CodeChangeAgent] analyzing file: docs/tutorial/commands/help.md
+2026-05-08 15:05:52 [CodeChangeAgent] file summary complete: docs/tutorial/commands/help.md (0 changes, unsupported kind)
+2026-05-08 15:05:52 [CodeChangeAgent] analyzing file: tests/test_rich_markup_mode.py
+2026-05-08 15:05:52 [CodeChangeAgent] file summary before llm: tests/test_rich_markup_mode.py (4 changes)
+2026-05-08 15:05:52 [CodeChangeAgent] llm refine start: tests/test_rich_markup_mode.py (4 changes)
+2026-05-08 15:05:56 [CodeChangeAgent] llm refine done: tests/test_rich_markup_mode.py (3.72s)
+2026-05-08 15:05:56 [CodeChangeAgent] file summary complete: tests/test_rich_markup_mode.py (4 changes)
+2026-05-08 15:05:56 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-08 15:05:56 [CodeChangeAgent] file summary before llm: typer/core.py (10 changes)
+2026-05-08 15:05:56 [CodeChangeAgent] llm refine start: typer/core.py (10 changes)
+2026-05-08 15:06:01 [CodeChangeAgent] llm refine done: typer/core.py (4.88s)
+2026-05-08 15:06:01 [CodeChangeAgent] file summary complete: typer/core.py (10 changes)
+2026-05-08 15:06:01 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-08 15:06:01 [CodeChangeAgent] file summary before llm: typer/main.py (3 changes)
+2026-05-08 15:06:01 [CodeChangeAgent] llm refine start: typer/main.py (3 changes)
+2026-05-08 15:06:04 [CodeChangeAgent] llm refine done: typer/main.py (2.98s)
+2026-05-08 15:06:04 [CodeChangeAgent] file summary complete: typer/main.py (3 changes)
+2026-05-08 15:06:04 [CodeChangeAgent] change analysis done: cache_hits=0 cache_misses=3 cache_writes=3
+2026-05-08 15:06:04 [CodeChangeAgent] ingest done: files_analyzed=4 changes=17 elapsed=11.704s
+2026-05-08 15:22:11 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-08 15:22:11 [CodeChangeAgent] parse unified diff start
+2026-05-08 15:22:11 [CodeChangeAgent] parse unified diff done: files=4
+2026-05-08 15:22:11 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-08 15:22:11 [CodeChangeAgent] analyzing file: docs/tutorial/commands/help.md
+2026-05-08 15:22:11 [CodeChangeAgent] file summary complete: docs/tutorial/commands/help.md (0 changes, unsupported kind)
+2026-05-08 15:22:11 [CodeChangeAgent] analyzing file: tests/test_rich_markup_mode.py
+2026-05-08 15:22:11 [CodeChangeAgent] cache hit: tests/test_rich_markup_mode.py (4 changes)
+2026-05-08 15:22:11 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-08 15:22:11 [CodeChangeAgent] cache hit: typer/core.py (10 changes)
+2026-05-08 15:22:11 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-08 15:22:11 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-08 15:22:11 [CodeChangeAgent] change analysis done: cache_hits=3 cache_misses=0 cache_writes=0
+2026-05-08 15:22:11 [CodeChangeAgent] ingest done: files_analyzed=4 changes=17 elapsed=0.025s

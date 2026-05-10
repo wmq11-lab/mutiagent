@@ -21,6 +21,7 @@ from mutiagent.utils.run_db import write_generated_tests
 from mutiagent.utils.run_db import write_execution_payload
 from mutiagent.utils.dataset_venv import ensure_dataset_venv
 from mutiagent.utils.llm_output import strip_markdown_code_fence
+from mutiagent.utils.coverage_pytest_env import pytest_env_with_isolated_coverage
 from mutiagent.utils.paths import production_changed_files
 from mutiagent.utils.syntax_guard import exec_syntax_error
 from mutiagent.utils.venv_flags import effective_auto_venv
@@ -683,10 +684,12 @@ def _run_pytest(
     ):
         pp.append(inherit)
     env["PYTHONPATH"] = os.pathsep.join(pp)
+    if with_cov:
+        env = pytest_env_with_isolated_coverage(env, data_dir=test_root)
 
     cmd: list[str] = [python_exe, "-m", "pytest", "-q"]
     if with_cov:
-        cmd.extend(["--cov", "--cov-report=term-missing"])
+        cmd.extend(["--cov", "--cov-branch", "--cov-report=term-missing"])
         if cov_json_path is not None:
             cov_json_path.parent.mkdir(parents=True, exist_ok=True)
             cmd.append(f"--cov-report=json:{cov_json_path.resolve()}")

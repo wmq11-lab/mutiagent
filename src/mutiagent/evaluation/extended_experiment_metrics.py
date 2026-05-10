@@ -5,12 +5,14 @@
 落在变更文件集合中的模块路径数是否不少于 2（调用会按属性链与 import 别名还原到可能的包路径）。
 
 环境变量（可选）::
-  CHANGED_FILES                 逗号分隔相对路径，缺省使 WorkflowState.changed_files
+  CHANGED_FILES                 逗号分隔相对路径；与 ``WorkflowState.changed_files`` 的生产文件路径 **并集**（跨模块口径等）。
+  CHANGED_FILES_STRICT          若为 1/true：仅使用 ``CHANGED_FILES``，不并入状态中的变更列表（旧版替换语义）。
   CHANGED_FUNCS                 ``name`` 或 ``path/to.py:name``
   FAILING_TESTS                 逗号分隔失败 nodeid（与 selected_tests 做集合交）；未设时若有 junit 失败用例则自动以其为基准
   MUTIAGENT_FULL_SUITE_PYTEST_ARGS      测全量耗时时的附加 pytest 参数（shlex 分词）
   MUTIAGENT_MEASURE_FULL_SUITE_TIME      若为 1/true：无缓存时对数据集跑完整 pytest 并写入缓存（可能很慢）
-  MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE 若为 1：无全量耗时时用 selected_wall×(project_collected/generated) 粗估 full 墙钟（仅产出比例用）
+  MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE 若为 0/false/off：关闭「无全量墙钟时」自动粗估；默认开启（无缓存时用
+  selected×(project_collected/generated) 估计全量墙钟并给出 exec_time_reduction_pct）
 """
 
 from __future__ import annotations
@@ -30,6 +32,7 @@ from mutiagent.evaluation.change_line_coverage import (
     _iter_git_chunks,
     _lookup_fd,
 )
+from mutiagent.evaluation.coverage_executed_lines import executed_lines_from_file_block
 from mutiagent.graph.state import WorkflowState
 from mutiagent.utils.paths import is_under_project_tests_tree, production_changed_files
 
@@ -57,6 +60,11 @@ def _safe_div(n: float, d: float) -> float | None:
 
 def _truthy_env(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _falsy_env(name: str) -> bool:
+    """显式关闭：0/false/no/off。"""
+    return os.environ.get(name, "").strip().lower() in {"0", "false", "no", "off"}
 
 
 def _junit_failed_case_ids(rows: list[dict[str, str]] | None) -> list[str]:
@@ -142,19 +150,13 @@ def _load_cov_files_map(cov_path: Path) -> dict[str, Any]:
     return fm if isinstance(fm, dict) else {}
 
 
-def _executed_lines_for_file(files_map: dict[str, Any], rel: str) -> set[int]:
-    fd = _lookup_fd(files_map, rel)
+def _executed_lines_for_file(
+    files_map: dict[str, Any], rel: str, *, dataset_repo: Path | None = None
+) -> set[int]:
+    fd = _lookup_fd(files_map, rel, dataset_repo=dataset_repo)
     if fd is None:
         return set()
-    ex: set[int] = set()
-    for el in fd.get("executed_lines") or fd.get("covered_lines") or []:
-        if isinstance(el, int):
-            ex.add(el)
-    if not ex and isinstance(fd.get("line_data"), list):
-        for i, row in enumerate(fd["line_data"], 1):
-            if isinstance(row, dict) and row.get("hits", 0) > 0:
-                ex.add(i)
-    return ex
+    return executed_lines_from_file_block(fd)
 
 
 def _plus_def_names_per_file(diff_text: str) -> dict[str, list[str]]:
@@ -265,7 +267,7 @@ def compute_added_function_coverage_pct(
         total += 1
         exe = exe_cache.get(rel)
         if exe is None:
-            exe = _executed_lines_for_file(files_map, rel)
+            exe = _executed_lines_for_file(files_map, rel, dataset_repo=dataset_repo)
             exe_cache[rel] = exe
         if any(line in exe for line in range(lo, hi + 1)):
             covered += 1
@@ -544,7 +546,7 @@ def compute_extended_experiment_metrics(
 ) -> dict[str, Any]:
     notes: list[str] = []
     covp: Path | None = None
-    for cand in (cov_json_primary, cov_json_fallback):
+    for cand in (cov_json_fallback, cov_json_primary):
         if cand is not None and Path(cand).is_file():
             covp = Path(cand)
             break
@@ -555,6 +557,7 @@ def compute_extended_experiment_metrics(
             state.diff or "",
             covp,
             preferred_rels=(production_changed_files(state.changed_files) if state.changed_files else None),
+            dataset_repo=dataset_repo.resolve() if dataset_repo.exists() else dataset_repo,
         )
     frac = changed_lines_block.get("recall_frac")
     tp = int(changed_lines_block.get("change_plus_lines") or 0)
@@ -565,14 +568,32 @@ def compute_extended_experiment_metrics(
     if tp > 0:
         missed = tp - hit
 
+    dbg = state.debug if isinstance(state.debug, dict) else {}
+    dwt = dbg.get("diff_worktree_check")
+    if (
+        tp > 0
+        and hit == 0
+        and isinstance(dwt, dict)
+        and not dwt.get("ok", True)
+    ):
+        rec = (dwt.get("recommendation_zh") or "").strip()
+        notes.append(
+            "变更行覆盖率 0% 可能因 diff 与工作区行号不一致（未应用补丁或与 diff 目标版本不同）；"
+            + (f"建议: {rec}" if rec else "建议同步工作区与 diff 后再测。")
+        )
     fn_cov = compute_added_function_coverage_pct(state, dataset_repo, covp)
     if fn_cov.get("note"):
         notes.append(str(fn_cov["note"]))
 
-    changed_for_cross = list(production_changed_files(state.changed_files or []))
+    base_prod = [_norm_rel(x) for x in production_changed_files(state.changed_files or [])]
     ef = _env_csv("CHANGED_FILES")
     if ef:
-        changed_for_cross = [_norm_rel(x) for x in ef]
+        if _truthy_env("CHANGED_FILES_STRICT"):
+            changed_for_cross = [_norm_rel(x) for x in ef]
+        else:
+            changed_for_cross = sorted(set(base_prod) | {_norm_rel(x) for x in ef})
+    else:
+        changed_for_cross = base_prod
     cross = compute_cross_module_test_cases(state, dataset_repo, changed_for_cross)
     if cross.get("note"):
         notes.append(str(cross["note"]))
@@ -621,7 +642,7 @@ def compute_extended_experiment_metrics(
     if selected_sec is not None and full_sec is not None and full_sec > 0:
         time_red = round((1.0 - selected_sec / full_sec) * 100.0, 3)
     elif (
-        _truthy_env("MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE")
+        not _falsy_env("MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE")
         and selected_sec is not None
         and selected_sec > 0
         and collected is not None
@@ -632,14 +653,27 @@ def compute_extended_experiment_metrics(
         full_sec = float(selected_sec) * (float(collected) / float(generated_test_function_count))
         time_red = round((1.0 - selected_sec / full_sec) * 100.0, 3)
         notes.append(
-            "exec_time_reduction: 全量墙钟由 selected×(project_collected/generated) 粗估 "
-            f"（full≈{round(full_sec, 2)}s）；实测请设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1"
+            "exec_time_reduction: 无全量墙钟缓存，已用 selected×(project_collected/generated) 粗估全量时间 "
+            f"（full≈{round(full_sec, 2)}s）；实测请设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1；"
+            "若不要粗估可设 MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE=0"
         )
     elif full_sec is None and _read_cached_full_seconds(dataset_repo, mutiagent_repo_root) is None:
-        notes.append(
-            "exec_time_reduction: 无全量耗时缓存；可设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1 实测并缓存，"
-            "或 MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE=1 启用粗估"
-        )
+        if _falsy_env("MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE"):
+            notes.append(
+                "exec_time_reduction: 无全量耗时缓存且已关闭粗估（MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE=0）；"
+                "可设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1 实测并缓存，或去掉该开关以启用默认粗估"
+            )
+        elif not (
+            selected_sec is not None
+            and selected_sec > 0
+            and collected is not None
+            and collected > 0
+            and generated_test_function_count > 0
+        ):
+            notes.append(
+                "exec_time_reduction: 无法粗估（缺选中墙钟或 pytest collect/生成函数计数）；"
+                "可设 MUTIAGENT_MEASURE_FULL_SUITE_TIME=1 实测全量"
+            )
 
     return {
         "changed_line_coverage_pct": ch_cov_pct,

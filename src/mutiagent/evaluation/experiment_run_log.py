@@ -32,6 +32,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from mutiagent.utils.coverage_pytest_env import pytest_env_with_isolated_coverage
+
 from mutiagent.evaluation.changed_function_coverage import build_changed_function_coverage_report
 from mutiagent.evaluation.coverage_json import parse_coverage_json
 from mutiagent.evaluation.extended_experiment_metrics import compute_extended_experiment_metrics
@@ -164,6 +166,7 @@ def _run_coverage_json(
         return False
     out_json.parent.mkdir(parents=True, exist_ok=True)
     env = _build_pytest_env_for_dataset(dataset_repo)
+    env = pytest_env_with_isolated_coverage(env, data_dir=test_root)
     cmd: list[str] = [
         python_exe,
         "-m",
@@ -277,7 +280,9 @@ def build_experiment_run_record(
         "pass_rate": float(exec_p.get("pass_rate", 0.0)),
         "execution_success": bool(exec_p.get("execution_success", False)),
         "line_coverage": float(cov.get("line_coverage", 0.0)),
-        "branch_coverage": float(cov.get("branch_coverage", 0.0)),
+        "branch_coverage": (
+            None if cov.get("branch_coverage") is None else float(cov["branch_coverage"])
+        ),
         "covered_lines": int(cov.get("covered_lines", 0)),
         "total_lines": int(cov.get("total_lines", cov.get("total_statements", 0))),
     }

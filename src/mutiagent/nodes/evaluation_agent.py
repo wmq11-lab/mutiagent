@@ -138,6 +138,8 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
         precision_pass = passed_n / junit_total
 
     recall_line: float | None = None
+    repo = Path(state.repo_path) if state.repo_path else None
+    ds_repo = repo if repo and repo.is_dir() else None
     if report_dir:
         cov_json = Path(report_dir) / "coverage.json"
         if cov_json.is_file():
@@ -145,6 +147,7 @@ def evaluation_agent(state: WorkflowState) -> WorkflowState:
                 state.diff or "",
                 cov_json,
                 preferred_rels=(production_changed_files(state.changed_files) if state.changed_files else None),
+                dataset_repo=ds_repo,
             )
             recall_line = cov_cl.get("recall_frac")
 

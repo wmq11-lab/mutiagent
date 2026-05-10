@@ -35,6 +35,7 @@ from mutiagent.evaluation.change_line_coverage import change_line_coverage_from_
 from mutiagent.evaluation.coverage_json import parse_coverage_json
 from mutiagent.evaluation.metrics import compute_all_metrics
 from mutiagent.evaluation.pytest_parsing import parse_pytest_output
+from mutiagent.utils.coverage_pytest_env import pytest_env_with_isolated_coverage
 
 
 def count_test_functions(test_file: str) -> int:
@@ -68,6 +69,9 @@ def run_tests_and_collect_results(
     """
     os.makedirs(os.path.dirname(coverage_json) or ".", exist_ok=True)
 
+    cov_data_dir = Path(coverage_json).resolve().parent / ".mutiagent_cov_data"
+    env = pytest_env_with_isolated_coverage(dict(os.environ), data_dir=cov_data_dir)
+
     cmd = [
         "pytest",
         test_file,
@@ -80,6 +84,7 @@ def run_tests_and_collect_results(
     result = subprocess.run(
         cmd,
         cwd=cwd,
+        env=env,
         capture_output=True,
         text=True,
     )
@@ -112,7 +117,11 @@ def parse_diff_simple(diff_path: str) -> dict[str, Any]:
 
 
 def change_line_coverage_from_diff(
-    diff_path: str, cov_path: str, rel_path_in_cov: str | None
+    diff_path: str,
+    cov_path: str,
+    rel_path_in_cov: str | None,
+    *,
+    dataset_repo: Path | None = None,
 ) -> dict[str, Any]:
     """
     将 diff 中变更 ``+`` 行与 coverage.json 对齐，得到 recall_frac（0~1）及百分数 change_line_hit_rate。
@@ -128,7 +137,9 @@ def change_line_coverage_from_diff(
         }
     diff_text = Path(diff_path).read_text(encoding="utf-8")
     preferred = [rel_path_in_cov] if rel_path_in_cov else None
-    base = change_line_coverage_from_diff_and_cov_paths(diff_text, cov_path, preferred_rels=preferred)
+    base = change_line_coverage_from_diff_and_cov_paths(
+        diff_text, cov_path, preferred_rels=preferred, dataset_repo=dataset_repo
+    )
     frac = base.get("recall_frac")
     hit_pct = round(float(frac) * 100.0, 2) if isinstance(frac, (int, float)) else 0.0
     out = dict(base)
@@ -251,7 +262,10 @@ def collect(
     if source_file and os.path.exists(source_file):
         sup["source_file"] = source_file
     if diff_file and coverage_json and os.path.exists(diff_file) and os.path.exists(coverage_json):
-        sup["change_vs_coverage"] = change_line_coverage_from_diff(diff_file, coverage_json, rel_in_cov)
+        cov_repo = pytest_cwd if pytest_cwd is not None else Path.cwd()
+        sup["change_vs_coverage"] = change_line_coverage_from_diff(
+            diff_file, coverage_json, rel_in_cov, dataset_repo=cov_repo
+        )
 
     pr_sup: float | None = None
     tt_raw = sup.get("total_tests")

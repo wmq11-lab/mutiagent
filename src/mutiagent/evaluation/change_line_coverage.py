@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from mutiagent.evaluation.coverage_executed_lines import executed_lines_from_file_block
+
 
 def _norm_rel(p: str) -> str:
     return (p or "").strip().replace("\\", "/")
@@ -59,31 +61,52 @@ def _plus_line_numbers_from_chunk(chunk: str) -> list[int]:
     return plus_line_nums
 
 
-def _lookup_fd(files_map: dict[str, Any], rel: str) -> dict[str, Any] | None:
+def _lookup_fd(
+    files_map: dict[str, Any],
+    rel: str,
+    *,
+    dataset_repo: Path | None = None,
+) -> dict[str, Any] | None:
+    """将 diff 路径与 coverage ``files`` 键对齐（相对路径、绝对路径相对仓库、`/*/rel`` 后缀）。"""
     rel_n = _norm_rel(rel)
     if rel_n in files_map and isinstance(files_map[rel_n], dict):
         return files_map[rel_n]
+
+    repo_res: Path | None = None
+    if dataset_repo is not None:
+        try:
+            repo_res = dataset_repo.resolve()
+        except OSError:
+            repo_res = None
+
+    suffix_hits: list[dict[str, Any]] = []
     for k, v in files_map.items():
         if not isinstance(k, str) or not isinstance(v, dict):
             continue
-        if _norm_rel(k) == rel_n:
-            return v
         kn = _norm_rel(k)
-        if kn.endswith("/" + rel_n.split("/")[-1]) or kn.endswith(rel_n.split("/")[-1]):
+        if kn == rel_n:
             return v
+        if kn.endswith("/" + rel_n):
+            return v
+        if repo_res is not None:
+            try:
+                kp = Path(k)
+                if kp.is_absolute():
+                    kr = _norm_rel(str(kp.resolve().relative_to(repo_res)))
+                    if kr == rel_n:
+                        return v
+            except (ValueError, OSError):
+                pass
+        if kn.endswith("/" + rel_n.split("/")[-1]):
+            suffix_hits.append(v)
+
+    if len(suffix_hits) == 1:
+        return suffix_hits[0]
     return None
 
 
 def _executed_lines(fd: dict[str, Any]) -> set[int]:
-    ex: set[int] = set()
-    for el in fd.get("executed_lines") or fd.get("covered_lines") or []:
-        if isinstance(el, int):
-            ex.add(el)
-    if not ex and isinstance(fd.get("line_data"), list):
-        for i, row in enumerate(fd["line_data"], 1):
-            if isinstance(row, dict) and row.get("hits", 0) > 0:
-                ex.add(i)
-    return ex
+    return executed_lines_from_file_block(fd)
 
 
 def change_line_coverage_from_diff_and_cov_paths(
@@ -91,10 +114,13 @@ def change_line_coverage_from_diff_and_cov_paths(
     cov_path: str | Path,
     *,
     preferred_rels: list[str] | None = None,
+    dataset_repo: Path | None = None,
 ) -> dict[str, Any]:
     """
     在 unified diff 中聚合 ``preferred_rels`` 所指文件（或未指定则处理所有 chunk）的变更 + 行与 coverage.json 对齐。
     仅统计 ``.py`` 且路径中不包含 ``tests`` 目录段的文件（不把 ``tests/`` 下测试文件的 + 行计入分母/分子）。
+
+    ``dataset_repo``：数据集根目录；若 coverage 键为绝对路径，将尝试 ``relative_to(repo)`` 与 diff 路径对齐。
 
     返回::
         recall_frac: 0~1（covered_plus / change_plus），无变更 + 行则为 None
@@ -136,10 +162,10 @@ def change_line_coverage_from_diff_and_cov_paths(
         nums = _plus_line_numbers_from_chunk(chunk)
         if not nums:
             continue
-        fd = _lookup_fd(file_map, b_path)
+        fd = _lookup_fd(file_map, b_path, dataset_repo=dataset_repo)
         if fd is None and targets:
             for t in targets:
-                fd = _lookup_fd(file_map, t)
+                fd = _lookup_fd(file_map, t, dataset_repo=dataset_repo)
                 if fd is not None:
                     break
         if fd is None:

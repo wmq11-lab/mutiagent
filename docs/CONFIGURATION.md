@@ -135,7 +135,7 @@ venv 开关合并规则：[`venv_flags.py`](../src/mutiagent/utils/venv_flags.py
 | `CHANGED_FILES` | 逗号分隔相对路径，覆盖状态里的变更文件集合（影响跨模块等指标） |
 | `MUTIAGENT_MEASURE_FULL_SUITE_TIME` | `1`/`true`/`yes`/`on`：无缓存时对**数据集仓库**跑完整 pytest，写入 `log/full_pytest_suite_time_cache.json`（**很慢**） |
 | `MUTIAGENT_FULL_SUITE_PYTEST_ARGS` | 全量测耗时附加参数，`shlex.split` 分词 |
-| `MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE` | `1`/…：无全量墙钟缓存时，用选中集耗时与收集规模**粗估**执行时间缩减比例 |
+| `MUTIAGENT_EXEC_TIME_REDUCTION_ESTIMATE` | `0`/`false`/`off`：关闭无全量墙钟时的**自动**粗估；默认开启（无缓存时用 selected×(collected/generated) 估 full 并给 `exec_time_reduction_pct`）；设为 `1` 与默认等价 |
 
 实现与注释见 [`extended_experiment_metrics.py`](../src/mutiagent/evaluation/extended_experiment_metrics.py)。
 

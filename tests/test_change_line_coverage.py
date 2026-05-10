@@ -6,6 +6,36 @@ from pathlib import Path
 from mutiagent.evaluation.change_line_coverage import change_line_coverage_from_diff_and_cov_paths
 
 
+def test_recall_matches_coverage_file_by_absolute_path_under_repo(tmp_path: Path) -> None:
+    """coverage JSON 使用仓库内绝对路径作 files 键时应对齐 diff 相对路径。"""
+    repo = tmp_path / "proj"
+    pkg = repo / "pkg"
+    pkg.mkdir(parents=True)
+    mod = pkg / "mod.py"
+    mod.write_text("#\n", encoding="utf-8")
+    key = str(mod.resolve())
+    cov = tmp_path / "cov.json"
+    cov.write_text(
+        json.dumps({"files": {key: {"executed_lines": [10, 11]}}}),
+        encoding="utf-8",
+    )
+    diff = (
+        "diff --git a/pkg/mod.py b/pkg/mod.py\n"
+        "--- a/pkg/mod.py\n+++ b/pkg/mod.py\n"
+        "@@ -8,6 +8,7 @@ def f():\n"
+        "     pass\n"
+        "+added line one\n"
+        "+added line two\n"
+        "     return\n"
+    )
+    r = change_line_coverage_from_diff_and_cov_paths(
+        diff, cov, dataset_repo=repo.resolve()
+    )
+    assert r["change_plus_lines"] == 2
+    assert r["covered_plus_lines"] == 2
+    assert r["recall_frac"] == 1.0
+
+
 def test_recall_frac_all_git_chunks_match_executed_lines(tmp_path: Path) -> None:
     cov = tmp_path / "cov.json"
     cov.write_text(
@@ -93,6 +123,39 @@ def test_non_py_chunks_skipped_in_change_coverage(tmp_path: Path) -> None:
     r = change_line_coverage_from_diff_and_cov_paths(diff, cov)
     assert r["change_plus_lines"] == 1
     assert r["covered_plus_lines"] == 1
+
+
+def test_recall_uses_nested_functions_executed_lines_when_top_empty(tmp_path: Path) -> None:
+    """coverage 仅把 executed_lines 放在 functions 子树时，变更行 recall 仍应对齐。"""
+    cov = tmp_path / "cov.json"
+    cov.write_text(
+        json.dumps(
+            {
+                "files": {
+                    "pkg/mod.py": {
+                        "executed_lines": [],
+                        "functions": {
+                            "f": {"executed_lines": [10, 11]},
+                        },
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    diff = (
+        "diff --git a/pkg/mod.py b/pkg/mod.py\n"
+        "--- a/pkg/mod.py\n+++ b/pkg/mod.py\n"
+        "@@ -8,6 +8,7 @@ def f():\n"
+        "     pass\n"
+        "+added line one\n"
+        "+added line two\n"
+        "     return\n"
+    )
+    r = change_line_coverage_from_diff_and_cov_paths(diff, cov)
+    assert r["change_plus_lines"] == 2
+    assert r["covered_plus_lines"] == 2
+    assert r["recall_frac"] == 1.0
 
 
 def test_executed_misses_plus_lines(tmp_path: Path) -> None:
