@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 from mutiagent.graph.state import WorkflowState
 from mutiagent.llm.openai_client import available as llm_available
 from mutiagent.llm.openai_client import chat_text
@@ -44,10 +46,33 @@ def _should_mark_degraded_pass(state: WorkflowState) -> bool:
     return analysis_degraded and impact_empty
 
 
+def _feedback_env_enabled() -> bool:
+    raw = (os.getenv("MUTIAGENT_ENABLE_FEEDBACK", "1") or "").strip().lower()
+    return raw not in {"0", "false", "off", "no"}
+
+
+def _is_feedback_enabled(state: WorkflowState) -> bool:
+    if state.feedback_enabled is not None:
+        return bool(state.feedback_enabled)
+    return _feedback_env_enabled()
+
+
 def feedback_agent(state: WorkflowState) -> WorkflowState:
     """
     图中 FeedbackAgent：根据执行/评估结果给出下一轮测试规划建议（MVP：返回建议，不做自动回路改写plan）。
     """
+    if not _is_feedback_enabled(state):
+        state.feedback = {"enabled": False, "reason": "disabled_by_switch"}
+        state.debug["feedback_agent"] = {
+            "enabled": False,
+            "phase": "disabled",
+            "switch": {
+                "state_override": state.feedback_enabled,
+                "env_MUTIAGENT_ENABLE_FEEDBACK": os.getenv("MUTIAGENT_ENABLE_FEEDBACK"),
+            },
+        }
+        return state
+
     if not state.run_eval or state.evaluation is None:
         state.feedback = {"enabled": False}
         return state

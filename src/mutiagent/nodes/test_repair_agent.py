@@ -15,6 +15,17 @@ def _truthy_env(name: str, default: str = "1") -> bool:
     return os.environ.get(name, default).strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _test_repair_switch_env_enabled() -> bool:
+    raw = (os.getenv("MUTIAGENT_ENABLE_TEST_REPAIR", "1") or "").strip().lower()
+    return raw not in {"0", "false", "off", "no"}
+
+
+def _is_test_repair_enabled(state: WorkflowState) -> bool:
+    if state.test_repair_enabled is not None:
+        return bool(state.test_repair_enabled)
+    return _test_repair_switch_env_enabled()
+
+
 def _semantic_repair_known_patterns(code: str) -> tuple[str, list[str]]:
     updated = code
     applied: list[str] = []
@@ -101,6 +112,17 @@ def test_repair_agent(state: WorkflowState) -> WorkflowState:
     图中 TestRepairAgent 在执行前做一次“可运行性修复”。
     MVP：对每个生成文件做语法检查；失败且有 LLM 则逐项修复。
     """
+    if not _is_test_repair_enabled(state):
+        state.debug["test_repair_agent"] = {
+            "skipped": True,
+            "reason": "disabled_by_switch",
+            "switch": {
+                "state_override": state.test_repair_enabled,
+                "env_MUTIAGENT_ENABLE_TEST_REPAIR": os.getenv("MUTIAGENT_ENABLE_TEST_REPAIR"),
+            },
+        }
+        return state
+
     semantic_enabled = _truthy_env("MUTIAGENT_TEST_REPAIR_SEMANTIC", "1")
     dbg: dict[str, object] = {
         "skipped": False,

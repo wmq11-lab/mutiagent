@@ -176,3 +176,11 @@
 2026-05-10 15:07:35 [ImpactAnalysisAgent] impact_v4 files=3 symbols=9 catalog_units=68 elapsed_s=0.004
 2026-05-10 15:21:43 [ImpactAnalysisAgent] impact_v4 files=3 symbols=9 catalog_units=68 elapsed_s=0.004
 2026-05-10 15:52:25 [ImpactAnalysisAgent] impact disabled by switch, skipping analyze_impact
+2026-05-10 16:00:33 [ImpactAnalysisAgent] impact_v4 files=3 symbols=9 catalog_units=68 elapsed_s=0.029
+2026-05-10 16:10:25 [ImpactAnalysisAgent] impact disabled by switch, skipping analyze_impact
+2026-05-10 16:14:45 [ImpactAnalysisAgent] impact_v4 files=9 symbols=24 catalog_units=95 elapsed_s=0.006
+2026-05-10 16:20:52 [ImpactAnalysisAgent] impact_v4 files=9 symbols=24 catalog_units=95 elapsed_s=0.006
+2026-05-10 16:29:40 [ImpactAnalysisAgent] impact disabled by switch, skipping analyze_impact
+2026-05-10 16:35:31 [ImpactAnalysisAgent] impact_v4 files=5 symbols=20 catalog_units=61 elapsed_s=0.005
+2026-05-10 16:39:57 [ImpactAnalysisAgent] impact_v4 files=5 symbols=20 catalog_units=61 elapsed_s=0.006
+2026-05-10 19:11:08 [ImpactAnalysisAgent] impact disabled by switch, skipping analyze_impact

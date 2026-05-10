@@ -354,6 +354,8 @@ def generate_tests(req: GenerateTestsRequest) -> GenerateTestsResponse:
         retrieval_enabled=req.retrieval_enabled,
         bug_pattern_enabled=req.bug_pattern_enabled,
         impact_analysis_enabled=req.impact_analysis_enabled,
+        test_repair_enabled=req.test_repair_enabled,
+        feedback_enabled=req.feedback_enabled,
     )
     return GenerateTestsResponse(**result)
 
@@ -372,6 +374,8 @@ def generate_tests_stream(req: GenerateTestsRequest) -> StreamingResponse:
             retrieval_enabled=req.retrieval_enabled,
             bug_pattern_enabled=req.bug_pattern_enabled,
             impact_analysis_enabled=req.impact_analysis_enabled,
+            test_repair_enabled=req.test_repair_enabled,
+            feedback_enabled=req.feedback_enabled,
         ):
             yield json.dumps(jsonable_encoder(ev), ensure_ascii=False) + "\n"
 

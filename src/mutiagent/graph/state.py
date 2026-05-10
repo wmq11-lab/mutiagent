@@ -177,6 +177,20 @@ class GenerateTestsRequest(BaseModel):
             "显式 True/False 可覆盖环境变量，便于消融实验。"
         ),
     )
+    test_repair_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 TestRepairAgent（生成后语法/LLM 修复）。None 表示跟随环境变量 MUTIAGENT_ENABLE_TEST_REPAIR（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    feedback_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 FeedbackAgent（执行评测后的建议汇总）。None 表示跟随环境变量 MUTIAGENT_ENABLE_FEEDBACK（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
 
 
 class TestStrategyItem(BaseModel):
@@ -440,6 +454,20 @@ class WorkflowState(BaseModel):
         default=None,
         description=(
             "是否启用 ImpactAnalysisAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_IMPACT_ANALYSIS（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    test_repair_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 TestRepairAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_TEST_REPAIR（默认启用）；"
+            "显式 True/False 可覆盖环境变量，便于消融实验。"
+        ),
+    )
+    feedback_enabled: Optional[bool] = Field(
+        default=None,
+        description=(
+            "是否启用 FeedbackAgent。None 表示跟随环境变量 MUTIAGENT_ENABLE_FEEDBACK（默认启用）；"
             "显式 True/False 可覆盖环境变量，便于消融实验。"
         ),
     )

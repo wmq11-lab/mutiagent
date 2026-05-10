@@ -4435,3 +4435,327 @@
 2026-05-10 15:21:41 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
 2026-05-10 15:21:41 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
 2026-05-10 15:21:41 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.028s
+2026-05-10 15:58:09 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 15:58:09 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:00:32 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:00:32 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:00:32 [CodeChangeAgent] parse unified diff done: files=5
+2026-05-10 16:00:32 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:00:32 [CodeChangeAgent] analyzing file: tests/assets/print_modules.py
+2026-05-10 16:00:32 [CodeChangeAgent] cache hit: tests/assets/print_modules.py (1 changes)
+2026-05-10 16:00:32 [CodeChangeAgent] analyzing file: tests/test_rich_import.py
+2026-05-10 16:00:32 [CodeChangeAgent] cache hit: tests/test_rich_import.py (1 changes)
+2026-05-10 16:00:32 [CodeChangeAgent] analyzing file: typer/cli.py
+2026-05-10 16:00:32 [CodeChangeAgent] cache hit: typer/cli.py (2 changes)
+2026-05-10 16:00:32 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-10 16:00:32 [CodeChangeAgent] cache hit: typer/core.py (6 changes)
+2026-05-10 16:00:32 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:00:32 [CodeChangeAgent] cache hit: typer/main.py (1 changes)
+2026-05-10 16:00:32 [CodeChangeAgent] change analysis done: cache_hits=5 cache_misses=0 cache_writes=0
+2026-05-10 16:00:32 [CodeChangeAgent] ingest done: files_analyzed=5 changes=11 elapsed=0.029s
+2026-05-10 16:10:24 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:10:24 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:10:24 [CodeChangeAgent] parse unified diff done: files=32
+2026-05-10 16:10:24 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: .env
+2026-05-10 16:10:24 [CodeChangeAgent] file summary complete: .env (0 changes, unsupported kind)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: .github/workflows/test.yml
+2026-05-10 16:10:24 [CodeChangeAgent] file summary complete: .github/workflows/test.yml (0 changes, unsupported kind)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: docs/tutorial/testing.md
+2026-05-10 16:10:24 [CodeChangeAgent] file summary complete: docs/tutorial/testing.md (0 changes, unsupported kind)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: docs_src/testing/app01/test_main.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: docs_src/testing/app02/test_main.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: docs_src/testing/app02_an/test_main.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: docs_src/testing/app03/test_main.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-10 16:10:24 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_index/test_tutorial003.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: tests/test_types.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: tests/test_types.py (3 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: typer/_completion_classes.py (10 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: typer/_types.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: typer/_types.py (2 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: typer/core.py (8 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] analyzing file: typer/rich_utils.py
+2026-05-10 16:10:24 [CodeChangeAgent] cache hit: typer/rich_utils.py (1 changes)
+2026-05-10 16:10:24 [CodeChangeAgent] change analysis done: cache_hits=28 cache_misses=0 cache_writes=0
+2026-05-10 16:10:24 [CodeChangeAgent] ingest done: files_analyzed=32 changes=62 elapsed=0.15s
+2026-05-10 16:14:44 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:14:44 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:14:44 [CodeChangeAgent] parse unified diff done: files=32
+2026-05-10 16:14:44 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: .env
+2026-05-10 16:14:44 [CodeChangeAgent] file summary complete: .env (0 changes, unsupported kind)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: .github/workflows/test.yml
+2026-05-10 16:14:44 [CodeChangeAgent] file summary complete: .github/workflows/test.yml (0 changes, unsupported kind)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: docs/tutorial/testing.md
+2026-05-10 16:14:44 [CodeChangeAgent] file summary complete: docs/tutorial/testing.md (0 changes, unsupported kind)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: docs_src/testing/app01/test_main.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: docs_src/testing/app02/test_main.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: docs_src/testing/app02_an/test_main.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: docs_src/testing/app03/test_main.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-10 16:14:44 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_index/test_tutorial003.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: tests/test_types.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: tests/test_types.py (3 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: typer/_completion_classes.py (10 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: typer/_types.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: typer/_types.py (2 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: typer/core.py (8 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] analyzing file: typer/rich_utils.py
+2026-05-10 16:14:44 [CodeChangeAgent] cache hit: typer/rich_utils.py (1 changes)
+2026-05-10 16:14:44 [CodeChangeAgent] change analysis done: cache_hits=28 cache_misses=0 cache_writes=0
+2026-05-10 16:14:44 [CodeChangeAgent] ingest done: files_analyzed=32 changes=62 elapsed=0.351s
+2026-05-10 16:20:51 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:20:51 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:20:51 [CodeChangeAgent] parse unified diff done: files=32
+2026-05-10 16:20:51 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: .env
+2026-05-10 16:20:51 [CodeChangeAgent] file summary complete: .env (0 changes, unsupported kind)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: .github/workflows/test.yml
+2026-05-10 16:20:51 [CodeChangeAgent] file summary complete: .github/workflows/test.yml (0 changes, unsupported kind)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: docs/tutorial/testing.md
+2026-05-10 16:20:51 [CodeChangeAgent] file summary complete: docs/tutorial/testing.md (0 changes, unsupported kind)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: docs_src/testing/app01/test_main.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: docs_src/testing/app01/test_main.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: docs_src/testing/app02/test_main.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: docs_src/testing/app02/test_main.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: docs_src/testing/app02_an/test_main.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: docs_src/testing/app02_an/test_main.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: docs_src/testing/app03/test_main.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: docs_src/testing/app03/test_main.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: pyproject.toml
+2026-05-10 16:20:51 [CodeChangeAgent] file summary complete: pyproject.toml (0 changes, unsupported kind)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_completion/test_completion_show.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_completion/test_completion_show.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_commands/test_index/test_tutorial003.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_commands/test_index/test_tutorial003.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial001_an.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial003_an.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_callback/test_tutorial004_an.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_required/test_tutorial001_an.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_options/test_version/test_tutorial003_an.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_enum/test_tutorial001.py (4 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_index/test_tutorial001.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_number/test_tutorial001_an.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002.py (3 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_path/test_tutorial002_an.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: tests/test_types.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: tests/test_types.py (3 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: typer/_completion_classes.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: typer/_completion_classes.py (10 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: typer/_types.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: typer/_types.py (2 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: typer/core.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: typer/core.py (8 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: typer/main.py (3 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] analyzing file: typer/rich_utils.py
+2026-05-10 16:20:51 [CodeChangeAgent] cache hit: typer/rich_utils.py (1 changes)
+2026-05-10 16:20:51 [CodeChangeAgent] change analysis done: cache_hits=28 cache_misses=0 cache_writes=0
+2026-05-10 16:20:51 [CodeChangeAgent] ingest done: files_analyzed=32 changes=62 elapsed=0.238s
+2026-05-10 16:29:39 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:29:39 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:29:39 [CodeChangeAgent] parse unified diff done: files=13
+2026-05-10 16:29:39 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: docs/tutorial/parameter-types/custom_types.md
+2026-05-10 16:29:39 [CodeChangeAgent] file summary complete: docs/tutorial/parameter-types/custom_types.md (0 changes, unsupported kind)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/__init__.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/__init__.py (0 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial001.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial002.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: mkdocs.yml
+2026-05-10 16:29:39 [CodeChangeAgent] file summary complete: mkdocs.yml (0 changes, unsupported kind)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: tests/test_others.py (9 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py (0 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (5 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: typer/main.py (2 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: typer/models.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: typer/models.py (9 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] analyzing file: typer/params.py
+2026-05-10 16:29:39 [CodeChangeAgent] cache hit: typer/params.py (1 changes)
+2026-05-10 16:29:39 [CodeChangeAgent] change analysis done: cache_hits=11 cache_misses=0 cache_writes=0
+2026-05-10 16:29:39 [CodeChangeAgent] ingest done: files_analyzed=13 changes=45 elapsed=0.096s
+2026-05-10 16:35:30 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:35:30 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:35:30 [CodeChangeAgent] parse unified diff done: files=13
+2026-05-10 16:35:30 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: docs/tutorial/parameter-types/custom_types.md
+2026-05-10 16:35:30 [CodeChangeAgent] file summary complete: docs/tutorial/parameter-types/custom_types.md (0 changes, unsupported kind)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/__init__.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/__init__.py (0 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial001.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial002.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: mkdocs.yml
+2026-05-10 16:35:30 [CodeChangeAgent] file summary complete: mkdocs.yml (0 changes, unsupported kind)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: tests/test_others.py (9 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py (0 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (5 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: typer/main.py (2 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: typer/models.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: typer/models.py (9 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] analyzing file: typer/params.py
+2026-05-10 16:35:30 [CodeChangeAgent] cache hit: typer/params.py (1 changes)
+2026-05-10 16:35:30 [CodeChangeAgent] change analysis done: cache_hits=11 cache_misses=0 cache_writes=0
+2026-05-10 16:35:30 [CodeChangeAgent] ingest done: files_analyzed=13 changes=45 elapsed=0.084s
+2026-05-10 16:39:56 [CodeChangeAgent] ingest start: repo=/Users/admin/Desktop/mutiagent_data/mutiagent-typer-utils-single/typer
+2026-05-10 16:39:56 [CodeChangeAgent] parse unified diff start
+2026-05-10 16:39:56 [CodeChangeAgent] parse unified diff done: files=13
+2026-05-10 16:39:56 [CodeChangeAgent] change analysis start (per-file cache + incremental extract)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: docs/tutorial/parameter-types/custom_types.md
+2026-05-10 16:39:56 [CodeChangeAgent] file summary complete: docs/tutorial/parameter-types/custom_types.md (0 changes, unsupported kind)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/__init__.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/__init__.py (0 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial001.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial001.py (5 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: docs_src/parameter_types/custom_types/tutorial002.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: docs_src/parameter_types/custom_types/tutorial002.py (6 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: mkdocs.yml
+2026-05-10 16:39:56 [CodeChangeAgent] file summary complete: mkdocs.yml (0 changes, unsupported kind)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: tests/test_others.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: tests/test_others.py (9 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/__init__.py (0 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial001.py (4 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: tests/test_tutorial/test_parameter_types/test_custom_types/test_tutorial002.py (4 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: tests/test_type_conversion.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: tests/test_type_conversion.py (5 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: typer/main.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: typer/main.py (2 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: typer/models.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: typer/models.py (9 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] analyzing file: typer/params.py
+2026-05-10 16:39:56 [CodeChangeAgent] cache hit: typer/params.py (1 changes)
+2026-05-10 16:39:56 [CodeChangeAgent] change analysis done: cache_hits=11 cache_misses=0 cache_writes=0
+2026-05-10 16:39:56 [CodeChangeAgent] ingest done: files_analyzed=13 changes=45 elapsed=0.082s

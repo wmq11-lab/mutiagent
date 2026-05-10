@@ -298,6 +298,8 @@ def run_workflow(
     retrieval_enabled: Optional[bool] = None,
     bug_pattern_enabled: Optional[bool] = None,
     impact_analysis_enabled: Optional[bool] = None,
+    test_repair_enabled: Optional[bool] = None,
+    feedback_enabled: Optional[bool] = None,
     progress_callback: Callable[[str, int, int, str], None] | None = None,
 ) -> dict[str, Any]:
     state = WorkflowState(
@@ -309,6 +311,8 @@ def run_workflow(
         retrieval_enabled=retrieval_enabled,
         bug_pattern_enabled=bug_pattern_enabled,
         impact_analysis_enabled=impact_analysis_enabled,
+        test_repair_enabled=test_repair_enabled,
+        feedback_enabled=feedback_enabled,
     )
 
     def _sink(ev: dict[str, Any]) -> None:
@@ -329,6 +333,8 @@ def iter_workflow_events(
     retrieval_enabled: Optional[bool] = None,
     bug_pattern_enabled: Optional[bool] = None,
     impact_analysis_enabled: Optional[bool] = None,
+    test_repair_enabled: Optional[bool] = None,
+    feedback_enabled: Optional[bool] = None,
 ) -> Iterator[dict[str, Any]]:
     """
     供流式 API：按顺序产生 progress，最后一条为 complete；异常时为 error。
@@ -342,6 +348,8 @@ def iter_workflow_events(
         retrieval_enabled=retrieval_enabled,
         bug_pattern_enabled=bug_pattern_enabled,
         impact_analysis_enabled=impact_analysis_enabled,
+        test_repair_enabled=test_repair_enabled,
+        feedback_enabled=feedback_enabled,
     )
     try:
         gen = _iter_workflow_step_progress(state, progress_log=True)
